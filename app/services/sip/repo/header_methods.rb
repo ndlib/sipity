@@ -11,11 +11,13 @@ module Sip
         CreateHeaderForm.new(attributes)
       end
 
-      def submit_create_header_form(form)
+      def submit_create_header_form(form, requested_by: nil)
         form.submit do |f|
           Header.create!(title: f.title, work_publication_strategy: f.work_publication_strategy) do |header|
             Support::Collaborators.create!(header: header, collaborators: f.collaborators)
             Support::PublicationDate.create!(header: header, publication_date: f.publication_date)
+            # TODO: Remove magic role
+            Permission.create!(subject: header, user: requested_by, role: 'creating_user') if requested_by
           end
         end
       end

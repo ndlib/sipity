@@ -55,6 +55,7 @@ module Sip
           end
         end
         context 'with valid data' do
+          let(:user) { User.new(id: '123') }
           it 'will create the header with the given attributes' do
             allow(form).to receive(:valid?).and_return(true)
             expect { subject.submit_create_header_form(form) }.to(
@@ -63,8 +64,12 @@ module Sip
               change { Collaborator.count }.by(1)
             )
           end
-          it 'will grant the user "creator" permission to the work'
-          it 'will return the header with the given attributes' do
+          it 'will grant the creating user the "creating_user" permission to the work' do
+            allow(form).to receive(:valid?).and_return(true)
+            expect { subject.submit_create_header_form(form, requested_by: user) }.
+              to change { Permission.where(user: user, role: 'creating_user').count }.by(1)
+          end
+          it 'will return the header' do
             form = subject.build_create_header_form(attributes: { title: 'This is my title' })
             allow(form).to receive(:valid?).and_return(true)
             expect(subject.submit_create_header_form(form)).to be_a(Header)
