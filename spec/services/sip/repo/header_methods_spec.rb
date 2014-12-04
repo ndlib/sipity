@@ -11,16 +11,23 @@ module Sip
       subject { repository_class.new }
       after { Sip::Repo.send(:remove_const, :TestRepository) }
 
+      context '#headers_that_can_be_seen_by_user' do
+        it 'will include headers that were created by the user'
+        it 'will NOT include headers created by another user'
+      end
+
+      context '#assign_a_pid' do
+        it 'will assign a unique permanent persisted identifier for the header'
+      end
+
       context '#find_header' do
         it 'raises an exception if nothing is found' do
           expect { subject.find_header('8675309') }.to raise_error
         end
-
         it 'returns the Header when the object is found' do
           allow(Header).to receive(:find).with('8675309').and_return(:found)
           expect(subject.find_header('8675309')).to eq(:found)
         end
-
       end
 
       context '#submit_create_header_form' do
@@ -48,6 +55,7 @@ module Sip
           end
         end
         context 'with valid data' do
+          let(:user) { User.new(id: '123') }
           it 'will create the header with the given attributes' do
             allow(form).to receive(:valid?).and_return(true)
             expect { subject.submit_create_header_form(form) }.to(
@@ -56,7 +64,12 @@ module Sip
               change { Collaborator.count }.by(1)
             )
           end
-          it 'will return the header with the given attributes' do
+          it 'will grant the creating user the "creating_user" permission to the work' do
+            allow(form).to receive(:valid?).and_return(true)
+            expect { subject.submit_create_header_form(form, requested_by: user) }.
+              to change { Permission.where(user: user, role: 'creating_user').count }.by(1)
+          end
+          it 'will return the header' do
             form = subject.build_create_header_form(attributes: { title: 'This is my title' })
             allow(form).to receive(:valid?).and_return(true)
             expect(subject.submit_create_header_form(form)).to be_a(Header)

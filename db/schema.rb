@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141203194600) do
+ActiveRecord::Schema.define(version: 20141204154424) do
 
   create_table "sip_additional_attributes", force: true do |t|
     t.integer  "sip_header_id", null: false
@@ -52,6 +52,19 @@ ActiveRecord::Schema.define(version: 20141203194600) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "sip_permissions", force: true do |t|
+    t.integer  "user_id",                 null: false
+    t.integer  "subject_id",              null: false
+    t.string   "subject_type", limit: 32, null: false
+    t.string   "role",         limit: 32, null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sip_permissions", ["subject_id", "subject_type", "role"], name: "sip_permissions_subject_role"
+  add_index "sip_permissions", ["user_id", "role"], name: "sip_permissions_user_role"
+  add_index "sip_permissions", ["user_id", "subject_id", "subject_type"], name: "sip_permissions_user_subject"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
