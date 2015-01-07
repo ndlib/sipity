@@ -5,9 +5,13 @@ module Sipity
     describe GroupQueries, type: :repository_methods do
       context '#group_names_for_entity_and_roles' do
         Given(:role_name) { 'etd_reviewer' }
-        Given(:entity) { Models::Entity.new }
-        When(:group_names) { test_repository.roles_for_entity_and_group_name(entity: entity, role: role_name) }
-        Then { group_names == ['graduate_school'] }
+        let(:entity) { Models::Sip.create! }
+        subject { test_repository }
+          When(:group_names) {
+            Sipity::Commands::PermissionCommands.grant_groups_permission_to_entity_for_role!(entity: entity, roles: role_name)
+            subject.group_names_for(entity: entity, role: role_name)
+          }
+          Then { group_names == ['graduate_school'] }
       end
     end
   end
