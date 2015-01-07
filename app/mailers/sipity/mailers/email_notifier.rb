@@ -10,6 +10,26 @@ module Sipity
         @entity = entity
         mail(to: to, cc: cc, bcc: bcc)
       end
+
+      def request_revisions_from_creator(entity:, to:, cc: [], bcc: [])
+        @entity = entity
+        mail(to: to, cc: cc, bcc: bcc)
+      end
+
+      def entity_ready_for_review(entity:, to:, cc: [], bcc: [])
+        @entity = entity
+        mail(to: to, cc: cc, bcc: bcc)
+      end
+
+      def entity_ready_for_cataloging(entity:, to:, cc: [], bcc: [])
+        @entity = entity
+        mail(to: to, cc: cc, bcc: bcc)
+      end
+
+      def confirmation_of_entity_approved_for_ingest(entity:, to:, cc: [], bcc: [])
+        @entity = entity
+        mail(to: to, cc: cc, bcc: bcc)
+      end
     end
   end
 end
