@@ -4,6 +4,13 @@ module Sipity
   module Queries
     # Queries
     RSpec.describe PermissionQueries, type: :repository_methods do
+      context '#group_names_for_entity_and_acting_as' do
+        Given(:acting_as) { 'etd_reviewer' }
+        Given(:entity) { double('Entity') }
+        When(:group_names) { test_repository.group_names_for_entity_and_acting_as(entity: entity, acting_as: acting_as) }
+        Then { group_names == ['graduate_school'] }
+      end
+
       context '#emails_for_associated_users' do
         let(:entity) { Models::Sip.create! }
         let(:associated_user) { Sipity::Factories.create_user(email: 'associated@hotmail.com') }
