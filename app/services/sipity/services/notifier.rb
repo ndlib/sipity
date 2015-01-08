@@ -5,15 +5,14 @@ module Sipity
       # Providing a singular end point for sending messages
       def self.deliver(options = {})
         notification_name = options.fetch(:notification)
-        unless Sipity::Mailers::EmailNotifier.respond_to?(notification_name)
-          fail Exceptions::NotificationNotFoundError
+        notificaton_container = options.fetch(:nonotificaton_container) { Sipity::Mailers::EmailNotifier }
+        unless notificaton_container.respond_to?(notification_name)
+          fail Exceptions::NotificationNotFoundError, name: notification_name, container: notificaton_container
         end
         to = options.fetch(:to)
-        cc = options.fetch(:cc) { [] }
-        bcc = options.fetch(:bcc) { [] }
+        cc, bcc = options.fetch(:cc) { [] }, options.fetch(:bcc) { [] }
         entity = options.fetch(:entity)
-
-        email_notifier = Sipity::Mailers::EmailNotifier.public_send(notification_name, entity: entity, to: to, cc: cc, bcc: bcc)
+        email_notifier = notificaton_container.public_send(notification_name, entity: entity, to: to, cc: cc, bcc: bcc)
         email_notifier.deliver_now
       end
     end

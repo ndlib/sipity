@@ -66,6 +66,10 @@ module Sipity
     class PolicyNotFoundError < ConceptNotFoundError
     end
 
+    # A Notification was not found.
+    class NotificationNotFoundError < ConceptNotFoundError
+    end
+
     # Exposing a custom AuthenticationFailureError
     class AuthenticationFailureError < RuntimeError
       def initialize(context)
@@ -112,9 +116,6 @@ module Sipity
 
     # A refinement of InvalidStateError to provide an explicit context
     class InvalidDoiCreationRequestStateError < InvalidStateError
-    end
-
-    class NotificationNotFoundError < RuntimeError
     end
   end
 end
