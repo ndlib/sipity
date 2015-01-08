@@ -20,9 +20,8 @@ module Sipity
       def grant_groups_permission_to_entity_for_role!(entity:, roles:)
         # TODO: Extract this map of roles to groups; Will we need roles by
         #   sip type?
-        map = { 'etd_reviewer' => 'graduate_school', 'cataloger' => 'library_cataloging' }
         Array.wrap(roles).each do |role|
-          group_names = map.fetch(role.to_s)
+          group_names = Queries::PermissionQueries.permission_for(role: role.to_s)
           Array.wrap(group_names).each do |group_name|
             group = Models::Group.find_or_create_by!(name: group_name)
             grant_permission_for!(entity: entity, role: role, actors: group)

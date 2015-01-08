@@ -4,6 +4,18 @@ module Sipity
     module PermissionQueries
       module_function
 
+      def permission_definitions
+        { 'etd_reviewer' => 'graduate_school', 'cataloger' => 'library_cataloging' }
+      end
+
+      public :permission_definitions
+
+      def permission_for(role:)
+        permission_definitions.fetch(role)
+      end
+
+      public :permission_for
+
       def emails_for_associated_users(roles:, entity:)
         scope_users_by_entity_and_roles(roles: roles, entity: entity).pluck(:email)
       end
