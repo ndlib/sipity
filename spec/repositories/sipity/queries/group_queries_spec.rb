@@ -15,8 +15,8 @@ module Sipity
         Then { group_names == ['graduate_school'] }
 
         it 'will return an empty result if there are no roles' do
-            expect(subject.group_names_for(entity: entity, role: [])).
-                to eq([])
+          expect(subject.group_names_for(entity: entity, role: [])).
+            to eq([])
         end
       end
     end
