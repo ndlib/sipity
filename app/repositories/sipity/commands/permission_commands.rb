@@ -18,11 +18,8 @@ module Sipity
       #
       # @raise Exception if for any of the given acting_as, no group could be found
       def grant_groups_permission_to_entity_for_acting_as!(entity:, acting_as:)
-        # TODO: Extract this map of acting_as to groups; Will we need acting_as by
-        #   sip type?
-        map = { 'etd_reviewer' => 'graduate_school', 'cataloger' => 'library_cataloging' }
         Array.wrap(acting_as).each do |an_acting_as|
-          group_names = map.fetch(an_acting_as.to_s)
+          group_names = Queries::PermissionQueries.group_names_for_entity_and_acting_as(acting_as: an_acting_as, entity: entity)
           Array.wrap(group_names).each do |group_name|
             group = Models::Group.find_or_create_by!(name: group_name)
             grant_permission_for!(entity: entity, acting_as: an_acting_as, actors: group)

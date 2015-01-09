@@ -4,6 +4,16 @@ module Sipity
     module PermissionQueries
       module_function
 
+      ACTING_AS_TO_GROUP_NAME = {
+        'etd_reviewer' => 'graduate_school', 'cataloger' => 'library_cataloging'
+      }.freeze
+
+      def group_names_for_entity_and_acting_as(options = {})
+        acting_as = options.fetch(:acting_as)
+        Array.wrap(ACTING_AS_TO_GROUP_NAME.fetch(acting_as))
+      end
+      public :group_names_for_entity_and_acting_as
+
       def emails_for_associated_users(acting_as:, entity:)
         scope_users_by_entity_and_acting_as(acting_as: acting_as, entity: entity).pluck(:email)
       end
