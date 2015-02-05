@@ -37,6 +37,21 @@ module Sipity
           expect(convert_to_processing_entity(object)).to eq(object)
         end
 
+        context 'a Models::Work (because it will be processed)' do
+          # This is poking knowledge over into the inner workings of Models::Work
+          # but is a reasonable place to understand this.
+          it 'will raise an exception if one has not been assigned' do
+            object = Models::Work.new
+            expect(object.processing_entity).to be_nil
+            expect { convert_to_processing_entity(object) }.to raise_error(Exceptions::ProcessingEntityConversionError)
+          end
+          it 'will return the corresponding processing_entity' do
+            object = Models::Work.new
+            expected_processing_entity = object.build_processing_entity
+            expect(convert_to_processing_entity(object)).to eq(expected_processing_entity)
+          end
+        end
+
         it 'will return the to_processing_entity if the object responds to the processing entity' do
           object = double(to_processing_entity: :processing_entity)
           expect(convert_to_processing_entity(object)).to eq(:processing_entity)

@@ -37,11 +37,30 @@ module Sipity
 
       def grant_permission_for!(entity:, actors:, acting_as:)
         Array.wrap(actors).flatten.compact.each do |an_actor|
-          Models::Permission.create!(entity: entity, actor: an_actor, acting_as: acting_as)
+          grant_deprecated_permission_for!(entity: entity, actor: an_actor, acting_as: acting_as)
+          grant_processing_permission_for!(entity: entity, actor: an_actor, role: acting_as)
         end
       end
       module_function :grant_permission_for!
       public :grant_permission_for!
+
+      def grant_processing_permission_for!(_options = {})
+        # processing_actor = Conversions::ConvertToProcessingActor.call(actor)
+        # entity = Conversions::ConvertToProcessingEntity.call(entity)
+        # role = Conversions::ConvertToRole.call(role)
+      end
+      module_function :grant_processing_permission_for!
+      public :grant_processing_permission_for!
+
+      def grant_deprecated_permission_for!(entity:, actor:, acting_as:)
+        Models::Permission.create!(entity: entity, actor: actor, acting_as: acting_as)
+      end
+      module_function :grant_deprecated_permission_for!
+      class << self
+        deprecate :grant_deprecated_permission_for!
+      end
+      private :grant_deprecated_permission_for!
+      deprecate :grant_deprecated_permission_for!
     end
   end
 end

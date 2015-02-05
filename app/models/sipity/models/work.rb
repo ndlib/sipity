@@ -26,6 +26,12 @@ module Sipity
 
       has_one :processing_entity, as: :proxy_for, dependent: :destroy, class_name: 'Sipity::Models::Processing::Entity'
 
+      def to_processing_entity
+        # This is a bit of a short cut, perhaps I should check if its persisted?
+        # But I'll settle for this right now.
+        processing_entity || fail(Exceptions::ProcessingEntityConversionError, self)
+      end
+
       # TODO: Extract to TransientAnswer
       ALREADY_PUBLISHED = 'already_published'.freeze
       WILL_NOT_PUBLISH = 'will_not_publish'.freeze

@@ -13,6 +13,16 @@ module Sipity
         its(:column_names) { should include('title') }
       end
 
+      context '#to_processing_entity' do
+        it 'will raise an exception if one has not been created' do
+          expect { subject.to_processing_entity }.to raise_error(Exceptions::ProcessingEntityConversionError)
+        end
+        it 'will return the existing process entity' do
+          expect_processing_entity = subject.build_processing_entity
+          expect(subject.to_processing_entity).to eq(expect_processing_entity)
+        end
+      end
+
       context '.work_types' do
         it 'is a Hash of keys that equal their values' do
           expect(Work.work_types.keys).

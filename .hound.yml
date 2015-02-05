@@ -32,6 +32,7 @@ MethodLength:
   CountComments: false
   Enabled: true
   Exclude:
+    - app/conversions/**/*.rb
     - 'app/controllers/sipity/controllers/dois_controller.rb'
     - 'app/repositories/sipity/queries/permission_queries.rb'
     - 'app/repositories/sipity/queries/enrichment_queries.rb'

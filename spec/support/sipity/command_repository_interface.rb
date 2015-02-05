@@ -38,11 +38,19 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/commands/permission_commands.rb
+    def grant_deprecated_permission_for!(entity:, actor:, acting_as:)
+    end
+
+    # @see ./app/repositories/sipity/commands/permission_commands.rb
     def grant_groups_permission_to_entity_for_acting_as!(entity:, acting_as:)
     end
 
     # @see ./app/repositories/sipity/commands/permission_commands.rb
     def grant_permission_for!(entity:, actors:, acting_as:)
+    end
+
+    # @see ./app/repositories/sipity/commands/permission_commands.rb
+    def grant_processing_permission_for!(_options = {})
     end
 
     # @see ./app/repositories/sipity/commands/transient_answer_commands.rb

@@ -24,6 +24,10 @@ module Sipity
         expect { subject.name = '__incorrect_name__' }.to raise_error(ArgumentError)
       end
 
+      it 'will have a #to_s that is a name' do
+        subject.name = 'advisor'
+        expect(subject.to_s).to eq(subject.name)
+      end
     end
   end
 end

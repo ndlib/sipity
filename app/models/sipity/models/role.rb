@@ -27,6 +27,10 @@ module Sipity
       def self.valid_names
         names.keys
       end
+
+      def to_s
+        name
+      end
     end
   end
 end
