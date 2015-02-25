@@ -25,7 +25,7 @@ en:
           do_not_know: 'I don’t know.'
         work_type:
           doctoral_dissertation: 'Doctoral Dissertation'
-          master_thesis: "Master's Thesis"
+          master_thesis: "Master’s Thesis"
         access_rights_answer:
           open_access_html: '<b>Open Access:</b> freely viewable to the world'
           restricted_access_html: '<b>Restricted:</b> only specific groups or people can see it'
