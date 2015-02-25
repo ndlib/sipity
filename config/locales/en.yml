@@ -123,7 +123,7 @@ en:
     assign_a_citation:
       label: 'Create a <b>citation</b>'
     defense_date:
-      label: "Defense <b>date</b> for your %{entity_type}"
+      label: "Record the <b>defense date</b> for your %{entity_type}"
   sipity/decorators/resourceful_actions:
     show:
       label: 'Show'
