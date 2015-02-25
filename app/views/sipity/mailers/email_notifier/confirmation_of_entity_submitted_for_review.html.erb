@@ -1,0 +1,13 @@
+<p>Thank you for submitting your <%= @entity.work_type %> to the ETD website.</p>
+
+<ul>
+  <li>You may access your submission record at: [URL]</li>
+  <li>The access type you have chosen is: <%= @entity.access_right %></li>
+</ul>
+
+<p>Next, your research director(s) will receive an email notice that your file is ready for final review. Your director(s) may then log in to the ETD site with their NetID and password to review and/or approve your document for formal submission to the Graduate School. If he or she is unable to approve the document electronically, you may instead provide two printed title pages with original signatures to the dissertation and thesis editor in the Graduate School to signify this approval.</p>
+<p>Once your <%= @entity.work_type %> has been approved by your research director(s), the Graduate School will complete their review.</p>
+<p>Please note: You will be unable to edit the document or the record while your submission is undergoing review.  As your document completes each review stage, you will receive an email notice to apprise you of the status.</p>
+<p>To complete the submission process, please refer to the Graduate School’s <a href="http://www.google.com/url?q=http%3A%2F%2Fgraduateschool.nd.edu%2Fresources-for-current-students%2Fdt%2Fdt-checklist%2F&sa=D&sntz=1&usg=AFQjCNGvwVT72W1yRY7b1cf01bMby9lmxw">submission checklist</a>. If you have questions about your ETD record or the other submission materials, please contact me or my assistant at <a href="mailto:dteditor@nd.edu" target="_top">dteditor@nd.edu</a> or 574-631-7545 for assistance.</p>
+
+<%= render partial: 'email_closing' %>
