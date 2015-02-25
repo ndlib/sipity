@@ -92,14 +92,15 @@ en:
     action/update:
       describe_enrichment: 'Thank you for updating your abstract.'
       attach_enrichment: 'You have updated the files assocatied with this work.'
+      defense_date_enrichment: 'You have updated your defense date.'
   sipity/work_event_triggers:
     action/create:
       submit_for_review_triggered: 'Thank you for submitting your work for review. We will send you email notifications as review process progresses.'
   sipity/decorators/entitiy_enrichments:
+    cancel: 'Return without saving'
     describe:
       call_to_action: 'Finish describing your work'
       description_html: ''
-      cancel: 'Return without saving'
       panels:
         abstract:
           title_html: 'Please provide an <b>abstract</b> of your work'
