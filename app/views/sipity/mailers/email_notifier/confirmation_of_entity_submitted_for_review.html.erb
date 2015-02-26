@@ -1,11 +1,7 @@
-<!--
-TODO
-Replace URL with appropriate method call
--->
 <p>Thank you for submitting your <%= @entity.work_type %> to the ETD website.</p>
 
 <ul>
-  <li>You may access your submission record at: [URL]</li>
+<li>You may access your submission record at: <%=@entity.url %></li>
   <li>The access type you have chosen is: <%= @entity.access_right %></li>
 </ul>
 
