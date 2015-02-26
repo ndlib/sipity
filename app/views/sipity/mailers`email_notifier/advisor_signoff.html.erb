@@ -1,0 +1,14 @@
+<p>On <%= @entity.approval_date %>, <%= @entity.director %> approved the following <%= @entity.document_type %> for submission to the Graduate School in partial fulfillment of the requirements for the degree of <%= @entity.degree %>.</p>
+<ul>
+  <li>Title: <%= @entity.title %></li>
+  <li>Student:  <%= @entity.creator %></li>
+  <li>NetID: <%= @entity.netid %></li>
+  <li>Graduate Program(s): <%= @entity.graduate_program %></li>
+  <li>Initial access Type: <%= @entity.access_right %></li>
+</ul>
+<p>Faculty approvals required: <%= @entity.approved_by_directors %></p>
+<p>To begin the Graduate School review, access the record via the following link:</p>
+<ul>
+  <li><%= @entity.review_link_for_grad_school %></li>
+</ul>
+
