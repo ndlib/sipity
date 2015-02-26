@@ -1,0 +1,13 @@
+<p>Congratulations! Your <%= @entity.work_type %> has been approved by the Graduate School, and will now be added to the Hesburgh Library ETD collection.</p>
+<p>Access URLS:</p>
+<ul>
+  <li>The access type you have initially chosen is: <%= @entity.access_type %></li>
+  <% if  @entity.access_type != 'open_access' %>
+    <li>This record will be released to the public: <%= @entity.release_date %></li>
+  <% end %>
+</ul>
+<p>Patent/Publication Information:</p>
+<p>I attest that I have requested or received permission to include 3rd party materials in the document: <%= @entity.permission_for_third_party_materials? %></p>
+<p>If you have not yet submitted the other items required, please refer to the Graduate School’s <a href="http://www.google.com/url?q=http%3A%2F%2Fgraduateschool.nd.edu%2Fresources-for-current-students%2Fdt%2Fdt-checklist%2F&sa=D&sntz=1&usg=AFQjCNGvwVT72W1yRY7b1cf01bMby9lmxw">submission checklist</a>. If you have questions about your ETD record or the other submission materials, please contact me or my assistant at <a href="mailto:dteditor@nd.edu" target="_top">dteditor@nd.edu</a> or 574-631-7545 for assistance.</p>
+
+<%= render partial: 'email_closing' %>
