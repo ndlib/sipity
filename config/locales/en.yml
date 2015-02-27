@@ -54,7 +54,7 @@ en:
     action/show:
       call_to_action: 'DOI Assignment'
       cancel: 'Return without assigning a DOI'
-      description_html: 'A <a href="http://simple.wikipedia.org/wiki/Digital_Object_Identifier">Digital Object Identifer</a> is the best way to cite an online work (like this one) in academic publications.'
+      description_html: 'A <a href="http://simple.wikipedia.org/wiki/Digital_Object_Identifier">Digital Object Identifier</a> is the best way to cite an online work (like this one) in academic publications.'
       doi_already_assigned: 'A DOI has already been assigned to %{title}.'
       doi_not_assigned: 'We recommend assigning a DOI to %{title}.'
       doi_request_is_pending: 'A request for a DOI is pending for %{title}.'
@@ -67,12 +67,12 @@ en:
         title_html: 'Would you like to <b>create</b> a DOI?'
   sipity/works:
     label:
-      access_rights_answer_html: 'Who can <b>see</b> the completed submmission?'
+      access_rights_answer_html: 'Who can <b>see</b> the completed submission?'
       attributes_html: 'What is the <b>title</b> of your work?'
       work_publication_strategy_html: 'Do you have <b>publishing</b> plans?'
       work_type_html: 'What <b>kind</b> of work is this?'
     action/create:
-      failure: 'There is a problem with your sumbission.'
+      failure: 'There is a problem with your submission.'
       success: 'Thank you for answering those questions! Please complete the tasks below.'
     action/show:
       label:
@@ -87,11 +87,11 @@ en:
         can_advance: "You may submit your work for review when ready."
         cannot_advance: "You must complete the required todo items before you can submit your work for review."
       under_advisor_review:
-        cannot_advance: "Your advior has been asked to review your submission. You will be notified when it is approved or if they request any changes."
+        cannot_advance: "Your advisor has been asked to review your submission. You will be notified when it is approved or if they request any changes."
   sipity/work_enrichments:
     action/update:
       describe_enrichment: 'Thank you for updating your abstract.'
-      attach_enrichment: 'You have updated the files assocatied with this work.'
+      attach_enrichment: 'You have updated the files associated with this work.'
       defense_date_enrichment: 'You have updated your defense date.'
   sipity/work_event_triggers:
     action/create:
@@ -117,7 +117,7 @@ en:
     describe:
       label: "Further <b>describe</b> your %{entity_type}"
     collaborators:
-      label: "Itentify your <b>collaborators</b> on this %{entity_type}"
+      label: "Identify your <b>collaborators</b> on this %{entity_type}"
     assign_a_doi:
       label: 'Assign a <b><abbr title="Digital Object Identifier">DOI</abbr></b>'
     assign_a_citation:
@@ -125,12 +125,12 @@ en:
     defense_date:
       label: "Record the <b>defense date</b> for your %{entity_type}"
   sipity/decorators/resourceful_actions:
-    show:
-      label: 'Show'
-    edit:
-      label: 'Edit'
-    destroy:
-      label: 'Delete'
+    label:
+      show: 'Show'
+      edit: 'Edit'
+      destroy: 'Delete'
+    confirm:
+      destroy: 'Are you sure you want to delete this submission? This action cannot be undone. You will have to start the process over from the beginning.'
   sipity/decorators/state_advancing_actions:
     submit_for_review:
       label: 'Submit for Review'

@@ -37,6 +37,12 @@ module Sipity
         respond_with(@model)
       end
 
+      # TODO: Allow works to be destroyed
+      def destroy
+        flash[:warn] = 'You cannot delete this work.'
+        redirect_to(action: 'show')
+      end
+
       attr_reader :model
       protected :model
       helper_method :model

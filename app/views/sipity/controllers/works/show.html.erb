@@ -151,8 +151,12 @@
                   <meta itemprop="name" content="event_trigger/<%= action.name %>" />
                   <% if action.available? %>
                     <div itemprop='target' itemscope itemtype="http://schema.org/EntryPoint" class="action">
-                      <a itemprop="url" href="<%= action.path %>" class="btn <%= action.button_class %>">
-                        <%= t("sipity/works.resourceful_actions.label.#{ action.name }") %>
+                      <% if action.name == 'destroy' %>
+                        <a itemprop="url" href="<%= action.path %>" class="btn <%= action.button_class %>" data-confirm="<%= t('sipity/decorators/resourceful_actions.confirm.destroy')%>" itemscope itemtype="http://schema.org/EntryPoint" rel="nofollow" data-method="delete">
+                      <% else %>
+                        <a itemprop="url" href="<%= action.path %>" class="btn <%= action.button_class %>">
+                      <% end %>
+                        <%= t("sipity/decorators/resourceful_actions.label.#{ action.name }") %>
                         <meta itemprop="name" content="<%= action.name %>" />
                       </a>
                     </div>
@@ -160,7 +164,7 @@
                     <div itemprop='target' itemscope itemtype="http://schema.org/EntryPoint" class="action">
                       <meta itemprop="name" content="<%= action.name %>" />
                       <span class="btn btn-default disabled">
-                        <%= t("sipity/works.resourceful_actions.label.#{ action.name }") %>
+                        <%= t("sipity/decorators/resourceful_actions.label.#{ action.name }") %>
                       </span>
                     </div>
                   <% end %>
