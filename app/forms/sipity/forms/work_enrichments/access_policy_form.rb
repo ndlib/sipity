@@ -39,13 +39,17 @@ module Sipity
         end
         private_constant :AccessibleObjectCodes
 
+        # Responsible for capturing and validating the accessible object from
+        # the user's input.
         class AccessibleObjectFromInput
           include AccessibleObjectCodes
           include ActiveModel::Validations
+          include Conversions::ExtractInputDateFromInput
+
           def initialize(persisted_object, attributes = {})
             @persisted_object = persisted_object
             @access_right_code = attributes[:access_right_code]
-            self.release_date = extract_release_date_from(attributes)
+            self.release_date = extract_input_date_from_input(:release_date, attributes) { nil }
           end
           attr_reader :access_right_code, :release_date, :persisted_object
 
@@ -70,10 +74,6 @@ module Sipity
 
           def valid_access_right_codes
             [open_access_access_code, restricted_access_access_code, private_access_access_code, embargo_then_open_access_access_code]
-          end
-
-          def extract_release_date_from(attributes)
-
           end
         end
 
