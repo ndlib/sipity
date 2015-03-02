@@ -16,7 +16,10 @@ module Sipity
 
       context 'instance methods' do
         subject { described_class.new }
-
+        it 'will have a #to_s equal to the file name' do
+          subject.file_name = 'Hello World'
+          expect(subject.to_s).to eq('Hello World')
+        end
         it 'has an file via the dragonfly gem' do
           subject.file = File.new(__FILE__)
           expect(subject.file.data).to eq(File.read(__FILE__))

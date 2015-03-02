@@ -10,6 +10,10 @@ module Sipity
 
       alias_attribute :name, :file_name
 
+      def to_s
+        file_name
+      end
+
       belongs_to :work
       dragonfly_accessor :file
 
