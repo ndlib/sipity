@@ -16,5 +16,6 @@ module Sipity
     include Queries::EnrichmentQueries
     include Queries::EventTriggerQueries
     include Queries::ProcessingQueries
+    include Queries::AttachmentQueries
   end
 end
