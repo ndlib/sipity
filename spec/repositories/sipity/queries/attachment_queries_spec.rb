@@ -15,14 +15,14 @@ module Sipity
         end
       end
 
-      context '.work_attachments' do
+      context '#work_attachments' do
         it 'returns the attachments for the given work and role' do
           Models::Attachment.create!(work_id: work.id, pid: 'attach1', predicate_name: 'attachment', file: file)
           expect(subject.work_attachments(work: work).count).to eq(1)
         end
       end
 
-      context '.representative_attachment_for' do
+      context '#representative_attachment_for' do
         it 'returns attachment marked as representative for work' do
           Models::Attachment.create!(work_id: work.id, pid: 'attach1', predicate_name: 'attachment',
                                      file: file, is_representative_file: true)
