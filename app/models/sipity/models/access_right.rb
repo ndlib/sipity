@@ -17,13 +17,13 @@ module Sipity
       self.table_name = 'sipity_access_rights'
 
       OPEN_ACCESS = 'open_access'.freeze
-      RESTRICTED_ACSESS = 'restricted_access'.freeze
+      RESTRICTED_ACCESS = 'restricted_access'.freeze
       PRIVATE_ACCESS = 'private_access'.freeze
 
       enum(
         acccess_right_code: {
           OPEN_ACCESS => OPEN_ACCESS,
-          RESTRICTED_ACSESS => RESTRICTED_ACSESS,
+          RESTRICTED_ACCESS => RESTRICTED_ACCESS,
           PRIVATE_ACCESS => PRIVATE_ACCESS
         }
       )
