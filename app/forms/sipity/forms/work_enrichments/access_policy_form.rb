@@ -17,18 +17,10 @@ module Sipity
         attr_writer :accessible_objects_attributes
 
         def accessible_objects
-          repository.accessible_objects(work: work).map { |obj| AccessibleObjectFromPersistence.new(obj) }
+          @accessible_objects ||= repository.accessible_objects(work: work).map { |obj| AccessibleObjectFromPersistence.new(obj) }
         end
 
-        # Responsible for translating user input into persistence concerns.
-        class AccessibleObjectFromPersistence
-          def initialize(object)
-            @object = object
-          end
-          attr_accessor :access_right_code, :release_date
-
-          delegate :persisted?, :id, :to_s, to: :@object
-
+        module AccessibleObjectCodes
           def open_access_access_code
             Models::AccessRight::OPEN_ACCESS
           end
@@ -45,7 +37,55 @@ module Sipity
             'embargo_then_open_access'
           end
         end
-        private_constant :AccessibleObject
+        private_constant :AccessibleObjectCodes
+
+        class AccessibleObjectFromInput
+          include AccessibleObjectCodes
+          include ActiveModel::Validations
+          def initialize(persisted_object, attributes = {})
+            @persisted_object = persisted_object
+            @access_right_code = attributes[:access_right_code]
+            self.release_date = extract_release_date_from(attributes)
+          end
+          attr_reader :access_right_code, :release_date, :persisted_object
+
+          delegate :persisted?, :id, :to_s, to: :persisted_object
+
+          def persisted?
+            true
+          end
+
+          validates :access_right_code, presence: true, inclusion: { in: :valid_access_right_codes, allow_nil: true }
+          validates :release_date, presence: { if: :will_be_under_embargo? }
+
+          private
+
+          def release_date=(value)
+            @release_date = value
+          end
+
+          def will_be_under_embargo?
+            access_right_code == embargo_then_open_access_access_code
+          end
+
+          def valid_access_right_codes
+            [open_access_access_code, restricted_access_access_code, private_access_access_code, embargo_then_open_access_access_code]
+          end
+
+          def extract_release_date_from(attributes)
+
+          end
+        end
+
+        # Responsible for translating user input into persistence concerns.
+        class AccessibleObjectFromPersistence
+          include AccessibleObjectCodes
+          def initialize(object)
+            @object = object
+          end
+          attr_reader :access_right_code, :release_date
+          delegate :persisted?, :id, :to_s, to: :@object
+        end
       end
     end
   end
