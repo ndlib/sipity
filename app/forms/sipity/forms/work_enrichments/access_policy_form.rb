@@ -17,7 +17,7 @@ module Sipity
         attr_writer :accessible_objects_attributes
 
         def accessible_objects
-          ([work] + repository.work_attachments(work: work)).map { |obj| AccessibleObjectFromPersistence.new(obj) }
+          repository.accessible_objects(work: work).map { |obj| AccessibleObjectFromPersistence.new(obj) }
         end
 
         # Responsible for translating user input into persistence concerns.

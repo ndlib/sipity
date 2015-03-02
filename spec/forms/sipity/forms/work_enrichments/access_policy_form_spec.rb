@@ -10,8 +10,8 @@ module Sipity
         it { should respond_to :accessible_objects_attributes= }
 
         it 'will expose accessible_objects' do
-          expect(repository).to receive(:work_attachments).with(work: work).and_return([attachment])
-          expect(subject.accessible_objects.size).to eq(2)
+          expect(repository).to receive(:accessible_objects).with(work: work).and_return([work, attachment])
+          subject.accessible_objects
         end
       end
     end
