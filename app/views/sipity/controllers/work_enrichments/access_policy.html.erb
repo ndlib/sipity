@@ -1,0 +1,54 @@
+<%= content_tag :h1, t("sipity/decorators/entitiy_enrichments.call_to_action.#{model.enrichment_type}") %>
+<% description = t("sipity/decorators/entitiy_enrichments.description.#{model.enrichment_type}") %>
+<%= content_tag( :p, description) if description.present? %>
+
+<div class="panel-tiles">
+
+  <%= simple_form_for(
+    model,
+    url: enrich_work_path(model.work, model.enrichment_type),
+    method: :post,
+    as: :work,
+    html: { class: 'panel panel-primary with-footer' }
+  ) do |f| %>
+  <legend class="panel-heading">
+    <%= content_tag :h3, t("sipity/decorators/entitiy_enrichments.panels.access_policy.title_html"), class: 'panel-title' %>
+  </legend>
+
+  <fieldset class="panel-body">
+    <%= content_tag :p, t("sipity/decorators/entitiy_enrichments.panels.access_policy.hint_html"), class: 'panel-hint' %>
+    <%= f.error_notification %>
+    <table>
+      <thead>
+        <tr>
+          <th>&nbsp;</th>
+          <th>Open Access</th>
+          <th>Restricted to Notre Dame</th>
+          <th>Private</th>
+          <th>Embargo then Open Access</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= f.fields_for :accessible_objects do |field| %>
+          <tr>
+            <td><%= field.object %></td>
+            <td><%= field.radio_button(:access_right_code, field.object.open_access_access_code) %></td>
+            <td><%= field.radio_button(:access_right_code, field.object.restricted_access_access_code) %></td>
+            <td><%= field.radio_button(:access_right_code, field.object.private_access_access_code) %></td>
+            <td><%= field.radio_button(:access_right_code, field.object.embargo_then_open_access_access_code) %> with released on <%= field.input :release_date, as: :date %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </fieldset>
+
+  <%= model.work.with_action_pane('new_defense_date', 'panel-footer') do %>
+    <%= f.submit nil, name: "form/#{model.enrichment_type}/submit" %>
+  <% end %>
+<% end %>
+
+</div>
+
+<%= model.work.with_action_pane('actions') do %>
+  <%= link_to t("sipity/decorators/entitiy_enrichments.cancel"), work_path(model.work), class: 'btn btn-default' %>
+<% end %>

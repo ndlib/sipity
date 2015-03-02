@@ -68,6 +68,7 @@ ActiveRecord::Base.transaction do
         ['attach', nil],
         ['collaborators', nil],
         ['defense_date', nil],
+        ['access_policy', nil],
         ['assign_a_doi', nil],
         ['assign_a_citation', nil],
         ['submit_for_review', 'under_advisor_review'],
@@ -85,7 +86,7 @@ ActiveRecord::Base.transaction do
       end
 
       pre_requisite_states =       {
-        'submit_for_review' => ['describe', 'attach', 'collaborators']
+        'submit_for_review' => ['describe', 'attach', 'collaborators', 'access_policy']
       }
 
       if work_type_name == 'doctoral_dissertation'
@@ -110,6 +111,7 @@ ActiveRecord::Base.transaction do
         ['new', 'collaborators', ['creating_user', 'etd_reviewer']],
         ['new', 'destroy', ['creating_user', 'etd_reviewer']],
         ['new', 'defense_date', ['creating_user']],
+        ['new', 'access_policy', ['creating_user']],
         ['new', 'assign_a_doi', ['creating_user', 'etd_reviewer']],
         ['new', 'assign_a_citation', ['creating_user', 'etd_reviewer']],
         ['under_advisor_review', 'show', ['creating_user', 'advisor', 'etd_reviewer']],
@@ -124,6 +126,7 @@ ActiveRecord::Base.transaction do
         ['advisor_changes_requested', 'show', ['creating_user', 'advisor', 'etd_reviewer']],
         ['advisor_changes_requested', 'edit', ['creating_user', 'etd_reviewer']],
         ['advisor_changes_requested', 'destroy', ['creating_user', 'etd_reviewer']],
+        ['advisor_changes_requested', 'access_policy', ['creating_user']],
         ['under_grad_school_review', 'assign_a_doi', ['etd_reviewer']],
         ['under_grad_school_review', 'assign_a_citation', ['etd_reviewer']],
         ['under_grad_school_review', 'grad_school_requests_change', ['etd_reviewer']],

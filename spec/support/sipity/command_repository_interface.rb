@@ -298,7 +298,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/attachment_queries.rb
-    def work_attachments(options = {})
+    def work_attachments(work:)
     end
 
     # @see ./app/repositories/sipity/queries/additional_attribute_queries.rb
