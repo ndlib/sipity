@@ -2,8 +2,8 @@ module Sipity
   module Queries
     # Queries
     module AttachmentQueries
-      def work_attachments(options = {})
-        Models::Attachment.includes(:work).where(options.slice(:work))
+      def work_attachments(work:)
+        Models::Attachment.includes(:work).where(work_id: work)
       end
 
       def find_or_initialize_attachments_by(work:, pid:)
