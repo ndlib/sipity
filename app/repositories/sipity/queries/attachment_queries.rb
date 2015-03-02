@@ -6,6 +6,10 @@ module Sipity
         Models::Attachment.includes(:work).where(work_id: work)
       end
 
+      def accessible_objects(work:)
+        [work] + work_attachments(work: work)
+      end
+
       def find_or_initialize_attachments_by(work:, pid:)
         Models::Attachment.find_or_initialize_by(work_id: work.id, pid: pid)
       end

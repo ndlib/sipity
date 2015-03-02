@@ -22,6 +22,13 @@ module Sipity
         end
       end
 
+      context '#accessible_objects' do
+        it 'returns the attachments for the given work and role' do
+          attachment = Models::Attachment.create!(work_id: work.id, pid: 'attach1', predicate_name: 'attachment', file: file)
+          expect(subject.accessible_objects(work: work)).to eq([work, attachment])
+        end
+      end
+
       context '#representative_attachment_for' do
         it 'returns attachment marked as representative for work' do
           Models::Attachment.create!(work_id: work.id, pid: 'attach1', predicate_name: 'attachment',

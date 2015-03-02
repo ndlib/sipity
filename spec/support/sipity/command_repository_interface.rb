@@ -5,6 +5,10 @@
 ################################################################################
 module Sipity
   class CommandRepositoryInterface
+    # @see ./app/repositories/sipity/queries/attachment_queries.rb
+    def accessible_objects(work:)
+    end
+
     # @see ./app/repositories/sipity/commands/work_commands.rb
     def amend_files_metadata(work:, user:, metadata: {})
     end
