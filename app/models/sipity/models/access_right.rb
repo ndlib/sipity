@@ -28,6 +28,12 @@ module Sipity
         }
       )
 
+      # This is not a valid persisted access_right_code, but is something that
+      # a user can specify via the UI.
+      #
+      # @see Servicess::ApplyAccessPoliciesTo for its usage
+      EMBARGO_THEN_OPEN_ACCESS = 'embargo_then_open_access'.freeze
+
       belongs_to :entity, polymorphic: true
     end
   end

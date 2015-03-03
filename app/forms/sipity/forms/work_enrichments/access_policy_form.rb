@@ -85,7 +85,7 @@ module Sipity
           end
 
           def embargo_then_open_access_access_code
-            'embargo_then_open_access'
+            Models::AccessRight::EMBARGO_THEN_OPEN_ACCESS
           end
 
           def to_hash

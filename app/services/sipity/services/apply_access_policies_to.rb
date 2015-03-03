@@ -15,7 +15,7 @@ module Sipity
           expunge_previous_access_rights(attributes)
           access_right_code = attributes.fetch(:access_right_code)
           case access_right_code
-          when 'embargo_then_open_access'
+          when Models::AccessRight::EMBARGO_THEN_OPEN_ACCESS
             handle_embargo_based_access_right(attributes)
           else
             handle_non_embargo_based_access_right(attributes)

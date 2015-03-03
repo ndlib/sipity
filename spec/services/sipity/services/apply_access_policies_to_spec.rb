@@ -11,7 +11,9 @@ module Sipity
       it 'will not allow specifying policies for objects not part of the existing work'
 
       context 'for open access' do
-        let(:access_policies) { { entity_id: 1, entity_type: Sipity::Models::Work, access_right_code: 'open_access', release_date: '' } }
+        let(:access_policies) do
+          { entity_id: 1, entity_type: Sipity::Models::Work, access_right_code: Models::AccessRight::OPEN_ACCESS, release_date: '' }
+        end
         it 'create a new AccessRight' do
           expect { subject.call }.to change { Models::AccessRight.count }.by(1)
         end
@@ -26,7 +28,7 @@ module Sipity
           {
             entity_id: 1,
             entity_type: Sipity::Models::Work,
-            access_right_code: 'embargo_then_open_access', release_date: '2032-12-01'
+            access_right_code: Models::AccessRight::EMBARGO_THEN_OPEN_ACCESS, release_date: '2032-12-01'
           }
         end
         it 'create a two AccessRight entries' do
