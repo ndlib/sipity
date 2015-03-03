@@ -8,6 +8,8 @@ module Sipity
     # find_by_sql or some such thing that joins multiple models but pushes it
     # onto a single ActiveRecord object). But that could be confusing.
     class AccessRightFacade
+      include ActiveModel::Validations
+
       def initialize(accessible_object)
         self.accessible_object = accessible_object
       end

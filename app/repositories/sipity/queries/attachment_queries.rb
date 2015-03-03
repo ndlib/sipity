@@ -11,9 +11,7 @@ module Sipity
       end
 
       def access_rights_for_accessible_objects_of(work:)
-        accessible_objects(work: work).map do |object|
-          Models::AccessRight.find_or_initialize_by(entity_id: object.id, entity_type: Conversions::ConvertToPolymorphicType.call(object))
-        end
+        accessible_objects(work: work).map { |object| Models::AccessRightFacade.new(object) }
       end
 
       def find_or_initialize_attachments_by(work:, pid:)

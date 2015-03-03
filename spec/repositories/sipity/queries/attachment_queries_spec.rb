@@ -43,8 +43,8 @@ module Sipity
           allow(test_repository).to receive(:accessible_objects).and_return([work, attachment])
           access_rights = test_repository.access_rights_for_accessible_objects_of(work: work)
           expect(access_rights.size).to eq(2)
-          expect(access_rights[0]).to be_a(Models::AccessRight)
-          expect(access_rights[1]).to be_a(Models::AccessRight)
+          expect(access_rights[0]).to be_a(Models::AccessRightFacade)
+          expect(access_rights[1]).to be_a(Models::AccessRightFacade)
         end
       end
     end

@@ -32,10 +32,13 @@
         <%= f.fields_for :accessible_objects do |field| %>
           <tr>
             <td><%= field.object %></td>
-            <td><%= field.radio_button(:access_right_code, field.object.open_access_access_code) %></td>
-            <td><%= field.radio_button(:access_right_code, field.object.restricted_access_access_code) %></td>
-            <td><%= field.radio_button(:access_right_code, field.object.private_access_access_code) %></td>
-            <td><%= field.radio_button(:access_right_code, field.object.embargo_then_open_access_access_code) %> with released on <%= field.input :release_date, as: :date %></td>
+            <td><%= field.radio_button(:access_right_code, Sipity::Models::AccessRight::OPEN_ACCESS) %></td>
+            <td><%= field.radio_button(:access_right_code, Sipity::Models::AccessRight::RESTRICTED_ACCESS) %></td>
+            <td><%= field.radio_button(:access_right_code, Sipity::Models::AccessRight::PRIVATE_ACCESS) %></td>
+            <td>
+              <%= field.radio_button(:access_right_code, Sipity::Models::AccessRight::EMBARGO_THEN_OPEN_ACCESS) %>
+              with released on <%= field.input :release_date, as: :date %>
+            </td>
           </tr>
         <% end %>
       </tbody>
