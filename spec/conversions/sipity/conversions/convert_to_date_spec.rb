@@ -33,7 +33,7 @@ module Sipity
         [
           ['2014-12-01', Date.new(2014, 12, 1)],
           ['12/10/2013', Date.new(2013, 10, 12)],
-          [Date.new(2014, 12, 1), Date.new(2014, 12, 1)],
+          [Date.new(2014, 12, 1), Date.new(2014, 12, 1)]
         ].each_with_index do |(to_convert, expected), index|
           it "will convert #{to_convert.inspect} to #{expected} (Scenario ##{index}" do
             expect(convert_to_date(to_convert)).to eq(expected)
