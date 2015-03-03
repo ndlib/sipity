@@ -5,8 +5,14 @@ module Sipity
       let(:user) { User.new }
       let(:work) { Models::Work.new(id: 1) }
       let(:attachment) { Models::Attachment.new(id: 2) }
+      let(:access_policies) { { } }
 
       subject { described_class.new(work: work, user: user, access_policies: access_policies) }
+
+      it 'exposes .call as a convenience method' do
+        expect_any_instance_of(described_class).to receive(:call)
+        described_class.call(work: work, user: user, access_policies: access_policies)
+      end
 
       it 'will not allow specifying policies for objects not part of the existing work'
 

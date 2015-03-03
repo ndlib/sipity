@@ -14,7 +14,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/commands/work_commands.rb
-    def apply_access_policies_to(*)
+    def apply_access_policies_to(work:, user:, access_policies:)
     end
 
     # @see ./app/repositories/sipity/commands/work_commands.rb

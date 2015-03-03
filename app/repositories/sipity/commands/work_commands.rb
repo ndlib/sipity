@@ -87,7 +87,7 @@ module Sipity
       end
 
       def apply_access_policies_to(work:, user:, access_policies:)
-        Services::ApplyAccessPoliciesTo.call(repository: self, work: work, user: user, access_policies: access_policies)
+        Services::ApplyAccessPoliciesTo.call(work: work, user: user, access_policies: access_policies)
       end
     end
   end

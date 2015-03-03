@@ -3,6 +3,10 @@ module Sipity
     # Responsible for rebuilding access policies for accessible objects
     # associated with the given work.
     class ApplyAccessPoliciesTo
+      def self.call(options = {})
+        new(options.slice(:user, :work, :access_policies)).call
+      end
+
       def initialize(user:, work:, access_policies:)
         @user = user
         @work = work
@@ -20,15 +24,18 @@ module Sipity
 
       private
 
+      include Conversions::ConvertToDate
+
       def handle_embargo_then_open_access_rights(attributes)
+        release_date = convert_to_date(attributes.fetch(:release_date))
         Models::AccessRight.create!(attributes.slice(:entity_id, :entity_type)) do |embargoed|
           embargoed.access_right_code = Models::AccessRight::PRIVATE_ACCESS
           embargoed.enforcement_start_date = Date.today
-          embargoed.enforcement_end_date = attributes.fetch(:release_date)
+          embargoed.enforcement_end_date = release_date
         end
         Models::AccessRight.create!(attributes.slice(:entity_id, :entity_type)) do |open_access|
           open_access.access_right_code = Models::AccessRight::OPEN_ACCESS
-          open_access.enforcement_start_date = attributes.fetch(:release_date)
+          open_access.enforcement_start_date = release_date
           open_access.enforcement_end_date = nil
         end
       end
