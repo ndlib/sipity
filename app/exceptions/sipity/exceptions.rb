@@ -69,6 +69,11 @@ module Sipity
       self.conversion_target = 'Models::Role'
     end
 
+    # Unable to convert the given object into a Date
+    class DateConversionError < ConversionError
+      self.conversion_target = 'Date'
+    end
+
     # Processing Conversion Errors; These may often mean a database entry is
     # missing.
     class ProcessingConversionError < ConversionError
