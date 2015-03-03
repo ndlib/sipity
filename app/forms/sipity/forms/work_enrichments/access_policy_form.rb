@@ -25,7 +25,11 @@ module Sipity
         end
 
         def accessible_objects
-          @accessible_objects ||= accessible_objects_from_repository
+          if @accessible_objects_attributes.present?
+            @accessible_objects_attributes
+          else
+            @accessible_objects ||= accessible_objects_from_repository
+          end
         end
 
         private
@@ -37,7 +41,7 @@ module Sipity
         end
 
         def access_objects_attributes_for_persistence
-          @accessible_objects_attributes.map { |obj| obj.to_hash }
+          accessible_objects.map { |obj| obj.to_hash }
         end
 
         def accessible_objects_from_repository
@@ -53,7 +57,7 @@ module Sipity
           end
         end
 
-        module AccessibleObjectCodes
+        module AccessibleObjectInterface
           def open_access_access_code
             Models::AccessRight::OPEN_ACCESS
           end
@@ -69,31 +73,6 @@ module Sipity
           def embargo_then_open_access_access_code
             'embargo_then_open_access'
           end
-        end
-        private_constant :AccessibleObjectCodes
-
-        # Responsible for capturing and validating the accessible object from
-        # the user's input.
-        class AccessibleObjectFromInput
-          include AccessibleObjectCodes
-          include ActiveModel::Validations
-          include Conversions::ExtractInputDateFromInput
-
-          def initialize(persisted_object, attributes = {})
-            @persisted_object = persisted_object
-            @access_right_code = attributes[:access_right_code]
-            self.release_date = extract_input_date_from_input(:release_date, attributes) { nil }
-          end
-          attr_reader :access_right_code, :release_date, :persisted_object
-
-          delegate :persisted?, :entity_type, :to_param, :id, :to_s, to: :persisted_object
-
-          def persisted?
-            true
-          end
-
-          validates :access_right_code, presence: true, inclusion: { in: :valid_access_right_codes, allow_nil: true }
-          validates :release_date, presence: { if: :will_be_under_embargo? }
 
           def to_hash
             {
@@ -103,6 +82,33 @@ module Sipity
               release_date: release_date
             }
           end
+
+        end
+        private_constant :AccessibleObjectInterface
+
+        # Responsible for capturing and validating the accessible object from
+        # the user's input.
+        class AccessibleObjectFromInput
+          include AccessibleObjectInterface
+          include ActiveModel::Validations
+          include Conversions::ExtractInputDateFromInput
+
+          def initialize(persisted_object, attributes = {})
+            @persisted_object = persisted_object
+            @access_right_code = attributes[:access_right_code]
+            self.release_date = extract_input_date_from_input(:release_date, attributes) { nil }
+          end
+          attr_reader :access_right_code, :release_date, :persisted_object
+          private :persisted_object
+
+          delegate :persisted?, :entity_type, :to_param, :id, :to_s, to: :persisted_object
+
+          def persisted?
+            true
+          end
+
+          validates :access_right_code, presence: true, inclusion: { in: :valid_access_right_codes, allow_nil: true }
+          validates :release_date, presence: { if: :will_be_under_embargo? }
 
           private
 
@@ -121,7 +127,7 @@ module Sipity
 
         # Responsible for translating user input into persistence concerns.
         class AccessibleObjectFromPersistence
-          include AccessibleObjectCodes
+          include AccessibleObjectInterface
           def initialize(object)
             @object = object
           end
