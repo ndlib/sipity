@@ -16,9 +16,7 @@ module Sipity
 
       def call
         access_policies.each do |attributes|
-          expunge_previous_access_rights(attributes)
-          access_right_code = attributes.fetch(:access_right_code)
-          send("handle_#{access_right_code}_rights", attributes)
+          find_or_create_access_right_from(attributes)
         end
       end
 
@@ -26,32 +24,11 @@ module Sipity
 
       include Conversions::ConvertToDate
 
-      def handle_embargo_then_open_access_rights(attributes)
-        release_date = convert_to_date(attributes.fetch(:release_date))
-        Models::AccessRight.create!(attributes.slice(:entity_id, :entity_type)) do |embargoed|
-          embargoed.access_right_code = Models::AccessRight::PRIVATE_ACCESS
-          embargoed.enforcement_start_date = Date.today
-          embargoed.enforcement_end_date = release_date
-        end
-        Models::AccessRight.create!(attributes.slice(:entity_id, :entity_type)) do |open_access|
-          open_access.access_right_code = Models::AccessRight::OPEN_ACCESS
-          open_access.enforcement_start_date = release_date
-        end
-      end
-
-      def __handle_primative_access_rights(attributes)
-        Models::AccessRight.create!(attributes.slice(:entity_id, :access_right_code, :entity_type)) do |access_right|
-          access_right.enforcement_start_date = Date.today
-          access_right.enforcement_end_date = nil
-        end
-      end
-
-      Models::AccessRight.primative_acccess_right_codes.each do |code|
-        alias_method "handle_#{code}_rights", :__handle_primative_access_rights
-      end
-
-      def expunge_previous_access_rights(attributes)
-        Models::AccessRight.where(attributes.slice(:entity_id, :entity_type)).destroy_all
+      def find_or_create_access_right_from(attributes)
+        Models::AccessRight.find_or_initialize_by(attributes.slice(:entity_id, :entity_type)) do |access_right|
+          access_right.access_right_code = attributes.fetch(:access_right_code)
+          access_right.transition_date = convert_to_date(attributes.fetch(:release_date)) { nil }
+        end.save!
       end
     end
   end

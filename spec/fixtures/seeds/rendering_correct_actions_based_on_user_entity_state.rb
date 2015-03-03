@@ -2,7 +2,7 @@ User.create!([
   {email: "test@example.com", remember_created_at: nil, sign_in_count: 2, current_sign_in_at: "2015-02-24 18:32:52", last_sign_in_at: "2015-02-24 18:32:52", current_sign_in_ip: "127.0.0.1", last_sign_in_ip: "127.0.0.1", name: "Test User", role: nil, username: "test@example.com"}
 ])
 Sipity::Models::AccessRight.create!([
-  {entity_id: 1, entity_type: "Sipity::Models::Work", access_right_code: "private_access", enforcement_start_date: "2015-02-24", enforcement_end_date: nil}
+  {entity_id: 1, entity_type: "Sipity::Models::Work", access_right_code: "private_access"}
 ])
 Sipity::Models::AdditionalAttribute.create!([
   {work_id: 1, key: "abstract", value: "Lorem ipsum"}

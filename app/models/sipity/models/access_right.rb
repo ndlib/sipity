@@ -10,29 +10,23 @@ module Sipity
     # It is envisioned that the AccessRights will be contiguous non-overlapping
     # date ranges.
     class AccessRight < ActiveRecord::Base
-      # @attr_accessor [Date] enforcement_start_date the first day in which the
-      #   given access_right enforcement is in effect
-      # @attr_accessor [Date] enforcement_end_date the last day in which the
-      #   given access_right enforcement is in effect
+      # @attr_accessor [Date] transition_date the date in which a transition
+      #   would occur
       self.table_name = 'sipity_access_rights'
 
       OPEN_ACCESS = 'open_access'.freeze
       RESTRICTED_ACCESS = 'restricted_access'.freeze
       PRIVATE_ACCESS = 'private_access'.freeze
+      EMBARGO_THEN_OPEN_ACCESS = 'embargo_then_open_access'.freeze
 
       enum(
         acccess_right_code: {
           OPEN_ACCESS => OPEN_ACCESS,
           RESTRICTED_ACCESS => RESTRICTED_ACCESS,
-          PRIVATE_ACCESS => PRIVATE_ACCESS
+          PRIVATE_ACCESS => PRIVATE_ACCESS,
+          EMBARGO_THEN_OPEN_ACCESS => EMBARGO_THEN_OPEN_ACCESS
         }
       )
-
-      # This is not a valid persisted access_right_code, but is something that
-      # a user can specify via the UI.
-      #
-      # @see Servicess::ApplyAccessPoliciesTo for its usage
-      EMBARGO_THEN_OPEN_ACCESS = 'embargo_then_open_access'.freeze
 
       belongs_to :entity, polymorphic: true
 

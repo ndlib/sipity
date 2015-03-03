@@ -18,7 +18,7 @@ module Sipity
         #   message to that container regarding application of the answer.
         case answer
         when 'open_access', 'restricted_access', 'private_access'
-          Models::AccessRight.create!(entity: entity, access_right_code: answer, enforcement_start_date: Date.today)
+          Models::AccessRight.create!(entity: entity, access_right_code: answer)
         end
         transient_answer
       end
