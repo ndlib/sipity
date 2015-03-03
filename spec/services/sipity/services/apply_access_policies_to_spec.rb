@@ -1,0 +1,43 @@
+require 'spec_helper'
+module Sipity
+  module Services
+    RSpec.describe ApplyAccessPoliciesTo do
+      let(:user) { User.new }
+      let(:work) { Models::Work.new(id: 1) }
+      let(:attachment) { Models::Attachment.new(id: 2) }
+
+      subject { described_class.new(work: work, user: user, access_policies: access_policies) }
+
+      it 'will not allow specifying policies for objects not part of the existing work'
+
+      context 'for open access' do
+        let(:access_policies) { { entity_id: 1, entity_type: Sipity::Models::Work, access_right_code: 'open_access', release_date: '' } }
+        it 'create a new AccessRight' do
+          expect { subject.call }.to change { Models::AccessRight.count }.by(1)
+        end
+        it 'will obliterate the previous AccessRights' do
+          subject.call
+          expect { subject.call }.to_not change { Models::AccessRight.count }
+        end
+      end
+
+      context 'for embargo_then_open_access' do
+        let(:access_policies) do
+          {
+            entity_id: 1,
+            entity_type: Sipity::Models::Work,
+            access_right_code: 'embargo_then_open_access', release_date: '2032-12-01'
+          }
+        end
+        it 'create a two AccessRight entries' do
+          expect { subject.call }.to change { Models::AccessRight.count }.by(2)
+        end
+
+        it 'will obliterate the previous AccessRights' do
+          subject.call
+          expect { subject.call }.to_not change { Models::AccessRight.count }
+        end
+      end
+    end
+  end
+end
