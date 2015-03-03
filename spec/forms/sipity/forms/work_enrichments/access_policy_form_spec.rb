@@ -39,7 +39,7 @@ module Sipity
             }
             subject = described_class.new(work: work, repository: repository, accessible_objects_attributes: attributes)
             expect(repository).to receive(:apply_access_policies_to).with(
-              work: work, access_policies:
+              work: work, user: user, access_policies:
               [
                 {
                   entity_id: work.to_param,

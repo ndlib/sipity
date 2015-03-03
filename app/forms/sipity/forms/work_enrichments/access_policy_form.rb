@@ -50,7 +50,7 @@ module Sipity
 
         def save(requested_by:)
           super do
-            repository.apply_access_policies_to(work: work, access_policies: access_objects_attributes_for_persistence)
+            repository.apply_access_policies_to(work: work, user: requested_by, access_policies: access_objects_attributes_for_persistence)
           end
         end
 

@@ -142,6 +142,16 @@ module Sipity
             not_to change { Models::Attachment.where(is_representative_file: true).count }
         end
       end
+
+      context '#apply_access_policies_to' do
+        let(:work) { double('Work') }
+        let(:user) { double('User') }
+        let(:access_policies) { double('AccessPolicies') }
+        it 'will mark the given attachments as representative in the system' do
+          expect(Services::ApplyAccessPoliciesTo).to receive(:call).with(work: work, user: user, access_policies: access_policies)
+          test_repository.apply_access_policies_to(work: work, user: user, access_policies: access_policies)
+        end
+      end
     end
   end
 end

@@ -86,7 +86,8 @@ module Sipity
         -> { SecureRandom.urlsafe_base64(nil, true) }
       end
 
-      def apply_access_policies_to(*)
+      def apply_access_policies_to(work:, user:, access_policies:)
+        Services::ApplyAccessPoliciesTo.call(repository: self, work: work, user: user, access_policies: access_policies)
       end
     end
   end
