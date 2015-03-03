@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150226160732) do
+ActiveRecord::Schema.define(version: 20150303152259) do
 
   create_table "sipity_access_rights", force: :cascade do |t|
     t.integer  "entity_id",              null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 20150226160732) do
 
   add_index "sipity_access_rights", ["entity_id", "entity_type", "enforcement_end_date"], name: "sipity_access_rights_end_for_entity", unique: true
   add_index "sipity_access_rights", ["entity_id", "entity_type", "enforcement_start_date"], name: "sipity_access_rights_start_for_entity", unique: true
-  add_index "sipity_access_rights", ["entity_id", "entity_type"], name: "index_sipity_access_rights_on_entity_id_and_entity_type", unique: true
+  add_index "sipity_access_rights", ["entity_id", "entity_type"], name: "index_sipity_access_rights_on_entity_id_and_entity_type"
 
   create_table "sipity_account_placeholders", force: :cascade do |t|
     t.string   "identifier",                                     null: false
