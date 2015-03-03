@@ -13,7 +13,6 @@ module Sipity
       #   - Is there a default we want to "provide" for Embargos (1 year from
       #     now)
       class AccessPolicyForm < Forms::WorkEnrichmentForm
-
         def initialize(attributes = {})
           super
           self.accessible_objects_attributes = attributes.fetch(:accessible_objects_attributes) { {} }
@@ -55,7 +54,7 @@ module Sipity
         end
 
         def access_objects_attributes_for_persistence
-          accessible_objects.map { |obj| obj.to_hash }
+          accessible_objects.map(&:to_hash)
         end
 
         def accessible_objects_from_repository
@@ -66,11 +65,13 @@ module Sipity
           from_persistence = accessible_objects_from_repository
           values.map do |(_key, attrs)|
             attributes = attrs.with_indifferent_access
-            persisted_object = from_persistence.detect { |obj| obj.id.to_s == attributes.fetch('id')  }
+            persisted_object = from_persistence.find { |obj| obj.id.to_s == attributes.fetch('id')  }
             AccessibleObjectFromInput.new(persisted_object, attributes)
           end
         end
 
+        # These are shared elements of the AccessibleObjects (both input and
+        # from persistence)
         module AccessibleObjectInterface
           def open_access_access_code
             Models::AccessRight::OPEN_ACCESS
@@ -96,7 +97,6 @@ module Sipity
               release_date: release_date
             }
           end
-
         end
         private_constant :AccessibleObjectInterface
 
