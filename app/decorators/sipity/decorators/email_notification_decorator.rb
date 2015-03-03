@@ -25,12 +25,6 @@ module Sipity
       def approved_by_directors
       end
 
-      def review_link_for_grad_school
-      end
-
-      def review_link_for_advisor
-      end
-
       def permission_for_third_party_materials
       end
 
@@ -42,10 +36,13 @@ module Sipity
         view_context.work_path(entity.id)
       end
 
+      alias_method :review_link, :work_show_path
+
       def curate_link
       end
 
       def creator
+        @creator ||= repository.work_collaborator_names_for(work: entity, roles: 'author').join("; ")
       end
 
       def netid

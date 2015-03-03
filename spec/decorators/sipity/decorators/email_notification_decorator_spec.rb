@@ -3,8 +3,7 @@ require 'spec_helper'
 module Sipity
   module Decorators
     RSpec.describe EmailNotificationDecorator do
-      let(:repository) { QueryRepositoryInterface.new }
-      let(:entity) { Models::Work.new(id: '123', work_type: 'doctoral_dissertation') }
+      let(:entity) { Models::Work.new(id: '123', work_type: 'doctoral_dissertation', title: 'A title') }
 
       subject { described_class.new(entity, repository: repository) }
 
@@ -14,11 +13,11 @@ module Sipity
       it { should respond_to(:document_type) }
       it { should respond_to(:approval_date) }
       it { should respond_to(:approved_by_directors) }
-      it { should respond_to(:review_link_for_grad_school) }
-      it { should respond_to(:review_link_for_advisor) }
+      it { should respond_to(:review_link) }
       it { should respond_to(:permission_for_third_party_materials) }
       it { should respond_to(:comments) }
       it { should respond_to(:curate_link) }
+      it { should respond_to(:review_link) }
       it { should respond_to(:degree) }
       it { should respond_to(:graduate_programs) }
       it { should respond_to(:release_date) }
@@ -30,6 +29,8 @@ module Sipity
 
       its(:document_type) { should eq(entity.work_type.humanize) }
 
+      its(:title) { should eq entity.title }
+
       it 'will have a #work_show_path' do
         expect(subject.work_show_path).to be_a(String)
       end
@@ -40,6 +41,13 @@ module Sipity
         end
         Given(:answer) { 'open_access' }
         Then { subject.access_rights.should eq(answer.titleize) }
+      end
+
+      context 'creator' do
+        it 'returns only the names' do
+          Models::Collaborator.create!(work: entity, role: 'author', name: 'John')
+          expect(subject.creator).to eq('John')
+        end
       end
 
     end

@@ -4,11 +4,11 @@
   <li>Student:  <%= @entity.creator %></li>
   <li>NetID: <%= @entity.netid %></li>
   <li>Graduate Program(s): <%= @entity.graduate_program %></li>
-  <li>Initial access Type: <%= @entity.access_right %></li>
+  <li>Initial access Type: <%= @entity.access_rights %></li>
 </ul>
 <p>Faculty approvals required: <%= @entity.approved_by_directors %></p>
 <p>To begin the Graduate School review, access the record via the following link:</p>
 <ul>
-  <li><%= @entity.review_link_for_grad_school %></li>
+  <li><%= @entity.review_link %></li>
 </ul>
 

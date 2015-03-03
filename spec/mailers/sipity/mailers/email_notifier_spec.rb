@@ -28,15 +28,6 @@ module Sipity
           expect(ActionMailer::Base.deliveries.count).to eq(1)
         end
       end
-      context '#entity_ready_for_review' do
-        let(:entity) { Models::Work.new }
-        let(:to) { 'test@example.com' }
-        it 'should send an email' do
-          described_class.entity_ready_for_review(entity: entity, to: to).deliver_now
-
-          expect(ActionMailer::Base.deliveries.count).to eq(1)
-        end
-      end
       context '#entity_ready_for_cataloging' do
         let(:entity) { Models::Work.new }
         let(:to) { 'test@example.com' }
@@ -56,10 +47,13 @@ module Sipity
         end
       end
       context '#entity_ready_for_review' do
-        let(:entity) { Models::Work.new }
+        let(:entity) { double('Hello') }
+        let(:decorated) { double(creator: 'A name', review_link: "link to work show", document_type: "A document_type") }
+        let(:decorator) { double(new: decorated) }
         let(:to) { 'test@example.com' }
         it 'should send an email' do
-          described_class.entity_ready_for_review(entity: entity, to: to).deliver_now
+          expect(entity).to receive(:work)
+          described_class.entity_ready_for_review(entity: entity, to: to, decorator: decorator).deliver_now
 
           expect(ActionMailer::Base.deliveries.count).to eq(1)
         end
