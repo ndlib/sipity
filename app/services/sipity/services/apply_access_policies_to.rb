@@ -14,18 +14,13 @@ module Sipity
         access_policies.each do |attributes|
           expunge_previous_access_rights(attributes)
           access_right_code = attributes.fetch(:access_right_code)
-          case access_right_code
-          when Models::AccessRight::EMBARGO_THEN_OPEN_ACCESS
-            handle_embargo_based_access_right(attributes)
-          else
-            handle_non_embargo_based_access_right(attributes)
-          end
+          send("handle_#{access_right_code}_rights", attributes)
         end
       end
 
       private
 
-      def handle_embargo_based_access_right(attributes)
+      def handle_embargo_then_open_access_rights(attributes)
         Models::AccessRight.create!(attributes.slice(:entity_id, :entity_type)) do |embargoed|
           embargoed.access_right_code = Models::AccessRight::PRIVATE_ACCESS
           embargoed.enforcement_start_date = Date.today
@@ -38,11 +33,15 @@ module Sipity
         end
       end
 
-      def handle_non_embargo_based_access_right(attributes)
+      def __handle_primative_access_rights(attributes)
         Models::AccessRight.create!(attributes.slice(:entity_id, :access_right_code, :entity_type)) do |access_right|
           access_right.enforcement_start_date = Date.today
           access_right.enforcement_end_date = nil
         end
+      end
+
+      Models::AccessRight.primative_acccess_right_codes.each do |code|
+        alias_method "handle_#{code}_rights", :__handle_primative_access_rights
       end
 
       def expunge_previous_access_rights(attributes)

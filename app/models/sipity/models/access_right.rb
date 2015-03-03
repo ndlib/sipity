@@ -35,6 +35,14 @@ module Sipity
       EMBARGO_THEN_OPEN_ACCESS = 'embargo_then_open_access'.freeze
 
       belongs_to :entity, polymorphic: true
+
+      # What do I mean by this? I mean that these are the most basic codes that
+      # we are capturing and persisting. There are others (e.g.
+      # EMBARGO_THEN_OPEN_ACCESS) that require additional logic to define how
+      # the corresponding data is persisted.
+      def self.primative_acccess_right_codes
+        acccess_right_codes.keys
+      end
     end
   end
 end
