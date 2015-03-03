@@ -36,7 +36,6 @@ module Sipity
         Models::AccessRight.create!(attributes.slice(:entity_id, :entity_type)) do |open_access|
           open_access.access_right_code = Models::AccessRight::OPEN_ACCESS
           open_access.enforcement_start_date = release_date
-          open_access.enforcement_end_date = nil
         end
       end
 

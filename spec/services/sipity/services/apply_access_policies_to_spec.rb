@@ -5,7 +5,7 @@ module Sipity
       let(:user) { User.new }
       let(:work) { Models::Work.new(id: 1) }
       let(:attachment) { Models::Attachment.new(id: 2) }
-      let(:access_policies) { { } }
+      let(:access_policies) { {} }
 
       subject { described_class.new(work: work, user: user, access_policies: access_policies) }
 

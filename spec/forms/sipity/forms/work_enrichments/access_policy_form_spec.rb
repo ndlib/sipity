@@ -45,12 +45,12 @@ module Sipity
                   entity_id: work.to_param,
                   entity_type: Sipity::Models::Work,
                   access_right_code: 'open_access',
-                  release_date: nil,
+                  release_date: nil
                 }, {
                   entity_id: attachment.to_param,
                   entity_type: Sipity::Models::Attachment,
                   access_right_code: 'embargo_then_open_access',
-                  release_date: Date.new(2032,12,01)
+                  release_date: Date.new(2032, 12, 01)
                 }
               ]
             )
