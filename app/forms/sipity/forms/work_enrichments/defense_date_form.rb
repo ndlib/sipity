@@ -25,19 +25,9 @@ module Sipity
           Array.wrap(repository.work_attribute_values_for(work: work, key: 'defense_date')).first
         end
 
+        include Conversions::ConvertToDate
         def defense_date=(value)
-          @defense_date = convert_to_date(value)
-        end
-
-        def convert_to_date(value)
-          case value
-          when Date, DateTime then value
-          when NilClass then value
-          else
-            Date.parse(value)
-          end
-        rescue TypeError, ArgumentError
-          nil
+          @defense_date = convert_to_date(value) { nil }
         end
       end
     end

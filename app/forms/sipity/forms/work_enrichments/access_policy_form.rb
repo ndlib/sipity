@@ -126,8 +126,9 @@ module Sipity
 
           private
 
+          include Conversions::ConvertToDate
           def release_date=(value)
-            @release_date = value
+            @release_date = convert_to_date(value) { nil }
           end
 
           def will_be_under_embargo?
