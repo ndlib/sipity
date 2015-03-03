@@ -63,6 +63,9 @@ module Sipity
 
         # Responsible for capturing and validating the accessible object from
         # the user's input.
+        #
+        # REVIEW: This is a hot mess! I have this input collaborating with the
+        # underlying input.
         class AccessibleObjectFromInput
           include ActiveModel::Validations
           include Conversions::ExtractInputDateFromInput
@@ -75,7 +78,11 @@ module Sipity
           attr_reader :access_right_code, :release_date, :persisted_object
           private :persisted_object
 
-          delegate :persisted?, :entity_type, :to_param, :id, :to_s, to: :persisted_object
+          delegate :to_param, :id, :to_s, to: :persisted_object
+
+          def persisted?
+            true
+          end
 
           validates :access_right_code, presence: true, inclusion: { in: :valid_access_right_codes, allow_nil: true }
           validates :release_date, presence: { if: :will_be_under_embargo? }
@@ -87,6 +94,18 @@ module Sipity
               access_right_code: access_right_code,
               release_date: release_date
             }
+          end
+
+          include Conversions::ConvertToPolymorphicType
+          def entity_type
+            # HACK: It would be nice if the possible objects, however the
+            # collaboration of the objects related to this form are out of
+            # whack.
+            if persisted_object.respond_to?(:entity_type)
+              persisted_object.entity_type
+            else
+              convert_to_polymorphic_type(persisted_object)
+            end
           end
 
           private

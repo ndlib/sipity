@@ -9,7 +9,7 @@ module Sipity
         subject { described_class.new(work: work, repository: repository) }
 
         before do
-          allow(repository).to receive(:accessible_objects).with(work: work).and_return([work, attachment])
+          allow(repository).to receive(:access_rights_for_accessible_objects_of).with(work: work).and_return([work, attachment])
         end
 
         it { should respond_to :accessible_objects_attributes= }
@@ -61,13 +61,20 @@ module Sipity
 
       RSpec.describe AccessPolicyForm::AccessibleObjectFromInput do
         let(:attributes) { {} }
-        let(:persisted_object) { double('Persisted Object') }
+        let(:persisted_object) { double('Persisted Object', entity_type: 'Hello') }
         subject { described_class.new(persisted_object, attributes) }
 
         its(:persisted?) { should be_truthy }
 
         it 'will parse the input date' do
+          subject = described_class.new(persisted_object, release_date: '2014-12-1')
+          expect(subject.release_date).to eq(Date.new(2014, 12, 1))
+        end
 
+        it 'will use the persisted object entity_type if one is defined' do
+          persisted_object = double(entity_type: 'Ent')
+          subject = described_class.new(persisted_object)
+          expect(subject.entity_type).to eq(persisted_object.entity_type)
         end
 
         it 'will be invalid if no access_right_code is given' do
