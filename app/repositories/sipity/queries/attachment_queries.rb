@@ -10,6 +10,12 @@ module Sipity
         [work] + work_attachments(work: work)
       end
 
+      def access_rights_for_accessible_objects_of(work:)
+        accessible_objects(work: work).map do |object|
+          Models::AccessRight.find_or_initialize_by(entity_id: object.id, entity_type: Conversions::ConvertToPolymorphicType.call(object))
+        end
+      end
+
       def find_or_initialize_attachments_by(work:, pid:)
         Models::Attachment.find_or_initialize_by(work_id: work.id, pid: pid)
       end

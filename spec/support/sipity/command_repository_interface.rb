@@ -6,6 +6,10 @@
 module Sipity
   class CommandRepositoryInterface
     # @see ./app/repositories/sipity/queries/attachment_queries.rb
+    def access_rights_for_accessible_objects_of(work:)
+    end
+
+    # @see ./app/repositories/sipity/queries/attachment_queries.rb
     def accessible_objects(work:)
     end
 

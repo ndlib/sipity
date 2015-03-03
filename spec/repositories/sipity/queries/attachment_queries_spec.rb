@@ -36,6 +36,17 @@ module Sipity
           expect(subject.representative_attachment_for(work: work).count).to eq(1)
         end
       end
+
+      context '#access_rights_for_accessible_objects' do
+        let(:attachment) { Models::Attachment.new(id: 'abc') }
+        it 'returns an enumerable of AccessRight objects' do
+          allow(test_repository).to receive(:accessible_objects).and_return([work, attachment])
+          access_rights = test_repository.access_rights_for_accessible_objects_of(work: work)
+          expect(access_rights.size).to eq(2)
+          expect(access_rights[0]).to be_a(Models::AccessRight)
+          expect(access_rights[1]).to be_a(Models::AccessRight)
+        end
+      end
     end
   end
 end
