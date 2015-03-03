@@ -6,7 +6,7 @@ class ModifyAccessRight < ActiveRecord::Migration
       t.integer :entity_id
       t.string :entity_type
       t.string :access_right_code
-      t.string :transition_date
+      t.date :transition_date
 
       t.timestamps null: false
     end

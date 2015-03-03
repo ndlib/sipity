@@ -17,7 +17,7 @@ ActiveRecord::Schema.define(version: 20150303172902) do
     t.integer  "entity_id",         null: false
     t.string   "entity_type",       null: false
     t.string   "access_right_code", null: false
-    t.string   "transition_date"
+    t.date     "transition_date"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
   end
