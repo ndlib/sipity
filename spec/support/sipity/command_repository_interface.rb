@@ -14,6 +14,10 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/commands/work_commands.rb
+    def apply_access_policies_to(*)
+    end
+
+    # @see ./app/repositories/sipity/commands/work_commands.rb
     def assign_collaborators_to(work:, collaborators:)
     end
 

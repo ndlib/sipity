@@ -85,6 +85,9 @@ module Sipity
       def default_pid_minter
         -> { SecureRandom.urlsafe_base64(nil, true) }
       end
+
+      def apply_access_policies_to(*)
+      end
     end
   end
 end
