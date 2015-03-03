@@ -30,6 +30,8 @@ module Sipity
 
       belongs_to :entity, polymorphic: true
 
+      alias_attribute :release_date, :transition_date
+
       # What do I mean by this? I mean that these are the most basic codes that
       # we are capturing and persisting. There are others (e.g.
       # EMBARGO_THEN_OPEN_ACCESS) that require additional logic to define how
