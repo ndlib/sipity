@@ -18,7 +18,18 @@ module Sipity
           expect(subject.accessible_objects.size).to eq(2)
         end
 
-        it 'will validate the accessible_objects_attributes'
+        it 'will validate the presence of accessible_objects_attributes' do
+          subject = described_class.new(work: work, repository: repository, accessible_objects_attributes: {})
+          subject.valid?
+          expect(subject.errors[:base]).to be_present
+        end
+
+        it 'will validate each of the given attributes' do
+          invalid_attributes = { "0" => {id: work.to_param, access_right_code: 'chici chici parm parm' } }
+          subject = described_class.new(work: work, repository: repository, accessible_objects_attributes: invalid_attributes)
+          subject.valid?
+          expect(subject.errors[:accessible_objects_attributes]).to be_present
+        end
 
         context '#submit' do
           it 'will capture accessible_objects_attributes' do

@@ -23,6 +23,10 @@ module Sipity
         def accessible_objects_attributes=(values)
           @accessible_objects_attributes = parse_accessible_objects_attributes(values)
         end
+        attr_reader :accessible_objects_attributes
+
+        validate :each_accessible_objects_attributes_are_valid
+        validate :at_lease_one_accessible_objects_attributes_entry
 
         def accessible_objects
           if @accessible_objects_attributes.present?
@@ -33,6 +37,16 @@ module Sipity
         end
 
         private
+
+        def each_accessible_objects_attributes_are_valid
+          return true if accessible_objects_attributes.all?(&:valid?)
+          errors.add(:accessible_objects_attributes, :invalid)
+        end
+
+        def at_lease_one_accessible_objects_attributes_entry
+          return true if accessible_objects_attributes.present?
+          errors.add(:base, :presence_of_access_policies_for_objects_required)
+        end
 
         def save(requested_by:)
           super do
