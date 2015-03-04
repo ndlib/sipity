@@ -9,7 +9,9 @@ module Sipity
       subject { described_class.new(entity, repository: repository) }
 
       it { should respond_to(:netid) }
-      it { should respond_to(:creator) }
+      it { should respond_to(:creators) }
+      it { should respond_to(:creator_names) }
+      it { should respond_to(:creator_usernames) }
       it { should respond_to(:director) }
       it { should respond_to(:document_type) }
       it { should respond_to(:approval_date) }
@@ -46,12 +48,15 @@ module Sipity
 
       context 'returns only the names' do
         before do
-          allow(repository).to receive(:scope_users_for_entity_and_roles).and_return(creating_user)
+          allow(repository).to receive(:scope_users_for_entity_and_roles).and_return(creating_users)
         end
-        Given(:creating_user) { 'John' }
-        Then { subject.creator.should eq('John') }
+        let(:creating_users) {  [double(name: 'John', username: 'john'), double(name: 'A name', username: 'netid')] }
+        it 'will have #creators' do
+          expect(subject.creators).to be_a(Array)
+          expect(subject.creator_names).to eq('John and A name')
+          expect(subject.creator_usernames).to eq('john and netid')
+        end
       end
-
     end
   end
 end

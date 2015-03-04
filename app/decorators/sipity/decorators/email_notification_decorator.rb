@@ -41,8 +41,16 @@ module Sipity
       def curate_link
       end
 
-      def creator
-        @creator ||= repository.scope_users_for_entity_and_roles(entity: entity, roles: Models::Role::CREATING_USER)
+      def creators
+        @creators ||= repository.scope_users_for_entity_and_roles(entity: entity, roles: Models::Role::CREATING_USER)
+      end
+
+      def creator_names
+        creators.map(&:name).to_sentence
+      end
+
+      def creator_usernames
+        creators.map(&:username).to_sentence
       end
 
       def netid

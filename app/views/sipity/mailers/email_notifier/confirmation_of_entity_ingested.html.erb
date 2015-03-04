@@ -1,8 +1,8 @@
 <p>The following <%= @entity.document_type %> was  ingested into CurateND on <%= @entity.created_at %>:</p>
 <ul>
   <li>Title: <%= @entity.title %></li>
-  <li>Student: <%= @entity.creator %></li>
-  <li>NetID: <%= @entity.netid %></li>
+  <li>Student: <%= @entity.creator_names %></li>
+  <li>NetID: <%= @entity.creator_usernames %></li>
   <li>Graduate Program(s): <%= @entity.graduate_programs %></li>
 </ul>
 <p> You may access the record at this link: <%= @entity.curate_link %></p>

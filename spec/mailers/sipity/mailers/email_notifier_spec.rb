@@ -48,7 +48,10 @@ module Sipity
       end
       context '#entity_ready_for_review' do
         let(:entity) { double('Hello') }
-        let(:decorated) { double(creator: 'A name', review_link: "link to work show", document_type: "A document_type") }
+        let(:decorated) do
+          double(creator_names: 'A name', creator_usernames: 'netid',
+                 review_link: "link to work show", document_type: "A document_type")
+        end
         let(:decorator) { double(new: decorated) }
         let(:to) { 'test@example.com' }
         it 'should send an email' do
@@ -72,7 +75,7 @@ module Sipity
         let(:entity) { double('Hello') }
         let(:to) { 'test@example.com' }
         let(:decorated) do
-          double(creator: 'A name', created_at: "A Date", document_type: "A document_type",
+          double(creator_names: 'A name', creator_usernames: 'netid', created_at: "A Date", document_type: "A document_type",
                  title: 'A title', netid: 'A net id', graduate_programs: 'Program Name', curate_link: 'link')
         end
         let(:decorator) { double(new: decorated) }
