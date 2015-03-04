@@ -42,7 +42,7 @@ module Sipity
       end
 
       def creator
-        @creator ||= repository.work_collaborator_names_for(work: entity, roles: 'author').join("; ")
+        @creator ||= repository.scope_users_for_entity_and_roles(entity: entity, roles: Models::Role::CREATING_USER)
       end
 
       def netid

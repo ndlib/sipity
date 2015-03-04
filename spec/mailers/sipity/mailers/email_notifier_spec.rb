@@ -68,10 +68,17 @@ module Sipity
         end
       end
       context '#confirmation_of_entity_ingested' do
-        let(:entity) { Models::Work.new }
+        let(:repository) { QueryRepositoryInterface.new }
+        let(:entity) { double('Hello') }
         let(:to) { 'test@example.com' }
+        let(:decorated) do
+          double(creator: 'A name', created_at: "A Date", document_type: "A document_type",
+                 title: 'A title', netid: 'A net id', graduate_programs: 'Program Name', curate_link: 'link')
+        end
+        let(:decorator) { double(new: decorated) }
+
         it 'should send an email' do
-          described_class.confirmation_of_entity_ingested(entity: entity, to: to).deliver_now
+          described_class.confirmation_of_entity_ingested(entity: entity, to: to, decorator: decorator).deliver_now
 
           expect(ActionMailer::Base.deliveries.count).to eq(1)
         end

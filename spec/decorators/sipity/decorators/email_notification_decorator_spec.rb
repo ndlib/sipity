@@ -3,6 +3,7 @@ require 'spec_helper'
 module Sipity
   module Decorators
     RSpec.describe EmailNotificationDecorator do
+      let(:repository) { QueryRepositoryInterface.new }
       let(:entity) { Models::Work.new(id: '123', work_type: 'doctoral_dissertation', title: 'A title') }
 
       subject { described_class.new(entity, repository: repository) }
@@ -43,11 +44,12 @@ module Sipity
         Then { subject.access_rights.should eq(answer.titleize) }
       end
 
-      context 'creator' do
-        it 'returns only the names' do
-          Models::Collaborator.create!(work: entity, role: 'author', name: 'John')
-          expect(subject.creator).to eq('John')
+      context 'returns only the names' do
+        before do
+          allow(repository).to receive(:scope_users_for_entity_and_roles).and_return(creating_user)
         end
+        Given(:creating_user) { 'John' }
+        Then { subject.creator.should eq('John') }
       end
 
     end
