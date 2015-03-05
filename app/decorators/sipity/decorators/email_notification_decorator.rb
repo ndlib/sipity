@@ -33,7 +33,7 @@ module Sipity
       end
 
       def work_show_path
-        view_context.work_path(entity.id)
+        view_context.work_url(entity)
       end
 
       alias_method :review_link, :work_show_path
