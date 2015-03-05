@@ -7,3 +7,9 @@
 # They are included so we can share what the keys should be.
 DATABASE_PATH: db/development.sqlite3
 dragonfly_secret: "e03509c7cbee4f602ba6cf4bb088bda4891efabfffb6f122cc1e20c7e807e8b8"
+
+development:
+  domain_name: "example.com"
+
+test:
+  domain_name: "example.com"
