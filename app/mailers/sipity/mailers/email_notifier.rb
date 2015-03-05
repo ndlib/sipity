@@ -17,9 +17,10 @@ module Sipity
         mail(to: to, cc: cc, bcc: bcc)
       end
 
-      def entity_ready_for_review(entity:, to:, cc: [], bcc: [])
-        @entity = convert_entity_into_decorator(entity)
-        mail(to: to, cc: cc, bcc: bcc)
+      def entity_ready_for_review(options = {})
+        entity = options.fetch(:entity)
+        @entity = options.fetch(:decorator) { Decorators::EmailNotificationDecorator }.new(entity.work)
+        mail(options.slice(:to, :cc, :bcc))
       end
 
       def entity_ready_for_cataloging(entity:, to:, cc: [], bcc: [])
@@ -27,9 +28,10 @@ module Sipity
         mail(to: to, cc: cc, bcc: bcc)
       end
 
-      def confirmation_of_entity_ingested(entity:, to:, cc: [], bcc: [])
-        @entity = convert_entity_into_decorator(entity)
-        mail(to: to, cc: cc, bcc: bcc)
+      def confirmation_of_entity_ingested(options = {})
+        entity = options.fetch(:entity)
+        @entity = options.fetch(:decorator) { Decorators::EmailNotificationDecorator }.new(entity)
+        mail(options.slice(:to, :cc, :bcc))
       end
 
       def advisor_requests_change(options = {})

@@ -28,15 +28,6 @@ module Sipity
           expect(ActionMailer::Base.deliveries.count).to eq(1)
         end
       end
-      context '#entity_ready_for_review' do
-        let(:entity) { Models::Work.new }
-        let(:to) { 'test@example.com' }
-        it 'should send an email' do
-          described_class.entity_ready_for_review(entity: entity, to: to).deliver_now
-
-          expect(ActionMailer::Base.deliveries.count).to eq(1)
-        end
-      end
       context '#entity_ready_for_cataloging' do
         let(:entity) { Models::Work.new }
         let(:to) { 'test@example.com' }
@@ -56,10 +47,16 @@ module Sipity
         end
       end
       context '#entity_ready_for_review' do
-        let(:entity) { Models::Work.new }
+        let(:entity) { double('Hello') }
+        let(:decorated) do
+          double(creator_names: 'A name', creator_usernames: 'netid',
+                 review_link: "link to work show", document_type: "A document_type")
+        end
+        let(:decorator) { double(new: decorated) }
         let(:to) { 'test@example.com' }
         it 'should send an email' do
-          described_class.entity_ready_for_review(entity: entity, to: to).deliver_now
+          expect(entity).to receive(:work)
+          described_class.entity_ready_for_review(entity: entity, to: to, decorator: decorator).deliver_now
 
           expect(ActionMailer::Base.deliveries.count).to eq(1)
         end
@@ -74,10 +71,17 @@ module Sipity
         end
       end
       context '#confirmation_of_entity_ingested' do
-        let(:entity) { Models::Work.new }
+        let(:repository) { QueryRepositoryInterface.new }
+        let(:entity) { double('Hello') }
         let(:to) { 'test@example.com' }
+        let(:decorated) do
+          double(creator_names: 'A name', creator_usernames: 'netid', created_at: "A Date", document_type: "A document_type",
+                 title: 'A title', netid: 'A net id', graduate_programs: 'Program Name', curate_link: 'link')
+        end
+        let(:decorator) { double(new: decorated) }
+
         it 'should send an email' do
-          described_class.confirmation_of_entity_ingested(entity: entity, to: to).deliver_now
+          described_class.confirmation_of_entity_ingested(entity: entity, to: to, decorator: decorator).deliver_now
 
           expect(ActionMailer::Base.deliveries.count).to eq(1)
         end

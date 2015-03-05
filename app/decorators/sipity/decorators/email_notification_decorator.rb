@@ -25,12 +25,6 @@ module Sipity
       def approved_by_directors
       end
 
-      def review_link_for_grad_school
-      end
-
-      def review_link_for_advisor
-      end
-
       def permission_for_third_party_materials
       end
 
@@ -39,13 +33,24 @@ module Sipity
       end
 
       def work_show_path
-        view_context.work_path(entity.id)
+        view_context.work_url(entity)
       end
+
+      alias_method :review_link, :work_show_path
 
       def curate_link
       end
 
-      def creator
+      def creators
+        @creators ||= repository.scope_users_for_entity_and_roles(entity: entity, roles: Models::Role::CREATING_USER)
+      end
+
+      def creator_names
+        creators.map(&:name).to_sentence
+      end
+
+      def creator_usernames
+        creators.map(&:username).to_sentence
       end
 
       def netid
