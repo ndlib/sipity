@@ -19,6 +19,7 @@ git clone "git@git.library.nd.edu:$secret_repo"
 files_to_copy="
     application.yml
     database.yml
+    environment_bootstrapper.rb
     "
 
 for f in $files_to_copy; do
