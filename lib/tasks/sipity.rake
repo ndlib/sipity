@@ -1,9 +1,8 @@
 namespace :sipity do
 
   desc 'Create a user based on $USER'
-  task :create_user do
-    $stdout.puts "Creating User '#{ENV['USER']}' (from ENV['USER'])..."
-    User.find_or_create_by!(username: ENV['USER'])
+  task environment_bootstrapper: :environment do
+    load(Rails.root.join('config/environment_bootstrapper.rb'))
   end
 
   desc 'Build the various repository interfaces for testing purposes; These are descriptive interfaces'
