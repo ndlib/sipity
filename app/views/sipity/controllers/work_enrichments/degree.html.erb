@@ -19,6 +19,7 @@
       <%= content_tag :p, t("sipity/decorators/entitiy_enrichments.panels.degree.hint_html"), class: 'panel-hint' %>
         <%= f.error_notification %>
         <%= f.input :degree, collection: model.degree_names, input_html: { class: 'form-control', multiple: true, selected: model.degree } %>
+        <%= f.input :program_name, collection: model.programs, input_html: { class: 'form-control', multiple: true, selected: model.program_name } %>
     </fieldset>
 
     <%= model.work.with_action_pane('new_degree', 'panel-footer') do %>
