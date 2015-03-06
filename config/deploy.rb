@@ -67,7 +67,7 @@ namespace :deploy do
     on roles(:app) do
       within release_path do
         with rails_env: fetch(:rails_env) do
-          execute :rake, "db:seed"
+          execute :rake, "db:seed sipity:environment_bootstrapper"
         end
       end
     end
