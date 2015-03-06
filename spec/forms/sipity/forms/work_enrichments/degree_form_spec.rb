@@ -6,6 +6,7 @@ module Sipity
       RSpec.describe DegreeForm do
         let(:work) { Models::Work.new(id: '1234') }
         let(:degree) { 'degree_name' }
+        let(:program) { 'program_name' }
         let(:repository) { CommandRepositoryInterface.new }
         subject { described_class.new(work: work, repository: repository) }
 
@@ -14,30 +15,48 @@ module Sipity
 
         it { should respond_to :work }
         it { should respond_to :degree }
+        it { should respond_to :program_name }
 
         it 'will require a degree' do
           subject.valid?
           expect(subject.errors[:degree]).to be_present
+          expect(subject.errors[:program_name]).to be_present
         end
 
         context '#degree' do
-
-          let(:name) { [double('A program name')] }
           it 'will have #degree_names' do
-            allow(repository).to receive(:get_values_by_predicate_name).and_return(name)
-            expect(subject.degree_names).to_not be_empty
+            expect(repository).to receive(:get_values_by_predicate_name).with(name: 'degree').and_return(['degree_name', 'bogus'])
+            expect(subject.degree_names).to be_a(Array)
           end
 
           context 'with data from the database' do
-            subject { described_class.new(work: work, repository: repository) }
+            subject { described_class.new(work: work, degree: ['bogus', 'test'], repository: repository) }
             it 'will return the degree of the work' do
-              expect(repository).to receive(:work_attribute_values_for).with(work: work, key: 'degree').and_return(['bogus', 'test'])
               expect(subject.degree).to eq ['bogus', 'test']
             end
           end
           context 'when no degree is given and none is in the repository' do
             subject { described_class.new(work: work, repository: repository) }
             its(:degree) { should_not be_present }
+          end
+        end
+
+        context '#program_name' do
+          it 'will have #programs' do
+            expect(repository).to receive(:get_values_by_predicate_name).with(name: 'program').and_return(['bogus'])
+            expect(subject.programs).to be_a(Array)
+          end
+
+          context 'with data from the database' do
+            subject { described_class.new(work: work, program_name: ['bogus', 'test'], repository: repository) }
+            it 'will return the program of the work' do
+              expect(subject.program_name).to eq ['bogus', 'test']
+            end
+          end
+
+          context 'when no program is given and none is in the repository' do
+            subject { described_class.new(work: work, repository: repository) }
+            its(:program_name) { should_not be_present }
           end
         end
 
@@ -53,7 +72,7 @@ module Sipity
           end
 
           context 'with valid data' do
-            subject { described_class.new(work: work, degree: 'bogus', repository: repository) }
+            subject { described_class.new(work: work, degree: 'bogus', program_name: 'fake name', repository: repository) }
             before do
               expect(subject).to receive(:valid?).and_return(true)
             end
@@ -69,7 +88,7 @@ module Sipity
             end
 
             it 'will add additional attributes entries' do
-              expect(repository).to receive(:update_work_attribute_values!).and_call_original
+              expect(repository).to receive(:update_work_attribute_values!).exactly(2).and_call_original
               subject.submit(requested_by: user)
             end
 

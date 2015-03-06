@@ -32,45 +32,71 @@ ActiveRecord::Base.transaction do
 
 
   $stdout.puts 'Creating degree names...'
-  degree_names = [
-      ['degree', 'Aerospace and Mechanical Engineering', 'AME'],
-      ['degree', 'Anthropology', 'ANTH'],
-      ['degree', 'Applied and Computational Mathematics and Statistics', 'ACMS'],
-      ['degree', 'Art, Art History, and Design', 'ART'],
-      ['degree', 'Bioengineering', 'BIOE'],
-      ['degree', 'Biological Sciences', 'BIOS'],
-      ['degree', 'Chemical and Biomolecular Engineering', 'CBE, CHEG'],
-      ['degree', 'Civil and Environmental Engineering and Earth Sciences', 'Civil Engineering and Geological Sciences, CEEES, CEGS'],
-      ['degree', 'Chemistry', 'CHEM'],
-      ['degree', 'Classics', 'CLAS'],
-      ['degree', 'Computer Science and Engineering', 'CSE'],
-      ['degree', 'Creative Writing', 'CW, ENGL-CW'],
-      ['degree', 'Economics', 'Economics and Econometrics, ECON'],
-      ['degree', 'Early Christian Studies', 'ECS'],
-      ['degree', 'Electrical Engineering', 'EE'],
-      ['degree', 'English', 'ENGL'],
-      ['degree', 'History', 'HIST'],
-      ['degree', 'History and Philosophy of Science', 'HPS'],
-      ['degree', 'Integrated Biomedical Sciences', 'IBMS'],
-      ['degree', 'Peace Studies', 'PEACE, IIPS'],
-      ['degree', 'Law', nil],
-      ['degree', 'Literature', 'PhD in Literature, LIT'],
-      ['degree', 'Mathematics', 'MATH'],
-      ['degree', 'Medieval Studies', 'Medieval Institute, MI, MS'],
-      ['degree', 'Philosophy', 'PHIL'],
-      ['degree', 'Physics', 'PHYS'],
-      ['degree', 'Political Science', 'POLS'],
-      ['degree', 'Psychology', 'PSY'],
-      ['degree', 'Romance Languages and Literatures', 'ROML'],
-      ['degree', 'Sacred Music', 'SACM'],
-      ['degree', 'Sociology', 'SOC'],
-      ['degree', 'Theology', 'THEO']
-  ]
+  degree_names =
+    [
+      ['degree', 'Doctor of Musical Arts', 'DMA'],
+      ['degree', 'Doctor of Philosophy', 'PhD'],
+      ['degree', 'Master of Arts', 'MA'],
+      ['degree', 'Master of Fine Arts', 'MFA'],
+      ['degree', 'Master of Medieval Studies', 'MMS'],
+      ['degree', 'Master of Science', 'MS'],
+      ['degree', 'Master of Science in Aerospace Engineering', 'MSAE'],
+      ['degree', 'Master of Science in Bioengineering', 'MSBioE'],
+      ['degree', 'Master of Science in Chemical Engineering', 'MSChE'],
+      ['degree', 'Master of Science in Civil Engineering', 'MSCE'],
+      ['degree', 'Master of Science in Computer Science and Engineering', 'MSCSE'],
+      ['degree', 'Master of Science in Earth Sciences', 'MSES'],
+      ['degree', 'Master of Science in Electrical Engineering', 'MSEE'],
+      ['degree', 'Master of Science in Environmental Engineering', 'MSEnvE'],
+      ['degree', 'Master of Science in Geological Sciences', 'MSGS'],
+      ['degree', 'Master of Science in Interdisciplinary Mathematics', 'MSIM'],
+      ['degree', 'Master of Science in Mechanical Engineering', 'MSME']
+    ]
   degree_names.each do |predicate_name, predicate_value, predicate_value_code|
     Sipity::Models::SimpleControlledVocabulary.find_or_create_by!(
       predicate_name: predicate_name, predicate_value: predicate_value, predicate_value_code: predicate_value_code)
   end
 
+  $stdout.puts 'Creating program names...'
+  program_names =
+    [
+      ['program', 'Aerospace and Mechanical Engineering', 'AME'],
+      ['program', 'Anthropology', 'ANTH'],
+      ['program', 'Applied and Computational Mathematics and Statistics', 'ACMS'],
+      ['program', 'Art, Art History, and Design', 'ART'],
+      ['program', 'Bioengineering', 'BIOE'],
+      ['program', 'Biological Sciences', 'BIOS'],
+      ['program', 'Chemical and Biomolecular Engineering', 'CBE, CHEG'],
+      ['program', 'Civil and Environmental Engineering and Earth Sciences', 'Civil Engineering and Geological Sciences, CEEES, CEGS'],
+      ['program', 'Chemistry', 'CHEM'],
+      ['program', 'Classics', 'CLAS'],
+      ['program', 'Computer Science and Engineering', 'CSE'],
+      ['program', 'Creative Writing', 'CW, ENGL-CW'],
+      ['program', 'Economics', 'Economics and Econometrics, ECON'],
+      ['program', 'Early Christian Studies', 'ECS'],
+      ['program', 'Electrical Engineering', 'EE'],
+      ['program', 'English', 'ENGL'],
+      ['program', 'History', 'HIST'],
+      ['program', 'History and Philosophy of Science', 'HPS'],
+      ['program', 'Integrated Biomedical Sciences', 'IBMS'],
+      ['program', 'Peace Studies', 'PEACE, IIPS'],
+      ['program', 'Law', nil],
+      ['program', 'Literature', 'PhD in Literature, LIT'],
+      ['program', 'Mathematics', 'MATH'],
+      ['program', 'Medieval Studies', 'Medieval Institute, MI, MS'],
+      ['program', 'Philosophy', 'PHIL'],
+      ['program', 'Physics', 'PHYS'],
+      ['program', 'Political Science', 'POLS'],
+      ['program', 'Psychology', 'PSY'],
+      ['program', 'Romance Languages and Literatures', 'ROML'],
+      ['program', 'Sacred Music', 'SACM'],
+      ['program', 'Sociology', 'SOC'],
+      ['program', 'Theology', 'THEO']
+  ]
+  program_names.each do |predicate_name, predicate_value, predicate_value_code|
+    Sipity::Models::SimpleControlledVocabulary.find_or_create_by!(
+      predicate_name: predicate_name, predicate_value: predicate_value, predicate_value_code: predicate_value_code)
+  end
 
   $stdout.puts 'Creating ETD State Diagram...'
   ['doctoral_dissertation', 'master_thesis'].each do |work_type_name|
