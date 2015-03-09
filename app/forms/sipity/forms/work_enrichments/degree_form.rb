@@ -27,8 +27,8 @@ module Sipity
 
         def save(requested_by:)
           super do
-            repository.update_work_attribute_values!(work: work, key: 'degree', values: degree)
-            repository.update_work_attribute_values!(work: work, key: 'program_name', values: program_name)
+            repository.update_work_attribute_values!(work: work, key: 'degree', values: clean_up_blank(input_array: degree))
+            repository.update_work_attribute_values!(work: work, key: 'program_name', values: clean_up_blank(input_array: program_name))
           end
         end
 
@@ -38,6 +38,11 @@ module Sipity
 
         def program_name_from_work
           repository.work_attribute_values_for(work: work, key: 'program_name')
+        end
+
+        def clean_up_blank(input_array:)
+          input_array.delete("")
+          input_array
         end
       end
     end
