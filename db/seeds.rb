@@ -149,7 +149,6 @@ ActiveRecord::Base.transaction do
       etd_actions = {}
       [
         ['show', nil],
-        ['edit', nil],
         ['destroy', nil],
         ['describe', nil],
         ['search_terms', nil],
@@ -197,7 +196,6 @@ ActiveRecord::Base.transaction do
       [
         ['new', 'submit_for_review', ['creating_user']],
         ['new', 'show', ['creating_user', 'advisor', 'etd_reviewer']],
-        ['new', 'edit', ['creating_user', 'etd_reviewer']],
         ['new', 'describe', ['creating_user', 'etd_reviewer']],
         ['new', 'search_terms', ['creating_user', 'etd_reviewer']],
         ['new', 'attach', ['creating_user', 'etd_reviewer']],
@@ -213,7 +211,6 @@ ActiveRecord::Base.transaction do
         ['under_advisor_review', 'advisor_requests_change', ['etd_reviewer', 'advisor']],
         ['advisor_changes_requested', 'submit_for_review', ['creating_user']],
         ['advisor_changes_requested', 'show', ['creating_user', 'advisor', 'etd_reviewer']],
-        ['advisor_changes_requested', 'edit', ['creating_user', 'etd_reviewer']],
         ['advisor_changes_requested', 'describe', ['creating_user', 'etd_reviewer']],
         ['advisor_changes_requested', 'search_terms', ['creating_user', 'etd_reviewer']],
         ['advisor_changes_requested', 'attach', ['creating_user', 'etd_reviewer']],
@@ -225,7 +222,7 @@ ActiveRecord::Base.transaction do
         ['under_grad_school_review', 'grad_school_requests_change', ['etd_reviewer']],
         ['under_grad_school_review', 'show', ['creating_user', 'advisor', 'etd_reviewer']],
         ['under_grad_school_review', 'grad_school_signoff', ['etd_reviewer']],
-        ['under_grad_school_review', ['edit', 'destroy'], ['etd_reviewer']],
+        ['under_grad_school_review', ['destroy'], ['etd_reviewer']],
         ['ready_for_ingest', 'show', ['creating_user', 'advisor', 'etd_reviewer']],
       ].each do |originating_state_name, action_names, role_names|
         Array.wrap(action_names).each do |action_name|

@@ -47,20 +47,6 @@ feature 'Enriching a Work', :devise, :feature do
       expect(the_page.text_for('title')).to eq(['Hello World'])
       expect(the_page.text_for('work_publication_strategy')).to eq(['Do Not Know']) # NOTE: weak match on default I18n
     end
-
-    on('work_page') do |the_page|
-      the_page.click_edit
-    end
-
-    on('edit_work_page') do |the_page|
-      the_page.fill_in(:title, with: 'New Value')
-      the_page.submit_button.click
-    end
-
-    on('work_page') do |the_page|
-      expect(the_page.text_for('title')).to eq(['New Value'])
-    end
-
   end
 
   scenario 'User can describe additional data' do
