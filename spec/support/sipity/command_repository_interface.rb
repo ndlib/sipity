@@ -321,6 +321,10 @@ module Sipity
     def update_work_publication_date!(work:, publication_date:)
     end
 
+    # @see ./app/repositories/sipity/commands/work_commands.rb
+    def update_work_title!(work:, title:)
+    end
+
     # @see ./app/repositories/sipity/queries/processing_queries.rb
     def users_that_have_taken_the_action_on_the_entity(entity:, action:)
     end

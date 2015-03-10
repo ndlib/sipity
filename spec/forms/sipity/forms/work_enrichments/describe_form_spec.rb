@@ -16,9 +16,15 @@ module Sipity
         its(:policy_enforcer) { should eq Policies::Processing::WorkProcessingPolicy }
 
         it { should respond_to :work }
+        it { should respond_to :title }
         it { should respond_to :abstract }
         it { should respond_to :discipline }
         it { should respond_to :alternate_title }
+
+        it 'will require a title' do
+          subject.valid?
+          expect(subject.errors[:title]).to be_present
+        end
 
         it 'will require a abstract' do
           subject.valid?
@@ -34,6 +40,7 @@ module Sipity
         context '#abstract' do
           let(:abstract) { ['Hello Dolly'] }
           let(:discipline) { ['Computer Science'] }
+          let(:title) { 'My Work title' }
           subject { described_class.new(work: work, repository: repository) }
           it 'will return the abstract of the work' do
             expect(repository).to receive(:work_attribute_values_for).
@@ -45,6 +52,11 @@ module Sipity
             expect(subject.abstract).to eq 'Hello Dolly'
             expect(subject.discipline).to eq 'Computer Science'
             expect(subject.alternate_title).to eq ''
+          end
+
+          it 'will update and return title of the work' do
+            expect(work).to receive(:title).and_return(title)
+            expect(subject.title).to eq title
           end
         end
 
@@ -81,6 +93,11 @@ module Sipity
 
             it "will transition the work's corresponding enrichment todo item to :done" do
               expect(repository).to receive(:register_action_taken_on_entity).and_call_original
+              subject.submit(requested_by: user)
+            end
+
+            it 'will update title of the work' do
+              expect(repository).to receive(:update_work_title!).exactly(1).and_call_original
               subject.submit(requested_by: user)
             end
 
