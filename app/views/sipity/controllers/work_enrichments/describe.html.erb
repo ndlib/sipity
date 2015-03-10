@@ -19,6 +19,8 @@
       <%= content_tag :p, t("sipity/decorators/entitiy_enrichments.panels.abstract.hint"), class: 'panel-hint' %>
       <%= f.error_notification %>
 
+      <%= f.input :title, input_html: { class: 'form-control' }  %>
+
       <%= f.input :abstract, as: :text, input_html: { class: 'form-control', rows: 5 } %>
 
       <% 

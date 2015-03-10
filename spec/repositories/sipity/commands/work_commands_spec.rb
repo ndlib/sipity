@@ -81,6 +81,15 @@ module Sipity
         end
       end
 
+      context '#update_title!' do
+        let(:attributes) { { title: 'bogus', work_publication_strategy: 'do_not_know', work_type: 'doctoral_dissertation' } }
+        subject { test_repository.create_work!(attributes) }
+        it 'will update title of the work object' do
+          expect { test_repository.update_work_title!(work: subject, title: 'helloworld') }.
+            to change(subject, :title).from('bogus').to('helloworld')
+        end
+      end
+
       context '#default_pid_minter' do
         subject { test_repository.default_pid_minter }
         it { should respond_to(:call) }

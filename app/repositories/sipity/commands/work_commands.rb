@@ -57,6 +57,10 @@ module Sipity
         end
       end
 
+      def update_work_title!(work:, title:)
+        work.update!(title: title)
+      end
+
       # This may look ridiculous, but I'd like to isolate the destruction so
       # that I can associate any other actions with it (i.e. logging, emails, etc.)
       def destroy_a_work(work:)
