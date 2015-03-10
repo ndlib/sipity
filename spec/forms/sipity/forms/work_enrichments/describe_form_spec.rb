@@ -54,7 +54,7 @@ module Sipity
             expect(subject.alternate_title).to eq ''
           end
 
-          it 'will update and return title of the work' do
+          it 'will return title of the work' do
             expect(work).to receive(:title).and_return(title)
             expect(subject.title).to eq title
           end

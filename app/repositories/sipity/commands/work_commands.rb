@@ -56,7 +56,6 @@ module Sipity
       end
 
       def update_work_title!(work:, title:)
-        return true unless title.present?
         work.update!(title: title)
       end
 
