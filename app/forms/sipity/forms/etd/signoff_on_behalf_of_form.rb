@@ -34,12 +34,20 @@ module Sipity
         end
 
         def save(requested_by:)
-          repository.register_action_taken_on_entity(
-            work: work, enrichment_type: enrichment_type, requested_by: requested_by, on_behalf_of: on_behalf_of_collaborator
-          )
+          register_the_actions(requested_by: requested_by)
           repository.log_event!(entity: work, user: requested_by, event_name: event_name)
           signoff_service.call(form: self, requested_by: requested_by, repository: repository)
           work
+        end
+
+        RELATED_ACTION_FOR_SIGNOFF = 'advisor_signoff'
+        def register_the_actions(requested_by:)
+          repository.register_action_taken_on_entity(
+            work: work, enrichment_type: enrichment_type, requested_by: requested_by, on_behalf_of: on_behalf_of_collaborator
+          )
+          @registered_action = repository.register_action_taken_on_entity(
+            work: work, enrichment_type: RELATED_ACTION_FOR_SIGNOFF, requested_by: requested_by, on_behalf_of: on_behalf_of_collaborator
+          )
         end
 
         def default_signoff_service

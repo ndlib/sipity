@@ -33,7 +33,7 @@ module Sipity
           where(Models::Processing::StrategyAction.arel_table[:name].eq(action_name)).count > 0
       end
 
-      # @api public
+      # @api private
       #
       # An ActiveRecord::Relation scope that meets the following criteria:
       #
@@ -48,36 +48,54 @@ module Sipity
       # @return ActiveRecord::Relation<User>
       def users_that_have_taken_the_action_on_the_entity(entity:, action:)
         users = User.arel_table
-        actors = Models::Processing::Actor.arel_table
         group_memberships = Models::GroupMembership.arel_table
-        action_registers = Models::Processing::EntityActionRegister.arel_table
-        user_polymorphic_type = Conversions::ConvertToPolymorphicType.call(User)
-        group_polymorphic_type = Conversions::ConvertToPolymorphicType.call(Sipity::Models::Group)
-        entity = Conversions::ConvertToProcessingEntity.call(entity)
-        action = Conversions::ConvertToProcessingAction.call(action, scope: entity)
-
-        action_registers_subquery_builder = lambda do |poly_type|
-          actors.project(actors[:proxy_for_id]).where(
-            actors[:proxy_for_type].eq(poly_type)
-          ).join(action_registers).on(
-            action_registers[:on_behalf_of_actor_id].eq(actors[:id])
-          ).where(
-            action_registers[:strategy_action_id].eq(action.id).
-            and(action_registers[:entity_id].eq(entity.id))
-          )
-        end
 
         User.where(
-          users[:id].in(action_registers_subquery_builder.call(user_polymorphic_type)
+          users[:id].in(
+            action_registers_subquery_builder(
+              poly_type: User, entity: entity, action: action
+            )
           ).or(
             users[:id].in(
               group_memberships.project(group_memberships[:user_id]).where(
-                group_memberships[:group_id].in(action_registers_subquery_builder.call(group_polymorphic_type))
+                group_memberships[:group_id].in(
+                  action_registers_subquery_builder(
+                    poly_type: Sipity::Models::Group, entity: entity, action: action
+                  )
+                )
               )
             )
           )
         )
       end
+
+      def action_registers_subquery_builder(poly_type:, entity:, action:)
+        actors = Models::Processing::Actor.arel_table
+        action_registers = Models::Processing::EntityActionRegister.arel_table
+        entity = Conversions::ConvertToProcessingEntity.call(entity)
+        action = Conversions::ConvertToProcessingAction.call(action, scope: entity)
+        poly_type = Conversions::ConvertToPolymorphicType.call(poly_type)
+
+        actors.project(actors[:proxy_for_id]).where(
+          actors[:proxy_for_type].eq(poly_type)
+        ).join(action_registers).on(
+          action_registers[:on_behalf_of_actor_id].eq(actors[:id])
+        ).where(
+          action_registers[:strategy_action_id].eq(action.id).
+          and(action_registers[:entity_id].eq(entity.id))
+        )
+      end
+      private :action_registers_subquery_builder
+
+      # @api private
+      def non_user_collaborators_that_have_taken_the_action_on_the_entity(entity:, action:)
+        Models::Collaborator.where(
+          Models::Collaborator.arel_table[:id].in(
+            action_registers_subquery_builder(poly_type: Models::Collaborator, entity: entity, action: action)
+          )
+        )
+      end
+      private :non_user_collaborators_that_have_taken_the_action_on_the_entity
 
       # @api public
       #
@@ -99,9 +117,9 @@ module Sipity
       def collaborators_that_have_taken_the_action_on_the_entity(entity:, action:)
         entity = Conversions::ConvertToProcessingEntity.call(entity)
         collaborators = Models::Collaborator.arel_table
-        actors = Models::Processing::Actor.arel_table
         users = User.arel_table
         users_scope = users_that_have_taken_the_action_on_the_entity(entity: entity, action: action)
+        non_user_collaborator_scope = non_user_collaborators_that_have_taken_the_action_on_the_entity(entity: entity, action: action)
 
         Models::Collaborator.where(
           collaborators[:netid].in(
@@ -112,8 +130,10 @@ module Sipity
             )
           ).or(
             collaborators[:id].in(
-              actors.project(actors[:proxy_for_id]).where(
-                actors[:proxy_for_type].eq(Models::Collaborator)
+              Models::Collaborator.arel_table.project(
+                non_user_collaborator_scope.arel_table[:id]
+              ).where(
+                non_user_collaborator_scope.constraints.reduce
               )
             )
           )

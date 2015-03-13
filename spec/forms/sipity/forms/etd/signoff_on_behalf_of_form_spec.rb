@@ -65,10 +65,16 @@ module Sipity
             allow(subject).to receive(:valid?).and_return(true)
           end
 
-          it 'will register_action_taken_on_entity' do
+          it 'will registered the action and related action' do
             expect(repository).to receive(:register_action_taken_on_entity).
               with(work: work, enrichment_type: 'signoff_on_behalf_of', requested_by: user, on_behalf_of: on_behalf_of_collaborator).
               and_call_original
+            expect(repository).to receive(:register_action_taken_on_entity).with(
+              work: work,
+              enrichment_type: described_class::RELATED_ACTION_FOR_SIGNOFF,
+              requested_by: user,
+              on_behalf_of: on_behalf_of_collaborator
+            ).and_call_original
             subject.submit(requested_by: user)
           end
 
