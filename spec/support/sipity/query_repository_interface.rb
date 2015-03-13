@@ -14,6 +14,10 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
+    def action_registers_subquery_builder(poly_type:, entity:, action:)
+    end
+
+    # @see ./app/repositories/sipity/queries/processing_queries.rb
     def authorized_for_processing?(user:, entity:, action:)
     end
 
@@ -119,6 +123,10 @@ module Sipity
 
     # @see ./app/repositories/sipity/queries/simple_controlled_vocabulary_queries.rb
     def get_controlled_vocabulary_values_for_predicate_name(name:)
+    end
+
+    # @see ./app/repositories/sipity/queries/processing_queries.rb
+    def non_user_collaborators_that_have_taken_the_action_on_the_entity(entity:, action:)
     end
 
     # @see ./app/repositories/sipity/queries/attachment_queries.rb

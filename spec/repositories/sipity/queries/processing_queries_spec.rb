@@ -411,27 +411,33 @@ module Sipity
             name: 'groupy', netid: groupy.username, responsible_for_review: true, role: 'Committee Member', work_id: entity.proxy_for_id
           )
 
+          not_yet_acted_collaborator = Models::Collaborator.create!(
+            name: 'not_yet_acted_collaborator',
+            email: 'not_yet_acted_collaborator@gmail.com',
+            responsible_for_review: true,
+            role: 'Committee Member',
+            work_id: entity.proxy_for_id
+          )
           Models::GroupMembership.create(user_id: groupy.id, group_id: group.id)
 
           [
-            user, non_acting_user, other_user, groupy, user_acting_collaborator, acting_via_email_collaborator
+            user, non_acting_user, other_user, groupy, user_acting_collaborator, acting_via_email_collaborator, not_yet_acted_collaborator
           ].each do |proxy_for_actor|
             Conversions::ConvertToProcessingActor.call(proxy_for_actor)
           end
 
           Models::Collaborator.create!(
-            name: 'non_acting',
-            email: 'non_acting@gmail.com',
-            responsible_for_review: true,
-            role: 'Committee Member',
-            work_id: entity.proxy_for_id
+            name: 'non_reviewing', role: 'Committee Member', responsible_for_review: false, work_id: entity.proxy_for_id
           )
-          Models::Collaborator.create!(name: 'non_reviewing', role: 'Committee Member', work_id: entity.proxy_for_id)
           Services::RegisterActionTakenOnEntity.call(entity: entity, action: action, requested_by: user)
           Services::RegisterActionTakenOnEntity.call(entity: entity, action: action, requested_by: group)
           Services::RegisterActionTakenOnEntity.call(entity: entity, action: action, requested_by: acting_via_email_collaborator)
           expect(subject.pluck(:name)).to eq(
-            [user_acting_collaborator.name, acting_via_email_collaborator.name, group_collaborator.name]
+            [
+              user_acting_collaborator.name,
+              acting_via_email_collaborator.name,
+              group_collaborator.name
+            ]
           )
         end
         it "will be a chainable scope" do
