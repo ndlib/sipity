@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/ndlib/sipity.png?label=ready&title=Ready)](https://waffle.io/ndlib/sipity)
 # Sipity
 
 [![Build Status](https://travis-ci.org/ndlib/sipity.png?branch=master)](https://travis-ci.org/ndlib/sipity)
