@@ -19,5 +19,6 @@ module Sipity
     include Queries::AttachmentQueries
     include Queries::SimpleControlledVocabularyQueries
     include Queries::AccountProfileQueries
+    include Queries::CommentQueries
   end
 end
