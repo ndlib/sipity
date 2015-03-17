@@ -141,6 +141,10 @@ module Sipity
     def exposed_work_attribute_names_for(work:, additional_attribute_names: BASE_HEADER_ATTRIBUTES)
     end
 
+    # @see ./app/repositories/sipity/queries/comment_queries.rb
+    def find_comments_for_work(work:)
+    end
+
     # @see ./app/repositories/sipity/queries/doi_queries.rb
     def find_doi_creation_request(work:)
     end

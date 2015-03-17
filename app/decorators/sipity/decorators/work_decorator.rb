@@ -57,6 +57,12 @@ module Sipity
         end
       end
 
+      def comments
+        @comments ||= repository.find_comments_for_work(work: self).map do|comment|
+          Decorators::Processing::ProcessingCommentDecorator.decorate(comment)
+        end
+      end
+
       private
 
       def processing_actions(user:)

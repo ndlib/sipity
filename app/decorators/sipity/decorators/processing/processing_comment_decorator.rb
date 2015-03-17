@@ -1,10 +1,10 @@
 module Sipity
   module Decorators
-    module Prcessing
+    module Processing
       # Responsible for exposing methods required to display comments . Nothing
       # too fancy.
-      class ProcessingCommentDecorator
-        def initialize(processing_comment)
+      class ProcessingCommentDecorator < ApplicationDecorator
+        def initialize(processing_comment, _opts = {})
           @processing_comment = processing_comment
         end
 
