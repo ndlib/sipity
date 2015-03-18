@@ -73,6 +73,17 @@
     </div>
   </div>
 
+  <% if model.comments.present? %>
+    <div class="row">
+      <div class="col-md-6 alert alert-warning feedback-notice">
+        <% model.comments.each do |comment| %>
+          <p><strong>Feedback from <%= comment.name_of_commentor %></strong>:</p>
+          <p><%= comment.comment %></p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
   <div class="row">
 
     <% if has_available_enrichment_actions  %>
