@@ -109,7 +109,7 @@ module Sipity
           attr_reader :access_right_code, :release_date, :persisted_object
           private :persisted_object
 
-          delegate :to_param, :id, :to_s, to: :persisted_object
+          delegate :to_param, :id, :to_s, :human_model_name, to: :persisted_object
 
           def persisted?
             true
