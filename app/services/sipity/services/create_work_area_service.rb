@@ -40,7 +40,8 @@ module Sipity
       attr_reader :processing_strategy, :work_area_managers, :strategy_role
 
       def find_or_create_work_area(attributes)
-        Models::WorkArea.find_by(attributes.slice(:name)) || Models::WorkArea.create!(attributes)
+        # Going with slug because these are "more permanent"
+        Models::WorkArea.find_by(attributes.slice(:slug)) || Models::WorkArea.create!(attributes)
       end
 
       def create_work_area_processing_entity!
