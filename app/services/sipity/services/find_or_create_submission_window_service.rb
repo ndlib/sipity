@@ -17,7 +17,11 @@ module Sipity
       private
 
       attr_accessor :slug, :work_area
-      attr_reader :submission_window
+      attr_reader :submission_window, :work_area
+
+      def work_area=(input)
+        @work_area = PowerConverter.convert(input, to: :work_area)
+      end
 
       public
 
