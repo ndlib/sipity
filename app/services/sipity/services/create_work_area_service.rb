@@ -24,7 +24,7 @@ module Sipity
 
       def call
         create_processing_strategy!
-        create_work_area!
+        create_work_area_processing_entity!
         associate_work_area_with_processing_strategy!
         associate_work_area_manager_with_processing_strategy!
         grant_permission_for_the_work_area_manager_to_see_the_area!
@@ -43,7 +43,7 @@ module Sipity
         Models::WorkArea.find_by(attributes.slice(:name)) || Models::WorkArea.create!(attributes)
       end
 
-      def create_work_area!
+      def create_work_area_processing_entity!
         work_area.processing_entity || work_area.create_processing_entity!(
           strategy: processing_strategy, strategy_state: processing_strategy.initial_strategy_state
         )
