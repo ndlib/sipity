@@ -18,6 +18,10 @@ module Sipity
         expect(subject.to_s).to eq(subject.name)
       end
 
+      it 'will have one .strategy_usage' do
+        expect(subject.association(:strategy_usage)).to be_a(ActiveRecord::Associations::HasOneAssociation)
+      end
+
       context '#to_processing_entity' do
         it 'will raise an exception if one has not been created' do
           expect { subject.to_processing_entity }.to raise_error(Exceptions::ProcessingEntityConversionError)

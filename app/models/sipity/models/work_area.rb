@@ -15,6 +15,8 @@ module Sipity
 
       Processing.configure_as_a_processible_entity(self)
 
+      has_one :strategy_usage, as: :usage, class_name: 'Sipity::Models::Processing::StrategyUsage', dependent: :destroy
+
       def to_s
         name
       end
