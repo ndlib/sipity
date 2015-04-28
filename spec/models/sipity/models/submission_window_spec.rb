@@ -15,6 +15,10 @@ module Sipity
         expect(subject.submission_window_work_types).to be_a(ActiveRecord::Relation)
       end
 
+      it 'will have one .strategy_usage' do
+        expect(subject.association(:strategy_usage)).to be_a(ActiveRecord::Associations::HasOneAssociation)
+      end
+
       context '#slug' do
         it 'will transform the slug to a URI safe item' do
           subject.slug = 'Hello World'
