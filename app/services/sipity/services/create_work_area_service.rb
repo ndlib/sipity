@@ -24,7 +24,7 @@ module Sipity
 
       def call
         create_processing_strategy!
-        create_work_area!
+        create_work_area_processing_entity!
         associate_work_area_with_processing_strategy!
         associate_work_area_manager_with_processing_strategy!
         grant_permission_for_the_work_area_manager_to_see_the_area!
@@ -40,10 +40,11 @@ module Sipity
       attr_reader :processing_strategy, :work_area_managers, :strategy_role
 
       def find_or_create_work_area(attributes)
-        Models::WorkArea.find_by(attributes.slice(:name)) || Models::WorkArea.create!(attributes)
+        # Going with slug because these are "more permanent"
+        Models::WorkArea.find_by(attributes.slice(:slug)) || Models::WorkArea.create!(attributes)
       end
 
-      def create_work_area!
+      def create_work_area_processing_entity!
         work_area.processing_entity || work_area.create_processing_entity!(
           strategy: processing_strategy, strategy_state: processing_strategy.initial_strategy_state
         )

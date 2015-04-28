@@ -7,16 +7,15 @@ def find_or_initialize_or_create!(attributes = {})
   receiver.send(method_name, attributes.except(:context, :receiver))
 end
 
+# TODO: Assign work_area_manager to Grad School Group
+etd_work_area = Sipity::Services::CreateWorkAreaService.call(name: 'Electronic Thesis and Dissertation', slug: 'etd')
+
+# TODO: Assign submission_window_manager to Grad School Group
+submission_window = Sipity::Services::FindOrCreateSubmissionWindowService.call(slug: 'start', work_area: etd_work_area)
+
 ['doctoral_dissertation', 'master_thesis'].each do |work_type_name|
   $stdout.puts "Creating #{work_type_name} State Machine"
-  work_type = Sipity::Models::WorkType.find_by(name: work_type_name)
-
-  work_type.find_or_initialize_default_processing_strategy do |etd_strategy|
-    find_or_initialize_or_create!(
-      context: etd_strategy,
-      receiver: etd_strategy.strategy_usages,
-      usage: work_type
-    )
+  Sipity::Services::FindOrCreateWorkTypeService.call(name: work_type_name) do |work_type, etd_strategy, _initial_strategy_state|
     etd_strategy_roles = {}
 
     [
@@ -203,7 +202,7 @@ end
         end
       end
     end
-  end.save!
+  end
 
   # Define associated emails by a named thing
   [
