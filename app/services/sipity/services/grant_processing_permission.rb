@@ -2,9 +2,6 @@ module Sipity
   module Services
     # Service object that handles the business logic of granting permission.
     class GrantProcessingPermission
-      include Conversions::ConvertToRole
-      include Conversions::ConvertToProcessingEntity
-      include Conversions::ConvertToProcessingActor
       def self.call(entity:, actor:, role:)
         new(entity: entity, actor: actor, role: role).call
       end
@@ -45,14 +42,17 @@ module Sipity
         ).joins(:strategy_responsibilities).any?
       end
 
+      include Conversions::ConvertToProcessingEntity
       def entity=(object)
         @entity = convert_to_processing_entity(object)
       end
 
+      include Conversions::ConvertToProcessingActor
       def actor=(object)
         @actor = convert_to_processing_actor(object)
       end
 
+      include Conversions::ConvertToRole
       def role=(object)
         @role = convert_to_role(object)
       end

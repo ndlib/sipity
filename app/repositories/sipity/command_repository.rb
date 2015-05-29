@@ -24,13 +24,5 @@ module Sipity
     include Commands::TodoListCommands
     include Commands::AccountProfileCommands
     include Commands::ProcessingCommands
-
-    def submit_etd_student_submission_trigger!
-      fail NotImplementedError, "I want to expose this method, but I have layers of modules to consider"
-    end
-
-    def submit_ingest_etd
-      fail NotImplementedError, "I want to expose this method, but I have layers of modules to consider"
-    end
   end
 end

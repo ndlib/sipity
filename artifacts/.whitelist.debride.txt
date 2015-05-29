@@ -1,0 +1,1 @@
+/^(method_missing|\w+\=|respond_to_missing\?|table_name_prefix)$/

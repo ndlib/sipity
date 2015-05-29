@@ -4,18 +4,6 @@ module Sipity
   RSpec.describe CommandRepository, type: :repository do
     subject { CommandRepository.new }
 
-    context '#submit_etd_student_submission_trigger!' do
-      it 'is a placeholder until I can spend some time focusing on it' do
-        expect { described_class.new.submit_etd_student_submission_trigger! }.to raise_error(NotImplementedError)
-      end
-    end
-
-    context '#submit_ingest_etd' do
-      it 'is a placeholder until I can spend some time focusing on it' do
-        expect { described_class.new.submit_ingest_etd }.to raise_error(NotImplementedError)
-      end
-    end
-
     context 'verifying method definition interaction' do
       let(:modules_to_check_for_method_collision) do
         # I'm concerned about the methods I've mixed in. There are several

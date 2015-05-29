@@ -1,0 +1,87 @@
+#!/usr/bin/env ruby -wU
+
+CONFIG_KEYS = [:REPOSITORY_PATH, :WHITELIST_PATH, :OUTPUT_FILENAME].freeze
+
+REPOSITORY_PATH = ENV.fetch('REPOSITORY_PATH') { File.expand_path(File.join(File.dirname(__FILE__), '../')) }
+OUTPUT_FILENAME = ENV.fetch('OUTPUT_FILENAME') { File.join(REPOSITORY_PATH, 'artifacts/uncalled-method-check.results.csv') }
+WHITELIST_PATH = ENV.fetch('WHITELIST_PATH') { File.join(REPOSITORY_PATH, 'artifacts/.whitelist.debride.txt') }
+
+#*******************************************************************************
+#
+# HELP OPTIONS
+#
+#*******************************************************************************
+
+if ARGV.grep(/^-+h(elp)?$/i).size > 0
+  $stdout.puts ""
+  $stdout.puts "Before you run: `gem install debride; gem install debride-erb`"
+  $stdout.puts ""
+  $stdout.puts "$ ./scripts/#{File.basename(__FILE__)}"
+  $stdout.puts ""
+  $stdout.puts "This script leverages debride to find uncalled methods. It is not"
+  $stdout.puts "foolproof, as static analysis of a dynamic language is complicated."
+  $stdout.puts "See https://rubygems.org/gems/debride for more information."
+  $stdout.puts ""
+  $stdout.puts "Current Configuration:"
+  CONFIG_KEYS.each do |key|
+    $stdout.puts "\t#{key}='#{Object.const_get(key)}'"
+  end
+  $stdout.puts ""
+  $stdout.puts "You can override the configuration option by adding the corresponding"
+  $stdout.puts "ENV variable."
+  $stdout.puts ""
+  $stdout.puts "Example:"
+  $stdout.puts "$ REPOSITORY_PATH=/path/to/repository ./scripts/#{File.basename(__FILE__)}"
+  $stdout.puts ""
+  $stdout.puts "*"*80
+  $stdout.puts "*"*80
+  $stdout.puts ""
+  $stdout.puts "Note: You will need to install debride as a system gem. When I added it"
+  $stdout.puts "  to the Gemfile, I encountered the following error many times over:"
+  $stdout.puts ""
+  $stdout.puts "    skipping path/to/file.rb: unrecognized RUBY_VERSION 2.2.2"
+  exit(0)
+end
+
+# You'll want to install the system gems debride and debride-erb.
+# When I added it to the Gemfile, I encountered the following error:
+#
+#   skipping path/to/file.rb: unrecognized RUBY_VERSION 2.2.2
+require 'debride'
+require 'csv'
+
+# Guard that we have a clean working directory
+if `cd #{REPOSITORY_PATH} && git status --porcelain`.strip.size > 0
+  # $stderr.puts "Repository @ #{REPOSITORY_PATH} did not have a clean working directory"
+  # exit!(1)
+end
+
+begin
+  command = "cd #{REPOSITORY_PATH} && debride -r lib app --whitelist #{WHITELIST_PATH} > #{OUTPUT_FILENAME}.tmp"
+  unless system(command)
+    $stderr.puts "Error encountered running `#{command}'"
+    exit!(2)
+  end
+
+  method_names_and_filenames = []
+  REGEXP_FOR_LINE_MATCH = /^([\s\w\?]*)\s+((?:app|lib)\/[^:]*)(\:\d+)?$/
+
+  IO.foreach("#{OUTPUT_FILENAME}.tmp") do |line|
+    match = REGEXP_FOR_LINE_MATCH.match(line)
+    next unless match
+    method_name = match[1].strip
+    filename = match[2].strip
+    line_number = match[3].to_s.strip
+    method_names_and_filenames << [method_name, filename]
+    $stdout.puts "#{method_name}\n\t#{filename}#{line_number}"
+  end
+ensure
+  File.unlink("#{OUTPUT_FILENAME}.tmp") if File.exist?("#{OUTPUT_FILENAME}.tmp")
+end
+
+CSV.open(OUTPUT_FILENAME, 'w+') do |csv|
+  csv << ["MethodName", "Filename"]
+  method_names_and_filenames.sort.each do |row|
+    csv << row
+  end
+end
