@@ -66,12 +66,15 @@ group :development do
   gem 'spring-commands-rspec'
   gem 'terminal-notifier'
   gem 'terminal-notifier-guard', '~> 1.6.4'
+  gem 'mutant', github: 'mbj/mutant'
+  gem 'mutant-rspec', github: 'mbj/mutant'
 end
 
 group :development, :test do
   gem 'faker'
   gem 'pry-rescue', require: false
   gem 'pry-stack_explorer', require: false
+  gem 'rspec-core', '~> 3.2'
   gem 'rspec-its'
   gem 'rspec-rails'
   gem 'rubocop', require: false
