@@ -408,6 +408,8 @@ en:
   sipity/mailers/email_notifier:
     email_name:
       confirmation_of_advisor_signoff: "Confirmation of research director's approval"
+      grad_school_requests_change: 'The Graduate School has requested changes'
+      respond_to_advisor_request: "Author response to advisor's change request(s)"
   sipity/emails:
     access_controls:
       restricted_access: 'Restricted Access'

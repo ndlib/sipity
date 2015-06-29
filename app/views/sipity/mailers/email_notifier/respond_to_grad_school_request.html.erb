@@ -1,5 +1,5 @@
 <p>
-  <%= @entity.name_of_commentor %> has responded to a request for changes to <%= link_to @entity.title, @entity.email_message_action_url %>.
+  <%= @entity.name_of_commentor %> has responded to a request for changes to <%= link_to @entity.title, @entity.email_message_action_url %>
 </p>
 
 <%= render partial: 'comment', object: @entity %>
