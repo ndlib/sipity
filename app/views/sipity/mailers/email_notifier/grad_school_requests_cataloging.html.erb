@@ -1,0 +1,49 @@
+<p>Congratulations! Your <%= @entity.work_type %> has been approved by the Graduate School, and will now be added to the Hesburgh Library ETD collection. If you have any questions or concerns about this submission, please contact Shari Sweet at <a href="mailto:shill2@nd.edu" target="_top">shill2@nd.edu</a> or the Graduate School at <a href="mailto:dteditor@nd.edu" target="_top">dteditor@nd.edu</a> for assistance.</p>
+
+<p>You may access your official ETD record at: <%= link_to @entity.email_message_action_url, @entity.email_message_action_url %></p>
+
+<p>Author summary:</p>
+<ul>
+  <li>Name: <%= @entity.creator_names.to_sentence %></li>
+  <li>NetID: <%= @entity.creator_netids.to_sentence %></li>
+  <li>Program(s): <%= @entity.program_names.to_sentence %></li>
+  <li>Degree: <%= @entity.degree.to_sentence %></li>
+<ul>
+<p>ETD record summary:</p>
+<ul>
+  <li>Title: <%= @entity.title %></li>
+  <li>Submitted for advisor approval: <%= @entity.submission_date.to_sentence %></li>
+  <li>ETD record access: <%= t("sipity/emails.access_controls.#{@entity.work_access.access_right_code.to_s.titleize}") %></li>
+  <li>Publishing statement: <%= @entity.publishing_intent.to_sentence %></li>
+  <li>First public disclosure of material being considered for patent protection: <%= @entity.patent_intent.to_sentence %></li>
+</ul>
+
+<p>File summary:</p>
+<ul class="nested-attributes-list">
+  <% Array.wrap(@entity.accessible_files).each do |accessible_file| %>
+    <li class="nested-attribute-list">File name: <%= link_to accessible_file.to_s.html_safe, accessible_file.access_url %></li>
+    <li class="value access-right">File access: <%= t("sipity/emails.access_controls.#{accessible_file.access_right_code.to_s.titleize}") %></li>
+        <% if accessible_file.release_date.present? %>
+        <li class="value release-date">Release date: <%= accessible_file.release_date %></li>
+        <% end %>
+      </dl>
+  <% end %>
+</ul>
+
+<p>The following research directors have approved this submission:</p>
+<ul>
+  <% @entity.reviewers.each do |reviewer| %>
+    <!-- TODO: Display date of sign-off below instead of text -->
+    <li>Director: <%= reviewer.name %></li>
+  <% end %>
+</ul>
+
+<p>Additional committee members associated with this submission:</p>
+<ul>
+  <% @entity.additional_committe_members.each do |collaborator| %>
+    <li>Committee member: <%= collaborator.name %></li>
+  <% end %>
+</ul>
+
+<%= render partial: 'grad_school_email_signature' %>
+<%= render(partial: 'action_in_the_inbox', object: @entity) %>

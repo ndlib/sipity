@@ -11,7 +11,7 @@ module Sipity
         :confirmation_of_advisor_signoff_is_complete,
         :confirmation_of_work_created,
         :confirmation_of_submit_for_review,
-        :confirmation_of_grad_school_signoff,
+        :grad_school_requests_cataloging,
         :submit_for_review
       ].freeze
 
@@ -40,7 +40,8 @@ module Sipity
         :grad_school_requests_change,
         :request_change_on_behalf_of,
         :respond_to_advisor_request,
-        :respond_to_grad_school_request
+        :respond_to_grad_school_request,
+        :cataloger_request_change
       ].freeze
 
       NOTIFCATION_METHOD_NAMES_FOR_PROCESSING_COMMENTS.each do |method_name|
