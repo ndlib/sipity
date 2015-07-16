@@ -330,12 +330,12 @@ module Sipity
                 {
                   named_container: Models::Processing::StrategyAction,
                   name: 'send_to_cataloging',
-                  emails: { grad_school_requests_cataloging: { to: ['cataloger'] } }
+                  emails: { grad_school_requests_cataloging: { to: 'cataloger', cc: 'etd_reviewer' } }
                 },
                 {
                   named_container: Models::Processing::StrategyAction,
                   name: 'send_back_to_grad_school',
-                  emails: { cataloger_request_changes: { to: ['etd_reviewer'] } }
+                  emails: { cataloger_request_change: { to: 'etd_reviewer' } }
                 },
                 {
                   named_container: Models::Processing::StrategyState,
