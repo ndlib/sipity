@@ -4,7 +4,7 @@ module Sipity
   module Forms
     module WorkSubmissions
       module Etd
-        RSpec.describe GradSchoolSignoffForm do
+        RSpec.describe SendToCatalogingForm do
           let(:work) { double('Work') }
           let(:repository) { CommandRepositoryInterface.new }
           let(:user) { double('User') }

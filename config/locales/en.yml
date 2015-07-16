@@ -260,12 +260,15 @@ en:
         etd/respond_to_advisor_request_form: 'Tell your Advisors about the Changes You’ve Made'
         etd/respond_to_grad_school_request_form: 'Tell the Graduate School about the Changes You’ve Made'
         etd/advisor_signoff: 'Proceed with the Submission'
-        etd/grad_school_signoff: 'Proceed with the Submission'
+        etd/send_to_cataloging: 'Proceed with the Submission'
+        etd/cataloger_signoff: 'Proceed with the Submission'
+        etd/ingest_with_postponed_cataloging: 'Proceed with the Submission'
+        etd/cataloger_requests_change: 'Changes are Required for Cataloging'
         etd/submit_for_review: 'Terms of Deposit'
       verification:
         etd/advisor_signoff:
           i_agree: 'I have reviewed the submission and all aspects of it conform to my expectations.'
-        etd/grad_school_signoff:
+        etd/cataloger_signoff:
           i_agree: 'I have reviewed the submission and all aspects of it conform to my expectations.'
   simple_form:
     "yes": 'Yes'
