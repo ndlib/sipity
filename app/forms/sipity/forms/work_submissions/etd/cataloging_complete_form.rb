@@ -16,21 +16,24 @@ module Sipity
             self.requested_by = requested_by
             self.processing_action_form = processing_action_form_builder.new(form: self, **keywords)
             self.agree_to_signoff = attributes[:agree_to_signoff]
+            self.oclc_number = attributes.fetch(:oclc_number) { oclc_number_from_work }
           end
 
           include ActiveModel::Validations
           validates :agree_to_signoff, acceptance: { accept: true }
+          validates :oclc_number, presence: true
 
+          attr_reader :oclc_number
           # @param f SimpleFormBuilder
           #
           # @return String
           def render(f:)
             markup = view_context.content_tag('legend', legend)
+            markup << f.input(:oclc_number, input_html: { required: 'required' }).html_safe
             markup << f.input(
               :agree_to_signoff,
               as: :boolean,
-              inline_label:
-              signoff_agreement,
+              inline_label: signoff_agreement,
               input_html: { required: 'required' }, # There is no way to add true boolean attributes to simle_form fields.
               label: false,
               wrapper_class: 'checkbox'
@@ -45,9 +48,15 @@ module Sipity
             view_context.t('i_agree', scope: 'sipity/forms.state_advancing_actions.verification.etd/cataloger_signoff').html_safe
           end
 
-          delegate :submit, to: :processing_action_form
+          def submit
+            processing_action_form.submit do
+              repository.update_work_attribute_values!(work: work, key: Models::AdditionalAttribute::OCLC_NUMBER, values: oclc_number)
+            end
+          end
 
           private
+
+          attr_writer :oclc_number
 
           def agree_to_signoff=(value)
             @agree_to_signoff = PowerConverter.convert_to_boolean(value)
@@ -55,6 +64,10 @@ module Sipity
 
           def view_context
             Draper::ViewContext.current
+          end
+
+          def oclc_number_from_work
+            repository.work_attribute_values_for(work: work, key: 'oclc_number')
           end
         end
       end
