@@ -24,6 +24,12 @@ module Sipity
           class_name: 'Sipity::Models::Processing::Comment'
         )
 
+        has_many(
+          :administrative_scheduled_actions,
+          dependent: :destroy,
+          class_name: 'Sipity::Models::Processing::AdministrativeScheduledAction'
+        )
+
         delegate :name, to: :strategy_state, prefix: :strategy_state
         delegate :name, to: :strategy, prefix: :strategy
 
