@@ -121,6 +121,10 @@ module Sipity
     def representative_attachment_for(work:)
     end
 
+    # @see ./app/repositories/sipity/queries/administrative_scheduled_action_queries.rb
+    def scheduled_time_from_work(work:, reason:)
+    end
+
     # @see ./app/repositories/sipity/queries/processing_queries.rb
     def scope_actors_associated_with_entity_and_role(entity:, role:)
     end

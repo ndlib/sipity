@@ -16,17 +16,30 @@ module Sipity
             self.requested_by = requested_by
             self.processing_action_form = processing_action_form_builder.new(form: self, **keywords)
             self.agree_to_signoff = attributes[:agree_to_signoff]
+            self.scheduled_time = attributes.fetch(:scheduled_time) { scheduled_time_from_work }
           end
 
           include ActiveModel::Validations
           validates :agree_to_signoff, acceptance: { accept: true }
+          validates :scheduled_time, presence: true
+
+          attr_reader :scheduled_time, :reason
 
           # @param f SimpleFormBuilder
           #
           # @return String
           def render(f:)
             markup = view_context.content_tag('legend', legend)
-            markup << f.input(
+            markup << add_scheduled_time(f: f)
+            markup << add_agree_to_signoff(f: f)
+          end
+
+          def add_scheduled_time(f:)
+            f.input(:scheduled_time, input_html: { required: 'required' }).html_safe
+          end
+
+          def add_agree_to_signoff(f:)
+            f.input(
               :agree_to_signoff,
               as: :boolean,
               inline_label:
@@ -47,9 +60,26 @@ module Sipity
             ).html_safe
           end
 
-          delegate :submit, to: :processing_action_form
+          def submit
+            processing_action_form.submit do
+              repository.create_scheduled_action(
+                work: work,
+                scheduled_time: scheduled_time,
+                reason: Sipity::Models::Processing::AdministrativeScheduledAction::NOTIFY_CATALOGING_REASON
+              )
+            end
+          end
+
+          def scheduled_time_from_work
+            repository.scheduled_time_from_work(
+              work: work,
+              reason: Sipity::Models::Processing::AdministrativeScheduledAction::NOTIFY_CATALOGING_REASON
+            )
+          end
 
           private
+
+          attr_writer :scheduled_time
 
           def agree_to_signoff=(value)
             @agree_to_signoff = PowerConverter.convert_to_boolean(value)
