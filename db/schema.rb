@@ -150,10 +150,10 @@ ActiveRecord::Schema.define(version: 20150717153523) do
 
   add_index "sipity_groups", ["name"], name: "index_sipity_groups_on_name", unique: true, using: :btree
 
-  create_table "sipity_models_processing_administrative_scheduled_action", force: :cascade do |t|
+  create_table "sipity_models_processing_administrative_scheduled_actions", force: :cascade do |t|
     t.string   "scheduled_time", limit: 255, null: false
-    t.string   "reason",         limit: 255
-    t.string   "entity_id",      limit: 255
+    t.string   "reason",         limit: 255, null: false
+    t.string   "entity_id",      limit: 255, null: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
   end
