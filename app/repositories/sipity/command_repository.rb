@@ -24,5 +24,6 @@ module Sipity
     include Commands::TodoListCommands
     include Commands::AccountProfileCommands
     include Commands::ProcessingCommands
+    include Commands::AdministrativeScheduledActionCommands
   end
 end
