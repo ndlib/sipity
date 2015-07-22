@@ -73,6 +73,10 @@ module Sipity
     def collaborators_that_have_taken_the_action_on_the_entity(entity:, actions:)
     end
 
+    # @see ./app/repositories/sipity/commands/administrative_scheduled_action_commands.rb
+    def create_scheduled_action(work:, scheduled_time:, reason:)
+    end
+
     # @see ./app/repositories/sipity/commands/work_commands.rb
     def create_sipity_user_from(netid:, email: nil)
     end
@@ -215,6 +219,10 @@ module Sipity
 
     # @see ./app/repositories/sipity/queries/attachment_queries.rb
     def representative_attachment_for(work:)
+    end
+
+    # @see ./app/repositories/sipity/queries/administrative_scheduled_action_queries.rb
+    def scheduled_time_from_work(work:, reason:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb

@@ -11,13 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713172107) do
-
-  create_table "data_migrations", id: false, force: :cascade do |t|
-    t.string "version", limit: 255, null: false
-  end
-
-  add_index "data_migrations", ["version"], name: "unique_data_migrations", unique: true, using: :btree
+ActiveRecord::Schema.define(version: 20150717153523) do
 
   create_table "sipity_access_rights", force: :cascade do |t|
     t.string   "entity_id",         limit: 32,  null: false
@@ -97,6 +91,8 @@ ActiveRecord::Schema.define(version: 20150713172107) do
     t.boolean  "responsible_for_review",             default: false
   end
 
+  add_index "sipity_collaborators", ["email"], name: "index_sipity_collaborators_on_email", using: :btree
+  add_index "sipity_collaborators", ["netid"], name: "index_sipity_collaborators_on_netid", using: :btree
   add_index "sipity_collaborators", ["work_id", "email"], name: "index_sipity_collaborators_on_work_id_and_email", unique: true, using: :btree
   add_index "sipity_collaborators", ["work_id", "netid"], name: "index_sipity_collaborators_on_work_id_and_netid", unique: true, using: :btree
   add_index "sipity_collaborators", ["work_id", "sequence"], name: "index_sipity_collaborators_on_work_id_and_sequence", using: :btree
@@ -153,6 +149,16 @@ ActiveRecord::Schema.define(version: 20150713172107) do
   end
 
   add_index "sipity_groups", ["name"], name: "index_sipity_groups_on_name", unique: true, using: :btree
+
+  create_table "sipity_models_processing_administrative_scheduled_actions", force: :cascade do |t|
+    t.datetime "scheduled_time",             null: false
+    t.string   "reason",         limit: 255, null: false
+    t.string   "entity_id",      limit: 255, null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+  end
+
+  add_index "sipity_models_processing_administrative_scheduled_actions", ["entity_id", "reason"], name: "idx_sipity_scheduled_actions_entity_id_reason", using: :btree
 
   create_table "sipity_notification_email_recipients", force: :cascade do |t|
     t.integer  "email_id",           limit: 4,   null: false
