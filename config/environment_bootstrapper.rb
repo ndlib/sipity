@@ -16,3 +16,13 @@ cataloging = Sipity::Models::Group.find_or_create_by!(name: catalogers)
 
 $stdout.puts "Associating #{user.username} with #{cataloging.name}"
 cataloging.group_memberships.find_or_create_by(user: user)
+
+$stdout.puts "Creating User batch_ingestor"
+batch_ingestor = User.find_or_create_by!(username: 'batch_ingestor')
+
+etd_ingestors = Sipity::DataGenerators::WorkTypes::EtdGenerator::ETD_INGESTORS
+$stdout.puts "Finding or creating group for '#{etd_ingestors}'"
+etd_ingestor = Sipity::Models::Group.find_or_create_by!(name: etd_ingestors)
+
+$stdout.puts "Associating batch_ingestor with #{etd_ingestor.name}"
+etd_ingestor.group_memberships.find_or_create_by(user: batch_ingestor)
