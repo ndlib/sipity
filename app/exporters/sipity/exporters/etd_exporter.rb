@@ -53,13 +53,7 @@ module Sipity
       end
 
       def call
-        # Create rof etd file to be ingested
-        create_directory(curate_data_directory)
-        file_name = ROF_FILE_PREFIX + work.id + ROF_FILE_EXTN
-        metadata_file = File.join(curate_data_directory, file_name)
-        File.open(metadata_file, 'w+') do |rof_file|
-          rof_file.puts '[' + export_to_json.join(',') + ']'
-        end
+        package_data
         move_files_to_curate_batch_queue
       end
 
@@ -76,6 +70,16 @@ module Sipity
       private
 
       attr_accessor :repository, :work, :attachments
+
+      def package_data
+        # Create rof etd file to be ingested
+        create_directory(curate_data_directory)
+        file_name = ROF_FILE_PREFIX + work.id + ROF_FILE_EXTN
+        metadata_file = File.join(curate_data_directory, file_name)
+        File.open(metadata_file, 'w+') do |rof_file|
+          rof_file.puts '[' + export_to_json.join(',') + ']'
+        end
+      end
 
       def move_files_to_curate_batch_queue
         FileUtils.mv(curate_data_directory, MNT_QUEUE_PATH, verbose: true)
