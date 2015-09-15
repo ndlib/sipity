@@ -155,6 +155,7 @@ ParameterLists:
   Exclude:
   - app/data_generators/sipity/data_generators/permission_generator.rb
   - app/repositories/sipity/queries/work_queries.rb
+  - app/forms/sipity/forms/work_submissions/etd/submit_for_ingest_form.rb
 
 PercentLiteralDelimiters:
   Description: 'Use `%`-literal delimiters consistently'
