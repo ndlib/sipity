@@ -53,13 +53,11 @@ module Sipity
       end
 
       def call
-        # Create rof etd file to be ingested
-        create_directory(curate_data_directory)
-        file_name = ROF_FILE_PREFIX + work.id + ROF_FILE_EXTN
-        metadata_file = File.join(curate_data_directory, file_name)
-        File.open(metadata_file, 'w+') do |rof_file|
-          rof_file.puts '[' + export_to_json.join(',') + ']'
-        end
+        # Filter items which are not in 'ready_for_ingest' state
+        # or belongs to etd work_area
+        return unless etd_work_area? && ready_to_be_ingested?
+        package_data
+        mark_as_ingesting
         move_files_to_curate_batch_queue
       end
 
@@ -77,6 +75,16 @@ module Sipity
 
       attr_accessor :repository, :work, :attachments
 
+      def package_data
+        # Create rof etd file to be ingested
+        create_directory(curate_data_directory)
+        file_name = ROF_FILE_PREFIX + work.id + ROF_FILE_EXTN
+        metadata_file = File.join(curate_data_directory, file_name)
+        File.open(metadata_file, 'w+') do |rof_file|
+          rof_file.puts '[' + export_to_json.join(',') + ']'
+        end
+      end
+
       def move_files_to_curate_batch_queue
         FileUtils.mv(curate_data_directory, MNT_QUEUE_PATH, verbose: true)
       end
@@ -91,6 +99,31 @@ module Sipity
 
       def default_repository
         QueryRepository.new
+      end
+
+      def ready_to_be_ingested?
+        entity.strategy_state.name == 'ready_for_ingest'
+      end
+
+      def entity
+        @entity ||= Sipity::Conversions::ConvertToProcessingEntity.call(work)
+      end
+
+      def mark_as_ingesting
+        entity.strategy_state_id = ingesting_strategy_state.id
+        entity.save!
+      end
+
+      def ingesting_strategy_state
+        Sipity::Models::Processing::StrategyState.where(strategy_id: entity.strategy_id, name: 'ingesting').first
+      end
+
+      def etd_work_area?
+        work.work_area == etd_work_area
+      end
+
+      def etd_work_area
+        PowerConverter.convert_to_work_area('etd')
       end
     end
   end

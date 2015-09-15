@@ -4,7 +4,7 @@ module Sipity
   module Exporters
     RSpec.describe EtdExporter do
       let(:access_right) { ['private_access'] }
-      let(:work) { double }
+      let(:work) { double(Sipity::Models::Work) }
       let(:repository) { QueryRepositoryInterface.new }
       let(:creators) { [double(username: 'Hello')] }
       let(:title) { 'Title of the work' }
@@ -55,8 +55,25 @@ module Sipity
       end
 
       context 'call' do
+        let(:work_area) { double(Sipity::Models::WorkArea) }
+        let(:entity) { double(Sipity::Models::Processing::Entity) }
+        let(:strategy_state) { double(Sipity::Models::Processing::StrategyState) }
+        let(:ingested_strategy_state) { double(Sipity::Models::Processing::StrategyState) }
         it 'will send ROF JSON to ROF api to ingest into configured fedora' do
           allow(work).to receive(:id).and_return('a_id')
+
+          PowerConverter.should_receive(:convert_to_work_area).with('etd').and_return(work_area)
+          allow(work).to receive(:work_area).and_return(work_area)
+
+          expect(Conversions::ConvertToProcessingEntity).to receive(:call).with(work).and_return(entity)
+          expect(entity).to receive(:strategy_state).and_return(strategy_state)
+          expect(strategy_state).to receive(:name).and_return('ready_for_ingest')
+          expect(entity).to receive(:strategy_id).and_return(1)
+          expect(ingested_strategy_state).to receive(:id).and_return(1)
+          expect(Sipity::Models::Processing::StrategyState).to receive(:where).and_return([ingested_strategy_state])
+          expect(entity).to receive(:strategy_state_id=).with(1)
+          expect(entity).to receive(:save!)
+
           expect(repository).to receive(:work_attachments).with(work: work).and_return([file])
           expect(subject).to receive(:export_to_json).
             and_return(["rof json array"])

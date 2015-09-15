@@ -85,7 +85,9 @@ module Sipity
                 'grad_school_changes_requested',
                 'ready_for_ingest',
                 'ready_for_cataloging',
-                'back_from_cataloging'
+                'back_from_cataloging',
+                'ingesting',
+                'ingested'
               ].each do |state_name|
                 etd_states[state_name] = find_or_initialize_or_create!(
                   context: etd_strategy,
