@@ -36,6 +36,7 @@ module Sipity
       WORK_SUBMITTER = 'work_submitter'.freeze
       SUBMISSION_WINDOW_VIEWER = 'submission_window_viewer'.freeze
       CATALOGER = 'cataloger'.freeze
+      BATCH_INGESTOR = 'batch_ingestor'.freeze
 
       # As I don't have a means for assigning roles for a given processing type
       # I need a controlled vocabulary for roles.
@@ -49,7 +50,8 @@ module Sipity
           WORK_SUBMITTER => WORK_SUBMITTER,
           SUBMISSION_WINDOW_VIEWER => SUBMISSION_WINDOW_VIEWER,
           ULRA_REVIEWER => ULRA_REVIEWER,
-          CATALOGER => CATALOGER
+          CATALOGER => CATALOGER,
+          BATCH_INGESTOR => BATCH_INGESTOR
         }
       )
 
