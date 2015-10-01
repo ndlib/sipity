@@ -14,6 +14,7 @@ module Sipity
       has_one :work_submission, dependent: :destroy
 
       delegate :submission_window, :work_area, to: :work_submission, allow_nil: true
+      delegate :transition_date, to: :access_right, allow_nil: true, prefix: true
 
       include Conversions::SanitizeHtml
       def to_s
