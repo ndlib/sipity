@@ -21,19 +21,40 @@ module Sipity
             )
           end
 
+          let(:scheduled_time_input_format) do
+            [
+              :scheduled_time,
+              {
+                as: :date,
+                input_html: { class: "form-control" },
+                wrapper_html: { class: "form-inline" },
+                include_blank: true
+              }
+            ]
+          end
+
+          it { should respond_to :work }
+          it { should respond_to :scheduled_time }
+          it { should respond_to :agree_to_signoff }
           context '#render' do
             it 'will render HTML safe submission terms and confirmation with scheduled_time' do
               form_object = double('Form Object')
-              expect(work).to receive(:access_right_transition_date).and_return(scheduled_time)
-              expect(form_object).to receive(:input).with(:scheduled_time, input_html: { value: scheduled_time }).and_return("<input />")
+              expect(form_object).to receive(:input).with(*scheduled_time_input_format).and_return("<input />")
               expect(form_object).to receive(:input).with(:agree_to_signoff, hash_including(as: :boolean)).and_return("<input />")
               expect(subject.render(f: form_object)).to be_html_safe
             end
 
             it 'will render HTML safe submission terms and confirmation without scheduled_time' do
+              expect(work).to receive(:access_right_transition_date).and_return(scheduled_time)
+              subject = described_class.new(
+                keywords.merge(
+                  attributes: {
+                    agree_to_signoff: true
+                  }
+                )
+              )
               form_object = double('Form Object')
-              expect(work).to receive(:access_right_transition_date).and_return("")
-              expect(form_object).to receive(:input).with(:scheduled_time, input_html: { value: "" }).and_return("<input />")
+              expect(form_object).to receive(:input).with(*scheduled_time_input_format).and_return("<input />")
               expect(form_object).to receive(:input).with(:agree_to_signoff, hash_including(as: :boolean)).and_return("<input />")
               expect(subject.render(f: form_object)).to be_html_safe
             end
@@ -49,7 +70,7 @@ module Sipity
                 keywords.merge(
                   attributes: {
                     agree_to_signoff: true,
-                    scheduled_time: 'bogus'
+                    scheduled_time: scheduled_time
                   }
                 )
               )
