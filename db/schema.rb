@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160121142321) do
+ActiveRecord::Schema.define(version: 20160125135332) do
 
   create_table "data_migrations", id: false, force: :cascade do |t|
     t.string "version", limit: 255, null: false

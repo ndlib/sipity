@@ -352,7 +352,7 @@ en:
       citation:
         type: 'Citation format'
       work:
-        representative_attachment_id: 'Please select the manuscript file'
+        representative_attachment_id: 'Please select your primary file'
         files: 'Select files to upload'
     hints:
       work:

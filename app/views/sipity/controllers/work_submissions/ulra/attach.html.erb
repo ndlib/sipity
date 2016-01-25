@@ -25,20 +25,21 @@
 
     <%= f.input :files, as: :file, input_html: { multiple: 'multiple' }, label: "Upload project file(s)", hint: "To select multiple files: Windows Ctrl+click; Mac Cmd+click" %>
 
-  <% if model.attachments.any? %>
-    <ol class="attachment-listing">
-      <%= f.fields_for :attachments do |attachment_form| %>
-        <li class="attachement form-inline">
-          <%= attachment_form.input :name, input_html: { class: 'form-control' } %>
-          <%= attachment_form.input :delete, as: :boolean, wrapper_html: { class: 'checkbox' } %>
-        </li>
-      <% end %>
-    </ol>
+    <% if model.attachments.any? %>
+      <ol class="attachment-listing">
+        <%= f.fields_for :attachments do |attachment_form| %>
+          <li class="attachement form-inline">
+            <%= attachment_form.input :name, input_html: { class: 'form-control' } %>
+            <%= attachment_form.input :delete, as: :boolean, wrapper_html: { class: 'checkbox' } %>
+          </li>
+        <% end %>
+      </ol>
 
-    <%= f.input :representative_attachment_id, collection: model.attachments, input_html: { class: 'form-control' }, label: "Select the primary project file" %>
+      <%= f.input :representative_attachment_id, collection: model.attachments, input_html: { class: 'form-control' }, label: "Select the primary project file" %>
 
-    <%= f.input :project_url, input_html: { class: 'form-control' } %>
-  <% end %>
+    <% end %>
+
+    <%= f.input :project_url, input_html: { class: 'form-control' }, hint: "If you do not have project files to upload, provide a URL to your project." %>
   </fieldset>
 
   <div class="panel-footer action-pane">

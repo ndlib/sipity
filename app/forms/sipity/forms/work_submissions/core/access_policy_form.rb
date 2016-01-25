@@ -12,6 +12,8 @@ module Sipity
             form_class: self, base_class: Models::Work, processing_subject_name: :work,
             attribute_names: [:copyright, :accessible_objects_attributes, :representative_attachment_id]
           )
+          class_attribute :representative_attachment_predicate_name, instance_writer: false
+          self.representative_attachment_predicate_name = :all
 
           def initialize(work:, requested_by:, attributes: {}, **keywords)
             self.work = work
@@ -47,7 +49,7 @@ module Sipity
           end
 
           def available_representative_attachments
-            repository.work_attachments(work: work)
+            repository.work_attachments(work: work, predicate_name: representative_attachment_predicate_name)
           end
 
           def submit

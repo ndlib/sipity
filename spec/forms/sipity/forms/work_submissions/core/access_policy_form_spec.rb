@@ -25,7 +25,7 @@ module Sipity
               :access_rights_for_accessible_objects_of
             ).with(work: work, predicate_name: :all).and_return([work, attachment])
             allow(repository).to receive(:representative_attachment_for).with(work: work).and_return(attachment)
-            allow(repository).to receive(:work_attachments).with(work: work).and_return([attachment])
+            allow(repository).to receive(:work_attachments).with(work: work, predicate_name: :all).and_return([attachment])
           end
 
           its(:processing_action_name) { should eq('access_policy') }
@@ -54,7 +54,7 @@ module Sipity
           end
 
           it 'will not validate the presence of a representative attachment if there are no attachments' do
-            expect(repository).to receive(:work_attachments).with(work: work).and_return([])
+            expect(repository).to receive(:work_attachments).with(work: work, predicate_name: :all).and_return([])
             subject = described_class.new(keywords.merge(attributes: { representative_attachment_id: '' }))
             subject.valid?
             expect(subject.errors[:representative_attachment_id]).to_not be_present

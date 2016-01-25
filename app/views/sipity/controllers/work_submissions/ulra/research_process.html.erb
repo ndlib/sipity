@@ -11,7 +11,7 @@
     <div class="panel-tiles">
 
       <fieldset class="panel-body">
-        <%= f.input :files, as: :file, label: "Select your ULRA application essay", required: true %>
+        <%= f.input :files, as: :file, label: "Attach your ULRA application essay", required: true %>
         <% if model.attachments.any? %>
           <ol class="attachment-listing">
             <%= f.fields_for :attachments do |attachment_form| %>

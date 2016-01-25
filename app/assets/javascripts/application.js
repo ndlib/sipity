@@ -23,6 +23,7 @@
 //= require manage_repeating_fields
 //= require manage_repeating_sections
 //= require nd_ldap_lookup
+//= require ulra
 //
 //= stub vendor/modernizr
 

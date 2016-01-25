@@ -5,13 +5,16 @@
     <h3 class="panel-title">Publication Information</h3>
   </legend>
   <div class="panel-tiles">
-    <fieldset class="panel-body">
+    <fieldset class="panel-body with-followup-questions-js">
       <%= f.error_notification %>
       <%= f.error :base, error_method: :to_sentence %>
-      <%= f.input :submitted_for_publication, as: :boolean, inline_label: 'Was your project submitted for publication?', label: false, wrapper_class: 'checkbox' %>
-      <div class="ask-if-submitted-for-publication">
-        <%= f.input :publication_status_of_submission, as: :select, collection: f.object.possible_publication_status_of_submission, input_html: { class: 'form-control' } %>
-        <%= f.input :publication_name, as: :multi_value, input_html: { class: 'form-control' } %>
+      <%= f.input :submitted_for_publication, as: :boolean, inline_label: 'Was your project submitted for publication?', label: false, wrapper_class: 'checkbox', input_html: { class: 'submitted-for-publication-js'} %>
+      <div class="followup-questions-to-submitted-for-publication">
+        <noscript>
+          <p>If your project was submitted for publication please fill out the following:</p>
+        </noscript>
+        <%= f.input :publication_status_of_submission, as: :select, collection: f.object.possible_publication_status_of_submission, input_html: { class: 'form-control' }, hint: "(if applicable)" %>
+        <%= f.input :publication_name, as: :multi_value, input_html: { class: 'form-control' }, label: "Publication name(s)", hint: "(if applicable)" %>
       </div>
     </fieldset>
   </div>
