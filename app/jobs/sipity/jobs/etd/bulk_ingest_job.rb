@@ -28,16 +28,17 @@ module Sipity
       # @see Sipity::Models::Attachment for information on faking attached files.
       # @see https://github.com/ndlib/curatend-batch curatend-batch
       class BulkIngestJob
-        def self.call(**keywords)
-          new(**keywords).call
+        def self.call(work_area_slug:, **keywords)
+          new(work_area_slug: work_area_slug, **keywords).call
         end
 
         ATTRIBUTE_NAMES = [
-          :work_area_slug, :requested_by, :repository, :initial_processing_state_name, :work_ingester, :search_criteria_builder,
+          :requested_by, :repository, :initial_processing_state_name, :work_ingester, :search_criteria_builder,
           :processing_action_name, :exception_handler
         ].freeze
 
-        def initialize(**keywords)
+        def initialize(work_area_slug:, **keywords)
+          self.work_area_slug = work_area_slug
           ATTRIBUTE_NAMES.each do |attribute_name|
             send("#{attribute_name}=", keywords.fetch(attribute_name) { send("default_#{attribute_name}") })
           end
@@ -99,14 +100,10 @@ module Sipity
         end
 
         def ingester_attributes
-          { exporter: 'etd' }
+          { exporter: work_area_slug }
         end
 
         attr_accessor :work_area_slug
-
-        def default_work_area_slug
-          'etd'
-        end
 
         attr_accessor :exception_handler
 
