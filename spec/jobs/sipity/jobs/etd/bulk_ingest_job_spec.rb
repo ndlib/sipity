@@ -3,17 +3,17 @@ require 'sipity/jobs/etd/bulk_ingest_job'
 require 'sipity/models/work'
 
 RSpec.describe Sipity::Jobs::Etd::BulkIngestJob do
-  let(:work_area) { 'etd' }
+  let(:work_area_slug) { 'etd' }
   let(:repository) { Sipity::QueryRepositoryInterface.new }
   let(:work_ingester) { double('Work Ingester', call: true) }
   let(:exception_handler) { double('Exception Handler', call: true) }
 
   subject do
-    described_class.new(work_area: work_area, repository: repository, work_ingester: work_ingester, exception_handler: exception_handler)
+    described_class.new(work_area_slug: work_area_slug, repository: repository, work_ingester: work_ingester, exception_handler: exception_handler)
   end
 
   its(:default_initial_processing_state_name) { should eq('ready_for_ingest') }
-  its(:default_work_area) { should eq('etd') }
+  its(:default_work_area_slug) { should eq('etd') }
   its(:default_work_ingester) { should respond_to(:call) }
   its(:default_requested_by) { should be_a(String) }
   its(:default_search_criteria_builder) { should respond_to(:call) }
@@ -25,7 +25,7 @@ RSpec.describe Sipity::Jobs::Etd::BulkIngestJob do
 
   it 'exposes .call as a convenience method' do
     expect_any_instance_of(described_class).to receive(:call)
-    described_class.call(work_area: work_area, repository: repository)
+    described_class.call(work_area_slug: work_area_slug, repository: repository)
   end
 
   context '.call' do

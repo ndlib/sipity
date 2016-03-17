@@ -1,7 +1,7 @@
 module Sipity
   module Jobs
     module Etd
-      # Responsible for managing the ingest of each and every work in the :work_area that is in the :initial_processing_state_name.
+      # Responsible for managing the ingest of each and every work in the :work_area)slug that is in the :initial_processing_state_name.
       #
       # As these are jobs, I believe that I want the parameters to all be primatives (i.e. a String, an Integer). This way they can
       # be serialized without holding too much state. The BulkIngestJob makes use of the [curatend-batch](https://github.com/ndlib/curatend-batch)
@@ -33,7 +33,7 @@ module Sipity
         end
 
         ATTRIBUTE_NAMES = [
-          :work_area, :requested_by, :repository, :initial_processing_state_name, :work_ingester, :search_criteria_builder,
+          :work_area_slug, :requested_by, :repository, :initial_processing_state_name, :work_ingester, :search_criteria_builder,
           :processing_action_name, :exception_handler
         ].freeze
 
@@ -68,7 +68,7 @@ module Sipity
 
         def set_search_criteria!
           @search_criteria = search_criteria_builder.call(
-            user: requested_by, processing_state: initial_processing_state_name, work_area: work_area, page: :all
+            user: requested_by, processing_state: initial_processing_state_name, work_area: work_area_slug, page: :all
           )
         end
 
@@ -102,9 +102,9 @@ module Sipity
           { exporter: 'etd' }
         end
 
-        attr_accessor :work_area
+        attr_accessor :work_area_slug
 
-        def default_work_area
+        def default_work_area_slug
           'etd'
         end
 
