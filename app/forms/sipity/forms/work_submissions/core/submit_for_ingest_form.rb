@@ -2,24 +2,23 @@ require_relative '../../../forms'
 module Sipity
   module Forms
     module WorkSubmissions
-      module Etd
+      module Core
         # Responsible for calling the ETD Ingester
         class SubmitForIngestForm
           ProcessingForm.configure(
             form_class: self, base_class: Models::Work, processing_subject_name: :work,
-            attribute_names: []
+            attribute_names: [:exporter]
           )
 
-          def initialize(work:, requested_by:, exporter: default_exporter, **keywords)
+          def initialize(work:, requested_by:, attributes: {}, **keywords)
             self.work = work
             self.requested_by = requested_by
             self.processing_action_form = processing_action_form_builder.new(form: self, **keywords)
-            self.exporter = exporter
+            self.exporter = attributes.fetch(:exporter)
           end
 
           include ActiveModel::Validations
           validate :check_if_authorized
-          attr_accessor :exporter
 
           def submit
             processing_action_form.submit do
@@ -34,9 +33,8 @@ module Sipity
             errors.add(:base, :unauthorized)
           end
 
-          def default_exporter
-            require 'sipity/exporters/etd_exporter'
-            Exporters::EtdExporter
+          def exporter=(input)
+            @exporter = PowerConverter.convert(input, to: :exporter_function)
           end
         end
       end

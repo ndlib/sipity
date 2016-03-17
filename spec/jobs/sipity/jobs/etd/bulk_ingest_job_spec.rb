@@ -34,7 +34,8 @@ RSpec.describe Sipity::Jobs::Etd::BulkIngestJob do
       expect(repository).to receive(:find_works_via_search).and_return([work])
       subject.call
       expect(work_ingester).to have_received(:call).with(
-        work_id: work.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name)
+        work_id: work.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
+        attributes: subject.send(:ingester_attributes)
       )
     end
   end
@@ -45,16 +46,18 @@ RSpec.describe Sipity::Jobs::Etd::BulkIngestJob do
       work2 = Sipity::Models::Work.new(id: 2)
       allow(repository).to receive(:find_works_via_search).and_return([work1, work2])
       expect(work_ingester).to receive(:call).with(
-        work_id: work1.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name)
+        work_id: work1.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
+        attributes: subject.send(:ingester_attributes)
       ).and_raise(RuntimeError, "Failed for work1")
       expect(work_ingester).to receive(:call).with(
-        work_id: work2.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name)
+        work_id: work2.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
+        attributes: subject.send(:ingester_attributes)
       )
       subject.call
       expect(exception_handler).to have_received(:call).with(
         kind_of(RuntimeError), parameters: {
           work_id: work1.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
-          job_class: described_class, work_ingester: work_ingester
+          job_class: described_class, work_ingester: work_ingester, attributes: subject.send(:ingester_attributes)
         }
       )
     end

@@ -54,7 +54,9 @@ module Sipity
         private
 
         def ingest(work:)
-          parameters = { work_id: work.id, requested_by: requested_by, processing_action_name: processing_action_name }
+          parameters = {
+            work_id: work.id, requested_by: requested_by, processing_action_name: processing_action_name, attributes: ingester_attributes
+          }
           begin
             ActiveRecord::Base.transaction { work_ingester.call(parameters) }
           rescue StandardError => exception
@@ -94,6 +96,10 @@ module Sipity
 
         def default_processing_action_name
           'submit_for_ingest'
+        end
+
+        def ingester_attributes
+          { exporter: 'etd' }
         end
 
         attr_accessor :work_area

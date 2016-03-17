@@ -29,7 +29,8 @@ module Sipity
         private
 
         def assign_attributes_from(keywords:)
-          [:attributes, :context_builder, :runner, :processing_action_handler_builder].each do |attribute_name|
+          self.attributes = keywords.fetch(:attributes)
+          [:context_builder, :runner, :processing_action_handler_builder].each do |attribute_name|
             send("#{attribute_name}=", keywords.fetch(attribute_name) { send("default_#{attribute_name}") })
           end
         end
@@ -54,10 +55,6 @@ module Sipity
         end
 
         attr_accessor :attributes
-
-        def default_attributes
-          {}
-        end
 
         attr_accessor :processing_action_handler_builder
 

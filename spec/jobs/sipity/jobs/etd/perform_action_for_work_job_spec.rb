@@ -9,13 +9,13 @@ RSpec.describe Sipity::Jobs::Etd::PerformActionForWorkJob do
   let(:parameters) do
     {
       work_id: 1, processing_action_name: 'submit_for_ingest', requested_by: 'someone', context_builder: context_builder, runner: runner,
-      processing_action_handler_builder: processing_action_handler_builder
+      processing_action_handler_builder: processing_action_handler_builder, attributes: { hello: 'world' }
     }
   end
 
   subject { described_class.new(parameters) }
 
-  its(:attributes) { should eq({}) }
+  its(:attributes) { should eq(parameters.fetch(:attributes)) }
   its(:default_context_builder) { should respond_to(:call) }
   its(:default_runner) { should respond_to(:call) }
   its(:default_processing_action_handler_builder) { should respond_to(:call) }
