@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'sipity/forms/work_submissions/etd/ingest_completed_form'
+require 'sipity/forms/work_submissions/core/ingest_completed_form'
 
 module Sipity
   module Forms
     module WorkSubmissions
-      module Etd
+      module Core
         RSpec.describe IngestCompletedForm do
           let(:work) { Models::Work.new(id: '1234') }
           let(:repository) { CommandRepositoryInterface.new }
