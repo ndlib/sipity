@@ -68,6 +68,7 @@ MethodLength:
     - 'app/forms/sipity/forms/processing_form.rb'
     - 'app/mappers/sipity/mappers/etd_mapper.rb'
     - 'app/mappers/sipity/mappers/generic_file_mapper.rb'
+    - 'app/mappers/sipity/mappers/ulra_mapper.rb'
     - 'app/repositories/sipity/queries/notification_queries.rb'
     - 'app/repositories/sipity/queries/permission_queries.rb'
     - 'app/repositories/sipity/queries/comment_queries.rb'
@@ -93,6 +94,7 @@ ClassLength:
   Exclude:
       - 'app/mappers/sipity/mappers/etd_mapper.rb'
       - 'app/mappers/sipity/mappers/generic_file_mapper.rb'
+      - 'app/mappers/sipity/mappers/ulra_mapper.rb'
 
 AlignParameters:
   Description: >-

@@ -12,6 +12,7 @@ module Sipity
           Models::Role::DATA_OBSERVING,
           Models::Role::ULRA_REVIEWING
         ]
+        ULRA_INGESTORS = "ULRA Ingestors"
         ULRA_REVIEW_COMMITTEE_GROUP_NAME = 'ULRA Review Committee'
       end
     end
