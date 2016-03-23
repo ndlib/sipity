@@ -9,8 +9,10 @@ module Sipity
         # Responsible for capturing and validating information for research process
         class ResearchProcessForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, processing_subject_name: :work,
-            attribute_names: [:resources_consulted, :other_resources_consulted]
+            attribute_names: [:resources_consulted, :other_resources_consulted],
+            base_class: Models::Work,
+            form_class: self,
+            processing_subject_name: :work
           )
 
           class_attribute :attachment_predicate_name, instance_predicate: false, instance_writer: false

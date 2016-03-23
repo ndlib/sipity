@@ -9,8 +9,10 @@ module Sipity
         # Responsible for capturing and validating information for research process
         class AssignAwardStatusForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, processing_subject_name: :work,
-            attribute_names: [:is_an_award_winner]
+            attribute_names: [:is_an_award_winner],
+            base_class: Models::Work,
+            form_class: self,
+            processing_subject_name: :work
           )
 
           def initialize(work:, requested_by:, attributes: {}, **keywords)

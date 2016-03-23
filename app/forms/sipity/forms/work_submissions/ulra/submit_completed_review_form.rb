@@ -7,8 +7,11 @@ module Sipity
         # Responsible for the submission of a completed ULRA review
         class SubmitCompletedReviewForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, processing_subject_name: :work,
-            attribute_names: [], template: Forms::STATE_ADVANCING_ACTION_CONFIRMATION_TEMPLATE_NAME
+            attribute_names: [],
+            base_class: Models::Work,
+            form_class: self,
+            processing_subject_name: :work,
+            template: Forms::STATE_ADVANCING_ACTION_CONFIRMATION_TEMPLATE_NAME
           )
 
           def initialize(work:, requested_by:, **keywords)

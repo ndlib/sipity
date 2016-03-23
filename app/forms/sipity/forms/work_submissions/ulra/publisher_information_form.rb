@@ -9,8 +9,10 @@ module Sipity
         # Responsible for capturing and validating information for publisher information
         class PublisherInformationForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, processing_subject_name: :work,
-            attribute_names: [:publication_name, :publication_status_of_submission, :submitted_for_publication]
+            attribute_names: [:publication_name, :publication_status_of_submission, :submitted_for_publication],
+            base_class: Models::Work,
+            form_class: self,
+            processing_subject_name: :work
           )
 
           def initialize(work:, requested_by:, attributes: {}, **keywords)

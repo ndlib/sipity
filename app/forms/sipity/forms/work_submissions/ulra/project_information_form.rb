@@ -9,8 +9,10 @@ module Sipity
         # What goes into this is more complicated that the entity might allow.
         class ProjectInformationForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, processing_subject_name: :work,
-            attribute_names: [:title, :award_category, :course_name, :course_number]
+            attribute_names: [:title, :award_category, :course_name, :course_number],
+            base_class: Models::Work,
+            form_class: self,
+            processing_subject_name: :work
           )
 
           def initialize(work:, requested_by:, attributes: {}, **keywords)

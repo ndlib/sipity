@@ -8,10 +8,12 @@ module Sipity
         # Exposes a means for attaching files to the associated work.
         class AttachForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, processing_subject_name: :work,
             attribute_names: [
               :project_url, :files, :attachments_attributes, :representative_attachment_id, :attached_files_completion_state
-            ]
+            ],
+            base_class: Models::Work,
+            form_class: self,
+            processing_subject_name: :work
           )
 
           class_attribute :attachment_predicate_name, instance_predicate: false, instance_writer: false

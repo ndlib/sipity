@@ -3,7 +3,7 @@
 ## ULRA Ingest to CurateND #971
 
 ### Attributes
- - [ ] Generate list of ULRA work attributes
+ - [ ] Generate list of ULRA work attributes. NOTE: attribute keys are defined by _forms_.
  - [ ] Map ULRA work attributes to appropriate predicates
  - [ ] Ensure that predicates are supported by `Document` in CurateND
 

@@ -9,8 +9,10 @@ module Sipity
         # Responsible for capturing and validating information for plan_of_study.
         class PlanOfStudyForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, processing_subject_name: :work,
-            attribute_names: [:expected_graduation_term, :majors, :minors, :primary_college, :underclass_level]
+            attribute_names: [:expected_graduation_term, :majors, :minors, :primary_college, :underclass_level],
+            base_class: Models::Work,
+            form_class: self,
+            processing_subject_name: :work
           )
 
           include Conversions::ExtractInputDateFromInput

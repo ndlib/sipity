@@ -9,8 +9,11 @@ module Sipity
         # for signoff.
         class SubmitForReviewForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, processing_subject_name: :work,
-            attribute_names: [:agree_to_terms_of_deposit], template: Forms::STATE_ADVANCING_ACTION_CONFIRMATION_TEMPLATE_NAME
+            attribute_names: [:agree_to_terms_of_deposit],
+            base_class: Models::Work,
+            form_class: self,
+            processing_subject_name: :work,
+            template: Forms::STATE_ADVANCING_ACTION_CONFIRMATION_TEMPLATE_NAME
           )
 
           def initialize(work:, requested_by:, attributes: {}, **keywords)
