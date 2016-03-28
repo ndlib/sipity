@@ -41,9 +41,11 @@ module Sipity
         new(work).call
       end
 
-      def initialize(work, repository: default_repository)
+      def initialize(work, repository: default_repository, work_mapper: default_work_mapper, attachment_mapper: default_attachment_mapper)
         self.work = work
         self.repository = repository
+        self.work_mapper = work_mapper
+        self.attachment_mapper = attachment_mapper
         self.attachments = repository.work_attachments(work: work)
       end
 
@@ -55,17 +57,17 @@ module Sipity
 
       def export_to_json
         json_array = []
-        json_array << Mappers::EtdMapper.call(work, attribute_map: ETD_ATTRIBUTES, mount_data_path: MNT_DATA_PATH)
+        json_array << work_mapper.call(work)
         # build attachment json
         attachments.each do |file|
-          json_array << Mappers::GenericFileMapper.call(file, attribute_map: ETD_ATTRIBUTES, mount_data_path: MNT_DATA_PATH)
+          json_array << attachment_mapper.call(file)
         end
         json_array
       end
 
       private
 
-      attr_accessor :repository, :work, :attachments
+      attr_accessor :work, :attachments
 
       def create_webook
         create_directory(curate_data_directory)
@@ -109,8 +111,22 @@ module Sipity
         FileUtils.mkdir_p(directory) unless File.directory?(directory)
       end
 
+      attr_accessor :repository
+
       def default_repository
         QueryRepository.new
+      end
+
+      attr_accessor :work_mapper
+
+      def default_work_mapper
+        -> (work) { Mappers::EtdMapper.call(work, attribute_map: ETD_ATTRIBUTES, mount_data_path: MNT_DATA_PATH) }
+      end
+
+      attr_accessor :attachment_mapper
+
+      def default_attachment_mapper
+        -> (attachment) { Mappers::GenericFileMapper.call(attachment, attribute_map: ETD_ATTRIBUTES, mount_data_path: MNT_DATA_PATH) }
       end
     end
   end
