@@ -1,7 +1,7 @@
 module Sipity
   module Jobs
     module Etd
-      # Responsible for managing the ingest of each and every work in the :work_area that is in the :initial_processing_state_name.
+      # Responsible for managing the ingest of each and every work in the :work_area)slug that is in the :initial_processing_state_name.
       #
       # As these are jobs, I believe that I want the parameters to all be primatives (i.e. a String, an Integer). This way they can
       # be serialized without holding too much state. The BulkIngestJob makes use of the [curatend-batch](https://github.com/ndlib/curatend-batch)
@@ -28,16 +28,17 @@ module Sipity
       # @see Sipity::Models::Attachment for information on faking attached files.
       # @see https://github.com/ndlib/curatend-batch curatend-batch
       class BulkIngestJob
-        def self.call(**keywords)
-          new(**keywords).call
+        def self.call(work_area_slug:, **keywords)
+          new(work_area_slug: work_area_slug, **keywords).call
         end
 
         ATTRIBUTE_NAMES = [
-          :work_area, :requested_by, :repository, :initial_processing_state_name, :work_ingester, :search_criteria_builder,
+          :requested_by, :repository, :initial_processing_state_name, :work_ingester, :search_criteria_builder,
           :processing_action_name, :exception_handler
         ].freeze
 
-        def initialize(**keywords)
+        def initialize(work_area_slug:, **keywords)
+          self.work_area_slug = work_area_slug
           ATTRIBUTE_NAMES.each do |attribute_name|
             send("#{attribute_name}=", keywords.fetch(attribute_name) { send("default_#{attribute_name}") })
           end
@@ -54,7 +55,9 @@ module Sipity
         private
 
         def ingest(work:)
-          parameters = { work_id: work.id, requested_by: requested_by, processing_action_name: processing_action_name }
+          parameters = {
+            work_id: work.id, requested_by: requested_by, processing_action_name: processing_action_name, attributes: ingester_attributes
+          }
           begin
             ActiveRecord::Base.transaction { work_ingester.call(parameters) }
           rescue StandardError => exception
@@ -66,7 +69,7 @@ module Sipity
 
         def set_search_criteria!
           @search_criteria = search_criteria_builder.call(
-            user: requested_by, processing_state: initial_processing_state_name, work_area: work_area, page: :all
+            user: requested_by, processing_state: initial_processing_state_name, work_area: work_area_slug, page: :all
           )
         end
 
@@ -96,11 +99,11 @@ module Sipity
           'submit_for_ingest'
         end
 
-        attr_accessor :work_area
-
-        def default_work_area
-          'etd'
+        def ingester_attributes
+          { exporter: work_area_slug }
         end
+
+        attr_accessor :work_area_slug
 
         attr_accessor :exception_handler
 

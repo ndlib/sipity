@@ -4,7 +4,7 @@ require 'sipity/conversions/convert_to_permanent_uri'
 module Sipity
   module Forms
     module WorkSubmissions
-      module Etd
+      module Core
         # Responsible for calling the ETD Ingester
         class IngestCompletedForm
           # @see https://github.com/ndlib/curatend-batch/blob/master/webhook.md

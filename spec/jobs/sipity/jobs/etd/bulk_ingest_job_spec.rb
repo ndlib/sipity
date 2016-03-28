@@ -3,17 +3,18 @@ require 'sipity/jobs/etd/bulk_ingest_job'
 require 'sipity/models/work'
 
 RSpec.describe Sipity::Jobs::Etd::BulkIngestJob do
-  let(:work_area) { 'etd' }
+  let(:work_area_slug) { 'etd' }
   let(:repository) { Sipity::QueryRepositoryInterface.new }
   let(:work_ingester) { double('Work Ingester', call: true) }
   let(:exception_handler) { double('Exception Handler', call: true) }
 
   subject do
-    described_class.new(work_area: work_area, repository: repository, work_ingester: work_ingester, exception_handler: exception_handler)
+    described_class.new(
+      work_area_slug: work_area_slug, repository: repository, work_ingester: work_ingester, exception_handler: exception_handler
+    )
   end
 
   its(:default_initial_processing_state_name) { should eq('ready_for_ingest') }
-  its(:default_work_area) { should eq('etd') }
   its(:default_work_ingester) { should respond_to(:call) }
   its(:default_requested_by) { should be_a(String) }
   its(:default_search_criteria_builder) { should respond_to(:call) }
@@ -25,7 +26,7 @@ RSpec.describe Sipity::Jobs::Etd::BulkIngestJob do
 
   it 'exposes .call as a convenience method' do
     expect_any_instance_of(described_class).to receive(:call)
-    described_class.call(work_area: work_area, repository: repository)
+    described_class.call(work_area_slug: work_area_slug, repository: repository)
   end
 
   context '.call' do
@@ -34,7 +35,8 @@ RSpec.describe Sipity::Jobs::Etd::BulkIngestJob do
       expect(repository).to receive(:find_works_via_search).and_return([work])
       subject.call
       expect(work_ingester).to have_received(:call).with(
-        work_id: work.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name)
+        work_id: work.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
+        attributes: subject.send(:ingester_attributes)
       )
     end
   end
@@ -45,16 +47,18 @@ RSpec.describe Sipity::Jobs::Etd::BulkIngestJob do
       work2 = Sipity::Models::Work.new(id: 2)
       allow(repository).to receive(:find_works_via_search).and_return([work1, work2])
       expect(work_ingester).to receive(:call).with(
-        work_id: work1.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name)
+        work_id: work1.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
+        attributes: subject.send(:ingester_attributes)
       ).and_raise(RuntimeError, "Failed for work1")
       expect(work_ingester).to receive(:call).with(
-        work_id: work2.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name)
+        work_id: work2.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
+        attributes: subject.send(:ingester_attributes)
       )
       subject.call
       expect(exception_handler).to have_received(:call).with(
         kind_of(RuntimeError), parameters: {
           work_id: work1.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
-          job_class: described_class, work_ingester: work_ingester
+          job_class: described_class, work_ingester: work_ingester, attributes: subject.send(:ingester_attributes)
         }
       )
     end

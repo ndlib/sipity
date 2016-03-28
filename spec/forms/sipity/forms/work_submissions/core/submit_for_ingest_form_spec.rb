@@ -3,11 +3,12 @@ require 'spec_helper'
 module Sipity
   module Forms
     module WorkSubmissions
-      module Etd
+      module Core
         RSpec.describe SubmitForIngestForm do
           let(:work) { Models::Work.new(id: '1234') }
           let(:repository) { CommandRepositoryInterface.new }
-          let(:attributes) { {} }
+          let(:attributes) { { exporter: exporter } }
+          let(:exporter) { double("exporter", call: true) }
           let(:keywords) { { work: work, repository: repository, requested_by: double, attributes: attributes } }
           subject { described_class.new(keywords) }
 
@@ -35,11 +36,11 @@ module Sipity
               before do
                 allow(subject).to receive(:valid?).and_return(true)
                 allow(subject.send(:processing_action_form)).to receive(:submit).and_yield
-                expect(Sipity::Exporters::EtdExporter).to receive(:call).with(work)
               end
 
               it 'will submit successfully if valid' do
                 subject.submit
+                expect(exporter).to have_received(:call).with(work)
               end
             end
           end
