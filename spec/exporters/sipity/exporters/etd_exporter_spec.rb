@@ -23,6 +23,12 @@ module Sipity
       # an HTML response; Which doesn't work because the HTML template does not exist.
       its(:webhook_url) { should match(%r{/work_submissions/#{work.to_param}/callback/ingest_completed.json$}) }
 
+      context '.queue_pathname_for' do
+        it 'will return a Pathname object' do
+          expect(described_class.queue_pathname_for(work: work)).to be_a(Pathname)
+        end
+      end
+
       it 'will instantiate then call the instance' do
         expect(described_class).to receive(:new).and_return(double(call: true))
         described_class.call(work)

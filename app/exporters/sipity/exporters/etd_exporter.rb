@@ -41,6 +41,10 @@ module Sipity
         new(work).call
       end
 
+      def self.queue_pathname_for(work:, base_path: MNT_QUEUE_PATH)
+        Pathname.new(File.join(base_path, "/sipity-#{work.id}"))
+      end
+
       def initialize(work, repository: default_repository, work_mapper: default_work_mapper, attachment_mapper: default_attachment_mapper)
         self.work = work
         self.repository = repository
