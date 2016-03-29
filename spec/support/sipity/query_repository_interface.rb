@@ -29,10 +29,6 @@ module Sipity
     def attachment_access_right(attachment:)
     end
 
-    # @see ./app/repositories/sipity/queries/attachment_queries.rb
-    def attachment_access_right_code(attachment:)
-    end
-
     # @see ./app/repositories/sipity/queries/processing_queries.rb
     def authorized_for_processing?(user:, entity:, action:)
     end
