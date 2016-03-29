@@ -10,6 +10,7 @@ module Sipity
           new(**keywords, &block).call
         end
 
+        # @todo We wouldn't need to pass the access_rights_data if we were to create a repository method that can extract that information
         def initialize(work:, access_rights_data:, repository: default_repository)
           self.work = work
           self.access_rights_data = access_rights_data
