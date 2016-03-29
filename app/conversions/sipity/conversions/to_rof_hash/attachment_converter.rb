@@ -23,7 +23,7 @@ module Sipity
         def call
           {
             'type' => 'fobject',
-            'pid' => pid,
+            'pid' => namespaced_pid(context: attachment),
             'af-model' => 'GenericFile',
             'rights' => access_rights,
             'metadata' => metadata,
@@ -37,7 +37,7 @@ module Sipity
 
         private
 
-        def pid(context: attachment)
+        def namespaced_pid(context: attachment)
           "und:#{context.id}"
         end
 
@@ -105,7 +105,7 @@ module Sipity
             "@context" => jsonld_contexts,
             'hydramata-rel:hasEditor' => [Figaro.env.curate_batch_user_pid!],
             'hydramata-rel:hasEditorGroup' => [Figaro.env.curate_grad_school_editing_group_pid!],
-            'isPartOf' => [pid(context: work)]
+            'isPartOf' => [namespaced_pid(context: work)]
           }
         end
 
