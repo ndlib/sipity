@@ -10,14 +10,16 @@ module Sipity
         let(:mock_file) { StringIO.new }
 
         describe '#call' do
-          # TODO confirm that Exporter recieves #make_data_directory
-          # TODO confirm that write_webook_file is called
-
           before { allow(described_class).to receive(:output_buffer).and_return(mock_file) }
 
-          it 'bootstraps the data directory' do
+          xit 'bootstraps the data directory' do
             described_class.call(exporter: exporter)
-            # expect(exporter).to receive(:make_data_directory)
+            expect(exporter).to receive(:make_data_directory)
+          end
+
+          xit 'bootstraps the data directory' do
+            described_class.call(exporter: exporter)
+            expect(described_class).to receive(:write_contents)
           end
         end
 
