@@ -81,7 +81,7 @@ module Sipity
             'dc:rights' => fetch_attribute_values(key: 'copyright'),
             'dc:language' => fetch_attribute_values(key: 'language'),
             'dc:date' => fetch_attribute_values(key: 'defense_date'),
-            'dc:contributor' => nil,
+            'dc:contributor' => build_etd_contributor,
             'ms:degree' => build_etd_degree_metadata
           }
         end
@@ -97,6 +97,16 @@ module Sipity
             'ms:discipline' => fetch_attribute_values(key: 'program_name'),
             'ms:level' => etd_degree_level_from_work_type
           }
+        end
+
+        # @todo I cannot imagine that we really want dc:contributor to be nested within a dc:contributor data structure
+        def build_etd_contributor
+          work.collaborators.map do |collaborator|
+            {
+              'dc:contributor' => collaborator.name,
+              'ms:role' => collaborator.role
+            }
+          end
         end
 
         def etd_degree_level_from_work_type
