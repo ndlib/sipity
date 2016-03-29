@@ -10,7 +10,7 @@ module Sipity
           described_class.call(exporter: exporter)
         end
         let(:work) { double('Work', to_rof_hash: { id: 1 }, attachments: [attachment]) }
-        let(:attachment) { double('Attachment', to_rof_hash: { id: 2}) }
+        let(:attachment) { double('Attachment', to_rof_hash: { id: 2 }) }
         let(:exporter) { double('Exporter', work: work) }
         subject { described_class.new(exporter: exporter) }
         it { is_expected.to delegate_method(:work).to(:exporter) }
