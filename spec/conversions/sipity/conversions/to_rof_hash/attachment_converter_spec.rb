@@ -43,34 +43,5 @@ module Sipity
         expect(hash.keys).to eq(%w(type pid af-model rights metadata rels-ext properties-meta properties content-meta content-file))
       end
     end
-
-    context '#attachment_specific_access_rights' do
-      subject { described_class.new(attachment: attachment, repository: repository).send(:attachment_specific_access_rights) }
-      let(:as_of) { Time.zone.today }
-      context "for Models::AccessRight::OPEN_ACCESS" do
-        let(:attachment_access_right_data) { double(access_right_code: Models::AccessRight::OPEN_ACCESS, transition_date: as_of) }
-        it { is_expected.to eq('read-groups' => 'public') }
-      end
-      context "for Models::AccessRight::RESTRICTED_ACCESS" do
-        let(:attachment_access_right_data) { double(access_right_code: Models::AccessRight::RESTRICTED_ACCESS, transition_date: as_of) }
-        it { is_expected.to eq('read-groups' => 'restricted') }
-      end
-      context "for Models::AccessRight::PRIVATE_ACCESS" do
-        let(:attachment_access_right_data) { double(access_right_code: Models::AccessRight::PRIVATE_ACCESS, transition_date: as_of) }
-        it { is_expected.to eq({}) }
-      end
-      context "for Models::AccessRight::EMBARGO_THEN_OPEN_ACCESS" do
-        let(:attachment_access_right_data) do
-          double(access_right_code: Models::AccessRight::EMBARGO_THEN_OPEN_ACCESS, transition_date: as_of)
-        end
-        it { is_expected.to eq('read-groups' => 'public', 'embargo-date' => as_of.strftime('%Y-%m-%d')) }
-      end
-      context "for a bad access right code" do
-        let(:attachment_access_right_data) { double(access_right_code: 'BAD-BAD-LEROY-BROWN', transition_date: as_of) }
-        it "should raise a RuntimeError" do
-          expect { subject }.to raise_error(RuntimeError)
-        end
-      end
-    end
   end
 end

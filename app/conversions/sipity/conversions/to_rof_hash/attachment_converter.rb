@@ -5,9 +5,6 @@ module Sipity
       #
       # @see Sipity::Mappers::GenericFileMapper for the original work and inspiration.
       class AttachmentConverter
-        # @todo Extract this to a more generic location. Figaro perhaps?
-        BATCH_USER = 'curate_batch_user'.freeze
-
         # @api public
         #
         # @param attachment [Sipity::Models::Attachment]
@@ -42,39 +39,11 @@ module Sipity
         end
 
         def access_rights
-          base_access_rights.merge(attachment_specific_access_rights)
-        end
-
-        def base_access_rights
-          {
-            'read' => creator_usernames,
-            'edit' => [BATCH_USER],
-            'edit-groups' => editing_groups
-          }
-        end
-
-        def attachment_specific_access_rights
-          case attachment_access_rights_data.access_right_code
-          when Models::AccessRight::OPEN_ACCESS
-            { 'read-groups' => 'public' }
-          when Models::AccessRight::RESTRICTED_ACCESS
-            { 'read-groups' => 'restricted' }
-          when Models::AccessRight::EMBARGO_THEN_OPEN_ACCESS
-            { 'read-groups' => 'public', 'embargo-date' => attachment_access_rights_data.transition_date.strftime('%Y-%m-%d') }
-          when Models::AccessRight::PRIVATE_ACCESS
-            {}
-          else
-            raise "Unexpected AccessRight for #{attachment_access_rights_data.inspect}"
-          end
+          AccessRightsBuilder.call(work: work, access_rights_data: attachment_access_rights_data, repository: repository)
         end
 
         def attachment_access_rights_data
           @attachment_access_rights_data ||= repository.attachment_access_right(attachment: attachment)
-        end
-
-        # @note This only applies to the ETD group; The editing group will need to be parameterized
-        def editing_groups
-          [Figaro.env.curate_grad_school_editing_group_pid!]
         end
 
         def metadata
@@ -121,7 +90,7 @@ module Sipity
         end
 
         def properties
-          "<fields><depositor>#{BATCH_USER}</depositor></fields>"
+          "<fields><depositor>#{AccessRightsBuilder::BATCH_USER}</depositor></fields>"
         end
 
         def content_meta
