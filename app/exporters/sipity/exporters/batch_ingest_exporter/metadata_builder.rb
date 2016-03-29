@@ -27,7 +27,6 @@ module Sipity
         private
 
         attr_accessor :exporter
-        attr_reader :metadata
 
         def to_rof_hash(object:)
           PowerConverter.convert(object, to: :rof_hash)
