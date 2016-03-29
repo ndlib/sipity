@@ -82,7 +82,7 @@ module Sipity
             'dc:language' => fetch_attribute_values(key: 'language'),
             'dc:date' => fetch_attribute_values(key: 'defense_date'),
             'dc:contributor' => nil,
-            'ms:degree' => build_degree_metadata
+            'ms:degree' => build_etd_degree_metadata
           }
         end
 
@@ -91,12 +91,21 @@ module Sipity
           repository.work_attribute_values_for(work: work, key: key)
         end
 
-        def build_degree_metadata
+        def build_etd_degree_metadata
           {
             'ms:name' => fetch_attribute_values(key: 'degree'),
             'ms:discipline' => fetch_attribute_values(key: 'program_name'),
-            'ms:level' => nil
+            'ms:level' => etd_degree_level_from_work_type
           }
+        end
+
+        def etd_degree_level_from_work_type
+          # I could be using the translations, but under test this falls apart as I don't load the translations.
+          # Loading translations adds a significant chunk of time to the test suite.
+          {
+            Models::WorkType::DOCTORAL_DISSERTATION => "Doctoral Dissertation",
+            Models::WorkType::MASTER_THESIS => "Master’s Thesis"
+          }.fetch(work.work_type)
         end
 
         def rels_ext
