@@ -15,11 +15,11 @@ module Sipity
     end
     let(:attachment_access_right_data) { double(access_right_code: Models::AccessRight::OPEN_ACCESS) }
     let(:repository) { Sipity::QueryRepositoryInterface.new }
-    subject { described_class.new(attachment, repository: repository) }
+    subject { described_class.new(attachment: attachment, repository: repository) }
 
     it 'exposes .call as a convenience method' do
       expect_any_instance_of(described_class).to receive(:call)
-      described_class.call(attachment)
+      described_class.call(attachment: attachment)
     end
 
     its(:default_repository) { is_expected.to respond_to(:scope_users_for_entity_and_roles) }
@@ -35,7 +35,7 @@ module Sipity
       )
     end
     context '#call' do
-      subject { described_class.new(attachment, repository: repository).call }
+      subject { described_class.new(attachment: attachment, repository: repository).call }
       it 'will be well formed' do
         # TODO: Work on an ROF schema that can be validated against.
         # SEE: https://github.com/ndlib/rof/issues/15
@@ -45,7 +45,7 @@ module Sipity
     end
 
     context '#attachment_specific_access_rights' do
-      subject { described_class.new(attachment, repository: repository).send(:attachment_specific_access_rights) }
+      subject { described_class.new(attachment: attachment, repository: repository).send(:attachment_specific_access_rights) }
       let(:as_of) { Time.zone.today }
       context "for Models::AccessRight::OPEN_ACCESS" do
         let(:attachment_access_right_data) { double(access_right_code: Models::AccessRight::OPEN_ACCESS, transition_date: as_of) }

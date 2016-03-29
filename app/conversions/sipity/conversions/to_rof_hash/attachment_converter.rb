@@ -8,11 +8,14 @@ module Sipity
         # @todo Extract this to a more generic location. Figaro perhaps?
         BATCH_USER = 'curate_batch_user'.freeze
 
-        def self.call(attachment, **keywords)
-          new(attachment, **keywords).call
+        # @api public
+        #
+        # @param attachment [Sipity::Models::Attachment]
+        def self.call(attachment:, **keywords)
+          new(attachment: attachment, **keywords).call
         end
 
-        def initialize(attachment, repository: default_repository)
+        def initialize(attachment:, repository: default_repository)
           self.attachment = attachment
           self.repository = repository
         end
