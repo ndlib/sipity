@@ -1,3 +1,5 @@
+require 'sipity/exporters/batch_ingest_exporter/metadata_builder'
+
 module Sipity
   module Exporters
     class BatchIngestExporter
@@ -14,9 +16,6 @@ module Sipity
       end
 
       class AttachmentWriter
-      end
-
-      class MetadataBuilder
       end
 
       class MetadataWriter
