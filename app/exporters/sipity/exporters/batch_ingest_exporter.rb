@@ -2,6 +2,7 @@ require 'sipity/exporters/batch_ingest_exporter/metadata_builder'
 
 module Sipity
   module Exporters
+    # Responsible for coordinating sending a work through the batch ingest.
     class BatchIngestExporter
       def self.call(work:)
         new(work: work).call
