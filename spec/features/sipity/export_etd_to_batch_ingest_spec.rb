@@ -16,12 +16,18 @@ feature 'Export ETD to Batch Ingest' do
     )
 
     repository.grant_creating_user_permission_for!(entity: work, user: user)
+    repository.attach_files_to(work: work, files: File.new(__FILE__))
+    attachment = work.attachments.first
     Sipity::Jobs::Core::PerformActionForWorkJob.call(
       work_id: work.id, requested_by: user, processing_action_name: 'describe', attributes: { abstract: 'My Abstract' }
     )
     Sipity::Jobs::Core::PerformActionForWorkJob.call(
       work_id: work.id, requested_by: user, processing_action_name: 'access_policy', attributes: {
-        accessible_objects_attributes: { "0" => { id: work.to_param, access_right_code: 'open_access', release_date: "" } }
+        accessible_objects_attributes: {
+          "0" => { id: work.to_param, access_right_code: 'open_access', release_date: "" },
+          "1" => { id: attachment.to_param, access_right_code: 'open_access', release_date: "" }
+        },
+        representative_attachment_id: attachment.to_param
       }
     )
 
