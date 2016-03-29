@@ -57,7 +57,7 @@ module Sipity
         def metadata
           {
             "@context" => jsonld_context
-          }
+          }.merge(specific_metadata_builder)
         end
 
         def jsonld_context
@@ -67,6 +67,22 @@ module Sipity
             "ms" => 'http://www.ndltd.org/standards/metadata/etdms/1.1/',
             "ths" => 'http://id.loc.gov/vocabulary/relators/',
             "hydramata-rel" => "http://projecthydra.org/ns/relations#"
+          }
+        end
+
+        # @todo dc:date for defense date looks very suspect
+        def specific_metadata_builder
+          {
+            'dc:title' => work.title,
+            'dc:creator' => repository.work_attribute_values_for(work: work, key: 'author_name'),
+            'dc:title#alternate' => repository.work_attribute_values_for(work: work, key: 'alternate_title'),
+            'dc:subject' => repository.work_attribute_values_for(work: work, key: 'subject'),
+            'dc:description#abstract' => repository.work_attribute_values_for(work: work, key: 'abstract'),
+            'dc:rights' => repository.work_attribute_values_for(work: work, key: 'copyright'),
+            'dc:language' => repository.work_attribute_values_for(work: work, key: 'language'),
+            'dc:date' => repository.work_attribute_values_for(work: work, key: 'defense_date'),
+            'dc:contributor' => nil,
+            'ms:degree' => nil
           }
         end
 
