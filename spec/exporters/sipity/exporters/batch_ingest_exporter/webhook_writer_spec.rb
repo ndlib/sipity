@@ -52,7 +52,7 @@ module Sipity
           it { is_expected.to eq('http://Batch Ingestors:1234@localhost:3000/work_submissions/1661/callback/ingest_completed.json') }
 
           it 'returns a valid URL' do
-            url_pattern = URI::regexp
+            url_pattern = URI.regexp
             expect(subject).to match(url_pattern)
           end
         end
