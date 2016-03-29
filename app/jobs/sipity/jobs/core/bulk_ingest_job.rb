@@ -1,7 +1,8 @@
 module Sipity
   module Jobs
-    module Etd
-      # Responsible for managing the ingest of each and every work in the :work_area)slug that is in the :initial_processing_state_name.
+    module Core
+      # Responsible for managing the ingest of each and every work in the :work_area_slug that is in the :initial_processing_state_name.
+      # It will use the given :processing_action_name as part of a batch action.
       #
       # As these are jobs, I believe that I want the parameters to all be primatives (i.e. a String, an Integer). This way they can
       # be serialized without holding too much state. The BulkIngestJob makes use of the [curatend-batch](https://github.com/ndlib/curatend-batch)
@@ -19,7 +20,7 @@ module Sipity
       #      * *Please review the directory structure of the mounted drive as that may have changed*
       #   3. Open up a Terminal window
       #      1. Change directory (cd) into the root of this Rails project
-      #      2. Run the following command `rails runner 'Sipity::Jobs::Etd::BulkIngestJob.call'`
+      #      2. Run the following command `rails runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd')""`
       #   4. Review the mounted queue subdirectories (i.e. `/Volumes/curatend-batch/test/libvirt6/queue`) for successes and failures
       #
       #   In some cases you may need to make changes to address that you don't have a copy of the attachments, see
@@ -83,18 +84,20 @@ module Sipity
         attr_accessor :work_ingester
 
         def default_work_ingester
-          require 'sipity/jobs/etd/perform_action_for_work_job' unless defined?(Sipity::Jobs::Etd::PerformActionForWorkJob)
-          Sipity::Jobs::Etd::PerformActionForWorkJob
+          require 'sipity/jobs/core/perform_action_for_work_job' unless defined?(Sipity::Jobs::Core::PerformActionForWorkJob)
+          Sipity::Jobs::Core::PerformActionForWorkJob
         end
 
         attr_accessor :initial_processing_state_name
 
+        # @note This is an assumption based on the ETD and ULRA work submission work flows.
         def default_initial_processing_state_name
           'ready_for_ingest'
         end
 
         attr_accessor :processing_action_name
 
+        # @see Sipity::Forms::WorkSubmissionsCore::SubmitForIngestForm
         def default_processing_action_name
           'submit_for_ingest'
         end
@@ -114,9 +117,8 @@ module Sipity
         attr_accessor :requested_by
 
         def default_requested_by
-          require 'sipity/data_generators/work_types/etd_generator' unless defined?(DataGenerators::WorkTypes::EtdGenerator::ETD_INGESTORS)
-          # Need this to be the "ETD Ingesters" group; Though I'd prefer a Cogitate string going forward
-          Sipity::Models::Group.find_by!(name: DataGenerators::WorkTypes::EtdGenerator::ETD_INGESTORS)
+          require 'sipity/models/group' unless defined?(Sipity::Models::Group)
+          Sipity::Models::Group.batch_ingestors
         end
 
         attr_accessor :repository

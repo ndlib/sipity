@@ -83,7 +83,7 @@ module Sipity
       end
 
       def webhook_authorization_credentials
-        "#{Sipity::DataGenerators::WorkTypes::UlraGenerator::ULRA_INGESTORS}:#{Figaro.env.sipity_batch_ingester_access_key!}"
+        "#{Sipity::Models::Group::BATCH_INGESTORS}:#{Figaro.env.sipity_batch_ingester_access_key!}"
       end
 
       def package_data

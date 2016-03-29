@@ -1,6 +1,6 @@
 module Sipity
   module Jobs
-    module Etd
+    module Core
       # Responsible for performing an action on a work. In many ways this
       # mimics how the Controller interacts with the runner layer. As such it also makes concessions on how the controller works.
       #

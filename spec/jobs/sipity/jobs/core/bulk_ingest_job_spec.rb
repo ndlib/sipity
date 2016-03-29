@@ -1,8 +1,8 @@
 require 'spec_helper'
-require 'sipity/jobs/etd/bulk_ingest_job'
+require 'sipity/jobs/core/bulk_ingest_job'
 require 'sipity/models/work'
 
-RSpec.describe Sipity::Jobs::Etd::BulkIngestJob do
+RSpec.describe Sipity::Jobs::Core::BulkIngestJob do
   let(:work_area_slug) { 'etd' }
   let(:repository) { Sipity::QueryRepositoryInterface.new }
   let(:work_ingester) { double('Work Ingester', call: true) }

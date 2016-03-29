@@ -75,7 +75,7 @@ module Sipity
       end
 
       context '#user_for_etd_ingester' do
-        let(:valid_name) { Sipity::DataGenerators::WorkTypes::EtdGenerator::ETD_INGESTORS }
+        let(:valid_name) { Sipity::Models::Group::BATCH_INGESTORS }
         let(:invalid_name) { 'nope' }
         it 'will equal false if its not the ETD Ingester' do
           expect(controller.user_for_etd_ingester(user: invalid_name, password: Figaro.env.sipity_batch_ingester_access_key!)).to eq(false)

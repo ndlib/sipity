@@ -11,6 +11,9 @@
       }, {
         "group": "ULRA Ingestors",
         "role": "batch_ingesting"
+      }, {
+        "group": "Batch Ingestors",
+        "role": "batch_ingesting"
       }],
       "actions": [{
         "name": "start_a_submission",
