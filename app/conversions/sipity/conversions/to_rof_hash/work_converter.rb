@@ -82,13 +82,21 @@ module Sipity
             'dc:language' => fetch_attribute_values(key: 'language'),
             'dc:date' => fetch_attribute_values(key: 'defense_date'),
             'dc:contributor' => nil,
-            'ms:degree' => nil
+            'ms:degree' => build_degree_metadata
           }
         end
 
         # @todo Optimize round trips to the database concerning the additional attributes
         def fetch_attribute_values(key:)
           repository.work_attribute_values_for(work: work, key: key)
+        end
+
+        def build_degree_metadata
+          {
+            'ms:name' => fetch_attribute_values(key: 'degree'),
+            'ms:discipline' => fetch_attribute_values(key: 'program_name'),
+            'ms:level' => nil
+          }
         end
 
         def rels_ext
