@@ -1,14 +1,16 @@
 module Sipity
   module Exporters
     class BatchIngestExporter
-      # Responsible for building the metadata from the given :exporter.
+      # Responsible for building the metadata array from the given :exporter.
       class MetadataBuilder
+        # @api public
+        # @return Array<Hash> - An ROF representation of the Work and the Work's attachments
+        #
         # A convenience method for constructing and calling this function.
         def self.call(exporter:, &block)
           new(exporter: exporter, &block).call
         end
 
-        # Need to loop through the work and its associated attachments
         def initialize(exporter:)
           self.exporter = exporter
         end
@@ -16,6 +18,7 @@ module Sipity
         extend Forwardable
         def_delegator :exporter, :work
 
+        # @return Array<Hash>
         def call
           # Instead of mutating an instance variable, return a new value after
           # each call
