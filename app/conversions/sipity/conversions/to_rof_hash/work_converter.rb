@@ -74,16 +74,21 @@ module Sipity
         def specific_metadata_builder
           {
             'dc:title' => work.title,
-            'dc:creator' => repository.work_attribute_values_for(work: work, key: 'author_name'),
-            'dc:title#alternate' => repository.work_attribute_values_for(work: work, key: 'alternate_title'),
-            'dc:subject' => repository.work_attribute_values_for(work: work, key: 'subject'),
-            'dc:description#abstract' => repository.work_attribute_values_for(work: work, key: 'abstract'),
-            'dc:rights' => repository.work_attribute_values_for(work: work, key: 'copyright'),
-            'dc:language' => repository.work_attribute_values_for(work: work, key: 'language'),
-            'dc:date' => repository.work_attribute_values_for(work: work, key: 'defense_date'),
+            'dc:creator' => fetch_attribute_values(key: 'author_name'),
+            'dc:title#alternate' => fetch_attribute_values(key: 'alternate_title'),
+            'dc:subject' => fetch_attribute_values(key: 'subject'),
+            'dc:description#abstract' => fetch_attribute_values(key: 'abstract'),
+            'dc:rights' => fetch_attribute_values(key: 'copyright'),
+            'dc:language' => fetch_attribute_values(key: 'language'),
+            'dc:date' => fetch_attribute_values(key: 'defense_date'),
             'dc:contributor' => nil,
             'ms:degree' => nil
           }
+        end
+
+        # @todo Optimize round trips to the database concerning the additional attributes
+        def fetch_attribute_values(key:)
+          repository.work_attribute_values_for(work: work, key: key)
         end
 
         def rels_ext
