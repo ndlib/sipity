@@ -1,3 +1,4 @@
+require 'sipity/conversions/to_rof_hash/access_rights_builder'
 module Sipity
   module Conversions
     module ToRofHash
