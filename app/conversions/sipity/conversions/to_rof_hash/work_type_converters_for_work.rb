@@ -1,17 +1,23 @@
+require 'sipity/exceptions'
 module Sipity
   module Conversions
     module ToRofHash
       # Responsible for allowing for different work types to be exported with custom metadata
-      module WorkTypeConvertersForWork
-        CONVERTER_MAP = {
-          Models::WorkType::DOCTORAL_DISSERTATION => 'EtdConverter'.freeze,
-          Models::WorkType::MASTER_THESIS => 'EtdConverter'.freeze,
-          Models::WorkType::ULRA_SUBMISSION => 'UlraConverter'.freeze
-        }.freeze
+      class WorkTypeConvertersForWork
         def self.build(work:, base_converter:, repository:)
-          class_name = CONVERTER_MAP.fetch(work.work_type)
-          const_get(class_name).new(work: work, base_converter: base_converter, repository: repository)
+          instantiate_a_converter(work: work, base_converter: base_converter, repository: repository) ||
+          (raise Exceptions::FailedToInitializeWorkConverterError, work: work)
         end
+
+        def self.instantiate_a_converter(work:, base_converter:, repository:)
+          case work.work_type
+          when Models::WorkType::DOCTORAL_DISSERTATION, Models::WorkType::MASTER_THESIS
+            EtdConverter.new(work: work, base_converter: base_converter, repository: repository)
+          else
+            false
+          end
+        end
+        private_class_method :instantiate_a_converter
 
         # Responsible for defining the interface for the specific converters
         class AbstractConverter
@@ -115,10 +121,6 @@ module Sipity
               Models::WorkType::MASTER_THESIS => "Master’s Thesis"
             }.fetch(work.work_type)
           end
-        end
-
-        # A placeholder
-        class UlraConverter < AbstractConverter
         end
       end
     end
