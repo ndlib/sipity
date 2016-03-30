@@ -16,12 +16,15 @@ module Sipity
         def initialize(work:, repository: default_repository)
           self.work = work
           self.repository = repository
-          self.work_type_converter = WorkTypeConvertersForWork.build(work: work, base_converter: self, repository: repository)
+          self.specific_converter = WorkTypeConvertersForWork.build(work: work, base_converter: self, repository: repository)
         end
 
         private
 
-        attr_accessor :work, :repository, :work_type_converter
+        attr_accessor :work, :repository
+
+        # Responsible for the custom conversions that happen based on the nuances of the work
+        attr_accessor :specific_converter
 
         def default_repository
           Sipity::QueryRepository.new
@@ -33,9 +36,9 @@ module Sipity
           {
             'type' => 'fobject',
             'pid' => namespaced_pid(context: work),
-            'af-model' => work_type_converter.af_model,
-            'metadata' => work_type_converter.metadata,
-            'rels-ext' => work_type_converter.rels_ext,
+            'af-model' => specific_converter.af_model,
+            'metadata' => specific_converter.metadata,
+            'rels-ext' => specific_converter.rels_ext,
             'rights' => access_rights,
             'properties-meta' => properties_meta,
             'properties' => properties
