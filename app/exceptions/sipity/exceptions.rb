@@ -11,6 +11,15 @@ module Sipity
     class RuntimeError < ::RuntimeError
     end
 
+    # When you can't instantiate a specific work converter, raise this exception.
+    class FailedToInitializeWorkConverterError < RuntimeError
+      attr_reader :work
+      def initialize(work:)
+        @work = work
+        super("Failed to initialize work converter for #{work.inspect}")
+      end
+    end
+
     # When a schema doesn't validate
     class InvalidSchemaError < RuntimeError
       attr_reader :errors
