@@ -11,10 +11,14 @@ module Sipity
       end
 
       def initialize(work:)
-        @work = work
+        self.work = work
       end
 
+      private
+
       attr_accessor :work
+
+      public
 
       def call
         AttachmentWriter.call(exporter: self)
@@ -25,9 +29,10 @@ module Sipity
       end
 
       def data_directory
-        @data_directory ||= File.join(DATA_PATH, "/sipity-#{work.id}")
+        @data_directory ||= File.join(DATA_PATH, "/sipity-#{work_id}")
       end
 
+      # REVIEW: Should this be called as the first part of the attachment writer?
       def make_data_directory
         FileUtils.mkdir_p(data_directory)
       end
