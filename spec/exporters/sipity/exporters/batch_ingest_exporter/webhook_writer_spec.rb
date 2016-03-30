@@ -12,21 +12,15 @@ module Sipity
         describe '#call' do
           before { allow(described_class).to receive(:output_buffer).and_return(mock_file) }
 
-          xit 'bootstraps the data directory' do
-            described_class.call(exporter: exporter)
+          it 'bootstraps the data directory' do
             expect(exporter).to receive(:make_data_directory)
-          end
-
-          xit 'bootstraps the data directory' do
             described_class.call(exporter: exporter)
-            expect(described_class).to receive(:write_contents)
           end
-        end
 
-        describe '#output_buffer' do
-          let(:placeholder_file) { File.join(Dir.pwd, 'spec/exporters/sipity/exporters/batch_ingest_exporter/PLACEHOLDER_FILE') }
-          subject { described_class.output_buffer(filename: placeholder_file) }
-          it { is_expected.to respond_to(:write) }
+          it 'writes the webhook file' do
+            expect(described_class).to receive(:write_contents)
+            described_class.call(exporter: exporter)
+          end
         end
 
         describe '#write_contents' do
@@ -37,6 +31,12 @@ module Sipity
             mock_file.rewind
             expect(mock_file.read).to eq(example_webhook_url)
           end
+        end
+
+        describe '#output_buffer' do
+          let(:placeholder_file) { File.join(Dir.pwd, 'spec/exporters/sipity/exporters/batch_ingest_exporter/PLACEHOLDER_FILE') }
+          subject { described_class.output_buffer(filename: placeholder_file) }
+          it { is_expected.to respond_to(:write) }
         end
 
         describe '#target_path' do

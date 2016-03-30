@@ -42,7 +42,7 @@ module Sipity
       class MetadataWriter
       end
 
-      # Adds a list of URLs to the WEBHOOK file that are called during the bacth
+      # Adds a list of URLs to the WEBHOOK file that are called during the batch
       # ingest process.
       module WebhookWriter
         module_function
