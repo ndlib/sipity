@@ -101,7 +101,7 @@ module Sipity
         end
 
         def move_files(source:, destination:)
-          FileUtils.mv(source, File.join(destination, '/'), verbose: true)
+          FileUtils.mv(source, File.join(destination, '/'))
         end
       end
     end
