@@ -19,6 +19,7 @@ module Sipity
           let(:repository) { Sipity::QueryRepositoryInterface.new }
 
           subject { described_class.new(work: work, repository: repository) }
+          its(:default_repository) { is_expected.to respond_to :work_attribute_values_for }
           its(:properties_meta) { is_expected.to be_a(Hash) }
           its(:properties) { is_expected.to be_a(String) }
           its(:access_rights) { is_expected.to be_a(Hash) }

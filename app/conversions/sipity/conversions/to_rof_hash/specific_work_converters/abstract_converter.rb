@@ -7,7 +7,7 @@ module Sipity
         # Responsible for defining the interface for the specific converters
         class AbstractConverter
           DEFAULT_ROF_TYPE = 'fobject'.freeze
-          def initialize(work:, repository:)
+          def initialize(work:, repository: default_repository)
             self.work = work
             self.repository = repository
           end
@@ -71,6 +71,10 @@ module Sipity
           # @todo Optimize round trips to the database concerning the additional attributes
           def fetch_attribute_values(key:)
             repository.work_attribute_values_for(work: work, key: key)
+          end
+
+          def default_repository
+            Sipity::QueryRepository.new
           end
         end
         private_constant :AbstractConverter
