@@ -1,4 +1,4 @@
-require 'sipity/conversions/to_rof_hash/work_type_converters_for_work'
+require 'sipity/conversions/to_rof_hash/specific_work_converters'
 require 'sipity/conversions/to_rof_hash/access_rights_builder'
 module Sipity
   module Conversions
@@ -16,7 +16,7 @@ module Sipity
         def initialize(work:, repository: default_repository)
           self.work = work
           self.repository = repository
-          self.specific_converter = WorkTypeConvertersForWork.build(work: work, base_converter: self, repository: repository)
+          self.specific_work_converter = SpecificWorkConverters.find_and_initialize(work: work, base_converter: self, repository: repository)
         end
 
         private
@@ -24,7 +24,7 @@ module Sipity
         attr_accessor :work, :repository
 
         # Responsible for the custom conversions that happen based on the nuances of the work
-        attr_accessor :specific_converter
+        attr_accessor :specific_work_converter
 
         def default_repository
           Sipity::QueryRepository.new
@@ -36,9 +36,9 @@ module Sipity
           {
             'type' => 'fobject',
             'pid' => namespaced_pid(context: work),
-            'af-model' => specific_converter.af_model,
-            'metadata' => specific_converter.metadata,
-            'rels-ext' => specific_converter.rels_ext,
+            'af-model' => specific_work_converter.af_model,
+            'metadata' => specific_work_converter.metadata,
+            'rels-ext' => specific_work_converter.rels_ext,
             'rights' => access_rights,
             'properties-meta' => properties_meta,
             'properties' => properties

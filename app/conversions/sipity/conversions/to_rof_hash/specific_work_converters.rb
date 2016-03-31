@@ -3,8 +3,8 @@ module Sipity
   module Conversions
     module ToRofHash
       # Responsible for allowing for different work types to be exported with custom metadata
-      class WorkTypeConvertersForWork
-        def self.build(work:, base_converter:, repository:)
+      module SpecificWorkConverters
+        def self.find_and_initialize(work:, base_converter:, repository:)
           converter = instantiate_a_converter(work: work, base_converter: base_converter, repository: repository)
           raise Exceptions::FailedToInitializeWorkConverterError, work: work unless converter
           converter.new(work: work, base_converter: base_converter, repository: repository)
