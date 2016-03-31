@@ -86,7 +86,23 @@ module Sipity
         end
       end
 
-      class DirectoryMover
+      module DirectoryMover
+        DEFAULT_DESTINATION = Figaro.env.curate_batch_queue_mount_path!
+
+        module_function
+
+        def call(exporter:, destination_path: DEFAULT_DESTINATION)
+          prepare_destination(path: destination_path)
+          move_files(source: exporter.data_directory, destination: destination_path)
+        end
+
+        def prepare_destination(path:)
+          FileUtils.mkdir_p(path)
+        end
+
+        def move_files(source:, destination:)
+          FileUtils.mv(source, File.join(destination, '/'), verbose: true)
+        end
       end
     end
   end
