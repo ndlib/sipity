@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'sipity/conversions/to_rof_hash/specific_work_converters/ulra_converters'
+require 'sipity/conversions/to_rof_hash/work_converters/ulra_converters'
 
 module Sipity
   module Conversions
     module ToRofHash
-      module SpecificWorkConverters
+      module WorkConverters
         RSpec.describe UlraSeniorThesisConverter do
           let(:work) { double }
           let(:repository) { Sipity::QueryRepositoryInterface.new }

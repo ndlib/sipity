@@ -1,40 +1,53 @@
-require 'sipity/conversions/to_rof_hash/specific_work_converters'
-require 'sipity/conversions/to_rof_hash/access_rights_builder'
+require 'sipity/exceptions'
+require 'sipity/conversions/to_rof_hash/work_converters/etd_converter'
+require 'sipity/conversions/to_rof_hash/work_converters/ulra_converters'
+
 module Sipity
   module Conversions
     module ToRofHash
       # Responsible for converting a work to an ROF hash. This is a bit more
       # complicated as the work's work_type defines the data structure.
-      class WorkConverter
+      module WorkConverter
         # @api public
         #
-        # @param attachment [Sipity::Models::Attachment]
+        # @param work [Sipity::Models::Work]
+        # @return [Hash]
+        # @raise Exceptions::FailedToInitializeWorkConverterError when we don't know how to convert this object
         def self.call(work:, **keywords)
-          new(work: work, **keywords).call
+          find_and_initialize(work: work, **keywords).to_hash
         end
 
-        def initialize(work:, repository: default_repository)
-          self.work = work
-          self.repository = repository
-          self.specific_work_converter = SpecificWorkConverters.find_and_initialize(work: work, repository: repository)
+        def self.find_and_initialize(work:, repository: default_repository)
+          converter = instantiate_a_converter(work: work, repository: repository)
+          raise Exceptions::FailedToInitializeWorkConverterError, work: work unless converter
+          converter.new(work: work, repository: repository)
         end
 
-        private
+        # NOTE: Hear there be dragons. This is a prime location for plugin architecture to come along and expose a means for new work types
+        # to register a conversion to attempt. But at least its isolated.
+        #
+        # Why are these placed in WorkConverters module? Because I want to separate the methods that find the object and the registered
+        # location of those objects. By keeping them in separate namespaces, I don't have to worry about this module not being loaded.
+        def self.instantiate_a_converter(work:, repository:)
+          case work.work_type
+          when Models::WorkType::DOCTORAL_DISSERTATION, Models::WorkType::MASTER_THESIS
+            WorkConverters::EtdConverter
+          when Models::WorkType::ULRA_SUBMISSION
+            # NOTE: Locabulary gem for valid values
+            case repository.work_attribute_values_for(work: work, key: Models::AdditionalAttribute::AWARD_CATEGORY, cardinality: 1)
+            when 'Senior Thesis'
+              WorkConverters::UlraSeniorThesisConverter
+            when '10000 Level', "20000–40000 Level", "Honors Thesis", "Capstone Project"
+              WorkConverters::UlraDocumentConverter
+            end
+          end
+        end
+        private_class_method :instantiate_a_converter
 
-        attr_accessor :work, :repository
-
-        # Responsible for the custom conversions that happen based on the nuances of the work
-        attr_accessor :specific_work_converter
-
-        def default_repository
+        def self.default_repository
           Sipity::QueryRepository.new
         end
-
-        public
-
-        def call
-          specific_work_converter.to_hash
-        end
+        private_class_method :default_repository
       end
     end
   end

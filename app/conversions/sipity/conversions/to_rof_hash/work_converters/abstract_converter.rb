@@ -3,7 +3,7 @@ require 'sipity/conversions/to_rof_hash/access_rights_builder'
 module Sipity
   module Conversions
     module ToRofHash
-      module SpecificWorkConverters
+      module WorkConverters
         # Responsible for defining the interface for the specific converters
         class AbstractConverter
           DEFAULT_ROF_TYPE = 'fobject'.freeze

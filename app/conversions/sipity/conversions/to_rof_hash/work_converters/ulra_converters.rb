@@ -1,8 +1,8 @@
-require 'sipity/conversions/to_rof_hash/specific_work_converters/abstract_converter'
+require 'sipity/conversions/to_rof_hash/work_converters/abstract_converter'
 module Sipity
   module Conversions
     module ToRofHash
-      module SpecificWorkConverters
+      module WorkConverters
         class UlraSeniorThesisConverter < AbstractConverter
           def af_model
             'SeniorThesis'

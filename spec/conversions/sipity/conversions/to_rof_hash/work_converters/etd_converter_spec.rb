@@ -1,10 +1,10 @@
 require 'spec_helper'
-require 'sipity/conversions/to_rof_hash/specific_work_converters/etd_converter'
+require 'sipity/conversions/to_rof_hash/work_converters/etd_converter'
 
 module Sipity
   module Conversions
     module ToRofHash
-      module SpecificWorkConverters
+      module WorkConverters
         RSpec.describe EtdConverter do
           let(:work) do
             Sipity::Models::Work.new(
