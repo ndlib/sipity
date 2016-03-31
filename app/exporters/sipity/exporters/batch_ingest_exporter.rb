@@ -86,6 +86,9 @@ module Sipity
         end
       end
 
+      # The batch ingest process is triggered by file operations. When the data
+      # preparation is complete its containing directory is moved to the "queue"
+      # directory. This module manages moving the data.
       module DirectoryMover
         DEFAULT_DESTINATION = Figaro.env.curate_batch_queue_mount_path!
 
