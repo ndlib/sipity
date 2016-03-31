@@ -33,34 +33,7 @@ module Sipity
         public
 
         def call
-          {
-            'type' => 'fobject',
-            'pid' => namespaced_pid(context: work),
-            'af-model' => specific_work_converter.af_model,
-            'metadata' => specific_work_converter.metadata,
-            'rels-ext' => specific_work_converter.rels_ext,
-            'rights' => access_rights,
-            'properties-meta' => properties_meta,
-            'properties' => properties
-          }
-        end
-
-        private
-
-        def namespaced_pid(context: work)
-          "und:#{context.id}"
-        end
-
-        def access_rights
-          AccessRightsBuilder.call(work: work, access_rights_data: work.access_right, repository: repository)
-        end
-
-        def properties_meta
-          { 'mime-type' => 'text/xml' }
-        end
-
-        def properties
-          "<fields><depositor>#{AccessRightsBuilder::BATCH_USER}</depositor></fields>"
+          specific_work_converter.to_hash
         end
       end
     end
