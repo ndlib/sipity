@@ -22,11 +22,11 @@ module Sipity
           its(:default_repository) { is_expected.to respond_to :work_attribute_values_for }
           its(:properties_meta) { is_expected.to be_a(Hash) }
           its(:properties) { is_expected.to be_a(String) }
-          its(:access_rights) { is_expected.to be_a(Hash) }
+          it { is_expected.to respond_to(:access_rights) }
           its(:namespaced_pid) { is_expected.to be_a(String) }
           its(:rof_type) { is_expected.to eq(described_class::DEFAULT_ROF_TYPE) }
 
-          %w(af_model rels_ext metadata).each do |method_name|
+          %w(af_model rels_ext metadata edit_groups).each do |method_name|
             context "##{method_name}" do
               it "requires subclass to define the method" do
                 expect { subject.public_send(method_name) }.to raise_error NotImplementedError
@@ -42,6 +42,7 @@ module Sipity
                 expect(converter).to receive(:af_model).and_return('OVERRIDE')
                 expect(converter).to receive(:rels_ext).and_return({})
                 expect(converter).to receive(:metadata).and_return({})
+                expect(converter).to receive(:edit_groups).and_return(['hello world'])
               end
               it { is_expected.to be_a(Hash) }
             end

@@ -24,7 +24,7 @@ module Sipity
       let(:expected_base_rights) do
         {
           "edit" => ["curate_batch_user"],
-          "edit-groups" => ["batch_group_pid"],
+          "edit-groups" => [],
           "read" => ["one-cool-cat"]
         }
       end

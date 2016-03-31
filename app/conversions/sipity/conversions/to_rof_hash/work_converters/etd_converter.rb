@@ -5,6 +5,10 @@ module Sipity
       module WorkConverters
         # Responsible for exposing the custom metadata mapping that occurs for an ETD
         class EtdConverter < AbstractConverter
+          def edit_groups
+            [Figaro.env.curate_grad_school_editing_group_pid!]
+          end
+
           def af_model
             'Etd'
           end

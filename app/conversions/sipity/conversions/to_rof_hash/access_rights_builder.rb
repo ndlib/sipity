@@ -11,10 +11,11 @@ module Sipity
         end
 
         # @todo We wouldn't need to pass the access_rights_data if we were to create a repository method that can extract that information
-        def initialize(work:, access_rights_data:, repository: default_repository)
+        def initialize(work:, access_rights_data:, edit_groups: [], repository: default_repository)
           self.work = work
           self.access_rights_data = access_rights_data
           self.repository = repository
+          self.edit_groups = edit_groups
         end
 
         def call
@@ -29,6 +30,11 @@ module Sipity
           Sipity::QueryRepository.new
         end
 
+        attr_reader :edit_groups
+        def edit_groups=(input)
+          @edit_groups = Array.wrap(input)
+        end
+
         # @todo Extract this to a more generic location. Figaro perhaps?
         BATCH_USER = 'curate_batch_user'.freeze
 
@@ -36,7 +42,7 @@ module Sipity
           {
             'read' => creator_usernames,
             'edit' => [BATCH_USER],
-            'edit-groups' => editing_groups
+            'edit-groups' => edit_groups
           }
         end
 
@@ -60,6 +66,7 @@ module Sipity
           [Figaro.env.curate_grad_school_editing_group_pid!]
         end
 
+        # @note This is a rather critical assumption
         def creator_usernames
           @creator_usernames ||= Array.wrap(
             repository.scope_users_for_entity_and_roles(entity: work, roles: Models::Role::CREATING_USER)

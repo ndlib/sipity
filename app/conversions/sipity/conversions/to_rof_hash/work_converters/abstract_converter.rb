@@ -63,7 +63,17 @@ module Sipity
           end
 
           def access_rights
-            AccessRightsBuilder.call(work: work, access_rights_data: work.access_right, repository: repository)
+            AccessRightsBuilder.call(
+            work: work,
+            access_rights_data: work.access_right,
+            repository: repository,
+            edit_groups: edit_groups
+            )
+          end
+
+          # @return Hash
+          def edit_groups
+            raise NotImplementedError, "Expected #{self.class} to implement ##{__method__}"
           end
 
           private

@@ -40,7 +40,12 @@ module Sipity
         end
 
         def access_rights
-          AccessRightsBuilder.call(work: work, access_rights_data: attachment_access_rights_data, repository: repository)
+          AccessRightsBuilder.call(
+            work: work,
+            access_rights_data: attachment_access_rights_data,
+            edit_groups: edit_groups,
+            repository: repository
+          )
         end
 
         def attachment_access_rights_data
@@ -68,6 +73,11 @@ module Sipity
           @creator_usernames ||= Array.wrap(
             repository.scope_users_for_entity_and_roles(entity: work, roles: Models::Role::CREATING_USER)
           ).map(&:username)
+        end
+
+        # @note This assumption does not hold-up with ULRA
+        def edit_groups
+          [Figaro.env.curate_grad_school_editing_group_pid!]
         end
 
         def rels_ext

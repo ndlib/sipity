@@ -20,6 +20,7 @@ module Sipity
           let(:repository) { Sipity::QueryRepositoryInterface.new }
           subject { described_class.new(work: work, repository: repository) }
           its(:af_model) { is_expected.to eq('Etd') }
+          its(:edit_groups) { is_expected.to be_a(Array) }
           its(:metadata) { is_expected.to be_a(Hash) }
           its(:rels_ext) { is_expected.to be_a(Hash) }
           its(:to_hash) { is_expected.to be_a(Hash) }
