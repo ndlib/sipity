@@ -5,8 +5,7 @@ module Sipity
   RSpec.describe Conversions::ToRofHash::SpecificWorkConverters do
     context '.find_and_initialize' do
       let(:repository) { QueryRepositoryInterface.new }
-      let(:base_converter) { double('Base Converter') }
-      subject { described_class.find_and_initialize(work: work, repository: repository, base_converter: base_converter) }
+      subject { described_class.find_and_initialize(work: work, repository: repository) }
       context 'for a Models::WorkType::DOCTORAL_DISSERTATION' do
         let(:work) { Sipity::Models::Work.new(work_type: Models::WorkType::DOCTORAL_DISSERTATION) }
         it { is_expected.to be_a(described_class::EtdConverter) }

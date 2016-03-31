@@ -16,7 +16,7 @@ module Sipity
         def initialize(work:, repository: default_repository)
           self.work = work
           self.repository = repository
-          self.specific_work_converter = SpecificWorkConverters.find_and_initialize(work: work, base_converter: self, repository: repository)
+          self.specific_work_converter = SpecificWorkConverters.find_and_initialize(work: work, repository: repository)
         end
 
         private

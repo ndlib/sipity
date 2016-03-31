@@ -6,15 +6,15 @@ module Sipity
     module ToRofHash
       # Responsible for allowing for different work types to be exported with custom metadata
       module SpecificWorkConverters
-        def self.find_and_initialize(work:, base_converter:, repository:)
-          converter = instantiate_a_converter(work: work, base_converter: base_converter, repository: repository)
+        def self.find_and_initialize(work:, repository:)
+          converter = instantiate_a_converter(work: work, repository: repository)
           raise Exceptions::FailedToInitializeWorkConverterError, work: work unless converter
-          converter.new(work: work, base_converter: base_converter, repository: repository)
+          converter.new(work: work, repository: repository)
         end
 
         # NOTE: Hear there be dragons. This is a prime location for plugin architecture to come along and expose a means for new work types
         # to register a conversion to attempt. But at least its isolated.
-        def self.instantiate_a_converter(work:, base_converter:, repository:)
+        def self.instantiate_a_converter(work:, repository:)
           case work.work_type
           when Models::WorkType::DOCTORAL_DISSERTATION, Models::WorkType::MASTER_THESIS
             SpecificWorkConverters::EtdConverter

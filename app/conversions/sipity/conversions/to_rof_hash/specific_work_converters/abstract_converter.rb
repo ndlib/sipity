@@ -4,29 +4,28 @@ module Sipity
       module SpecificWorkConverters
         # Responsible for defining the interface for the specific converters
         class AbstractConverter
-          def initialize(work:, base_converter:, repository:)
+          def initialize(work:, repository:)
             self.work = work
-            self.base_converter = base_converter
             self.repository = repository
           end
 
           private
 
-          attr_accessor :work, :base_converter, :repository
+          attr_accessor :work, :repository
 
           public
 
-          # def metadata
-          #   raise NotImplementedError, "Expected #{self.class} to implement ##{__method__}"
-          # end
-          #
-          # def rels_ext
-          #   raise NotImplementedError, "Expected #{self.class} to implement ##{__method__}"
-          # end
-          #
-          # def af_model
-          #   raise NotImplementedError, "Expected #{self.class} to implement ##{__method__}"
-          # end
+          def metadata
+            raise NotImplementedError, "Expected #{self.class} to implement ##{__method__}"
+          end
+
+          def rels_ext
+            raise NotImplementedError, "Expected #{self.class} to implement ##{__method__}"
+          end
+
+          def af_model
+            raise NotImplementedError, "Expected #{self.class} to implement ##{__method__}"
+          end
 
           private
 
