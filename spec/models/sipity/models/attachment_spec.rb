@@ -40,6 +40,11 @@ module Sipity
           end
         end
 
+        context '#to_rof_file_basename' do
+          subject { described_class.new(pid: 'abc:123', file: File.new(__FILE__)).to_rof_file_basename }
+          it { is_expected.to be_a(String) }
+        end
+
         it 'will have a file_url that is an actual URL (not a path)' do
           subject = described_class.create!(work_id: 1, pid: 2, file: File.new(__FILE__), predicate_name: 'attachment')
           expect(subject.file_url).to match(%r{https?://[^/]+/attachments})

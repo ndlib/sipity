@@ -17,4 +17,37 @@ RSpec.describe Sipity::Queries::UlraQueries, type: :isolated_repository_module d
       )
     end
   end
+
+  context '#collection_pid_for' do
+    let(:submission_window) { Sipity::Models::SubmissionWindow.new(slug: submission_window_slug, work_area: work_area) }
+    let(:work_area) { Sipity::Models::WorkArea.new(slug: work_area_slug) }
+    let(:key) { 'participant' }
+    context 'ETD work area' do
+      let(:work_area_slug) { 'etd' }
+      let(:submission_window_slug) { '2016' }
+      it "should raise an error" do
+        expect { test_repository.collection_pid_for(submission_window: submission_window, key: key) }.to raise_error(KeyError)
+      end
+    end
+
+    context 'ULRA work area' do
+      let(:work_area_slug) { 'ulra' }
+      context 'for 2016 submission window' do
+        let(:submission_window_slug) { '2016' }
+
+        context 'with invalid key' do
+          let(:key) { 'another' }
+          it "should raise an error" do
+            expect { test_repository.collection_pid_for(submission_window: submission_window, key: key) }.to raise_error(KeyError)
+          end
+        end
+
+        context 'with valid key' do
+          let(:key) { 'participant' }
+          subject { test_repository.collection_pid_for(submission_window: submission_window, key: key) }
+          it { is_expected.to be_a(String) }
+        end
+      end
+    end
+  end
 end

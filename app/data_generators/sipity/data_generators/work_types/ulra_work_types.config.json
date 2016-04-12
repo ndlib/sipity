@@ -8,6 +8,12 @@
       },{
         "group": "ULRA Data Remediators",
         "role": "remediating_data"
+      }, {
+        "group": "ULRA Ingestors",
+        "role": "batch_ingesting"
+      }, {
+        "group": "Batch Ingestors",
+        "role": "batch_ingesting"
       }],
       "actions": [{
         "name": "start_a_submission",
@@ -22,7 +28,7 @@
       }, {
         "name": "debug",
         "from_states": [{
-          "name": ["new", "under_review", "pending_advisor_completion", "pending_student_completion", "review_completed", "under_data_remediation", "ready_for_ingest"],
+          "name": ["new", "under_review", "pending_advisor_completion", "pending_student_completion", "review_completed", "under_data_remediation", "ready_for_ingest", "ingesting", "ingested"],
           "roles": ["ulra_reviewing", "remediating_data"]
         }],
         "attributes": {
@@ -31,7 +37,7 @@
       }, {
         "name": "show",
         "from_states": [{
-          "name": ["new", "under_review", "pending_advisor_completion", "pending_student_completion", "review_completed", "under_data_remediation", "ready_for_ingest"],
+          "name": ["new", "under_review", "pending_advisor_completion", "pending_student_completion", "review_completed", "under_data_remediation", "ready_for_ingest", "ingesting", "ingested"],
           "roles": ["creating_user", "advising", "ulra_reviewing", "remediating_data"]
         }],
         "attributes": {
@@ -211,7 +217,29 @@
           "name": "under_data_remediation",
           "roles": "remediating_data"
         }],
-        "transition_to": "remediation_complete"
+        "transition_to": "ready_for_ingest"
+      }, {
+        "name": "submit_for_ingest",
+        "attributes": {
+          "presentation_sequence": 1,
+          "allow_repeat_within_current_state": false
+        },
+        "transition_to": "ingesting",
+        "from_states": [{
+          "name": ["ready_for_ingest"],
+          "roles": ["batch_ingesting"]
+        }]
+      }, {
+        "name": "ingest_completed",
+        "attributes": {
+          "presentation_sequence": 1,
+          "allow_repeat_within_current_state": false
+        },
+        "transition_to": "ingested",
+        "from_states": [{
+          "name": ["ingesting"],
+          "roles": ["batch_ingesting"]
+        }]
       }],
       "state_emails": [{
         "state": "under_review",

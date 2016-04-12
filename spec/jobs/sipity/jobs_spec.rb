@@ -19,7 +19,7 @@ module Sipity
 
     context '.find_job_by_name' do
       it 'will find a "namespaced" job' do
-        expect(Sipity::Jobs.find_job_by_name('etd/bulk_ingest')).to respond_to(:call)
+        expect(Sipity::Jobs.find_job_by_name('core/bulk_ingest')).to respond_to(:call)
       end
     end
   end

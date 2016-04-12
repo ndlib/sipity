@@ -9,9 +9,11 @@ module Sipity
         # What goes into this is more complicated that the entity might allow.
         class StartASubmissionForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, processing_subject_name: :submission_window,
+            attribute_names: [:title, :award_category, :advisor_netid, :advisor_name, :course_name, :course_number],
+            base_class: Models::Work,
+            form_class: self,
             policy_enforcer: Policies::SubmissionWindowPolicy,
-            attribute_names: [:title, :award_category, :advisor_netid, :advisor_name, :course_name, :course_number]
+            processing_subject_name: :submission_window
           )
 
           def initialize(submission_window:, requested_by:, attributes: {}, **keywords)

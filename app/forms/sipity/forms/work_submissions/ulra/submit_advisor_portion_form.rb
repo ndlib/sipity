@@ -9,7 +9,9 @@ module Sipity
         # for signoff.
         class SubmitAdvisorPortionForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::Work, attribute_names: [:agree_to_terms_of_deposit],
+            attribute_names: [:agree_to_terms_of_deposit],
+            base_class: Models::Work,
+            form_class: self,
             template: Forms::STATE_ADVANCING_ACTION_CONFIRMATION_TEMPLATE_NAME
           )
 

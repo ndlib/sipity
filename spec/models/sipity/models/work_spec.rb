@@ -27,6 +27,13 @@ module Sipity
       it { is_expected.to respond_to :submission_window }
       it { is_expected.to delegate_method(:transition_date).to(:access_right).with_prefix }
 
+      context '#to_rof' do
+        it 'should delegate to Conversions::ToRof::WorkConverter' do
+          expect(Conversions::ToRof::WorkConverter).to receive(:call).with(work: subject)
+          subject.to_rof
+        end
+      end
+
       context '#to_processing_entity' do
         it 'will raise an exception if one has not been created' do
           expect { subject.to_processing_entity }.to raise_error(Exceptions::ProcessingEntityConversionError)

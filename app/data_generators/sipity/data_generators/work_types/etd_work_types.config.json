@@ -11,6 +11,9 @@
       "group": "ETD Ingestors",
       "role": "batch_ingesting"
     }, {
+      "group": "Batch Ingestors",
+      "role": "batch_ingesting"
+    }, {
       "group": "Data Administrators",
       "role": "data_observing"
     }],

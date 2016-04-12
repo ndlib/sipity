@@ -11,6 +11,10 @@ if @environment == 'production'
   # people tend to schedule tasks on the quarter hours.
   # "I am the cicada, coo coo ca choo"
   every 1.day, at: '3:17 am', roles: [:app] do
-    runner "Sipity::Jobs::Etd::BulkIngestJob.call"
+    runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd')"
+  end
+
+  every 1.day, at: '4:17 am', roles: [:app] do
+    runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'ulra')"
   end
 end

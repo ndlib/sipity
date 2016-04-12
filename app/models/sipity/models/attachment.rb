@@ -40,6 +40,10 @@ module Sipity
       end
 
       delegate :url, :path, to: :file, prefix: :file, allow_nil: true
+
+      def to_rof_file_basename
+        "#{pid}-#{file_name}"
+      end
     end
   end
 end

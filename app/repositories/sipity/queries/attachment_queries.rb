@@ -8,10 +8,6 @@ module Sipity
         scope.where(predicate_name: predicate_name)
       end
 
-      def attachment_access_right_code(attachment:)
-        attachment_access_right(attachment: attachment).access_right_code
-      end
-
       def attachment_access_right(attachment:)
         attachment.access_right || attachment.work.access_right
       end

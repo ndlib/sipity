@@ -9,6 +9,11 @@ module Sipity
       self.table_name = 'sipity_groups'
 
       ALL_REGISTERED_USERS = 'All Registered Users'.freeze
+      BATCH_INGESTORS = "Batch Ingestors".freeze
+
+      def self.batch_ingestors
+        find_by!(name: BATCH_INGESTORS)
+      end
 
       def self.all_registered_users
         find_or_create_by!(name: ALL_REGISTERED_USERS)

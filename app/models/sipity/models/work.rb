@@ -34,6 +34,10 @@ module Sipity
         super(scrubber.sanitize(input))
       end
 
+      def to_rof
+        Conversions::ToRof::WorkConverter.call(work: self)
+      end
+
       private
 
       def set_default_work_type

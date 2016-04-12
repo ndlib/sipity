@@ -45,10 +45,6 @@ module Sipity
     def attachment_access_right(attachment:)
     end
 
-    # @see ./app/repositories/sipity/queries/attachment_queries.rb
-    def attachment_access_right_code(attachment:)
-    end
-
     # @see ./app/repositories/sipity/queries/processing_queries.rb
     def authorized_for_processing?(user:, entity:, action:)
     end
@@ -83,6 +79,10 @@ module Sipity
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
     def collaborators_that_have_taken_the_action_on_the_entity(entity:, actions:)
+    end
+
+    # @see ./app/repositories/sipity/queries/ulra_queries.rb
+    def collection_pid_for(submission_window:, key:)
     end
 
     # @see ./app/repositories/sipity/commands/redirect_commands.rb

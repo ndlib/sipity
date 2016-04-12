@@ -9,6 +9,11 @@ module Sipity
       its(:message) { is_expected.to be_a(String) }
     end
 
+    RSpec.describe FailedToInitializeWorkConverterError do
+      subject { described_class.new(work: { key: 'error' }) }
+      its(:message) { is_expected.to be_a(String) }
+    end
+
     RSpec.describe EmailAsOptionInvalidError do
       subject { described_class.new(as: :chicken, valid_list: [:hello]) }
       its(:message) { is_expected.to be_a(String) }
