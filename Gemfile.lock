@@ -46,9 +46,9 @@ GIT
 
 GIT
   remote: git://github.com/ndlib/hesburgh-lib.git
-  revision: a22bae11b65f1eabbdba3e02fabf1c5cded63ac0
+  revision: b928f5f095fdc1b27305c7bed634ce12ae68a695
   specs:
-    hesburgh-lib (0.0.1)
+    hesburgh-lib (0.1.1.1)
 
 GIT
   remote: git://github.com/ndlib/jshintrb.git
@@ -650,6 +650,7 @@ DEPENDENCIES
   launchy
   letter_opener
   locabulary!
+  loofah (~> 2.0.3)
   meta_request
   mime-types (~> 2.6.1)
   mysql2
