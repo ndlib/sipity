@@ -19,6 +19,7 @@ gem 'hesburgh-lib', github: 'ndlib/hesburgh-lib'
 gem 'high_voltage'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
+gem 'loofah', '~> 2.0.3' # Related to hesburgh-lib's dependency
 gem 'noids_client', git: 'git://github.com/ndlib/noids_client'
 gem 'rdiscount'
 gem 'responders', '~> 2.0'
