@@ -80,11 +80,12 @@ GIT
 
 GIT
   remote: git://github.com/ndlib/rof.git
-  revision: 9e35bde30a55fc9b6716fd224570e99d8146758e
+  revision: b1949c9ddef6b471c25897a789f2ee0c0a630abb
   specs:
-    rof (1.0.5)
+    rof (1.0.7)
       activesupport (< 5.0)
       deprecation (~> 0.1)
+      ebnf (< 1.0.2)
       json-ld (~> 2.0.0)
       mime-types (~> 2.4)
       noids_client
@@ -230,7 +231,7 @@ GEM
       rubycas-client (>= 2.2.1)
     diff-lcs (1.2.5)
     docile (1.1.5)
-    domain_name (0.5.20160310)
+    domain_name (0.5.20161129)
       unf (>= 0.0.5, < 1.0.0)
     dragonfly-s3_data_store (1.2)
       dragonfly (~> 1.0)
@@ -339,7 +340,7 @@ GEM
     hooks (0.3.6)
       uber (~> 0.0.4)
     htmlentities (4.3.4)
-    http-cookie (1.0.2)
+    http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.7.0)
     i18n-debug (1.1.0)
