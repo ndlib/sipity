@@ -12,10 +12,10 @@ if @environment == 'production'
   # "I am the cicada, coo coo ca choo"
 
   every 1.day, at: '3:17 am', roles: [:app] do
-    # runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd')"
+    runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd')"
   end
 
   every 1.day, at: '4:17 am', roles: [:app] do
-    # runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'ulra')"
+    runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'ulra')"
   end
 end
