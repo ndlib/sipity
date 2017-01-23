@@ -19,6 +19,18 @@ module Sipity
           creators.to_sentence
         end
 
+        def creator_names_as_email_links
+          creators.map do |creator|
+            mail_to(creator.email, creator, subject: "Your #{submission_window.slug} ULRA submission")
+          end.join(' ').html_safe
+        end
+
+        def advisor_names_as_email_links
+          advisors.map do |advisor|
+            mail_to(advisor.email, advisor, subject: "#{submission_window.slug} ULRA submission for #{creator_names_to_sentence}")
+          end.join(' ').html_safe
+        end
+
         def submission_window
           work.submission_window
         end
@@ -45,6 +57,11 @@ module Sipity
         def creators
           # The repository comes from the underlying context; Which is likely a controller.
           @creators ||= Array.wrap(repository.scope_users_for_entity_and_roles(entity: work, roles: Models::Role::CREATING_USER))
+        end
+
+        def advisors
+          # The repository comes from the underlying context; Which is likely a controller.
+          @advisors ||= Array.wrap(repository.scope_users_for_entity_and_roles(entity: work, roles: Models::Role::ADVISING))
         end
       end
     end
