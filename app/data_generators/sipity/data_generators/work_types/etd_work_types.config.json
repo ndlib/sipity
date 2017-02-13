@@ -5,6 +5,9 @@
       "group": "Graduate School Reviewers",
       "role": "etd_reviewing"
     }, {
+      "group": "Graduate School Student Reviewers",
+      "role": "etd_student_reviewing"
+    }, {
       "group": "Catalogers",
       "role": "cataloging"
     }, {
@@ -38,7 +41,7 @@
       },
       "from_states": [{
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested"],
-        "roles": ["etd_reviewing", "data_observing", "creating_user"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing", "creating_user"]
       }, {
         "name": ["grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested"],
         "roles": ["etd_third_party_integrating"]
@@ -59,7 +62,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }]
     }, {
       "name": "debug",
@@ -68,7 +71,7 @@
       },
       "from_states": [{
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "author",
@@ -80,7 +83,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "publishing_and_patenting_intent",
@@ -92,7 +95,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "describe",
@@ -104,7 +107,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "collaborators",
@@ -116,7 +119,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "attach",
@@ -128,7 +131,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "defense_date",
@@ -140,7 +143,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "search_terms",
@@ -152,7 +155,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "degree",
@@ -164,7 +167,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "access_policy",
@@ -176,7 +179,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "copyright",
@@ -188,7 +191,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "submit_for_review",
@@ -260,7 +263,7 @@
       "transition_to": "under_grad_school_review",
       "from_states": [{
         "name": ["under_advisor_review"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
@@ -275,7 +278,7 @@
       "transition_to": "advisor_changes_requested",
       "from_states": [{
         "name": ["under_advisor_review"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "request_change_on_behalf_of",
@@ -306,7 +309,7 @@
       "transition_to": "ready_for_cataloging",
       "from_states": [{
         "name": ["under_grad_school_review", "grad_school_changes_requested"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "confirmation_of_grad_school_signoff",
@@ -320,7 +323,7 @@
       "transition_to": "ready_for_cataloging",
       "from_states": [{
         "name": ["grad_school_approved_but_waiting_for_routing"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "thank_you_for_your_patience_with_the_new_etd_system",
@@ -335,7 +338,7 @@
       "transition_to": "grad_school_changes_requested",
       "from_states": [{
         "name": ["under_grad_school_review", "grad_school_changes_requested"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "grad_school_requests_change",
@@ -350,7 +353,7 @@
       "transition_to": "ready_for_cataloging",
       "from_states": [{
         "name": ["back_from_cataloging"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }]
     }, {
       "name": "send_back_to_grad_school",
@@ -430,6 +433,9 @@
       "group": "Graduate School Reviewers",
       "role": "etd_reviewing"
     }, {
+      "group": "Graduate School Student Reviewers",
+      "role": "etd_student_reviewing"
+    }, {
       "group": "Catalogers",
       "role": "cataloging"
     }, {
@@ -463,7 +469,7 @@
       },
       "from_states": [{
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested"],
-        "roles": ["etd_reviewing", "data_observing", "creating_user"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing", "creating_user"]
       }, {
         "name": ["grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested"],
         "roles": ["etd_third_party_integrating"]
@@ -484,7 +490,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }]
     }, {
       "name": "debug",
@@ -493,7 +499,7 @@
       },
       "from_states": [{
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "author",
@@ -505,7 +511,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "publishing_and_patenting_intent",
@@ -517,7 +523,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "describe",
@@ -529,7 +535,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "collaborators",
@@ -541,7 +547,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "attach",
@@ -553,7 +559,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "defense_date",
@@ -565,7 +571,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "search_terms",
@@ -577,7 +583,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "degree",
@@ -589,7 +595,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "copyright",
@@ -601,7 +607,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "access_policy",
@@ -613,7 +619,7 @@
         "roles": ["creating_user"]
       }, {
         "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
-        "roles": ["etd_reviewing", "data_observing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
       "name": "submit_for_review",
@@ -685,7 +691,7 @@
       "transition_to": "under_grad_school_review",
       "from_states": [{
         "name": ["under_advisor_review"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
@@ -700,7 +706,7 @@
       "transition_to": "advisor_changes_requested",
       "from_states": [{
         "name": ["under_advisor_review"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "request_change_on_behalf_of",
@@ -731,7 +737,7 @@
       "transition_to": "ready_for_cataloging",
       "from_states": [{
         "name": ["under_grad_school_review", "grad_school_changes_requested"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "confirmation_of_grad_school_signoff",
@@ -745,7 +751,7 @@
       "transition_to": "ready_for_cataloging",
       "from_states": [{
         "name": ["grad_school_approved_but_waiting_for_routing"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "thank_you_for_your_patience_with_the_new_etd_system",
@@ -760,7 +766,7 @@
       "transition_to": "grad_school_changes_requested",
       "from_states": [{
         "name": ["under_grad_school_review", "grad_school_changes_requested"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }],
       "emails": [{
         "name": "grad_school_requests_change",
@@ -775,7 +781,7 @@
       "transition_to": "ready_for_cataloging",
       "from_states": [{
         "name": ["back_from_cataloging"],
-        "roles": ["etd_reviewing"]
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
       }]
     }, {
       "name": "send_back_to_grad_school",
