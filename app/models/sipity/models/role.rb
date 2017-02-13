@@ -45,6 +45,7 @@ module Sipity
       CREATING_USER = 'creating_user'.freeze
       DATA_OBSERVING = "data_observing".freeze
       ETD_REVIEWING = "etd_reviewing".freeze
+      ETD_STUDENT_REVIEWING = 'etd_student_reviewing'.freeze
       ETD_THIRD_PARTY_INTEGRATING = 'etd_third_party_integrating'.freeze
       REMEDIATING_DATA = "remediating_data".freeze
       SUBMISSION_WINDOW_VIEWING = "submission_window_viewing".freeze
@@ -64,6 +65,7 @@ module Sipity
           CREATING_USER => CREATING_USER,
           DATA_OBSERVING => DATA_OBSERVING,
           ETD_REVIEWING => ETD_REVIEWING,
+          ETD_STUDENT_REVIEWING => ETD_STUDENT_REVIEWING,
           ETD_THIRD_PARTY_INTEGRATING => ETD_THIRD_PARTY_INTEGRATING,
           REMEDIATING_DATA => REMEDIATING_DATA,
           SUBMISSION_WINDOW_VIEWING => SUBMISSION_WINDOW_VIEWING,
