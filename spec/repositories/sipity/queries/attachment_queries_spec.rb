@@ -24,6 +24,18 @@ module Sipity
           expect(subject.work_attachments(work: work, predicate_name: 'alternate_attachment')).to eq([other_type])
           expect(subject.work_attachments(work: work, predicate_name: :all)).to eq([attachment, other_type])
         end
+
+        context 'when ordered by :representative_first' do
+          it 'returns the representative file first' do
+            non_representative = Models::Attachment.create!(
+              work_id: work.id, pid: 'attach1', predicate_name: 'alternate_attachment', file: file
+            )
+            representative = Models::Attachment.create!(
+              work_id: work.id, pid: 'attach2', predicate_name: 'attachment', file: file, is_representative_file: true
+            )
+            expect(subject.work_attachments(work: work, order: :representative_first)).to eq([representative, non_representative])
+          end
+        end
       end
 
       context '#accessible_objects' do

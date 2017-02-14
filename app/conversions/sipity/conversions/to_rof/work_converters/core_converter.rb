@@ -32,9 +32,7 @@ module Sipity
 
           # @api public
           def to_rof
-            [to_hash] + attachments.map do |attachment|
-              attachment_converter.call(attachment: attachment, work_converter: self, repository: repository)
-            end
+            [to_hash] + convert_attachments_to_array_of_rof_elements
           end
 
           # @api public
@@ -68,7 +66,7 @@ module Sipity
 
           # @return Array
           def attachments
-            raise NotImplementedError, "Expected #{self.class} to implement ##{__method__}"
+            @attachments ||= Array.wrap(repository.work_attachments(work: work, predicate_name: :all, order: :representative_first))
           end
 
           # @return Hash
@@ -85,8 +83,17 @@ module Sipity
             { 'mime-type' => 'text/xml' }
           end
 
+          def representative_attachment
+            repository.representative_attachment_for(work: work)
+          end
+
           def properties
-            "<fields><depositor>#{AccessRightsBuilder::BATCH_USER}</depositor></fields>"
+            text = "<fields><depositor>#{AccessRightsBuilder::BATCH_USER}</depositor>"
+            the_representative_attachment = representative_attachment
+            if the_representative_attachment
+              text = "#{text}<representative>#{namespaced_pid(context: the_representative_attachment)}</representative>"
+            end
+            "#{text}</fields>"
           end
 
           def access_rights
@@ -99,6 +106,12 @@ module Sipity
           end
 
           private
+
+          def convert_attachments_to_array_of_rof_elements
+            attachments.map do |attachment|
+              attachment_converter.call(attachment: attachment, work_converter: self, repository: repository)
+            end
+          end
 
           attr_accessor :attachment_converter
           def default_attachment_converter

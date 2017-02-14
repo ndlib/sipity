@@ -40,7 +40,7 @@ module Sipity
           end
 
           def attachments
-            Array.wrap(repository.work_attachments(work: work, predicate_name: :all))
+            Array.wrap(repository.work_attachments(work: work, predicate_name: :all, order: :representative_first))
           end
 
           private
