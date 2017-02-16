@@ -6,11 +6,11 @@
 module Sipity
   class QueryRepositoryInterface
     # @see ./app/repositories/sipity/queries/attachment_queries.rb
-    def access_rights_for_accessible_objects_of(work:, predicate_name: :all)
+    def access_rights_for_accessible_objects_of(work:, predicate_name: :all, order: :none)
     end
 
     # @see ./app/repositories/sipity/queries/attachment_queries.rb
-    def accessible_objects(work:, predicate_name: :all)
+    def accessible_objects(work:, predicate_name: :all, order: :none)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
@@ -242,7 +242,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/attachment_queries.rb
-    def work_attachments(work:, predicate_name: :all)
+    def work_attachments(work:, predicate_name: :all, order: :none)
     end
 
     # @see ./app/repositories/sipity/queries/additional_attribute_queries.rb

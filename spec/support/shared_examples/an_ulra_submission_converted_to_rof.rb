@@ -56,7 +56,7 @@ module Sipity
       subject { converter.attachments }
       before do
         expect(repository).to receive(:work_attachments).with(
-          work: work, predicate_name: described_class::ATTACHMENT_TYPES_FOR_EXPORT
+          work: work, predicate_name: described_class::ATTACHMENT_TYPES_FOR_EXPORT, order: :representative_first
         ).and_return(:returned_value)
       end
       it { is_expected.to be_a(Array) }

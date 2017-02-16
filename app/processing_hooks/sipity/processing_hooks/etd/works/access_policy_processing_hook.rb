@@ -1,5 +1,4 @@
 require 'sipity/conversions/convert_to_work'
-require 'sipity/models/access_right'
 
 module Sipity
   module ProcessingHooks

@@ -72,7 +72,7 @@ module Sipity
 
           ATTACHMENT_TYPES_FOR_EXPORT = %w(project_file submission_essay).freeze
           def attachments
-            Array.wrap(repository.work_attachments(work: work, predicate_name: ATTACHMENT_TYPES_FOR_EXPORT))
+            Array.wrap(repository.work_attachments(work: work, predicate_name: ATTACHMENT_TYPES_FOR_EXPORT, order: :representative_first))
           end
 
           def collections

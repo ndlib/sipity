@@ -44,7 +44,7 @@ module Sipity
       let(:attachment_predicate_name) { parameters.fetch(:attachment_predicate_name) }
       it "should retrieve attachments for predicate_name(s) #{parameters.fetch(:attachment_predicate_name).inspect}" do
         expect(repository).to receive(:work_attachments).with(
-          work: work, predicate_name: attachment_predicate_name
+          work: work, predicate_name: attachment_predicate_name, order: :representative_first
         ).and_return(:returned_value)
         subject
       end

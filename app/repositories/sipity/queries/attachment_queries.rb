@@ -2,22 +2,33 @@ module Sipity
   module Queries
     # Queries
     module AttachmentQueries
-      def work_attachments(work:, predicate_name: :all)
+      # The permissable order options when querying
+      ATTACHMENT_QUERY_ORDER_OPTIONS = {
+        representative_first: 'is_representative_file DESC'.freeze,
+        none: false
+      }.freeze
+      def work_attachments(work:, predicate_name: :all, order: :none)
         scope = Models::Attachment.includes(:work, :access_right).where(work_id: work.id)
-        return scope if predicate_name == :all
-        scope.where(predicate_name: predicate_name)
+        if predicate_name != :all
+          scope = scope.where(predicate_name: predicate_name)
+        end
+        query_order = ATTACHMENT_QUERY_ORDER_OPTIONS.fetch(order)
+        return scope unless query_order
+        scope.order(query_order)
       end
 
       def attachment_access_right(attachment:)
         attachment.access_right || attachment.work.access_right
       end
 
-      def accessible_objects(work:, predicate_name: :all)
-        [work] + work_attachments(work: work, predicate_name: predicate_name)
+      def accessible_objects(work:, predicate_name: :all, order: :none)
+        [work] + work_attachments(work: work, predicate_name: predicate_name, order: order)
       end
 
-      def access_rights_for_accessible_objects_of(work:, predicate_name: :all)
-        accessible_objects(work: work, predicate_name: predicate_name).map { |object| Models::AccessRightFacade.new(object, work: work) }
+      def access_rights_for_accessible_objects_of(work:, predicate_name: :all, order: :none)
+        accessible_objects(work: work, predicate_name: predicate_name, order: order).map do |object|
+          Models::AccessRightFacade.new(object, work: work)
+        end
       end
 
       def find_or_initialize_attachments_by(work:, pid:)
