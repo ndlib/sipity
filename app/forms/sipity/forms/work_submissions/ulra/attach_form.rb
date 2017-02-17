@@ -41,6 +41,7 @@ module Sipity
           validate :at_least_one_file_must_be_attached
           validates :work, presence: true
           validates :requested_by, presence: true
+          validates :project_url, http_url: { allow_empty: true }
           validates(
             :attached_files_completion_state,
             presence: true,
@@ -66,6 +67,16 @@ module Sipity
           end
 
           private
+
+          def project_url=(input)
+            @project_url = begin
+              if input.present?
+                PowerConverter.convert(input, to: :prepended_with_http) { input }
+              else
+                input
+              end
+            end
+          end
 
           def save
             repository.set_as_representative_attachment(work: work, pid: representative_attachment_id)
