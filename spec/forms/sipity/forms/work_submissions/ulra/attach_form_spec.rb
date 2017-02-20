@@ -49,6 +49,36 @@ module Sipity
             )
           end
 
+          context '#project_url validation' do
+            it 'will allow a blank URL' do
+              attributes = keywords[:attributes].merge(project_url: '')
+              form = described_class.new(keywords.merge(attributes: attributes))
+              form.valid?
+              expect(form.errors[:project_url]).to be_empty
+            end
+            it 'will disallow a malconfigured URL' do
+              attributes = keywords[:attributes].merge(project_url: 'ftp://chicken.com')
+              form = described_class.new(keywords.merge(attributes: attributes))
+              form.valid?
+              expect(form.errors[:project_url]).not_to be_empty
+            end
+          end
+
+          context '#project_url' do
+            it 'will prepend http:// if the input is present but does not have http://' do
+              form = described_class.new(keywords.merge(attributes: { project_url: 'google.com' }))
+              expect(form.project_url).to eq('http://google.com')
+            end
+            it 'will not prepend http:// if the input is present but has a prefix of http://' do
+              form = described_class.new(keywords.merge(attributes: { project_url: 'http://google.com' }))
+              expect(form.project_url).to eq('http://google.com')
+            end
+            it 'will not http:// if the input is not present' do
+              form = described_class.new(keywords.merge(attributes: { project_url: '' }))
+              expect(form.project_url).to eq('')
+            end
+          end
+
           context 'assigning attachments attributes' do
             let(:user) { double('User') }
             let(:attributes) do
@@ -114,7 +144,7 @@ module Sipity
               it 'will persist the project_url' do
                 expect(repository).to receive(
                   :update_work_attribute_values!
-                ).with(work: work, key: 'project_url', values: 'the.url').and_call_original
+                ).with(work: work, key: 'project_url', values: 'http://the.url').and_call_original
                 subject.submit
               end
 

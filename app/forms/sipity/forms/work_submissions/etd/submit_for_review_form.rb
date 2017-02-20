@@ -45,7 +45,7 @@ module Sipity
           end
 
           def deposit_terms
-            view_context.t('statement_of_terms', scope: 'sipity/legal.deposit').html_safe
+            view_context.t('ulra/statement_of_terms', scope: 'sipity/legal.deposit').html_safe
           end
 
           def deposit_agreement

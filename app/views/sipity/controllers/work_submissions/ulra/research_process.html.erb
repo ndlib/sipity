@@ -30,7 +30,7 @@
             <% end %>
           </ol>
         <% end %>
-        <%= f.label :resources_consulted %>
+        <%= f.label :resources_consulted, label: "Resrouces consulted (select all that apply)" %>
         <ul class="resources-consulted-listing">
           <% model.top_level_categories.each_pair do |key, values| %>
             <li><%= f.input :resources_consulted, as: :check_boxes, collection: values, label: key  %></li>
