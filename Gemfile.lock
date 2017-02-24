@@ -62,7 +62,7 @@ GIT
 
 GIT
   remote: git://github.com/ndlib/locabulary.git
-  revision: 330623cf47fa72f7e97f675d99b0671ae260ce4d
+  revision: cc74ac85d7e5a8fd6ba2089c9efd6fce4da7df49
   branch: master
   specs:
     locabulary (0.6.2)
@@ -618,7 +618,7 @@ GEM
     terminal-notifier (1.6.3)
     terminal-notifier-guard (1.6.4)
     thor (0.19.4)
-    thread_safe (0.3.5)
+    thread_safe (0.3.6)
     tilt (2.0.5)
     tins (1.10.2)
     tzinfo (1.2.2)
