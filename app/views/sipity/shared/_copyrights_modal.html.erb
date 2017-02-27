@@ -1,0 +1,28 @@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-info" data-toggle="modal" data-target="#myModal">
+  Copyright Descriptions…
+</button>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h2 class="modal-title"><%= t('application.name') %> License Descriptions</h2>
+      </div>
+      <div class="modal-body" aria-hidden="true">
+        <p><%= t('application.name') %> offers the following licenses for deposited
+        items.
+        The majority come from the set of <a href="http://creativecommons.org/licenses/">Creative Commons licenses</a>.
+        See these <a href="https://creativecommons.org/examples">examples</a> of
+        uses of Creative Commons licenses. CurateND originally offered 3.0 US licenses and continues to support them but has added support for Creative Commons 4.0 licenses and encourages those submitting new objects to consider using them instead.
+        </p>
+        <ul>
+          <% Locabulary.active_items_for(predicate_name: 'copyright', as_of: Time.zone.now).each do |item| %>
+            <li><strong><%= item.term_label %></strong><br /><%= item.description %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
