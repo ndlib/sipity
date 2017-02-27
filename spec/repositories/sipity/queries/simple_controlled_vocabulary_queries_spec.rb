@@ -25,8 +25,8 @@ module Sipity
 
       context '#get_controlled_vocabulary_value_for' do
         it 'will get controlled vocabulary label for the predicate and uri' do
-          uri = 'http://creativecommons.org/licenses/by/3.0/us/'
-          label = "Attribution 3.0 United States"
+          uri = 'http://creativecommons.org/publicdomain/mark/1.0/'
+          label = "Public Domain Mark 1.0"
           expect(test_repository.get_controlled_vocabulary_value_for(name: 'copyright', term_uri: uri)).to eq(label)
         end
 

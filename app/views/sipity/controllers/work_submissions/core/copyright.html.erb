@@ -17,6 +17,7 @@
       <%= f.input :copyright, collection: model.available_copyrights,
             label_method: :term_label, value_method: :term_uri,
             include_blank: true, input_html: { class: 'form-control', selected: model.copyright} %>
+      <%= render "/sipity/shared/copyrights_modal" %>
     </div>
   </fieldset>
   <div class="panel-footer action-pane">
