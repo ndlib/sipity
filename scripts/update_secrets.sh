@@ -1,20 +1,11 @@
 #!/bin/bash
 #
-# Copy the preproduction secrets to the correct place for deployment
-#
-# This runs on the worker VM and on the cluster
+# Copy the secrets from the shared capistrno directory to the release directory
 #
 # usage:
-#   ./update_secrets.sh <name of secret repo>
+#   ./update_secrets.sh <directory of secrets>
 
-secret_repo=$1
-
-if [ -d $secret_repo ]; then
-    echo "=-=-=-=-=-=-=-= delete $secret_repo"
-    rm -rf $secret_repo
-fi
-echo "=-=-=-=-=-=-=-= git clone $secret_repo"
-git clone "git@git.library.nd.edu:$secret_repo"
+secret_dir=$1
 
 files_to_copy="
     config/application.yml
@@ -27,11 +18,11 @@ files_to_copy="
 
 for f in $files_to_copy; do
     echo "=-=-=-=-=-=-=-= copy $f"
-    if [ -f $secret_repo/sipity/$f ];
+    if [ -f "$secret_dir/$f" ];
     then
-        cp $secret_repo/sipity/$f $f
+        cp "$secret_dir/$f" "$f"
     else
-        echo "Fatal Error: File $f does not exist in $secret_repo/sipity"
+        echo "Fatal Error: File $f does not exist in $secret_dir"
         exit 1
     fi
 done
