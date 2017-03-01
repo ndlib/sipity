@@ -5,16 +5,10 @@
 # TODO update script to perform the correct function
 #
 # usage:
-#   ./update_secrets.sh <name of secret repo>
+#   ./copy_secrets.sh <secret directory> <target host>
 
-secret_repo=$1
-
-if [ -d $secret_repo ]; then
-    echo "=-=-=-=-=-=-=-= delete $secret_repo"
-    rm -rf $secret_repo
-fi
-echo "=-=-=-=-=-=-=-= git clone $secret_repo"
-git clone "git@git.library.nd.edu:$secret_repo"
+secret_dir=$1
+app_host=$2
 
 files_to_copy="
     config/application.yml
@@ -27,11 +21,11 @@ files_to_copy="
 
 for f in $files_to_copy; do
     echo "=-=-=-=-=-=-=-= copy $f"
-    if [ -f $secret_repo/sipity/$f ];
+    if [ -f "$secret_dir/$f" ];
     then
-        cp $secret_repo/sipity/$f $f
+        scp -rv "$secret_dir/$f" "app@$app_host:/home/app/shared/$f"
     else
-        echo "Fatal Error: File $f does not exist in $secret_repo/sipity"
+        echo "Fatal Error: File $f does not exist in $secret_dir"
         exit 1
     fi
 done
