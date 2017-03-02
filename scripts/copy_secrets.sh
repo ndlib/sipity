@@ -10,22 +10,16 @@
 secret_dir=$1
 app_host=$2
 
-files_to_copy="
-    config/application.yml
-    config/database.yml
-    config/newrelic.yml
-    config/environment_bootstrapper.rb
-    config/locales/site-specific.yml
-    app/assets/stylesheets/theme/_default.scss
-    "
-
-for f in $files_to_copy; do
-    echo "=-=-=-=-=-=-=-= copy $f"
-    if [ -f "$secret_dir/$f" ];
+    if [ -d "$secret_dir" ];
     then
-        scp -rv "$secret_dir/$f" "app@$app_host:/home/app/shared/$f"
+        scp -r "$secret_dir" "app@$app_host:/home/app/sipity/shared/secret"
     else
-        echo "Fatal Error: File $f does not exist in $secret_dir"
+        echo "Fatal Error: Source directory $secret_dir does not exist"
         exit 1
     fi
-done
+
+    if [ $? -ne 0 ];
+    then
+	echo "Fatal Error: scp ${secret_dir} app@${app_host}:/home/app/sipity/shared/secret failed" 
+	exit 1
+    fi
