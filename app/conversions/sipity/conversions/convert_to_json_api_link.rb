@@ -10,7 +10,7 @@ module Sipity
       #
       # @param pagination_method [Symbol]
       # @param request [ActionDispatch::Request]
-      # @param pager [#last_page?, #first_page?, #num_pages, #prev_page, #next_page]
+      # @param pager [#last_page?, #first_page?, #total_pages, #prev_page, #next_page]
       # @return String
       #
       # @see http://jsonapi.org/format/#fetching-pagination
@@ -24,7 +24,7 @@ module Sipity
           return nil if pager.first_page?
           url_for(request: request, query_parameters: request.query_parameters.merge(page: pager.prev_page))
         when :last
-          url_for(request: request, query_parameters: request.query_parameters.merge(page: pager.num_pages))
+          url_for(request: request, query_parameters: request.query_parameters.merge(page: pager.total_pages))
         when :first then
           url_for(request: request, query_parameters: request.query_parameters.merge(page: 1))
         end
