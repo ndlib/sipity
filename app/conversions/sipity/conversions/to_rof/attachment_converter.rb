@@ -1,4 +1,6 @@
 require 'sipity/conversions/to_rof/access_rights_builder'
+require 'rof/rdf_context'
+
 module Sipity
   module Conversions
     module ToRof
@@ -60,7 +62,7 @@ module Sipity
 
         def metadata
           {
-            "@context" => jsonld_contexts,
+            "@context" => jsonld_context,
             "dc:title" => attachment.file_name,
             "dc:creator" => creator_usernames,
             "dc:date#created" => date_convert(attachment.created_at),
@@ -80,18 +82,22 @@ module Sipity
 
         def rels_ext
           {
-            "@context" => jsonld_contexts,
+            "@context" => jsonld_context_for_rels_ext,
             'hydramata-rel:hasEditor' => [Figaro.env.curate_batch_user_pid!],
             'hydramata-rel:hasEditorGroup' => edit_groups,
             'isPartOf' => [namespaced_pid(context: work)]
           }
         end
 
-        def jsonld_contexts
+        def jsonld_context
           {
             "dc" => 'http://purl.org/dc/terms/',
             "rdfs" => 'http://www.w3.org/2000/01/rdf-schema#'
           }
+        end
+
+        def jsonld_context_for_rels_ext
+          ROF::RelsExtRefContext
         end
 
         def properties_meta
