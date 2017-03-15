@@ -131,6 +131,10 @@ module Sipity
             ROF::RdfContext
           end
 
+          def jsonld_context_for_rels_ext
+            ROF::RelsExtRefContext
+          end
+
           def format_date(date)
             date.strftime('%Y-%m-%d')
           end

@@ -54,7 +54,7 @@ module Sipity
 
           def rels_ext
             {
-              '@context' => jsonld_context,
+              '@context' => jsonld_context_for_rels_ext,
               'hydramata-rel:hasEditor' => [Figaro.env.curate_batch_user_pid!],
               'hydramata-rel:hasEditorGroup' => edit_groups
             }
