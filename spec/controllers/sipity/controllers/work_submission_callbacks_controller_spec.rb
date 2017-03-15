@@ -11,7 +11,7 @@ module Sipity
 
       context 'configuration' do
         its(:runner_container) { is_expected.to eq(Sipity::Runners::WorkSubmissionsRunners) }
-        its(:response_handler_container) { is_expected.to eq(Sipity::ResponseHandlers::WorkSubmissionHandler) }
+        its(:response_handler_container) { is_expected.to eq(Sipity::ResponseHandlers::WorkSubmissionCallbackHandler) }
       end
 
       it { is_expected.to be_a(Sipity::Controllers::AuthenticatedController) }

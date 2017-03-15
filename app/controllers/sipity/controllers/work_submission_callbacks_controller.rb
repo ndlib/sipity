@@ -6,7 +6,7 @@ module Sipity
 
       class_attribute :response_handler_container
       self.runner_container = Sipity::Runners::WorkSubmissionsRunners
-      self.response_handler_container = Sipity::ResponseHandlers::WorkSubmissionHandler
+      self.response_handler_container = Sipity::ResponseHandlers::WorkSubmissionCallbackHandler
 
       def command_action
         run_and_respond_with_processing_action(work_id: work_id, attributes: command_attributes)
