@@ -16,6 +16,7 @@ default_email_return_path: 'no-reply@nd.edu'
 dragonfly_s3_access_key_id: 's3_key'
 dragonfly_s3_bucket_name: 'bucket_name'
 dragonfly_s3_root_path: 's3_root_dir'
+dragonfly_s3_path: "path"
 dragonfly_s3_secret_access_key: 'secret'
 dragonfly_s3_url_host: 'bucketname.aws.com'
 dragonfly_secret: "12345"
@@ -31,6 +32,17 @@ protocol: 'http'
 sipity_access_key_for_batch_ingester: '1234'
 sipity_access_key_for_etd_integrators: '4567'
 sipity_batch_ingester_access_key: '1234' # deprecated
+curate_batch_group_pid: "group_pid"
+smtp_host: "smtp.gmail.com"
+smtp_port: '587'
+smtp_domain: "gmail.com"
+smtp_authentication_type: "plain"
+smtp_user_name: "noreply@nd.edu"
+smtp_enable_starttls_auto: "true"
+smtp_delivery_method: "smtp"
+jira_password: "jira pwd"
+jira_site_url: "jira url"
+jira_username: "jira user"
 
 development:
   domain_name: "localhost:3000"
