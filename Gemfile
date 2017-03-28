@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 # Free 20% RAM by not loading ALL mime-types
 gem 'mime-types', '~> 2.6', require: 'mime/types/columnar'
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 4.2.8'
 
 gem 'airbrake', '~> 4.2' # Until we update Errbit, I don't want to move to 5.x
 gem 'autoprefixer-rails'
