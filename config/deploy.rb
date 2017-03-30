@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.5.0'
+lock '3.8.0'
 set :default_env, {
   path: "/opt/ruby/current/bin:$PATH"
 }
