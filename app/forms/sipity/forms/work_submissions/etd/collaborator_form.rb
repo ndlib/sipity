@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'sipity/forms/processing_form'
 require 'active_model/validations'
 require 'active_support/core_ext/array/wrap'
@@ -66,7 +68,8 @@ module Sipity
           end
 
           def possible_roles
-            Models::Collaborator.roles.slice(Models::Collaborator::RESEARCH_DIRECTOR_ROLE, Models::Collaborator::COMMITTEE_MEMBER_ROLE)
+            Models::Collaborator.roles.slice(Models::Collaborator::RESEARCH_DIRECTOR_ROLE,
+                                             Models::Collaborator::COMMITTEE_MEMBER_ROLE)
           end
 
           private
@@ -115,12 +118,12 @@ module Sipity
 
           def determine_if_role_is_responsible_for_review(role)
             return true if role == Models::Collaborator::RESEARCH_DIRECTOR_ROLE
-            return false
+            false
           end
 
           def determine_if_role_is_responsible_for_review_with_netid(collaborator)
             return true if collaborator.role == Models::Collaborator::RESEARCH_DIRECTOR_ROLE && collaborator.netid.present?
-            return false
+            false
           end
         end
       end
