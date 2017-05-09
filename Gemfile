@@ -35,6 +35,9 @@ gem 'data_migrator', github: 'jeremyf/data-migrator'
 gem 'dry-validation'
 gem 'whenever', require: false
 gem 'rof', github: 'ndlib/rof'
+gem 'rdf-aggregate-repo', '~> 2.0.0'
+gem 'rdf-rdfa', '~> 2.0.1'
+gem 'nokogiri', '~> 1.6.8.1'
 
 group :doc do
   gem 'inch', require: false
