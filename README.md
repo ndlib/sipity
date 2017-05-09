@@ -24,6 +24,10 @@ Its goal is to provide clarity on why a patron would want to fill out metadata i
 
 ## Getting Your Bearings
 
+The primary feature (and complexity) is Sipity's work submission show page. Below is a diagram that helps break down its composition.
+
+![Sipity Todo List Page](artifacts/sipity-todo-list-page.png)
+
 Sipity is a Rails application but is built with a few more concepts in mind.
 
 ![Sipity Request Cycle](artifacts/sipity-request-cycle.png)
