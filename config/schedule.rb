@@ -14,8 +14,4 @@ if @environment == 'production'
   every 1.day, at: '3:17 am', roles: [:app] do
     runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd')"
   end
-
-  every 1.day, at: '4:17 am', roles: [:app] do
-    runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'ulra')"
-  end
 end
