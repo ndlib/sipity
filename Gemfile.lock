@@ -62,7 +62,7 @@ GIT
 
 GIT
   remote: git://github.com/ndlib/locabulary.git
-  revision: 7f085f6c699feb403448c734acb7f161c3e07993
+  revision: b883f466f1666cc10ae6e2b96ca0dc245d236153
   branch: master
   specs:
     locabulary (0.7.0)
@@ -396,7 +396,7 @@ GEM
     method_source (0.8.2)
     mime-types (2.99.3)
     mini_portile2 (2.1.0)
-    minitest (5.10.1)
+    minitest (5.10.2)
     multi_json (1.12.1)
     mysql2 (0.4.5)
     nenv (0.3.0)
