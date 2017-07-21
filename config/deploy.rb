@@ -14,8 +14,15 @@ set :repo_url, "https://github.com/ndlib/sipity.git"
 set :branch, ENV['BRANCH_NAME'] || 'master'
 set :keep_releases, 5
 set :linked_dirs, %w{log tmp/pids tmp/cache tmp/sockets vendor/bundle public/system}
+set :secret_repo_name, Proc.new{
+  case fetch(:rails_env)
+  when 'staging' then 'secret_staging'
+  when 'pre_production' then 'secret_pprd'
+  when 'production' then 'secret_prod'
+  end
+}
 set :whenever_identifier, ->{ "#{fetch(:application)}_#{fetch(:rails_env)}" }
-set :whenever_variables, ->{ "environment=#{fetch :rails_env}" }
+set :whenever_variables,    ->{ "environment=#{fetch :rails_env}" }
 
 namespace :deploy do
 
@@ -129,16 +136,16 @@ end
 
 namespace :configuration do
   desc 'Update application secrets'
-  task :update_secrets do
+  task :copy_secrets do
     on roles(:app) do
       within release_path do
-        execute "export PATH=/opt/ruby/current/bin:$PATH && cd #{release_path} && sh scripts/update_secrets.sh #{File.join(shared_path, 'secret')}"
+        execute "export PATH=/opt/ruby/current/bin:$PATH && cd #{release_path} && sh scripts/update_secrets.sh #{fetch(:secret_repo_name)}"
       end
     end
   end
 end
 
-before 'deploy:db_migrate', 'configuration:update_secrets'
+before 'deploy:db_migrate', 'configuration:copy_secrets'
 after 'deploy', 'deploy:db_migrate'
 before 'deploy:db_migrate', 'deploy:db_dump'
 after 'deploy:db_migrate', 'deploy:db_seed'
