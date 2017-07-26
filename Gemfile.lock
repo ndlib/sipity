@@ -195,7 +195,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    childprocess (0.5.9)
+    childprocess (0.7.1)
       ffi (~> 1.0, >= 1.0.11)
     chronic (0.10.2)
     cliver (0.3.2)
@@ -561,7 +561,7 @@ GEM
       mime-types
       nokogiri
       rest-client
-    rubyzip (1.2.0)
+    rubyzip (1.2.1)
     sanitize (4.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
@@ -579,10 +579,9 @@ GEM
     seed_dump (3.2.4)
       activerecord (>= 4)
       activesupport (>= 4)
-    selenium-webdriver (3.0.5)
+    selenium-webdriver (3.4.4)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
-      websocket (~> 1.0)
     sexp_processor (4.10.0)
     shellany (0.0.1)
     shoulda-callback-matchers (1.1.4)
@@ -637,7 +636,6 @@ GEM
     unicode-display_width (1.1.0)
     warden (1.2.7)
       rack (>= 1.0)
-    websocket (1.2.3)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
