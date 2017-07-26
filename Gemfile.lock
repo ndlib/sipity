@@ -397,7 +397,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.10.3)
     multi_json (1.12.1)
-    mysql2 (0.4.5)
+    mysql2 (0.4.8)
     nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
