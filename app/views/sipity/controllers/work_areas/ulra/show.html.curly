@@ -43,6 +43,7 @@
             <th>Creator(s)</th>
             <th>Advisor(s)</th>
             <th>Award Year</th>
+            <th>Award Category</th>
             <th>Processing State</th>
             <th>Date Created</th>
           </tr>
@@ -54,6 +55,7 @@
               <td>{{creator_names_as_email_links}}</td>
               <td>{{advisor_names_as_email_links}}</td>
               <td>{{submission_window}}</td>
+              <td>{{award_category}}</td>
               <td>{{processing_state}}</td>
               <td>{{date_created}}</td>
             </tr>
