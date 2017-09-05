@@ -337,6 +337,10 @@ module Sipity
     def set_as_representative_attachment(work:, pid:)
     end
 
+    # @see ./app/repositories/sipity/queries/submission_window_queries.rb
+    def submission_window_names_for_select_within_work_area(work_area:)
+    end
+
     # @see ./app/repositories/sipity/commands/todo_list_commands.rb
     def unregister_action_taken_on_entity(entity:, action:, requested_by:, **keywords)
     end

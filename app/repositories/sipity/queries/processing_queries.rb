@@ -562,6 +562,21 @@ module Sipity
               )
             )
           end
+
+          submission_window = filter[:submission_window]
+          if submission_window.present?
+            sipity_work_submissions = Models::WorkSubmission.arel_table
+            submission_windows = Models::SubmissionWindow.arel_table
+            returning = returning.and(
+              entities[:proxy_for_id].in(
+                sipity_work_submissions.project(sipity_work_submissions[:work_id]).join(submission_windows).on(
+                  submission_windows[:id].eq(sipity_work_submissions[:submission_window_id])
+                ).where(
+                  submission_windows[:slug].eq(PowerConverter.convert(submission_window, to: :slug))
+                )
+              )
+            )
+          end
           returning
         end
 

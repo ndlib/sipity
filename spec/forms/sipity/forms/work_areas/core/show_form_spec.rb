@@ -21,6 +21,7 @@ module Sipity
           its(:order_options_for_select) { is_expected.to be_a(Array) }
           its(:input_name_for_select_processing_state) { is_expected.to eq('work_area[processing_state]') }
           its(:input_name_for_select_sort_order) { is_expected.to eq('work_area[order]') }
+          its(:input_name_for_selecting_submission_window) { is_expected.to eq('work_area[submission_window]') }
           its(:page) { is_expected.to eq(subject.send(:default_page)) }
 
           it { is_expected.to delegate_method(:default_order).to(:search_criteria_config) }
@@ -30,6 +31,11 @@ module Sipity
           it 'will expose #processing_states_for_select' do
             expect(repository).to receive(:processing_state_names_for_select_within_work_area).with(work_area: work_area).and_call_original
             subject.processing_states_for_select
+          end
+
+          it 'will expose #submission_windows_for_select' do
+            expect(repository).to receive(:submission_window_names_for_select_within_work_area).with(work_area: work_area).and_call_original
+            subject.submission_windows_for_select
           end
         end
       end

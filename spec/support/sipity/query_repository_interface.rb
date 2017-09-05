@@ -229,6 +229,10 @@ module Sipity
     def sequence_of_events_for(options = {})
     end
 
+    # @see ./app/repositories/sipity/queries/submission_window_queries.rb
+    def submission_window_names_for_select_within_work_area(work_area:)
+    end
+
     # @see ./app/repositories/sipity/queries/processing_queries.rb
     def user_emails_for_entity_and_roles(entity:, roles:)
     end

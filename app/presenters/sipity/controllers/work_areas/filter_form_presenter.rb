@@ -17,6 +17,15 @@ module Sipity
           ).html_safe
         end
 
+        def select_tag_for_submission_window
+          select_tag(
+            work_area.input_name_for_selecting_submission_window,
+            options_from_collection_for_select(
+              work_area.submission_windows_for_select, :to_s, :humanize, work_area.submission_window
+            ), include_blank: true, class: 'form-control'
+          ).html_safe
+        end
+
         def select_tag_for_sort_order
           select_tag(
             work_area.input_name_for_select_sort_order,

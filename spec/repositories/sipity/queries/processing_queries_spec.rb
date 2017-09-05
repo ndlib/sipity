@@ -160,31 +160,41 @@ module Sipity
         let(:user) { User.create!(username: 'user') }
         let(:advisor) { User.create!(username: 'advising') }
         let(:no_access) { User.create!(username: 'no_access') }
-        let(:submission_window) { Models::SubmissionWindow.new(id: 111, work_area_id: 222) }
+        let(:submission_window) { Models::SubmissionWindow.new(id: 111, slug: 'one', work_area_id: 222) }
+        let(:second_submission_window) { Models::SubmissionWindow.new(id: 333, slug: 'two', work_area_id: 222) }
         let(:commands) { CommandRepository.new }
 
         it "will resolve to an array of entities" do
+          submission_window.save!
+          second_submission_window.save!
           work_one = commands.create_work!(
             submission_window: submission_window,
-            title: 'One',
+            title: '1 One',
             work_type: 'doctoral_dissertation',
             work_publication_strategy: 'will_not_publish'
           )
           work_two = commands.create_work!(
             submission_window: submission_window,
-            title: 'Two',
+            title: '2 Two',
             work_type: 'doctoral_dissertation',
             work_publication_strategy: 'will_not_publish'
           )
           work_three = commands.create_work!(
             submission_window: submission_window,
-            title: 'Three',
+            title: '3 Three',
+            work_type: 'doctoral_dissertation',
+            work_publication_strategy: 'will_not_publish'
+          )
+          work_four = commands.create_work!(
+            submission_window: second_submission_window,
+            title: '4 Four',
             work_type: 'doctoral_dissertation',
             work_publication_strategy: 'will_not_publish'
           )
 
           commands.grant_creating_user_permission_for!(entity: work_one, user: user)
           commands.grant_creating_user_permission_for!(entity: work_two, user: user)
+          commands.grant_creating_user_permission_for!(entity: work_four, user: user)
           # I need two users that have created something; Prior to fixing
           # https://github.com/ndlib/sipity/issues/671, if any user a creating
           # user they were treated as always having access to the object.
@@ -197,7 +207,7 @@ module Sipity
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
               user: user, proxy_for_type: Sipity::Models::Work, page: 1
             ).sort(&sorter)
-          ).to eq([work_one, work_two].sort(&sorter))
+          ).to eq([work_one, work_two, work_four].sort(&sorter))
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
@@ -209,13 +219,13 @@ module Sipity
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
               user: user, proxy_for_type: Sipity::Models::Work, filter: { processing_state: 'new' }
             ).sort(&sorter)
-          ).to eq([work_one, work_two].sort(&sorter))
+          ).to eq([work_one, work_four, work_two].sort(&sorter))
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
               user: user, proxy_for_type: Sipity::Models::Work, filter: { processing_state: 'new' }, order: 'title DESC'
             )
-          ).to eq([work_two, work_one])
+          ).to eq([work_four, work_two, work_one])
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
@@ -238,6 +248,12 @@ module Sipity
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(user: no_access, proxy_for_type: Sipity::Models::Work)
           ).to eq([])
+
+          expect(
+            test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
+              user: user, proxy_for_type: Sipity::Models::Work, filter: { submission_window: second_submission_window.slug }
+            )
+          ).to eq([work_four])
         end
       end
 

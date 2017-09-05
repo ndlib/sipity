@@ -20,6 +20,7 @@ module Sipity
         it { is_expected.to respond_to(:work_area) }
         it { is_expected.to respond_to(:page) }
         it { is_expected.to respond_to(:per) }
+        it { is_expected.to respond_to(:submission_window) }
       end
 
       its(:default_page) { is_expected.to eq(1) }
@@ -28,6 +29,7 @@ module Sipity
       its(:default_proxy_for_type) { is_expected.to eq(Models::Work) }
       its(:default_processing_state) { is_expected.to eq(nil) }
       its(:default_work_area) { is_expected.to eq(nil) }
+      its(:default_submission_window) { is_expected.to eq(nil) }
       its(:default_order) { is_expected.to eq('title'.freeze) }
 
       it 'will fallback on default order if an invalid order is given' do
