@@ -9,7 +9,7 @@ module Sipity
           presents :work
 
           def award_category
-            repository.work_attribute_values_for(work: work, key: 'award_category', cardinality: :one)
+            repository.work_attribute_values_for(work: work, key: 'award_category', cardinality: 1)
           end
         end
       end

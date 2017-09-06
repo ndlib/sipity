@@ -21,7 +21,7 @@ module Sipity
           subject { described_class.new(context, work: work) }
           before do
             allow(repository).to(
-              receive(:work_attribute_values_for).with(work: work, key: 'award_category', cardinality: :one).and_return("String")
+              receive(:work_attribute_values_for).with(work: work, key: 'award_category', cardinality: 1).and_return("String")
             )
           end
           its(:award_category) { is_expected.to be_a(String) }
