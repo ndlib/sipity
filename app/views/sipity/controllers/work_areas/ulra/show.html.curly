@@ -19,7 +19,9 @@
     <div class="col-xs-12">
       {{@filter_form}}
         <fieldset class="form-group">
+          {{q_tag}}
           {{select_tag_for_processing_state}}
+          {{select_tag_for_submission_window}}
           {{select_tag_for_sort_order}}
         </fieldset>
         {{submit_button}}
@@ -42,6 +44,7 @@
             <th>Creator(s)</th>
             <th>Advisor(s)</th>
             <th>Award Year</th>
+            <th>Award Category</th>
             <th>Processing State</th>
             <th>Date Created</th>
           </tr>
@@ -53,6 +56,7 @@
               <td>{{creator_names_as_email_links}}</td>
               <td>{{advisor_names_as_email_links}}</td>
               <td>{{submission_window}}</td>
+              <td>{{award_category}}</td>
               <td>{{processing_state}}</td>
               <td>{{date_created}}</td>
             </tr>

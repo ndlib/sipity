@@ -9,7 +9,7 @@ module Sipity
         # Responsible for "showing" an ETD Work Area.
         class ShowForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::WorkArea, attribute_names: [:processing_state, :order, :page]
+            form_class: self, base_class: Models::WorkArea, attribute_names: [:processing_state, :order, :page, :q, :submission_window]
           )
 
           def initialize(work_area:, requested_by:, attributes: {}, **keywords)
@@ -18,6 +18,8 @@ module Sipity
             self.processing_action_form = processing_action_form_builder.new(form: self, **keywords)
             self.search_criteria_config = keywords.fetch(:search_criteria_config) { default_search_criteria_config }
             self.processing_state = attributes[:processing_state]
+            self.submission_window = attributes[:submission_window]
+            self.q = attributes[:q]
             self.order = attributes.fetch(:order) { default_order }
             self.page = attributes.fetch(:page) { default_page }
           end
@@ -28,14 +30,30 @@ module Sipity
             "#{model_name.param_key}[processing_state]"
           end
 
+          def processing_states_for_select
+            repository.processing_state_names_for_select_within_work_area(work_area: work_area)
+          end
+
           # @note There is a correlation to the Parameters::SearchCriteriaForWorksParameter
           #   object
           def input_name_for_select_sort_order
             "#{model_name.param_key}[order]"
           end
 
-          def processing_states_for_select
-            repository.processing_state_names_for_select_within_work_area(work_area: work_area)
+          # @note There is a correlation to the Parameters::SearchCriteriaForWorksParameter
+          #   object
+          def input_name_for_q
+            "#{model_name.param_key}[q]"
+          end
+
+          # @note There is a correlation to the Parameters::SearchCriteriaForWorksParameter
+          #   object
+          def input_name_for_selecting_submission_window
+            "#{model_name.param_key}[submission_window]"
+          end
+
+          def submission_windows_for_select
+            repository.submission_window_names_for_select_within_work_area(work_area: work_area)
           end
 
           include ActiveModel::Validations

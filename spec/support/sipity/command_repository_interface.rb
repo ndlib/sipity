@@ -137,10 +137,6 @@ module Sipity
     def existing_registered_state_changing_actions_for(entity:, strategy_state:)
     end
 
-    # @see ./app/repositories/sipity/queries/work_queries.rb
-    def extract_search_paramters_from(criteria:)
-    end
-
     # @see ./app/repositories/sipity/queries/comment_queries.rb
     def find_comments_for(entity:)
     end
@@ -270,7 +266,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
-    def scope_processing_entities_for_the_user_and_proxy_for_type(user:, proxy_for_type:, filter: {})
+    def scope_processing_entities_for_the_user_and_proxy_for_type(criteria:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
@@ -286,7 +282,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
-    def scope_proxied_objects_for_the_user_and_proxy_for_type(user:, proxy_for_type:, filter: {}, **query_criteria)
+    def scope_proxied_objects_for_the_user_and_proxy_for_type(criteria:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
@@ -335,6 +331,10 @@ module Sipity
 
     # @see ./app/repositories/sipity/commands/work_commands.rb
     def set_as_representative_attachment(work:, pid:)
+    end
+
+    # @see ./app/repositories/sipity/queries/submission_window_queries.rb
+    def submission_window_names_for_select_within_work_area(work_area:)
     end
 
     # @see ./app/repositories/sipity/commands/todo_list_commands.rb

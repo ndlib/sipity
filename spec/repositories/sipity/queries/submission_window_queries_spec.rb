@@ -33,6 +33,13 @@ module Sipity
         end
       end
 
+      context '#submission_window_names_for_select_within_work_area' do
+        it 'returns an array of the slugs' do
+          submission_window.save!
+          expect(test_repository.submission_window_names_for_select_within_work_area(work_area: work_area)).to eq([submission_window.slug])
+        end
+      end
+
       context '#find_open_submission_windows_by' do
         let(:as_of) { Time.zone.now }
 

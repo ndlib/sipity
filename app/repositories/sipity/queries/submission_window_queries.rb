@@ -7,6 +7,11 @@ module Sipity
         Models::SubmissionWindow.find_by!(slug: slug, work_area_id: work_area.id)
       end
 
+      def submission_window_names_for_select_within_work_area(work_area:)
+        work_area = PowerConverter.convert(work_area, to: :work_area)
+        Models::SubmissionWindow.order(:slug).where(work_area_id: work_area.id).pluck(:slug)
+      end
+
       # @api public
       #
       # @param work_area [#to_work_area]

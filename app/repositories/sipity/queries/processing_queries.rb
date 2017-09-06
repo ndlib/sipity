@@ -450,46 +450,22 @@ module Sipity
       #   - The strategy specific responsibility
       #     - For which I've been assigned either as a group member or a user
       #
-      # @param [User] user
-      # @param proxy_for_type something that can be converted to a polymorphic
-      #   type.
-      # @param [Hash] filter
-      # @option filter [String] :processing_state - Limit the returned objects
-      #   to those objects that are in the named :processing_state
-      # @param [Hash] query_criteria
-      # @option query_criteria [Hash] :where - A where clause to evaluate against
-      #   the ActiveRecord::Relation
-      # @option query_criteria [String,Array] :order - An order clause to evaluate against
-      #   the ActiveRecord::Relation
-      # @option query_criteria [Integer] :page - A page value to apply pagination
-      #   to the query
-      # @option query_criteria [Integer] :per - A value to apply pagination
-      #   to the query
+      # @param criteria [Sipity::Parameters::SearchCriteriaForWorksParameter]
       #
       # @return [ActiveRecord::Relation<proxy_for_types>]
-      def scope_proxied_objects_for_the_user_and_proxy_for_type(user:, proxy_for_type:, filter: {}, **query_criteria)
-        proxy_for_type = Conversions::ConvertToPolymorphicType.call(proxy_for_type)
-        scope = scope_processing_entities_for_the_user_and_proxy_for_type(
-          user: user, proxy_for_type: proxy_for_type, filter: filter
-        )
+      def scope_proxied_objects_for_the_user_and_proxy_for_type(criteria:)
+        proxy_for_type = Conversions::ConvertToPolymorphicType.call(criteria.proxy_for_type)
+        permission_scope = scope_processing_entities_for_the_user_and_proxy_for_type(criteria: criteria)
 
         scope = proxy_for_type.where(
-          proxy_for_type.arel_table[proxy_for_type.primary_key].in(scope.entity).or(
-            proxy_for_type.arel_table[proxy_for_type.primary_key].in(scope.strategy)
+          proxy_for_type.arel_table[proxy_for_type.primary_key].in(permission_scope.entity).or(
+            proxy_for_type.arel_table[proxy_for_type.primary_key].in(permission_scope.strategy)
           )
         )
-        if query_criteria.key?(:where)
-          scope = scope.where(query_criteria.fetch(:where))
-        end
 
-        if query_criteria.key?(:order)
-          scope = scope.order(query_criteria.fetch(:order))
-        end
-
-        if query_criteria.key?(:page)
-          scope = scope.page(query_criteria.fetch(:page))
-          scope = scope.per(query_criteria.fetch(:per)) if query_criteria.key?(:per)
-        end
+        scope = scope.order(criteria.order) if criteria.order?
+        scope = scope.page(criteria.page) if criteria.page?
+        scope = scope.per(criteria.per) if criteria.per?
         scope
       end
 
@@ -511,16 +487,11 @@ module Sipity
       # Models::Work), fetch all of the processing entities that I can, in some
       # way, access based on the processing state.
       #
-      # @param [User] user
-      # @param proxy_for_type something that can be converted to a polymorphic
-      #   type.
-      # @param [Hash] filter
-      # @option filter [String] :processing_state - Limit the returned objects
-      #   to those objects that are in the named :processing_state
+      # @param criteria [Sipity::Parameters::SearchCriteriaForWorksParameter]
       #
       # @return [ActiveRecord::Relation<Models::Processing::Entity>]
-      def scope_processing_entities_for_the_user_and_proxy_for_type(user:, proxy_for_type:, filter: {})
-        proxy_for_type = Conversions::ConvertToPolymorphicType.call(proxy_for_type)
+      def scope_processing_entities_for_the_user_and_proxy_for_type(criteria:)
+        proxy_for_type = Conversions::ConvertToPolymorphicType.call(criteria.proxy_for_type)
 
         entities = Models::Processing::Entity.arel_table
         strategy_state_actions = Models::Processing::StrategyStateAction.arel_table
@@ -529,7 +500,7 @@ module Sipity
         strategy_responsibilities = Models::Processing::StrategyResponsibility.arel_table
         entity_responsibilities = Models::Processing::EntitySpecificResponsibility.arel_table
 
-        user_actor_scope = scope_processing_actors_for(user: user)
+        user_actor_scope = scope_processing_actors_for(user: criteria.user)
         user_actor_contraints = user_actor_scope.arel_table.project(
           user_actor_scope.arel_table[:id]
         ).where(user_actor_scope.arel.constraints)
@@ -552,12 +523,44 @@ module Sipity
           returning = entities[:proxy_for_type].eq(proxy_for_type).and(
             responsibility[:actor_id].in(user_actor_contraints)
           )
-          processing_state = filter[:processing_state]
-          if processing_state.present?
+          if criteria.processing_state?
             returning = returning.and(
               entities[:strategy_state_id].in(
                 strategy_states.project(strategy_states[:id]).where(
-                  strategy_states[:name].eq(processing_state)
+                  strategy_states[:name].eq(criteria.processing_state)
+                )
+              )
+            )
+          end
+
+          # NOTE: This assumes we are filtering on a Sipity::Models::Work
+          if criteria.q?
+            sipity_works = Models::Work.arel_table
+            sipity_attributes = Models::AdditionalAttribute.arel_table
+            returning = returning.and(
+              entities[:proxy_for_id].in(
+                # Ensuring that objects without attributes are also queried.
+                sipity_works.project(sipity_works[:id]).join(sipity_attributes, Arel::Nodes::OuterJoin).on(
+                  sipity_works[:id].eq(sipity_attributes[:work_id])
+                ).where(
+                  sipity_works[:title].matches("%#{criteria.q}%").or(
+                    sipity_attributes[:value].matches("%#{criteria.q}%")
+                  )
+                )
+              )
+            )
+          end
+
+          # NOTE: This assumes we are filtering on a Sipity::Models::Work
+          if criteria.submission_window?
+            sipity_work_submissions = Models::WorkSubmission.arel_table
+            submission_windows = Models::SubmissionWindow.arel_table
+            returning = returning.and(
+              entities[:proxy_for_id].in(
+                sipity_work_submissions.project(sipity_work_submissions[:work_id]).join(submission_windows).on(
+                  submission_windows[:id].eq(sipity_work_submissions[:submission_window_id])
+                ).where(
+                  submission_windows[:slug].eq(PowerConverter.convert(criteria.submission_window, to: :slug))
                 )
               )
             )

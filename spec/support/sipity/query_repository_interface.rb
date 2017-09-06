@@ -69,10 +69,6 @@ module Sipity
     def email_notifications_for(reason:, scope:)
     end
 
-    # @see ./app/repositories/sipity/queries/work_queries.rb
-    def extract_search_paramters_from(criteria:)
-    end
-
     # @see ./app/repositories/sipity/queries/comment_queries.rb
     def find_comments_for(entity:)
     end
@@ -166,7 +162,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
-    def scope_processing_entities_for_the_user_and_proxy_for_type(user:, proxy_for_type:, filter: {})
+    def scope_processing_entities_for_the_user_and_proxy_for_type(criteria:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
@@ -182,7 +178,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
-    def scope_proxied_objects_for_the_user_and_proxy_for_type(user:, proxy_for_type:, filter: {}, **query_criteria)
+    def scope_proxied_objects_for_the_user_and_proxy_for_type(criteria:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
@@ -227,6 +223,10 @@ module Sipity
 
     # @see ./app/repositories/sipity/queries/event_log_queries.rb
     def sequence_of_events_for(options = {})
+    end
+
+    # @see ./app/repositories/sipity/queries/submission_window_queries.rb
+    def submission_window_names_for_select_within_work_area(work_area:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
