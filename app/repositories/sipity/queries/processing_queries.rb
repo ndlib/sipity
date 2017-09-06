@@ -455,11 +455,11 @@ module Sipity
       # @return [ActiveRecord::Relation<proxy_for_types>]
       def scope_proxied_objects_for_the_user_and_proxy_for_type(criteria:)
         proxy_for_type = Conversions::ConvertToPolymorphicType.call(criteria.proxy_for_type)
-        scope = scope_processing_entities_for_the_user_and_proxy_for_type(criteria: criteria)
+        permission_scope = scope_processing_entities_for_the_user_and_proxy_for_type(criteria: criteria)
 
         scope = proxy_for_type.where(
-          proxy_for_type.arel_table[proxy_for_type.primary_key].in(scope.entity).or(
-            proxy_for_type.arel_table[proxy_for_type.primary_key].in(scope.strategy)
+          proxy_for_type.arel_table[proxy_for_type.primary_key].in(permission_scope.entity).or(
+            proxy_for_type.arel_table[proxy_for_type.primary_key].in(permission_scope.strategy)
           )
         )
 
