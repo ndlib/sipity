@@ -450,9 +450,6 @@ module Sipity
       #   - The strategy specific responsibility
       #     - For which I've been assigned either as a group member or a user
       #
-      # @param [User] user
-      # @param proxy_for_type something that can be converted to a polymorphic
-      #   type.
       # @param criteria [Sipity::Parameters::SearchCriteriaForWorksParameter]
       #
       # @return [ActiveRecord::Relation<proxy_for_types>]
@@ -466,14 +463,9 @@ module Sipity
           )
         )
 
-        if criteria.order?
-          scope = scope.order(criteria.order)
-        end
-
-        if criteria.page?
-          scope = scope.page(criteria.page)
-          scope = scope.per(criteria.per) if criteria.per?
-        end
+        scope = scope.order(criteria.order) if criteria.order?
+        scope = scope.page(criteria.page) if criteria.page?
+        scope = scope.per(criteria.per) if criteria.per?
         scope
       end
 
