@@ -35,6 +35,12 @@ module Sipity
           ).html_safe
         end
 
+        def q_tag
+          text_field_tag(
+            work_area.input_name_for_q, work_area.q, placeholder: 'Search for…'
+          )
+        end
+
         def submit_button(dom_class: 'btn btn-default', name: 'Filter')
           submit_tag(name, class: dom_class)
         end

@@ -27,13 +27,18 @@ module Sipity
       # @return [ActiveModel::Relation<Sipity::Models::Work>]
       def find_works_via_search(criteria:, repository: self)
         parameters = extract_search_paramters_from(criteria: criteria)
+        # TODO: Factor towards passing the criteria object instead of the complex parameter list
         scope = repository.scope_proxied_objects_for_the_user_and_proxy_for_type(**parameters)
         apply_work_area_filter_to(scope: scope, criteria: criteria)
       end
 
       def extract_search_paramters_from(criteria:)
         search_parameters = {
-          user: criteria.user, proxy_for_type: Models::Work, filter: { processing_state: criteria.processing_state }, order: criteria.order
+          user: criteria.user, proxy_for_type: Models::Work, order: criteria.order, filter: {
+            processing_state: criteria.processing_state,
+            submission_window: criteria.submission_window,
+            q: criteria.q
+          }
         }
         search_parameters = search_parameters.merge(page: criteria.page, per: criteria.per) if criteria.page
         search_parameters

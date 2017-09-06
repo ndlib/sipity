@@ -19,6 +19,7 @@
     <div class="col-xs-12">
       {{@filter_form}}
         <fieldset class="form-group">
+          {{q_tag}}
           {{select_tag_for_processing_state}}
           {{select_tag_for_submission_window}}
           {{select_tag_for_sort_order}}

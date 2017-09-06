@@ -515,8 +515,9 @@ module Sipity
       # @param proxy_for_type something that can be converted to a polymorphic
       #   type.
       # @param [Hash] filter
-      # @option filter [String] :processing_state - Limit the returned objects
-      #   to those objects that are in the named :processing_state
+      # @option filter [String] :processing_state - Limit the returned objects to those objects that are in the named :processing_state
+      # @option filter [String] :submission_window - Limit the returned objects to those objects in the submission window
+      # @option filter [String] :q - Limit the returned objects to those objects with properties that match
       #
       # @return [ActiveRecord::Relation<Models::Processing::Entity>]
       def scope_processing_entities_for_the_user_and_proxy_for_type(user:, proxy_for_type:, filter: {})
@@ -563,6 +564,26 @@ module Sipity
             )
           end
 
+          # NOTE: This assumes we are filtering on a Sipity::Models::Work
+          q = filter[:q]
+          if q.present?
+            sipity_works = Models::Work.arel_table
+            sipity_attributes = Models::AdditionalAttribute.arel_table
+            returning = returning.and(
+              entities[:proxy_for_id].in(
+                # Ensuring that objects without attributes are also queried.
+                sipity_works.project(sipity_works[:id]).join(sipity_attributes, Arel::Nodes::OuterJoin).on(
+                  sipity_works[:id].eq(sipity_attributes[:work_id])
+                ).where(
+                  sipity_works[:title].matches("%#{q}%").or(
+                    sipity_attributes[:value].matches("%#{q}%")
+                  )
+                )
+              )
+            )
+          end
+
+          # NOTE: This assumes we are filtering on a Sipity::Models::Work
           submission_window = filter[:submission_window]
           if submission_window.present?
             sipity_work_submissions = Models::WorkSubmission.arel_table

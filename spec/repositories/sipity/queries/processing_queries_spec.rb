@@ -192,6 +192,8 @@ module Sipity
             work_publication_strategy: 'will_not_publish'
           )
 
+          work_four.additional_attributes.create!(key: 'alternate_title', value: "The Lost One of Dire Warning")
+
           commands.grant_creating_user_permission_for!(entity: work_one, user: user)
           commands.grant_creating_user_permission_for!(entity: work_two, user: user)
           commands.grant_creating_user_permission_for!(entity: work_four, user: user)
@@ -232,6 +234,12 @@ module Sipity
               user: user, proxy_for_type: Sipity::Models::Work, where: { id: work_one.id }, filter: { processing_state: 'new' }
             )
           ).to eq([work_one])
+
+          expect(
+            test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
+              user: user, proxy_for_type: Sipity::Models::Work, filter: { q: 'One' }
+            ).sort(&sorter)
+          ).to eq([work_one, work_four].sort(&sorter))
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(

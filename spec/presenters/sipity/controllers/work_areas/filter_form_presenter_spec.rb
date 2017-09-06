@@ -11,6 +11,8 @@ RSpec.describe Sipity::Controllers::WorkAreas::FilterFormPresenter do
       input_name_for_select_sort_order: 'name[sort_order]',
       order_options_for_select: ['title', 'created_at'],
       input_name_for_selecting_submission_window: 'name[submission_window]',
+      input_name_for_q: 'name[q]',
+      q: 'Searching for',
       submission_window: '2017',
       submission_windows_for_select: ['2016', '2017'],
       order: 'title'
@@ -21,6 +23,10 @@ RSpec.describe Sipity::Controllers::WorkAreas::FilterFormPresenter do
 
   its(:submit_button) { is_expected.to be_html_safe }
   its(:select_tag_for_processing_state) { is_expected.to be_html_safe }
+
+  it 'will expose q_tag' do
+    expect(subject.q_tag).to have_tag('input[type="text"][value="Searching for"][name="name[q]"]')
+  end
 
   it 'will expose select_tag_for_processing_state' do
     expect(subject.select_tag_for_processing_state).to have_tag('select[name="hello[world]"]') do

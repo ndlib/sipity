@@ -22,6 +22,7 @@ module Sipity
           its(:input_name_for_select_processing_state) { is_expected.to eq('work_area[processing_state]') }
           its(:input_name_for_select_sort_order) { is_expected.to eq('work_area[order]') }
           its(:input_name_for_selecting_submission_window) { is_expected.to eq('work_area[submission_window]') }
+          its(:input_name_for_q) { is_expected.to eq('work_area[q]') }
           its(:page) { is_expected.to eq(subject.send(:default_page)) }
 
           it { is_expected.to delegate_method(:default_order).to(:search_criteria_config) }

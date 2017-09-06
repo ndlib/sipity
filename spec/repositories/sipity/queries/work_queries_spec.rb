@@ -9,8 +9,8 @@ module Sipity
         let(:criteria) { Parameters::SearchCriteriaForWorksParameter.new }
         it 'will leverage the underlying scope_proxied_objects_for_the_user_and_proxy_for_type method' do
           expect(repository).to receive(:scope_proxied_objects_for_the_user_and_proxy_for_type).with(
-            user: criteria.user, proxy_for_type: criteria.proxy_for_type,
-            filter: { processing_state: criteria.processing_state }, order: criteria.order, page: criteria.page, per: criteria.per
+            user: criteria.user, proxy_for_type: criteria.proxy_for_type, order: criteria.order, page: criteria.page, per: criteria.per,
+            filter: { processing_state: criteria.processing_state, submission_window: criteria.submission_window, q: criteria.q }
           ).and_call_original
           test_repository.find_works_via_search(criteria: criteria, repository: repository)
         end
@@ -19,8 +19,8 @@ module Sipity
           work_area = Models::WorkArea.new(name: 'etd')
           criteria = Parameters::SearchCriteriaForWorksParameter.new(work_area: work_area)
           expect(repository).to receive(:scope_proxied_objects_for_the_user_and_proxy_for_type).with(
-            user: criteria.user, proxy_for_type: criteria.proxy_for_type,
-            filter: { processing_state: criteria.processing_state }, order: criteria.order, page: criteria.page, per: criteria.per
+            user: criteria.user, proxy_for_type: criteria.proxy_for_type, order: criteria.order, page: criteria.page, per: criteria.per,
+            filter: { processing_state: criteria.processing_state, submission_window: criteria.submission_window, q: criteria.q }
           ).and_return(Models::Work)
           expect(test_repository.find_works_via_search(criteria: criteria, repository: repository)).to be_a(ActiveRecord::Relation)
         end
