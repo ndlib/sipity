@@ -16,7 +16,7 @@ module Sipity
       self.default_submission_window = nil
       self.default_q = nil
       self.default_order = 'title'.freeze
-      ORDER_BY_OPTIONS = ['title', 'created_at', 'updated_at'].freeze
+      ORDER_BY_OPTIONS = ['title', 'title DESC', 'created_at', 'created_at DESC', 'updated_at', 'updated_at DESC'].freeze
 
       def self.order_options_for_select
         ORDER_BY_OPTIONS
@@ -29,6 +29,12 @@ module Sipity
       end
 
       attr_reader(*ATTRIBUTE_NAMES)
+
+      ATTRIBUTE_NAMES.each do |method_name|
+        define_method "#{method_name}?" do
+          instance_variable_get("@#{method_name}").present?
+        end
+      end
 
       private
 
@@ -43,7 +49,7 @@ module Sipity
       end
 
       def q=(input)
-        @query_string = input.present? ? input.to_s : nil
+        @q = input.present? ? input.to_s : nil
       end
     end
   end

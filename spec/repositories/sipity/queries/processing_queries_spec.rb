@@ -203,63 +203,61 @@ module Sipity
           commands.grant_creating_user_permission_for!(entity: work_three, user: advisor)
 
           commands.grant_processing_permission_for!(entity: work_one, actor: advisor, role: 'advising')
-
+          # Removing some duplication
+          parameter_builder = -> (**kwargs) { Sipity::Parameters::SearchCriteriaForWorksParameter.new(**kwargs) }
           sorter = ->(a, b) { a.id <=> b.id } # Because IDs may not be sorted
+
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              user: user, proxy_for_type: Sipity::Models::Work, page: 1
+              criteria: parameter_builder.call(user: user, page: 1)
             ).sort(&sorter)
           ).to eq([work_one, work_two, work_four].sort(&sorter))
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              user: user, proxy_for_type: Sipity::Models::Work, page: 1, per: 1, order: 'title ASC'
+              criteria: parameter_builder.call(user: user, page: 1, per: 1, order: 'title ASC')
             )
           ).to eq([work_one])
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              user: user, proxy_for_type: Sipity::Models::Work, filter: { processing_state: 'new' }
+              criteria: parameter_builder.call(user: user, processing_state: 'new')
             ).sort(&sorter)
           ).to eq([work_one, work_four, work_two].sort(&sorter))
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              user: user, proxy_for_type: Sipity::Models::Work, filter: { processing_state: 'new' }, order: 'title DESC'
+              criteria: parameter_builder.call(user: user, processing_state: 'new', order: 'title DESC')
             )
           ).to eq([work_four, work_two, work_one])
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              user: user, proxy_for_type: Sipity::Models::Work, where: { id: work_one.id }, filter: { processing_state: 'new' }
-            )
-          ).to eq([work_one])
-
-          expect(
-            test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              user: user, proxy_for_type: Sipity::Models::Work, filter: { q: 'One' }
+              criteria: parameter_builder.call(user: user, q: 'One')
             ).sort(&sorter)
           ).to eq([work_one, work_four].sort(&sorter))
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              user: user, proxy_for_type: Sipity::Models::Work, filter: { processing_state: 'hello' }
+              criteria: parameter_builder.call(user: user, processing_state: 'hello')
             )
           ).to eq([])
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              user: advisor, proxy_for_type: Sipity::Models::Work
+              criteria: parameter_builder.call(user: advisor)
             ).sort(&sorter)
           ).to eq([work_one, work_three].sort(&sorter))
 
           expect(
-            test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(user: no_access, proxy_for_type: Sipity::Models::Work)
+            test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
+              criteria: parameter_builder.call(user: no_access)
+            )
           ).to eq([])
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              user: user, proxy_for_type: Sipity::Models::Work, filter: { submission_window: second_submission_window.slug }
+              criteria: parameter_builder.call(user: user, submission_window: second_submission_window.slug)
             )
           ).to eq([work_four])
         end
@@ -272,8 +270,9 @@ module Sipity
         let(:strategy) { Models::Processing::Strategy.first! }
         let(:originating_state) { Models::Processing::StrategyState.first! }
         let(:user) { User.create!(username: 'user') }
+        let(:criteria) { Sipity::Parameters::SearchCriteriaForWorksParameter.new(user: user, proxy_for_type: Sipity::Models::Work) }
         subject do
-          test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(user: user, proxy_for_type: Sipity::Models::Work)
+          test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(criteria: criteria)
         end
 
         it "will resolve to an array of entities" do

@@ -137,10 +137,6 @@ module Sipity
     def existing_registered_state_changing_actions_for(entity:, strategy_state:)
     end
 
-    # @see ./app/repositories/sipity/queries/work_queries.rb
-    def extract_search_paramters_from(criteria:)
-    end
-
     # @see ./app/repositories/sipity/queries/comment_queries.rb
     def find_comments_for(entity:)
     end
@@ -270,7 +266,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
-    def scope_processing_entities_for_the_user_and_proxy_for_type(user:, proxy_for_type:, filter: {})
+    def scope_processing_entities_for_the_user_and_proxy_for_type(criteria:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
@@ -286,7 +282,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
-    def scope_proxied_objects_for_the_user_and_proxy_for_type(user:, proxy_for_type:, filter: {}, **query_criteria)
+    def scope_proxied_objects_for_the_user_and_proxy_for_type(criteria:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
