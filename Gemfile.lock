@@ -478,7 +478,7 @@ GEM
     rb-fsevent (0.9.8)
     rb-inotify (0.9.10)
       ffi (>= 0.5.0, < 2)
-    rb-readline (0.5.4)
+    rb-readline (0.5.5)
     rdf (2.0.2)
       hamster (~> 3.0)
       link_header (~> 0.0, >= 0.0.8)
