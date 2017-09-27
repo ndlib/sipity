@@ -428,8 +428,8 @@ GEM
     pry-byebug (3.5.0)
       byebug (~> 9.1)
       pry (~> 0.10)
-    pry-rails (0.3.5)
-      pry (>= 0.9.10)
+    pry-rails (0.3.6)
+      pry (>= 0.10.4)
     pry-rescue (1.4.4)
       interception (>= 0.5)
       pry
