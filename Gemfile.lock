@@ -229,7 +229,7 @@ GEM
       railties (>= 4.1.0, < 5.2)
       responders
       warden (~> 1.2.3)
-    devise_cas_authenticatable (1.10.1)
+    devise_cas_authenticatable (1.10.3)
       devise (>= 1.2.0)
       rubycas-client (>= 2.2.1)
     diff-lcs (1.3)
