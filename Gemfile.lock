@@ -430,7 +430,7 @@ GEM
       pry (~> 0.10)
     pry-rails (0.3.6)
       pry (>= 0.10.4)
-    pry-rescue (1.4.4)
+    pry-rescue (1.4.5)
       interception (>= 0.5)
       pry
     pry-stack_explorer (0.4.9.2)
