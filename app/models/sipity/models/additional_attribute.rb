@@ -16,6 +16,7 @@ module Sipity
       ATTACHED_FILES_COMPLETION_STATE_PREDICATE_NAME = 'attached_files_completion_state'.freeze
       AUTHOR_NAME = 'author_name'.freeze
       AWARD_CATEGORY = 'award_category'.freeze
+      BANNER_PROGRAM_CODE = 'banner_program_code'.freeze
       CATALOG_SYSTEM_NUMBER = 'catalog_system_number'.freeze
       CITATION_PREDICATE_NAME = 'citation'.freeze
       CITATION_STYLE_NAME = 'citation_style'.freeze
@@ -65,6 +66,7 @@ module Sipity
           ATTACHED_FILES_COMPLETION_STATE_PREDICATE_NAME => ATTACHED_FILES_COMPLETION_STATE_PREDICATE_NAME,
           AUTHOR_NAME => AUTHOR_NAME,
           AWARD_CATEGORY => AWARD_CATEGORY,
+          BANNER_PROGRAM_CODE => BANNER_PROGRAM_CODE,
           CATALOG_SYSTEM_NUMBER => CATALOG_SYSTEM_NUMBER,
           CITATION_PREDICATE_NAME => CITATION_PREDICATE_NAME,
           CITATION_STYLE_NAME => CITATION_STYLE_NAME,
