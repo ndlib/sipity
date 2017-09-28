@@ -259,3 +259,15 @@ Sipity has three concepts that are important when considering permissions:
 * [Sipity::Models::Processing::Actor](app/models/sipity/models/processing/actor.rb) - the Object in which permissions are checked against. An Actor is associated with either a User or a Group – via a polymorphic association.
 
 When actions are taken we record both the requestor and on behalf of information. Often the requester is a User (i.e. someone logged into the system) but Sipity is really only concerned with does the User’s associated Actor have permission. So I have short-circuited the Group structure to say that these “Agents” are in fact groups. I store the group’s api key and check basic authentication to see if it includes a Group and API Key that are correct. If so I authenticate the current user as the group (again a concession of Devise).
+
+## Creating a New Form
+
+* Add or reuse attributes defined [`Sipity::Models::AdditionalAttribute`](app/models/sipity/models/additional_attribute.rb); Note the "title" is an attribute on the Work.
+* Add the [form object](app/forms/sipity/forms/) to the correct work area.
+* Add the corresponding [view template](app/views/sipity/controllers/) to the correct location
+  - The name of the form object (e.g. `BannerProgramCodeForm`) informs the name of the template (e.g. `banner_program_code.html.erb`)
+* Add the form's processing action name to the corresponding workflow; The convention for processing_action_name is the form's demodulized object name in underscore format without the '\_form' (e.g. `BannerProgramCodeForm` has an action name for `banner_program_code`)
+
+## Working with Sipity
+
+The primary feature of Sipity is state-based permissions. It can be helpful to force an object into a given state. Use `Sipity::Services::Administrative::ForceIntoProcessingState.call` via `$ rails console`

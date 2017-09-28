@@ -4,6 +4,7 @@ module Sipity
   module Models
     # A rudimentary container for all (as of now string based) attributes
     # associated with the Sipity::Work
+    # TODO: The underlying Sipity Database is mysql. If we moved to Postgresql we could move these in as a JSON field on Work.
     class AdditionalAttribute < ActiveRecord::Base
       # The format in which we will persist "well-formed" dates into
       # the additional attribute table.
