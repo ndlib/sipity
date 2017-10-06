@@ -72,7 +72,7 @@ Sipity::Models::Processing::Strategy.all.each do |__strategy|
   end
 
   erb_file = File.join(File.dirname(__FILE__), '../templates/for_state_machines.dot.erb')
-  output_filename = Rails.root.join("artifacts/state_machines/#{PowerConverter.convert(:name, to: :file_system_safe_file_name(strategy.fetch))}.dot")
+  output_filename = Rails.root.join("artifacts/state_machines/#{PowerConverter.convert(strategy.fetch(:name), to: :file_system_safe_file_name)}.dot")
   File.open(output_filename, 'w+') do |file|
     file.puts ERB.new(File.read(erb_file)).result(binding).split("\n").each(&:strip).select(&:present?).join("\n")
   end
