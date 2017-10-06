@@ -26,7 +26,6 @@ module Sipity
           include Shoulda::Matchers::ActiveModel
           it { is_expected.to validate_presence_of(:banner_program_code) }
           it { is_expected.to validate_presence_of(:work) }
-          it { is_expected.to validate_presence_of(:work) }
 
           context 'validations' do
             it 'will require a requested_by' do
