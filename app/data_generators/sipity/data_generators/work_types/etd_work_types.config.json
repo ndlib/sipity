@@ -252,7 +252,8 @@
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
-        "to": "creating_user"
+        "to": "creating_user",
+        "cc": "etd_reviewing"
       }]
     }, {
       "name": "signoff_on_behalf_of",
@@ -267,7 +268,8 @@
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
-        "to": "creating_user"
+        "to": "creating_user",
+        "cc": "etd_reviewing"
       }]
     }, {
       "name": "request_change_on_behalf_of",
@@ -426,7 +428,7 @@
       "state": "under_grad_school_review",
       "reason": "entered_state",
       "emails": [{
-        "name": "advisor_signoff_is_complete", "to": "etd_reviewing", "cc": "creating_user"
+        "name": "advisor_signoff_is_complete", "to": "etd_reviewing", "cc": ["creating_user", "advising"]
       }, {
         "name": "confirmation_of_advisor_signoff_is_complete", "to": "creating_user"
       }]
@@ -690,7 +692,8 @@
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
-        "to": "creating_user"
+        "to": "creating_user",
+        "cc": "etd_reviewing"
       }]
     }, {
       "name": "signoff_on_behalf_of",
@@ -705,7 +708,8 @@
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
-        "to": "creating_user"
+        "to": "creating_user",
+        "cc": "etd_reviewing"
       }]
     }, {
       "name": "request_change_on_behalf_of",
@@ -860,7 +864,7 @@
       "state": "under_grad_school_review",
       "reason": "entered_state",
       "emails": [{
-        "name": "advisor_signoff_is_complete", "to": "etd_reviewing", "cc": "creating_user"
+        "name": "advisor_signoff_is_complete", "to": "etd_reviewing", "cc": ["creating_user", "advising"]
       }, {
         "name": "confirmation_of_advisor_signoff_is_complete", "to": "creating_user"
       }]
