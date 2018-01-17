@@ -24,7 +24,7 @@ module Sipity
 
       def initialize(**keywords)
         ATTRIBUTE_NAMES.each do |attribute_name|
-          send("#{attribute_name}=", keywords[attribute_name] || send("default_#{attribute_name}"))
+          send("#{attribute_name}=", keywords.fetch(attribute_name) { send("default_#{attribute_name}") })
         end
       end
 
@@ -38,14 +38,10 @@ module Sipity
 
       private
 
-      attr_writer :user, :processing_state, :proxy_for_type, :work_area, :submission_window, :per
+      attr_writer :user, :processing_state, :proxy_for_type, :work_area, :submission_window, :per, :page
 
       def order=(input)
         @order = ORDER_BY_OPTIONS.include?(input) ? input : default_order
-      end
-
-      def page=(input)
-        @page = (input == :all ? nil : input)
       end
 
       def q=(input)

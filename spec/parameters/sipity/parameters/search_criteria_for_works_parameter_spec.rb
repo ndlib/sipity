@@ -54,11 +54,6 @@ module Sipity
         subject = described_class.new(order: 'chicken-sandwich')
         expect(subject.order).to eq(subject.send(:default_order))
       end
-
-      it 'will fallback to no page if :all is given' do
-        subject = described_class.new(page: :all)
-        expect(subject.page).to be_nil
-      end
     end
   end
 end

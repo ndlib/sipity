@@ -465,7 +465,9 @@ module Sipity
 
         scope = scope.order(criteria.order) if criteria.order?
         scope = scope.page(criteria.page) if criteria.page?
-        scope = scope.per(criteria.per) if criteria.per?
+        # For Kaminari to work with `.per` page, there is a method call temporal
+        # dependency. First you must call `.page` then you may call `.per`.
+        scope = scope.per(criteria.per) if criteria.per? && criteria.page?
         scope
       end
 

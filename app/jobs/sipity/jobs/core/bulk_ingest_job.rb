@@ -70,7 +70,7 @@ module Sipity
 
         def set_search_criteria!
           @search_criteria = search_criteria_builder.call(
-            user: requested_by, processing_state: initial_processing_state_name, work_area: work_area_slug, page: :all
+            user: requested_by, processing_state: initial_processing_state_name, work_area: work_area_slug
           )
         end
 
