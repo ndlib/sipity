@@ -383,7 +383,7 @@ GEM
     kaminari-core (1.1.1)
     launchy (2.4.3)
       addressable (~> 2.3)
-    letter_opener (1.4.1)
+    letter_opener (1.6.0)
       launchy (~> 2.2)
     link_header (0.0.8)
     listen (3.0.8)
