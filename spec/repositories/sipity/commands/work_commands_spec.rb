@@ -20,68 +20,23 @@ module Sipity
         end
       end
 
-      context '#change_processing_actor_proxy' do
-        let(:user) { User.create!(username: 'hello') }
-        let(:collaborator) { Models::Collaborator.create!(name: 'bob', role: 'Committee Member', work_id: 1) }
-        let(:current_actor) { collaborator.to_processing_actor }
-        it 'will transfer ownership from the given proxy to another' do
-          expect { test_repository.change_processing_actor_proxy(from_proxy: collaborator, to_proxy: user) }.
-            to change { current_actor.reload.proxy_for }.from(collaborator).to(user)
-        end
-      end
-
       context '#manage_collaborators_for' do
-        let(:work) { Models::Work.new(id: 123) }
-        let(:collaborator) do
-          Models::Collaborator.new(
-            work_id: work.id, responsible_for_review: true, name: 'Jeremy', role: 'Research Director', netid: 'somebody'
-          )
-        end
-        it 'will destroy collaborators not passed in' do
-          collaborator.save!
-          expect(test_repository).to receive(:assign_collaborators_to).with(work: work, collaborators: [], repository: test_repository)
-          expect { test_repository.manage_collaborators_for(work: work, collaborators: []) }.
-            to change { Models::Collaborator.count }.by(-1)
-        end
-
-        it 'will destroy the collaborator processing actor' do
-          collaborator.save!
-          collaborator.to_processing_actor
-          expect(test_repository).to receive(:assign_collaborators_to).with(work: work, collaborators: [], repository: test_repository)
-          expect { test_repository.manage_collaborators_for(work: work, collaborators: []) }.
-            to change { Models::Processing::Actor.count }.by(-1)
+        let(:work) { double('Work') }
+        let(:collaborator) { double("Collaborator") }
+        it 'delegates to Sipity::Services::ManageCollaborators.manage_collaborators_for' do
+          expect(Services::ManageCollaborators).to receive(:manage_collaborators_for).
+            with(work: work, collaborators: collaborator, repository: test_repository)
+          test_repository.manage_collaborators_for(work: work, collaborators: collaborator)
         end
       end
 
       context '#assign_collaborators_to' do
-        let(:work) { Models::Work.new(id: 123) }
-        let(:repository) { CommandRepositoryInterface.new }
-        let(:collaborator) do
-          Models::Collaborator.new(
-            responsible_for_review: is_responsible_for_review?, name: 'Jeremy', role: 'Research Director', netid: 'somebody'
-          )
-        end
-        context 'when a collaborator is responsible_for_review' do
-          let(:is_responsible_for_review?) { false }
-          it 'will create a collaborator but not a user nor permission' do
-            expect do
-              expect do
-                test_repository.assign_collaborators_to(work: work, collaborators: collaborator, repository: repository)
-              end.to change(Models::Collaborator, :count).by(1)
-            end.to_not change(User, :count)
-          end
-        end
-
-        context 'when a collaborator is responsible_for_review' do
-          let(:is_responsible_for_review?) { true }
-          it 'will create a collaborator, user, and permission' do
-            expect(repository).to receive(:grant_permission_for!).and_call_original
-            expect do
-              expect do
-                test_repository.assign_collaborators_to(work: work, collaborators: collaborator, repository: repository)
-              end.to change(Models::Collaborator, :count).by(1)
-            end.to change(User, :count).by(1)
-          end
+        let(:work) { double('Work') }
+        let(:collaborator) { double("Collaborator") }
+        it 'delegates to Sipity::Services::ManageCollaborators.assign_collaborators_to' do
+          expect(Services::ManageCollaborators).to receive(:assign_collaborators_to).
+            with(work: work, collaborators: collaborator, repository: test_repository)
+          test_repository.assign_collaborators_to(work: work, collaborators: collaborator)
         end
       end
 
@@ -107,30 +62,6 @@ module Sipity
         subject { test_repository.default_pid_minter }
         it { is_expected.to respond_to(:call) }
         its(:call) { is_expected.to be_a(String) }
-      end
-
-      context '#create_sipity_user_from' do
-        it 'will create a user from the given netid if one does not exist' do
-          expect { test_repository.create_sipity_user_from(netid: 'helloworld') }.
-            to change { User.count }.by(1)
-          expect(User.last.email).to be_present
-        end
-        it 'will not create multiple times' do
-          user = Factories.create_user
-          expect { test_repository.create_sipity_user_from(netid: user.username) }.
-            to_not change { User.count }
-        end
-        it 'will skip user creation of the netID exists' do
-          test_repository.create_sipity_user_from(netid: 'helloworld')
-
-          expect { test_repository.create_sipity_user_from(netid: 'helloworld') }.
-            to_not change { User.count }
-        end
-
-        it 'will skip user creation if no netid is given' do
-          expect { test_repository.create_sipity_user_from(netid: '') }.
-            to_not change { User.count }
-        end
       end
 
       context '#update_processing_state!' do
