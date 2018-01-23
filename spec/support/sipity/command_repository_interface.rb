@@ -225,6 +225,14 @@ module Sipity
     def representative_attachment_for(work:)
     end
 
+    # @see ./app/repositories/sipity/commands/permission_commands.rb
+    def revoke_permission_for!(entity:, actors:, acting_as:)
+    end
+
+    # @see ./app/repositories/sipity/commands/permission_commands.rb
+    def revoke_processing_permission_for!(entity:, actor:, role:)
+    end
+
     # @see ./app/repositories/sipity/queries/administrative_scheduled_action_queries.rb
     def scheduled_time_from_work(work:, reason:)
     end

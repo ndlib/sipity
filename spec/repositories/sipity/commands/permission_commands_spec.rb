@@ -21,6 +21,18 @@ module Sipity
           subject.grant_creating_user_permission_for!(entity: entity, user: user)
         end
       end
+
+      context '#revoke_permission_for!' do
+        let(:entity) { Models::Work.new(id: 1) }
+        let(:user) { User.new(id: 2) }
+        let(:group) { Models::Group.new(id: 3) }
+
+        it 'will revoke the given role for each of the given actors' do
+          expect(Services::RevokeProcessingPermission).to receive(:call).with(entity: entity, actor: user, role: 'A Role')
+          expect(Services::RevokeProcessingPermission).to receive(:call).with(entity: entity, actor: group, role: 'A Role')
+          subject.revoke_permission_for!(entity: entity, actors: [user, group], acting_as: 'A Role')
+        end
+      end
     end
   end
 end

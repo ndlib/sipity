@@ -63,7 +63,11 @@ module Sipity
       end
 
       def revoke_reviewing_permission_from(collaborator:)
-        # TODO
+        actors = [collaborator]
+        # Because of the odd relationship between collaborators and users (eg. Collaborators need not be signed into the
+        # system, nor may not exist), we need to disassociate either user or collaborator from this
+        actors << User.find_by(username: collaborator.netid) if collaborator.netid?
+        repository.revoke_permission_for!(actors: actors.compact, entity: work, acting_as: Models::Role::ADVISING)
       end
 
       # In an effort to preserve processing actors, I want to expose a mechanism
