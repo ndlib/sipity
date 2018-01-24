@@ -1,8 +1,17 @@
 module Sipity
   module Services
-    # Service object that handles the business logic of granting permission.
-    # @see Sipity::Services::RevokeProcessingPermission
-    class GrantProcessingPermission
+    # Service object that handles the business logic of revoking permissions.
+    # @see Sipity::Services::GrantProcessingPermission
+    class RevokeProcessingPermission
+      # @api public
+      #
+      # Responsible for revoking the given actor's role assignment from the given entity, regardless of whether the actor is assigned
+      # the role to the entity.
+      #
+      # @param entity [#to_processing_entity]
+      # @param actor [#to_processing_actor]
+      # @param actor [#to_role]
+      # @return True
       def self.call(entity:, actor:, role:)
         new(entity: entity, actor: actor, role: role).call
       end
@@ -14,32 +23,30 @@ module Sipity
       end
       attr_reader :entity, :actor, :role
 
-      delegate :strategy, to: :entity
-
       def call
         with_valid_strategy_role do |strategy_role|
-          create_entity_specific_responsibility(strategy_role: strategy_role) unless strategy_role_responsibility_exists?
+          destroy_entity_specific_responsibility(strategy_role: strategy_role) unless strategy_role_responsibility_exists?
         end
       end
 
       private
 
       def with_valid_strategy_role
-        strategy_role = Models::Processing::StrategyRole.find_by!(strategy_id: strategy.id, role_id: role.id)
+        strategy_role = Models::Processing::StrategyRole.find_by!(strategy_id: entity.strategy_id, role_id: role.id)
         yield(strategy_role)
-      rescue ActiveRecord::RecordNotFound => exception
-        raise Exceptions::ValidProcessingStrategyRoleNotFoundError, exception.message
+      rescue ActiveRecord::RecordNotFound
+        true
       end
 
-      def create_entity_specific_responsibility(strategy_role:)
-        Models::Processing::EntitySpecificResponsibility.find_or_create_by!(
+      def destroy_entity_specific_responsibility(strategy_role:)
+        Models::Processing::EntitySpecificResponsibility.where(
           strategy_role_id: strategy_role.id, entity_id: entity.id, actor_id: actor.id
-        )
+        ).destroy_all
       end
 
       def strategy_role_responsibility_exists?
         Models::Processing::StrategyRole.where(
-          role_id: role.id, strategy_id: strategy.id
+          role_id: role.id, strategy_id: entity.strategy_id
         ).joins(:strategy_responsibilities).any?
       end
 

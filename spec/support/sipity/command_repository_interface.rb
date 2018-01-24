@@ -34,7 +34,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/commands/work_commands.rb
-    def assign_collaborators_to(work:, collaborators:, repository: self)
+    def assign_collaborators_to(work:, collaborators:)
     end
 
     # @see ./app/repositories/sipity/commands/work_commands.rb
@@ -69,10 +69,6 @@ module Sipity
     def build_work_submission_processing_action_form(work:, processing_action_name:, **keywords)
     end
 
-    # @see ./app/repositories/sipity/commands/work_commands.rb
-    def change_processing_actor_proxy(from_proxy:, to_proxy:)
-    end
-
     # @see ./app/repositories/sipity/queries/collaborator_queries.rb
     def collaborators_that_can_advance_the_current_state_of(work:, id: nil)
     end
@@ -94,19 +90,11 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/commands/work_commands.rb
-    def create_sipity_user_from(netid:, email: nil)
-    end
-
-    # @see ./app/repositories/sipity/commands/work_commands.rb
     def create_work!(submission_window:, **attributes)
     end
 
     # @see ./app/repositories/sipity/commands/additional_attribute_commands.rb
     def create_work_attribute_values!(work:, key:, values:)
-    end
-
-    # @see ./app/repositories/sipity/commands/work_commands.rb
-    def default_email_for_netid(netid)
     end
 
     # @see ./app/repositories/sipity/commands/work_commands.rb
@@ -206,7 +194,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/commands/work_commands.rb
-    def manage_collaborators_for(work:, collaborators:, repository: self)
+    def manage_collaborators_for(work:, collaborators:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
@@ -235,6 +223,14 @@ module Sipity
 
     # @see ./app/repositories/sipity/queries/attachment_queries.rb
     def representative_attachment_for(work:)
+    end
+
+    # @see ./app/repositories/sipity/commands/permission_commands.rb
+    def revoke_permission_for!(entity:, actors:, acting_as:)
+    end
+
+    # @see ./app/repositories/sipity/commands/permission_commands.rb
+    def revoke_processing_permission_for!(entity:, actor:, role:)
     end
 
     # @see ./app/repositories/sipity/queries/administrative_scheduled_action_queries.rb

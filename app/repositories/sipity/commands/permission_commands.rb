@@ -21,14 +21,28 @@ module Sipity
         grant_permission_for!(entity: entity, actors: actors, acting_as: acting_as)
       end
 
+      # @api public
       def grant_permission_for!(entity:, actors:, acting_as:)
         Array.wrap(actors).flatten.compact.each do |an_actor|
           grant_processing_permission_for!(entity: entity, actor: an_actor, role: acting_as)
         end
       end
 
+      # @api private
       def grant_processing_permission_for!(entity:, actor:, role:)
         Services::GrantProcessingPermission.call(entity: entity, actor: actor, role: role)
+      end
+
+      # @api public
+      def revoke_permission_for!(entity:, actors:, acting_as:)
+        Array.wrap(actors).flatten.compact.each do |an_actor|
+          revoke_processing_permission_for!(entity: entity, actor: an_actor, role: acting_as)
+        end
+      end
+
+      # @api private
+      def revoke_processing_permission_for!(entity:, actor:, role:)
+        Services::RevokeProcessingPermission.call(entity: entity, actor: actor, role: role)
       end
     end
   end
