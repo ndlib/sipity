@@ -46,11 +46,11 @@ jira_username: "jira user"
 
 development:
   domain_name: "localhost:3000"
-  url_host: "http://localhost:3000"
+  url_host: "https://localhost:3000"
   secret_key_base: 'bd6953190e19dabc215af75a5c856f584dca49a3ab729696946a80ec50f46094d4643d908b88b07011f898f5c6748f2ffa832c96bae409e5462f2cf3055f1ee7'
-  cas_base_url: "https://cas.library.nd.edu/cas"
-  cas_destination_url: "http://localhost:3000"
-  cas_follow_url: "http://localhost:3000"
+  cas_base_url: "https://login-test.cc.nd.edu/cas"
+  cas_destination_url: "https://localhost:3000"
+  cas_follow_url: "https://localhost:3000"
   curate_batch_user_pid: "batch_user_pid"
   curate_grad_school_editing_group_pid: "batch_group_pid"
   curate_batch_data_mount_path: "local/data"
@@ -58,7 +58,7 @@ development:
 
 test:
   domain_name: "localhost:3000"
-  url_host: "http://localhost:3000"
+  url_host: "https://localhost:3000"
   secret_key_base: 'bd6953190e19dabc215af75a5c856f584dca49a3ab729696946a80ec50f46094d4643d908b88b07011f898f5c6748f2ffa832c96bae409e5462f2cf3055f1ee7'
   curate_batch_user_pid: "batch_user_pid"
   curate_grad_school_editing_group_pid: "batch_group_pid"

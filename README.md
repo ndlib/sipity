@@ -24,6 +24,18 @@ Its goal is to provide clarity on why a patron would want to fill out metadata i
 
 ## Getting Your Bearings
 
+### Running under SSL
+
+To run the application under SSL, use the following command:
+
+```console
+SSL=true bin/rails s
+```
+
+Then go to https://localhost:3000
+
+### Work Submission
+
 The primary feature (and complexity) is Sipity's work submission show page. Below is a diagram that helps break down its composition.
 
 ![Sipity Todo List Page](artifacts/sipity-todo-list-page.png)
