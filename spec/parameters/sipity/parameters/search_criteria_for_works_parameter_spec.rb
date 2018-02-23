@@ -25,7 +25,7 @@ module Sipity
 
       its(:default_page) { is_expected.to eq(1) }
       its(:page?) { is_expected.to eq(true) }
-      its(:default_per) { is_expected.to eq(15) }
+      its(:default_per) { is_expected.to eq(8) }
       its(:per?) { is_expected.to eq(true) }
       its(:default_user) { is_expected.to eq(nil) }
       its(:user?) { is_expected.to eq(false) }
