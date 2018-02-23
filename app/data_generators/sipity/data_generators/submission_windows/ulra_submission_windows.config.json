@@ -75,5 +75,44 @@
         "roles": "work_submitting"
       }]
     }]
+    },{
+      "attributes": {
+        "open_for_starting_submissions_at": "2018-01-17",
+        "closed_for_starting_submissions_at": "2018-04-14 00:00:00",
+        "slug": "2018"
+      },
+      "strategy_permissions": [{
+        "group": "All Registered Users",
+        "role": "work_submitting"
+      }],
+      "work_type_config_paths": ["app/data_generators/sipity/data_generators/work_types/ulra_work_types.config.json"],
+      "actions": [{
+        "name": "show",
+        "from_states": [{
+          "name": ["new", "opened", "closed"],
+          "roles": "work_submitting"
+        }]
+      }, {
+        "name": "open",
+        "transition_to": "opened",
+        "from_states": [{
+          "name": ["new", "closed"],
+          "roles": "ulra_reviewing"
+        }]
+      }, {
+        "name": "close",
+        "transition_to": "closed",
+        "from_states": [{
+          "name": ["opened", "new"],
+          "roles": "ulra_reviewing"
+        }]
+      }, {
+        "name": "start_a_submission",
+        "from_states": [{
+          "name": ["new", "opened"],
+          "roles": "work_submitting"
+        }]
+      }]
+
   }]
 }
