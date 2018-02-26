@@ -23,7 +23,7 @@ module Sipity
             @search_criteria ||= begin
               Parameters::SearchCriteriaForWorksParameter.new(
                 user: current_user, processing_state: work_area.processing_state, page: work_area.page, order: work_area.order,
-                repository: repository, work_area: work_area, q: work_area.q
+                repository: repository, work_area: work_area, q: work_area.q, submission_window: work_area.submission_window
               )
             end
           end

@@ -8,7 +8,9 @@ module Sipity
         RSpec.describe ShowPresenter do
           let(:context) { PresenterHelper::ContextWithForm.new(current_user: current_user, request: double(path: '/path'), paginate: true) }
           let(:current_user) { double('Current User') }
-          let(:work_area) { double(slug: 'the-slug', title: 'The Slug', processing_state: 'new', order: 'title', page: 1, q: nil) }
+          let(:work_area) do
+            double(slug: 'the-slug', submission_window: '2016', title: 'The Slug', processing_state: 'new', order: 'title', page: 1, q: nil)
+          end
           let(:repository) { QueryRepositoryInterface.new }
           let(:processing_action) { double(name: 'start_a_submission') }
           subject { described_class.new(context, work_area: work_area, repository: repository) }
