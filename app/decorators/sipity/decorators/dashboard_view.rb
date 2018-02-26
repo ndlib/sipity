@@ -27,7 +27,7 @@ module Sipity
       end
 
       def works_scope
-        repository.find_works_via_search(criteria: criteria, repository: repository)
+        @works_scope ||= repository.find_works_via_search(criteria: criteria, repository: repository)
       end
 
       def works(decorator: WorkDecorator)
