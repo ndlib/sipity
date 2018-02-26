@@ -34,6 +34,12 @@ SSL=true bin/rails s
 
 Then go to https://localhost:3000
 
+### Development Seeds
+
+`rake bootstrap` - reset the environment's database with basic seed data
+
+In `./lib/tasks/development.rake` you can find Rake tasks for adding data.
+
 ### Work Submission
 
 The primary feature (and complexity) is Sipity's work submission show page. Below is a diagram that helps break down its composition.
