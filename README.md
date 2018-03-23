@@ -290,5 +290,5 @@ When actions are taken we record both the requestor and on behalf of information
 
 The primary feature of Sipity is state-based permissions. It can be helpful to force an object into a given state. Use `Sipity::Services::Administrative::ForceIntoProcessingState.call` via `$ rails console`
 
-## Further Documentation
+## Further Documentation (For internal DLT team only)
 [Google doc](https://docs.google.com/document/d/1u97Ncwkg4KjKdaa53vTXaZVpTRZO2KCPYmjNVEwa7_8/edit#) from the Knowledge Transfer session on 03/23/2018
