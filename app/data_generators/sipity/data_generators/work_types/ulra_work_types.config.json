@@ -73,7 +73,7 @@
           "name": ["new", "pending_student_completion", "pending_advisor_completion", "under_review"],
           "roles": ["creating_user"]
         },{
-          "name": ["under_data_remediation"],
+          "name": ["under_data_remediation", "under_review"],
           "roles": ["remediating_data"]
         }],
         "attributes": {
@@ -145,7 +145,7 @@
           "name": ["new", "pending_advisor_completion"],
           "roles": ["advising"]
         },{
-          "name": ["under_data_remediation"],
+          "name": ["under_data_remediation", "under_review"],
           "roles": ["remediating_data"]
         }]
       }, {
