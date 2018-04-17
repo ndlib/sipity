@@ -1,0 +1,51 @@
+digraph "G" {
+  compound=true;
+  node[color="grey15" margin="0.15, 0.125"];
+  subgraph cluster_0 {
+    label="ulra_submission processing (2018-04-17)"
+    node[style=filled fillcolor=white color="seashell4"]
+    subgraph 0 {
+      label="States";
+      node[shape="record" fillcolor="seashell1" penwidth=5]
+      state_ingested [label="{ STATE: Ingested (ID=40)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | EMAILS: |  }"]
+      state_ingesting [label="{ STATE: Ingesting (ID=39)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | EMAILS: |  }"]
+      state_new [label="{ STATE: New (ID=32)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | Destroy: creating_user, ulra_reviewing | Project Information: creating_user | Attach: creating_user | Copyright: creating_user | Access Policy: creating_user | Plan Of Study: creating_user | Publisher Information: creating_user | Research Process: creating_user | Faculty Response: advising | EMAILS: |  }"]
+      state_pending_advisor_completion [label="{ STATE: Pending Advisor Completion (ID=34)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | Destroy: creating_user, ulra_reviewing | Project Information: creating_user | Attach: creating_user | Copyright: creating_user | Access Policy: creating_user | Plan Of Study: creating_user | Publisher Information: creating_user | Research Process: creating_user | Faculty Response: advising | EMAILS: |  }"]
+      state_pending_student_completion [label="{ STATE: Pending Student Completion (ID=35)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | Destroy: creating_user, ulra_reviewing | Project Information: creating_user | Attach: creating_user | Copyright: creating_user | Access Policy: creating_user | Plan Of Study: creating_user | Publisher Information: creating_user | Research Process: creating_user | EMAILS: |  }"]
+      state_ready_for_ingest [label="{ STATE: Ready For Ingest (ID=38)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | EMAILS: |  }"]
+      state_review_completed [label="{ STATE: Review Completed (ID=36)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | EMAILS: |  }"]
+      state_under_data_remediation [label="{ STATE: Under Data Remediation (ID=37)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | Project Information: remediating_data | Attach: remediating_data | Copyright: remediating_data | Access Policy: remediating_data | Plan Of Study: remediating_data | Publisher Information: remediating_data | Research Process: remediating_data | Faculty Response: remediating_data | EMAILS: |  }"]
+      state_under_review [label="{ STATE: Under Review (ID=33)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | Destroy: ulra_reviewing | Attach: creating_user | Copyright: creating_user | Access Policy: creating_user | Assign Award Status: ulra_reviewing | EMAILS: | student_has_indicated_attachments_are_complete(to: ulra_reviewing) }"]
+    }
+    subgraph 1 {
+      label="Actions"
+      node[shape="record" shape=record penwidth=1]
+        action_start_a_submission [label="{ ACTION: Start A Submission | AVAILABLE_TO: |  | EMAILS: | confirmation_of_ulra_submission_started(to: creating_user) | faculty_assigned_for_ulra_submission(to: advising) }"]
+        action_submit_student_portion [label="{ ACTION: Submit Student Portion | AVAILABLE_TO: | creating_user | EMAILS: | student_completed_their_portion_of_ulra(to: advising ; cc: creating_user) }"]
+        action_submit_advisor_portion [label="{ ACTION: Submit Advisor Portion | AVAILABLE_TO: | advising | EMAILS: | faculty_completed_their_portion_of_ulra(to: creating_user ; cc: advising) }"]
+        action_submit_for_review [label="{ ACTION: Submit For Review | AVAILABLE_TO: | creating_user, advising | EMAILS: | confirmation_of_submitted_to_ulra_committee(to: creating_user ; cc: advising) }"]
+        action_submit_completed_review [label="{ ACTION: Submit Completed Review | AVAILABLE_TO: | ulra_reviewing | EMAILS: |  }"]
+        action_begin_data_remediation [label="{ ACTION: Begin Data Remediation | AVAILABLE_TO: | remediating_data | EMAILS: |  }"]
+        action_finish_data_remediation [label="{ ACTION: Finish Data Remediation | AVAILABLE_TO: | remediating_data | EMAILS: |  }"]
+        action_submit_for_ingest [label="{ ACTION: Submit For Ingest | AVAILABLE_TO: | batch_ingesting | EMAILS: |  }"]
+        action_ingest_completed [label="{ ACTION: Ingest Completed | AVAILABLE_TO: | batch_ingesting | EMAILS: |  }"]
+    }
+      state_ingesting -> action_ingest_completed
+      action_ingest_completed -> state_ingested
+      state_new -> action_submit_student_portion
+      action_submit_student_portion -> state_pending_advisor_completion
+      state_new -> action_submit_advisor_portion
+      action_submit_advisor_portion -> state_pending_student_completion
+      state_pending_advisor_completion -> action_submit_for_review
+      action_submit_for_review -> state_under_review
+      state_pending_student_completion -> action_submit_for_review
+      state_ready_for_ingest -> action_submit_for_ingest
+      action_submit_for_ingest -> state_ingesting
+      state_review_completed -> action_begin_data_remediation
+      action_begin_data_remediation -> state_under_data_remediation
+      state_under_data_remediation -> action_finish_data_remediation
+      action_finish_data_remediation -> state_ready_for_ingest
+      state_under_review -> action_submit_completed_review
+      action_submit_completed_review -> state_review_completed
+  }
+}
