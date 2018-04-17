@@ -1,0 +1,27 @@
+digraph "G" {
+  compound=true;
+  node[color="grey15" margin="0.15, 0.125"];
+  subgraph cluster_0 {
+    label="Sipity::Models::WorkArea processing (2018-04-17)"
+    node[style=filled fillcolor=white color="seashell4"]
+    subgraph 0 {
+      label="States";
+      node[shape="record" fillcolor="seashell1" penwidth=5]
+      state_closed [label="{ STATE: Closed (ID=3)| TASKS: | Show: work_area_viewing | List Submissions: work_submission_listing | EMAILS: |  }"]
+      state_new [label="{ STATE: New (ID=1)| TASKS: | Show: work_area_viewing | List Submissions: work_submission_listing | Start A Submission: work_area_viewing | EMAILS: |  }"]
+      state_opened [label="{ STATE: Opened (ID=2)| TASKS: | Show: work_area_viewing | List Submissions: work_submission_listing | Start A Submission: work_area_viewing | EMAILS: |  }"]
+    }
+    subgraph 1 {
+      label="Actions"
+      node[shape="record" shape=record penwidth=1]
+        action_open [label="{ ACTION: Open | AVAILABLE_TO: | work_area_managing | EMAILS: |  }"]
+        action_close [label="{ ACTION: Close | AVAILABLE_TO: | work_area_managing | EMAILS: |  }"]
+    }
+      state_closed -> action_open
+      action_open -> state_opened
+      state_new -> action_open
+      state_new -> action_close
+      action_close -> state_closed
+      state_opened -> action_close
+  }
+}
