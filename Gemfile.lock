@@ -255,7 +255,7 @@ GEM
       dry-equalizer (~> 0.2)
     dry-monads (0.3.0)
       dry-equalizer
-    dry-types (0.8.0)
+    dry-types (0.8.1)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 0.1)
       dry-container (~> 0.3)
@@ -681,10 +681,10 @@ DEPENDENCIES
   dragonfly!
   dragonfly-s3_data_store
   draper
-  dry-logic (= 0.3.0)
-  dry-monads (= 0.3.0)
-  dry-types (= 0.8.0)
-  dry-validation (= 0.8.0)
+  dry-logic (~> 0.3.0)
+  dry-monads (~> 0.3.0)
+  dry-types (~> 0.8.0)
+  dry-validation (~> 0.8.0)
   execjs
   ezid-client!
   figaro
