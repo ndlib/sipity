@@ -59,8 +59,9 @@ RSpec.describe Sipity::DataGenerators::WorkTypeSchema do
       data = {
         work_types: [{ actions: [], name: 'wonky', state_emails: [{ state: 'under_review', email: 'hello', reason: 'chicken_dinner' }] }]
       }
+
       messages = subject.call(data).messages
-      expect(messages[0][:work_types][0][:state_emails][:reason]).to be_present
+      expect(messages.first[0][:work_types][0][:state_emails][:reason]).to be_present
     end
 
     [

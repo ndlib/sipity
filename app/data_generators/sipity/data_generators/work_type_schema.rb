@@ -21,7 +21,7 @@ module Sipity
             key(:state).required(:str?)
             key(:emails).each { schema(EmailSchema) }
             key(:reason) do
-              inclusion?([
+              included_in?([
                 Parameters::NotificationContextParameter::REASON_ENTERED_STATE,
                 Parameters::NotificationContextParameter::REASON_PROCESSING_HOOK_TRIGGERED
               ])
