@@ -32,7 +32,7 @@
       "transition_to": "new",
       "emails": [{
         "name": "confirmation_of_work_created",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "show",
@@ -58,7 +58,7 @@
         "presentation_sequence": 2
       },
       "from_states": [{
-        "name": "new",
+        "name": ["new"],
         "roles": ["creating_user"]
       }, {
         "name": ["new", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested"],
@@ -206,10 +206,10 @@
       "required_actions": ["describe", "degree", "attach", "collaborators", "copyright", "access_policy", "publishing_and_patenting_intent", "author"],
       "emails": [{
         "name": "confirmation_of_submit_for_review",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }, {
         "name": "submit_for_review",
-        "to": "advising"
+        "to": ["advising"]
       }]
     }, {
       "name": "respond_to_advisor_request",
@@ -223,8 +223,8 @@
       }],
       "emails": [{
         "name": "respond_to_advisor_request",
-        "to": "advising",
-        "cc": "creating_user"
+        "to": ["advising"],
+        "cc": ["creating_user"]
       }]
     }, {
       "name": "advisor_requests_change",
@@ -238,7 +238,7 @@
       "transition_to": "advisor_changes_requested",
       "emails": [{
         "name": "advisor_requests_change",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "advisor_signoff",
@@ -252,8 +252,8 @@
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
-        "to": "creating_user",
-        "cc": "etd_reviewing"
+        "to": ["creating_user"],
+        "cc": ["etd_reviewing"]
       }]
     }, {
       "name": "signoff_on_behalf_of",
@@ -268,8 +268,8 @@
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
-        "to": "creating_user",
-        "cc": "etd_reviewing"
+        "to": ["creating_user"],
+        "cc": ["etd_reviewing"]
       }]
     }, {
       "name": "request_change_on_behalf_of",
@@ -284,7 +284,7 @@
       }],
       "emails": [{
         "name": "request_change_on_behalf_of",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "respond_to_grad_school_request",
@@ -299,8 +299,8 @@
       }],
       "emails": [{
         "name": "respond_to_grad_school_request",
-        "to": "etd_reviewing",
-        "cc": "creating_user"
+        "to": ["etd_reviewing"],
+        "cc": ["creating_user"]
       }]
     }, {
       "name": "banner_program_code",
@@ -325,7 +325,7 @@
       }],
       "emails": [{
         "name": "confirmation_of_grad_school_signoff",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "grad_school_final_signoff",
@@ -339,7 +339,7 @@
       }],
       "emails": [{
         "name": "thank_you_for_your_patience_with_the_new_etd_system",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "grad_school_requests_change",
@@ -354,7 +354,7 @@
       }],
       "emails": [{
         "name": "grad_school_requests_change",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "send_to_cataloging",
@@ -380,7 +380,7 @@
       }],
       "emails": [{
         "name": "cataloger_request_change",
-        "to": "etd_reviewing"
+        "to": ["etd_reviewing"]
       }]
     }, {
       "name": "cataloging_complete",
@@ -406,7 +406,7 @@
       }],
       "emails": [{
         "name": "hurray_your_work_is_in_curatend",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "submit_for_ingest",
@@ -428,15 +428,15 @@
       "state": "under_grad_school_review",
       "reason": "entered_state",
       "emails": [{
-        "name": "advisor_signoff_is_complete", "to": "etd_reviewing", "cc": ["creating_user", "advising"]
+        "name": "advisor_signoff_is_complete", "to": ["etd_reviewing"], "cc": ["creating_user", "advising"]
       }, {
-        "name": "confirmation_of_advisor_signoff_is_complete", "to": "creating_user"
+        "name": "confirmation_of_advisor_signoff_is_complete", "to": ["creating_user"]
       }]
     }, {
       "state": "ready_for_cataloging",
       "reason": "entered_state",
       "emails": [{
-        "name": "grad_school_requests_cataloging", "to": "cataloging"
+        "name": "grad_school_requests_cataloging", "to": ["cataloging"]
       }]
     }]
   },{
@@ -472,7 +472,7 @@
       "transition_to": "new",
       "emails": [{
         "name": "confirmation_of_work_created",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "show",
@@ -498,7 +498,7 @@
         "presentation_sequence": 2
       },
       "from_states": [{
-        "name": "new",
+        "name": ["new"],
         "roles": ["creating_user"]
       }, {
         "name": ["new", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested"],
@@ -646,10 +646,10 @@
       "required_actions": ["describe", "degree", "attach", "collaborators", "copyright", "access_policy", "publishing_and_patenting_intent", "author", "defense_date"],
       "emails": [{
         "name": "confirmation_of_submit_for_review",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }, {
         "name": "submit_for_review",
-        "to": "advising"
+        "to": ["advising"]
       }]
     }, {
       "name": "respond_to_advisor_request",
@@ -663,8 +663,8 @@
       }],
       "emails": [{
         "name": "respond_to_advisor_request",
-        "to": "advising",
-        "cc": "creating_user"
+        "to": ["advising"],
+        "cc": ["creating_user"]
       }]
     }, {
       "name": "advisor_requests_change",
@@ -678,7 +678,7 @@
       "transition_to": "advisor_changes_requested",
       "emails": [{
         "name": "advisor_requests_change",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "advisor_signoff",
@@ -692,8 +692,8 @@
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
-        "to": "creating_user",
-        "cc": "etd_reviewing"
+        "to": ["creating_user"],
+        "cc": ["etd_reviewing"]
       }]
     }, {
       "name": "signoff_on_behalf_of",
@@ -708,8 +708,8 @@
       }],
       "emails": [{
         "name": "confirmation_of_advisor_signoff",
-        "to": "creating_user",
-        "cc": "etd_reviewing"
+        "to": ["creating_user"],
+        "cc": ["etd_reviewing"]
       }]
     }, {
       "name": "request_change_on_behalf_of",
@@ -724,7 +724,7 @@
       }],
       "emails": [{
         "name": "request_change_on_behalf_of",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "respond_to_grad_school_request",
@@ -739,8 +739,8 @@
       }],
       "emails": [{
         "name": "respond_to_grad_school_request",
-        "to": "etd_reviewing",
-        "cc": "creating_user"
+        "to": ["etd_reviewing"],
+        "cc": ["creating_user"]
       }]
     }, {
       "name": "banner_program_code",
@@ -765,7 +765,7 @@
       }],
       "emails": [{
         "name": "confirmation_of_grad_school_signoff",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "grad_school_final_signoff",
@@ -779,7 +779,7 @@
       }],
       "emails": [{
         "name": "thank_you_for_your_patience_with_the_new_etd_system",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "grad_school_requests_change",
@@ -794,7 +794,7 @@
       }],
       "emails": [{
         "name": "grad_school_requests_change",
-        "to": "creating_user"
+        "to": ["creating_user"]
       }]
     }, {
       "name": "send_to_cataloging",
@@ -820,7 +820,7 @@
       }],
       "emails": [{
         "name": "cataloger_request_change",
-        "to": "etd_reviewing"
+        "to": ["etd_reviewing"]
       }]
     }, {
       "name": "cataloging_complete",
@@ -864,15 +864,15 @@
       "state": "under_grad_school_review",
       "reason": "entered_state",
       "emails": [{
-        "name": "advisor_signoff_is_complete", "to": "etd_reviewing", "cc": ["creating_user", "advising"]
+        "name": "advisor_signoff_is_complete", "to": ["etd_reviewing"], "cc": ["creating_user", "advising"]
       }, {
-        "name": "confirmation_of_advisor_signoff_is_complete", "to": "creating_user"
+        "name": "confirmation_of_advisor_signoff_is_complete", "to": ["creating_user"]
       }]
     }, {
       "state": "ready_for_cataloging",
       "reason": "entered_state",
       "emails": [{
-        "name": "grad_school_requests_cataloging", "to": "cataloging"
+        "name": "grad_school_requests_cataloging", "to": ["cataloging"]
       }]
     }]
   }]

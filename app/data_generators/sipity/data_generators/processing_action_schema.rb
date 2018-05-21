@@ -6,14 +6,11 @@ module Sipity
     ProcessingActionSchema = Dry::Validation.Schema do
       required(:name).filled(:str?)
       optional(:transition_to).filled(:str?)
-      # Note: I'm keeping required as, at this point, I'm unable to tweak to use filled
-      optional(:required_actions).required { str? | array? { each { str? } } }
+      optional(:required_actions).each(:str?)
       optional(:from_states).each do
         schema do
-          # Note: I'm keeping required as, at this point, I'm unable to tweak to use filled
-          required(:name).required { str? | array? { each { str? } } }
-          # Note: I'm keeping required as, at this point, I'm unable to tweak to use filled
-          required(:roles).required { str? | array? { each { str? } } }
+          required(:name).each(:str?)
+          required(:roles).each(:str?)
         end
       end
       optional(:emails).each { schema(EmailSchema) }

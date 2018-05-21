@@ -13,8 +13,7 @@ module Sipity
         end
         required(:actions).each { schema(ProcessingActionSchema) }
         optional(:strategy_permissions).each { schema(StrategyPermissionSchema) }
-        # Note: I'm keeping required as, at this point, I'm unable to tweak to use filled
-        required(:work_type_config_paths).required { str? | array? { each { str? } } }
+        required(:work_type_config_paths).each(:str?)
       end
     end
   end

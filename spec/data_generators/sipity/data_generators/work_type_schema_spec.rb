@@ -39,7 +39,7 @@ RSpec.describe Sipity::DataGenerators::WorkTypeSchema do
                 state: 'under_review',
                 reason: 'processing_hook_triggered',
                 emails: [
-                  { name: 'student_has_indicated_attachments_are_complete', to: "ulra_reviewing" }
+                  { name: 'student_has_indicated_attachments_are_complete', to: ["ulra_reviewing"] }
                 ]
               }
             ],
