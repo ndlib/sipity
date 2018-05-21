@@ -21,13 +21,13 @@ GIT
 
 GIT
   remote: git://github.com/jeremyf/dragonfly.git
-  revision: b5397e72bdb974cb7009c84261591dd69331e109
+  revision: 9b4c605b02321ca65ea5269b987733e9c33beec8
   branch: updating-dragonfly-to_file
   specs:
-    dragonfly (1.0.12)
+    dragonfly (1.1.5)
       addressable (~> 2.3)
       multi_json (~> 1.0)
-      rack (>= 1.3.0)
+      rack (>= 1.3)
 
 GIT
   remote: git://github.com/jeremyf/railroady.git
@@ -437,10 +437,10 @@ GEM
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    public_suffix (3.0.1)
+    public_suffix (3.0.2)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.8)
+    rack (1.6.10)
     rack-cache (1.7.1)
       rack (>= 0.4)
     rack-test (0.6.3)
