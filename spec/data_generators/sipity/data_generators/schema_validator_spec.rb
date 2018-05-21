@@ -21,7 +21,7 @@ module Sipity
       context 'with a dry-validation schema' do
         let(:schema) do
           Dry::Validation.Schema do
-            key(:name).required(:str?)
+            required(:name).filled(:str?)
           end
         end
 

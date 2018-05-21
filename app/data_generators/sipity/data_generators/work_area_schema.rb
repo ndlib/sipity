@@ -6,14 +6,14 @@ module Sipity
   module DataGenerators
     # Responsible for defining the schema for building work areas.
     WorkAreaSchema = Dry::Validation.Schema do
-      key(:work_areas).each do
-        key(:attributes).schema do
-          key(:name).required(:str?)
-          key(:slug).required(:str?)
+      required(:work_areas).each do
+        required(:attributes).schema do
+          required(:name).filled(:str?)
+          required(:slug).filled(:str?)
         end
-        key(:actions).each { schema(ProcessingActionSchema) }
+        required(:actions).each { schema(ProcessingActionSchema) }
         optional(:strategy_permissions).each { schema(StrategyPermissionSchema) }
-        optional(:submission_window_config_paths).required { str? | array? { each { str? } } }
+        optional(:submission_window_config_paths).each(:str?)
       end
     end
   end

@@ -20,10 +20,10 @@
         "transition_to": "new",
         "emails": [{
           "name": "confirmation_of_ulra_submission_started",
-          "to": "creating_user"
+          "to": ["creating_user"]
         }, {
           "name": "faculty_assigned_for_ulra_submission",
-          "to": "advising"
+          "to": ["advising"]
         }]
       }, {
         "name": "debug",
@@ -49,7 +49,7 @@
           "name": ["new", "pending_advisor_completion", "pending_student_completion"],
           "roles": ["creating_user", "ulra_reviewing"]
         }, {
-          "name": "under_review",
+          "name": ["under_review"],
           "roles": ["ulra_reviewing"]
         }],
         "attributes": {
@@ -151,71 +151,71 @@
       }, {
         "name": "submit_student_portion",
         "from_states": [{
-          "name": "new",
+          "name": ["new"],
           "roles": ["creating_user"]
         }],
         "transition_to": "pending_advisor_completion",
         "emails": [{
           "name": "student_completed_their_portion_of_ulra",
-          "to": "advising",
-          "cc": "creating_user"
+          "to": ["advising"],
+          "cc": ["creating_user"]
         }],
         "required_actions": ["project_information", "attach", "access_policy", "copyright", "plan_of_study", "publisher_information", "research_process"]
       }, {
         "name": "submit_advisor_portion",
         "from_states": [{
-          "name": "new",
+          "name": ["new"],
           "roles": ["advising"]
         }],
         "transition_to": "pending_student_completion",
         "emails": [{
           "name": "faculty_completed_their_portion_of_ulra",
-          "to": "creating_user",
-          "cc": "advising"
+          "to": ["creating_user"],
+          "cc": ["advising"]
         }],
         "required_actions": ["faculty_response"]
       }, {
         "name": "submit_for_review",
         "from_states": [{
-          "name": "pending_student_completion",
+          "name": ["pending_student_completion"],
           "roles": ["creating_user"]
         }, {
-          "name": "pending_advisor_completion",
+          "name": ["pending_advisor_completion"],
           "roles": ["advising"]
         }],
         "transition_to": "under_review",
         "emails": [{
           "name": "confirmation_of_submitted_to_ulra_committee",
-          "to": "creating_user",
-          "cc": "advising"
+          "to": ["creating_user"],
+          "cc": ["advising"]
         }],
         "required_actions": ["attach", "plan_of_study", "publisher_information", "research_process", "faculty_response"]
       }, {
         "name": "assign_award_status",
         "from_states": [{
-          "name": "under_review",
-          "roles": "ulra_reviewing"
+          "name": ["under_review"],
+          "roles": ["ulra_reviewing"]
         }]
       }, {
         "name": "submit_completed_review",
         "from_states": [{
-          "name": "under_review",
-          "roles": "ulra_reviewing"
+          "name": ["under_review"],
+          "roles": ["ulra_reviewing"]
         }],
         "transition_to": "review_completed",
         "required_actions": ["assign_award_status"]
       }, {
         "name": "begin_data_remediation",
         "from_states": [{
-          "name": "review_completed",
-          "roles": "remediating_data"
+          "name": ["review_completed"],
+          "roles": ["remediating_data"]
         }],
         "transition_to": "under_data_remediation"
       }, {
         "name": "finish_data_remediation",
         "from_states": [{
-          "name": "under_data_remediation",
-          "roles": "remediating_data"
+          "name": ["under_data_remediation"],
+          "roles": ["remediating_data"]
         }],
         "transition_to": "ready_for_ingest"
       }, {
@@ -246,7 +246,7 @@
         "reason": "processing_hook_triggered",
         "emails": [{
           "name": "student_has_indicated_attachments_are_complete",
-          "to": "ulra_reviewing"
+          "to": ["ulra_reviewing"]
         }]
       }]
     }

@@ -32,7 +32,10 @@ gem 'curly-templates', github: 'jeremyf/curly', branch: 'sipity-hack'
 gem 'kaminari'
 gem 'locabulary', github: 'ndlib/locabulary', branch: 'master'
 gem 'data_migrator', github: 'jeremyf/data-migrator'
-gem 'dry-validation'
+gem 'dry-validation', '~> 0.8.0'
+gem 'dry-types', '~> 0.8.0'
+gem 'dry-logic', '~> 0.3.0'
+gem 'dry-monads', '~> 0.3.0'
 gem 'whenever', require: false
 gem 'rof', github: 'ndlib/rof'
 gem 'rdf-aggregate-repo', '~> 2.0.0'
@@ -52,6 +55,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
+  gem 'byebug', '9.0.6', require: false
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
@@ -65,7 +69,7 @@ group :development do
   gem 'guard-scss-lint', github: 'ndlib/guard-scss-lint'
   gem 'i18n-debug'
   gem 'letter_opener'
-  gem 'pry-byebug', require: false
+  gem 'pry-byebug', '~> 3.4.0', require: false
   gem 'pry-rails', require: false
   gem 'quiet_assets'
   gem 'rails_layout'

@@ -3,10 +3,10 @@ require 'dry/validation/schema'
 module Sipity
   module DataGenerators
     EmailSchema = Dry::Validation.Schema do
-      key(:name).required(:str?)
-      key(:to).required  { str? | array? { each { str? } } }
-      optional(:cc).required  { str? | array? { each { str? } } }
-      optional(:bcc).required  { str? | array? { each { str? } } }
+      required(:name).filled(:str?)
+      required(:to).each(:str?)
+      optional(:cc).each(:str?)
+      optional(:bcc).each(:str?)
     end
   end
 end

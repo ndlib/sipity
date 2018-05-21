@@ -19,33 +19,33 @@
       "name": "show",
       "from_states": [{
         "name": ["new", "opened", "closed"],
-        "roles": "work_area_viewing"
+        "roles": ["work_area_viewing"]
       }]
     }, {
       "name": "list_submissions",
       "from_states": [{
         "name": ["new", "opened", "closed"],
-        "roles": "work_submission_listing"
+        "roles": ["work_submission_listing"]
       }]
     }, {
       "name": "open",
       "transition_to": "opened",
       "from_states": [{
         "name": ["new", "closed"],
-        "roles": "work_area_managing"
+        "roles": ["work_area_managing"]
       }]
     }, {
       "name": "close",
       "transition_to": "closed",
       "from_states": [{
         "name": ["opened", "new"],
-        "roles": "work_area_managing"
+        "roles": ["work_area_managing"]
       }]
     }, {
       "name": "start_a_submission",
       "from_states": [{
         "name": ["new", "opened"],
-        "roles": "work_area_viewing"
+        "roles": ["work_area_viewing"]
       }]
     }]
   }]

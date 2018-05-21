@@ -20,10 +20,10 @@ module Sipity
               "transition_to": "new",
               "emails": [{
                 "name": "confirmation_of_ulra_submission_started",
-                "to": "creating_user"
+                "to": ["creating_user"]
               },{
                 "name": "faculty_assigned_for_ulra_submission",
-                "to": "advising"
+                "to": ["advising"]
               }]
             },{
               "name": "start"
@@ -36,7 +36,7 @@ module Sipity
               "reason": "processing_hook_triggered",
               "emails": [{
                 "name": "student_has_indicated_attachments_are_complete",
-                "to": "ulra_reviewing"
+                "to": ["ulra_reviewing"]
               }]
             }]
           }

@@ -13,27 +13,27 @@
       "name": "show",
       "from_states": [{
         "name": ["new", "opened", "closed"],
-        "roles": "work_submitting"
+        "roles": ["work_submitting"]
       }]
     }, {
       "name": "open",
       "transition_to": "opened",
       "from_states": [{
         "name": ["new", "closed"],
-        "roles": "etd_reviewing"
+        "roles": ["etd_reviewing"]
       }]
     }, {
       "name": "close",
       "transition_to": "closed",
       "from_states": [{
         "name": ["opened", "new"],
-        "roles": "etd_reviewing"
+        "roles": ["etd_reviewing"]
       }]
     }, {
       "name": "start_a_submission",
       "from_states": [{
         "name": ["new", "opened"],
-        "roles": "work_submitting"
+        "roles": ["work_submitting"]
       }]
     }]
   }]
