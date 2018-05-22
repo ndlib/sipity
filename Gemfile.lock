@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/duke-libraries/ezid-client.git
-  revision: ab7cf0425a78d98be11abfcc97d8c508ced92c6f
-  specs:
-    ezid-client (1.5.0)
-      hashie (~> 3.4, >= 3.4.3)
-
-GIT
   remote: git://github.com/jeremyf/curly.git
   revision: 58d4bbfb94f68f5ce4867bf47c1c3b87c0dbef30
   branch: sipity-hack
@@ -342,7 +335,6 @@ GEM
       tilt
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
-    hashie (3.4.4)
     hooks (0.3.6)
       uber (~> 0.0.4)
     htmlentities (4.3.4)
@@ -686,7 +678,6 @@ DEPENDENCIES
   dry-types (~> 0.8.0)
   dry-validation (~> 0.8.0)
   execjs
-  ezid-client!
   figaro
   flay
   flog

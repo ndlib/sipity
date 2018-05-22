@@ -76,7 +76,6 @@ MethodLength:
   Exclude:
     - app/conversions/**/*.rb
     - app/forms/sipity/forms/configure.rb
-    - 'app/controllers/sipity/controllers/dois_controller.rb'
     - 'app/forms/sipity/forms/create_work_form.rb'
     - 'app/forms/sipity/forms/processing_form.rb'
     - 'app/repositories/sipity/queries/notification_queries.rb'
