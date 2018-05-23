@@ -20,9 +20,6 @@ dragonfly_s3_path: "path"
 dragonfly_s3_secret_access_key: 'secret'
 dragonfly_s3_url_host: 'bucketname.aws.com'
 dragonfly_secret: "12345"
-ezid_client_default_shoulder: "doi:10.5072/FK2"
-ezid_client_password: apitest
-ezid_client_user: apitest
 hesburgh_api_auth_token: '12345'
 hesburgh_api_host: https://api.library.nd.edu/
 noid_pool: 'pool_name'

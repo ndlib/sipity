@@ -279,10 +279,6 @@ module Sipity
       end
     end
 
-    # A refinement of InvalidStateError to provide an explicit context
-    class InvalidDoiCreationRequestStateError < InvalidStateError
-    end
-
     # Exposing a custom EmailDeliverFailure
     class SenderNotFoundError < ArgumentError
       def initialize(context)
