@@ -11,13 +11,13 @@
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-SSHKit.config.command_map[:bundle] = '/opt/ruby/current/bin/bundle'
+SSHKit.config.command_map[:bundle] = '/usr/local/bin/bundle'
 SSHKit.config.command_map[:rake] = "#{fetch(:bundle)} exec rake"
 set :branch,    ENV["BRANCH_NAME"] || 'master'
 set :rails_env, 'production'
 set :deploy_to, '/home/app/sipity'
 set :user,      'app'
-set :domain,    fetch(:host, 'sipity.library.nd.edu')
+set :domain,    fetch(:host, 'sipity-prod.lc.nd.edu')
 set :bundle_without, %w{development test doc}.join(' ')
 set :shared_directories,  %w(log)
 set :shared_files, %w()
