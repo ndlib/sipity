@@ -21,7 +21,7 @@ set :domain,    fetch(:host, 'sipity-prep.lc.nd.edu')
 set :bundle_without, %w{development test doc}.join(' ')
 set :shared_directories,  %w(log)
 set :shared_files, %w()
-set :linked_files, ['config/database.yml']
+#set :linked_files, ['config/database.yml']
 server fetch(:domain), user: fetch(:user), roles: %w{web app db}
 
 
