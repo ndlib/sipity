@@ -154,6 +154,7 @@ GEM
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
+    bigdecimal (1.3.4)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
@@ -652,6 +653,7 @@ DEPENDENCIES
   airbrake (~> 4.2)
   autoprefixer-rails
   better_errors
+  bigdecimal
   binding_of_caller
   bootstrap-sass
   bumbler

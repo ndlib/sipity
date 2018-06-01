@@ -5,6 +5,7 @@ gem 'rails', '~> 4.2'
 
 gem 'airbrake', '~> 4.2' # Until we update Errbit, I don't want to move to 5.x
 gem 'autoprefixer-rails'
+gem 'bigdecimal'
 gem 'bootstrap-sass'
 gem 'coffee-rails', '~> 4.0'
 gem 'devise'
