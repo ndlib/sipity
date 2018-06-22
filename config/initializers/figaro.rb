@@ -3,6 +3,8 @@ Figaro.require_keys(
   'airbrake_host',
   'cas_base_url',
   'cas_validate_url',
+  'curate_batch_api_base_path',
+  'curate_batch_api_key',
   'curate_batch_data_mount_path',
   'curate_batch_group_pid',
   'curate_batch_queue_mount_path',

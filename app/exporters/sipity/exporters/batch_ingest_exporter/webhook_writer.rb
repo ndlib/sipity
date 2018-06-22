@@ -8,7 +8,10 @@ module Sipity
         module_function
 
         def call(exporter:)
-          FileWriter.call(content: callback_url(work_id: exporter.work_id), path: target_path(data_directory: exporter.data_directory))
+          file_writer(exporter: exporter).call(
+            content: callback_url(work_id: exporter.work_id),
+            path: target_path(data_directory: exporter.data_directory)
+          )
         end
 
         def target_path(data_directory:)
@@ -24,6 +27,16 @@ module Sipity
           )
         end
         private_class_method :callback_url
+
+        def file_writer(exporter:)
+          case exporter.ingest_method
+          when :files
+            FileWriter
+          when :api
+            ApiFileWriter
+          end
+        end
+        private_class_method :file_writer
       end
     end
   end

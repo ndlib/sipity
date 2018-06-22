@@ -9,6 +9,8 @@ airbrake_api_key: 'this-makes-no-sense'
 airbrake_host: 'errbit.library.nd.edu'
 cas_base_url: "https://login.nd.edu/cas"
 cas_validate_url: "https://login.nd.edu/cas/serviceValidate"
+curate_batch_api_key: '12345'
+curate_batch_group_pid: "group_pid"
 curate_nd_url_for_etds: "https://curate.nd.edu/catalog?f_inclusive%5Bhuman_readable_type_sim%5D%5B%5D=Doctoral+Dissertation&f_inclusive%5Bhuman_readable_type_sim%5D%5B%5D=Master%27s+Thesis"
 curate_nd_url_show_prefix_url: "https://curate.nd.edu/show/"
 default_email_from: 'sipity-development@nd.edu'
@@ -29,7 +31,6 @@ protocol: 'http'
 sipity_access_key_for_batch_ingester: '1234'
 sipity_access_key_for_etd_integrators: '4567'
 sipity_batch_ingester_access_key: '1234' # deprecated
-curate_batch_group_pid: "group_pid"
 smtp_host: "smtp.gmail.com"
 smtp_port: '587'
 smtp_domain: "gmail.com"
@@ -52,6 +53,7 @@ development:
   curate_grad_school_editing_group_pid: "batch_group_pid"
   curate_batch_data_mount_path: "local/data"
   curate_batch_queue_mount_path: "local/queue"
+  curate_batch_api_base_path: "http://localhost:15000/jobs"
 
 test:
   domain_name: "localhost:3000"
@@ -61,3 +63,4 @@ test:
   curate_grad_school_editing_group_pid: "batch_group_pid"
   curate_batch_data_mount_path: "tmp/data"
   curate_batch_queue_mount_path: "tmp/queue"
+  curate_batch_api_base_path: "tmp/jobs"
