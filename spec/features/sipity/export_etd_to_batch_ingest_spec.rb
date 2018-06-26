@@ -36,11 +36,10 @@ feature 'Export ETD to Batch Ingest' do
     # Because translations were firing
     allow(I18n).to receive(:t).with("#{work.work_type}.label", scope: 'work_types', raise: true).and_return("Master's Thesis")
 
-    exporter = Sipity::Exporters::BatchIngestExporter.new(work: work)
+    exporter = Sipity::Exporters::BatchIngestExporter.new(work: work, file_utility: FileUtils, ingest_method: :files)
     exporter.call
 
-    queue_path = exporter.queue_pathname
-
+    queue_path = Pathname.new(File.join(exporter.destination_pathname, exporter.data_directory_basename))
     webhook_pathname = queue_path.join('WEBHOOK')
     rof_pathname = queue_path.join("metadata-#{work.id}.rof")
 

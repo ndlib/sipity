@@ -6,8 +6,13 @@ module Sipity
     class BatchIngestExporter
       RSpec.describe MetadataWriter do
         let(:metadata) { { hello: 'world' } }
-        let(:exporter) { double('BatchIngestExporter', work_id: 1661, data_directory: '/tmp/sipity-1661', make_data_directory: true) }
-
+        let(:exporter) do
+          double('BatchIngestExporter',
+                 work_id: 1661,
+                 ingest_method: :files,
+                 data_directory: '/tmp/sipity-1661',
+                 make_data_directory: true)
+        end
         context '.call' do
           it "writes the given metadata as an ROF metadata file to the data directory" do
             expect(FileWriter).to receive(:call).with(content: JSON.dump(metadata), path: '/tmp/sipity-1661/metadata-1661.rof')

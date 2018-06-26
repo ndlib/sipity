@@ -6,7 +6,7 @@ module Sipity
     class BatchIngestExporter
       RSpec.describe WebhookWriter do
 
-        let(:exporter) { double('BatchIngestExporter', work_id: 1661, data_directory: '/tmp/sipity-1661') }
+        let(:exporter) { double('BatchIngestExporter', work_id: 1661, ingest_method: :files, data_directory: '/tmp/sipity-1661') }
         before do
           allow(Models::Group).to receive(:basic_authorization_string_for!).and_return('group:password')
         end
