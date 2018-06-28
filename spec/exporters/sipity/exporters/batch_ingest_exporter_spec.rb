@@ -45,6 +45,18 @@ module Sipity
           expect(subject.data_directory_basename).to match(/^sipity-#{work.to_param}$/)
           expect(subject.destination_pathname).to eq(subject.job_directory + '/queue')
         end
+
+        context 'when default_ingest_method is :files' do
+          let(:subject) { described_class.new(work: work, ingest_method: :files) }
+
+          before do
+            expect(subject).to receive(:default_ingest_method).and_return(:files)
+          end
+
+          it 'finds default_file_utility' do
+            expect(subject.send(:default_file_utility)).to eq(FileUtils)
+          end
+        end
       end
 
       context '#call' do

@@ -5,7 +5,6 @@ module Sipity
   module Exporters
     class BatchIngestExporter
       RSpec.describe DirectoryMover do
-
         let(:exporter) do
           double('BatchIngestExporter',
                  file_utility: file_utility,
