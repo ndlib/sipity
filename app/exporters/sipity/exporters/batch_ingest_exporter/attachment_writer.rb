@@ -31,7 +31,12 @@ module Sipity
 
         def write_attachment_content_to(attachment:, path:)
           filename = File.join(path, attachment.to_rof_file_basename)
-          attachment.file.to_file(filename)
+          case exporter.ingest_method
+          when :files
+            attachment.file.to_file(filename)
+          when :api
+            exporter.file_utility.put_file(filename, attachment.file.path)
+          end
         end
 
         attr_accessor :work, :exporter, :attachments

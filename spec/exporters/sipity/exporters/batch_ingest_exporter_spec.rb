@@ -11,20 +11,59 @@ module Sipity
         described_class.call(work: work)
       end
 
-      subject { described_class.new(work: work) }
-      its(:work_id) { is_expected.to eq(work.to_param) }
-      its(:data_directory) { is_expected.to match(%r{/sipity-#{work.to_param}}) }
-      its(:default_file_utility) { is_expected.to respond_to(:mkdir_p) }
-      its(:data_directory_basename) { is_expected.to match(/^sipity-#{work.to_param}$/) }
+      context 'when specifying :files ingest method' do
+        subject { described_class.new(work: work, file_utility: FileUtils, ingest_method: :files) }
 
-      context '#queue_pathname' do
-        subject { described_class.new(work: work).queue_pathname }
-        its(:to_s) { is_expected.to match(%r{/sipity-#{work.to_param}}) }
-        it { is_expected.to be_a(Pathname) }
+        it 'supports public methods' do
+          expect(subject).to respond_to(:file_utility)
+          expect(subject).to respond_to(:ingest_method)
+          expect(subject.work_id).to eq(work.to_param)
+          expect(subject).to respond_to(:job_directory)
+          expect(subject).to respond_to(:data_directory)
+          expect(subject).to respond_to(:destination_pathname)
+          expect(subject.job_directory).to match(%r{/sipity-#{work.to_param}})
+          expect(subject.data_directory).to eq(subject.job_directory)
+          expect(subject.data_directory_basename).to match(/^sipity-#{work.to_param}$/)
+          expect(subject.destination_pathname).to eq('tmp/queue')
+        end
+      end
+
+      context 'when relying on default ingest method' do
+        subject { described_class.new(work: work) }
+
+        it 'supports public methods' do
+          expect(subject).to respond_to(:file_utility)
+          expect(subject).to respond_to(:ingest_method)
+          expect(subject.ingest_method).to eq(:api)
+          expect(subject.file_utility).to eq(Sipity::Exporters::BatchIngestExporter::ApiFileUtils)
+          expect(subject.work_id).to eq(work.to_param)
+          expect(subject).to respond_to(:job_directory)
+          expect(subject).to respond_to(:data_directory)
+          expect(subject).to respond_to(:destination_pathname)
+          expect(subject.job_directory).to match(%r{/sipity-#{work.to_param}})
+          expect(subject.data_directory).to eq(subject.job_directory + '/files')
+          expect(subject.data_directory_basename).to match(/^sipity-#{work.to_param}$/)
+          expect(subject.destination_pathname).to eq(subject.job_directory + '/queue')
+        end
+
+        context 'when default_ingest_method is :files' do
+          let(:subject) { described_class.new(work: work, ingest_method: :files) }
+
+          before do
+            expect(subject).to receive(:default_ingest_method).and_return(:files)
+          end
+
+          it 'finds default_file_utility' do
+            expect(subject.send(:default_file_utility)).to eq(FileUtils)
+          end
+        end
       end
 
       context '#call' do
+        subject { described_class.new(work: work, file_utility: FileUtils, ingest_method: :files) }
+
         it 'writes attachments, builds metadata, writes the metadata file, writes the webhook, then moves the directory' do
+          expect(described_class::JobInitiator).to receive(:call)
           expect(described_class::AttachmentWriter).to receive(:call)
           expect(described_class::MetadataBuilder).to receive(:call)
           expect(described_class::MetadataWriter).to receive(:call)

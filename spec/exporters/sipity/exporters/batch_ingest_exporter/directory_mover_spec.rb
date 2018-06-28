@@ -5,8 +5,12 @@ module Sipity
   module Exporters
     class BatchIngestExporter
       RSpec.describe DirectoryMover do
-
-        let(:exporter) { double('BatchIngestExporter', data_directory: '/tmp/sipity-1492') }
+        let(:exporter) do
+          double('BatchIngestExporter',
+                 file_utility: file_utility,
+                 destination_pathname: '/tmp/queue',
+                 job_directory: '/tmp/sipity-1492')
+        end
         let(:file_utility) { FileUtils::NoWrite }
 
         describe '.call' do
@@ -21,9 +25,10 @@ module Sipity
           end
         end
 
-        subject { described_class }
-        its(:default_file_utility) { is_expected.to respond_to(:mv) }
-        its(:default_file_utility) { is_expected.to respond_to(:mkdir_p) }
+        it 'uses a file utility to perform its function' do
+          expect(exporter.file_utility).to respond_to(:mv)
+          expect(exporter.file_utility).to respond_to(:mkdir_p)
+        end
       end
     end
   end
