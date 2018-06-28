@@ -22,18 +22,17 @@ module Sipity
               'dc:title#alternate' => fetch_attribute_values(key: 'alternate_title'),
               'dc:subject' => fetch_attribute_values(key: 'subject'),
               'dc:description#abstract' => fetch_attribute_values(key: 'abstract'),
-              'dc:identifier#other' => fetch_attribute_values(key: 'catalog_system_number'),      #URN? or ALEPH?
               'dc:rights' => fetch_attribute_values(key: 'copyright'),
               'dc:language' => fetch_attribute_values(key: 'language'),
               'dc:date' => fetch_attribute_values(key: 'defense_date'),
-              'dc:dateSubmitted' => fetch_attribute_values(key: 'etd_submission_date'),
+              'dc:dateSubmitted' => fetch_attribute_values(key: Sipity::Models::AdditionalAttribute::ETD_SUBMISSION_DATE),
               'dc:contributor' => collaborator_metadata,
               'ms:degree' => degree_metadata,
-              'dc:date#approved' => fetch_attribute_values(key: 'ETD_REVIEWER_SIGNOFF_DATE'),
-              'dc:date#created' => fetch_attribute_values(key: ''),                             #date cataloged?
-              'dc:identifier#local' => fetch_attribute_values(key: 'oclc_number'),              #?
-              'nd:alephIdentifier' => fetch_attribute_values(key: 'catalog_system_number')      #URN? or ALEPH?
-                                                                                                #DOI ? BANNER_PROGRAM_CODE ? OCLC ?
+              'dc:date#approved' => fetch_attribute_values(key: Sipity::Models::AdditionalAttribute::ETD_REVIEWER_SIGNOFF_DATE),
+              'dc:date#created' => fetch_attribute_values(key: Sipity::Models::AdditionalAttribute::PUBLICATION_DATE_PREDICATE_NAME),
+              'dc:identifier#local' => fetch_attribute_values(key: 'oclc_number'),
+              'dc:description#code_list' => fetch_attribute_values(key: 'banner_program_code'),
+              'nd:alephIdentifier' => fetch_attribute_values(key: 'catalog_system_number')
             }
           end
 
