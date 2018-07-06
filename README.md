@@ -285,6 +285,8 @@ When actions are taken we record both the requestor and on behalf of information
 * Add the corresponding [view template](app/views/sipity/controllers/) to the correct location
   - The name of the form object (e.g. `BannerProgramCodeForm`) informs the name of the template (e.g. `banner_program_code.html.erb`)
 * Add the form's processing action name to the corresponding workflow; The convention for processing_action_name is the form's demodulized object name in underscore format without the '\_form' (e.g. `BannerProgramCodeForm` has an action name for `banner_program_code`)
+  - You may find it helpful to review the [`Sipity::DataGenerators::ProcessingActionSchema`](app/data_generators/sipity/data_generators/processing_action_schema.rb) to better understand the JSON schema.
+
 
 ## Working with Sipity
 
