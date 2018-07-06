@@ -154,6 +154,7 @@ GEM
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
+    bigdecimal (1.3.4)
     binding_of_caller (0.8.0)
       debug_inspector (>= 0.0.1)
     bootstrap-sass (3.3.7)
@@ -380,6 +381,7 @@ GEM
       addressable (~> 2.3)
     letter_opener (1.6.0)
       launchy (~> 2.2)
+    libv8 (3.16.14.19)
     link_header (0.0.8)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
@@ -500,6 +502,7 @@ GEM
     rdf-xsd (2.0.0)
       rdf (~> 2.0)
     rdiscount (2.2.0.1)
+    ref (2.0.0)
     request_store (1.4.0)
       rack (>= 1.4)
     responders (2.4.0)
@@ -619,6 +622,9 @@ GEM
       tins (~> 1.0)
     terminal-notifier (1.6.3)
     terminal-notifier-guard (1.6.4)
+    therubyracer (0.12.3)
+      libv8 (~> 3.16.14.15)
+      ref
     thor (0.20.0)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -652,6 +658,7 @@ DEPENDENCIES
   airbrake (~> 4.2)
   autoprefixer-rails
   better_errors
+  bigdecimal
   binding_of_caller
   bootstrap-sass
   bumbler
@@ -743,6 +750,7 @@ DEPENDENCIES
   sqlite3
   terminal-notifier
   terminal-notifier-guard (~> 1.6.4)
+  therubyracer
   uglifier
   whenever
   yard
