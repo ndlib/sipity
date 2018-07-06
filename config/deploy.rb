@@ -1,12 +1,12 @@
 # config valid only for Capistrano 3.1
 lock '3.5.0'
 set :default_env, {
-  path: "/opt/ruby/current/bin:$PATH"
+  path: "/usr/local/bin:$PATH"
 }
 set :format, :pretty
 set :bundle_roles, [:app, :work]
 set :bundle_flags, "--deployment --path=vendor/bundle"
-set :bundle_cmd, "/opt/ruby/current/bin/bundle"
+set :bundle_cmd, "/usr/local/bin/bundle"
 set :bundle_without, %w{development test doc}.join(' ')
 set :application, 'sipity'
 set :scm, :git
@@ -132,7 +132,7 @@ namespace :configuration do
   task :copy_secrets do
     on roles(:app) do
       within release_path do
-        execute "export PATH=/opt/ruby/current/bin:$PATH && cd #{release_path} && sh scripts/update_secrets.sh"
+        execute "export PATH=/usr/local/bin:$PATH && cd #{release_path} && sh scripts/update_secrets.sh"
       end
     end
   end
