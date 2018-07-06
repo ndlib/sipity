@@ -26,9 +26,10 @@ Its goal is to provide clarity on why a patron would want to fill out metadata i
 
 ### Running under SSL
 
-To run the application under SSL, use the following command:
+To run the application under SSL, use the following commands:
 
 ```console
+mysql.server start
 SSL=true bin/rails s
 ```
 
@@ -55,6 +56,16 @@ Or if you can leverage the command line.
 ![Sipity Command Line Request Cycle](artifacts/sipity-command-line-request-cycle.png)
 
 Or if you'd like to see how `cron` jobs are scheduled, look in [config/schedule.rb](config/schedule.rb).
+
+### Exporting the Data for Batch Ingesting
+
+Sipity data is exported via [CurateND Batch](https://github.com/ndlib/curatend-batch).
+
+By default, Sipity uses the CurateND batch API to load the data for ingest into Curate. To test the export process in localhost:
+- Start the [curate-batch ingestor](https://github.com/ndlib/curatend-batch#getting-started).
+- Run the [Bulk Ingest Job](https://github.com/ndlib/sipity/blob/master/config/schedule.rb#L15) from the command line. Resulting data will be loaded into the `/curatend-batch/test` directory within your GO directory.
+
+To test the exporter using the file system, change the [default ingest method](https://github.com/ndlib/sipity/blob/master/app/exporters/sipity/exporters/batch_ingest_exporter.rb#L48) to :files. The resulting data will load inside your app's `/local` directory.
 
 ## Anatomy of Sipity
 
@@ -136,6 +147,9 @@ The Conversions modules are designed to be either:
 
 * callable via module functions
 * include-able and thus expose an underlying conversion method
+
+
+When adding a new attribute to the model, the appropriate converter will also need to be modified.
 
 Find out more about [Sipity's Conversions](https://github.com/ndlib/sipity/blob/master/app/conversions/sipity/conversions.rb)
 
@@ -286,6 +300,7 @@ When actions are taken we record both the requestor and on behalf of information
   - The name of the form object (e.g. `BannerProgramCodeForm`) informs the name of the template (e.g. `banner_program_code.html.erb`)
 * Add the form's processing action name to the corresponding workflow; The convention for processing_action_name is the form's demodulized object name in underscore format without the '\_form' (e.g. `BannerProgramCodeForm` has an action name for `banner_program_code`)
   - You may find it helpful to review the [`Sipity::DataGenerators::ProcessingActionSchema`](app/data_generators/sipity/data_generators/processing_action_schema.rb) to better understand the JSON schema.
+* Add the new attribute to the appropriate metadata converter for inclusion in the ingest into Curate. See [Conversions](https://github.com/ndlib/sipity#conversions) for more information.
 
 
 ## Generating the State Machine Diagram

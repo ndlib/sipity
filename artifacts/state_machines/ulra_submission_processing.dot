@@ -2,7 +2,7 @@ digraph "G" {
   compound=true;
   node[color="grey15" margin="0.15, 0.125"];
   subgraph cluster_0 {
-    label="ulra_submission processing (2018-04-17)"
+    label="ulra_submission processing (2018-07-06)"
     node[style=filled fillcolor=white color="seashell4"]
     subgraph 0 {
       label="States";
@@ -15,7 +15,7 @@ digraph "G" {
       state_ready_for_ingest [label="{ STATE: Ready For Ingest (ID=38)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | EMAILS: |  }"]
       state_review_completed [label="{ STATE: Review Completed (ID=36)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | EMAILS: |  }"]
       state_under_data_remediation [label="{ STATE: Under Data Remediation (ID=37)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | Project Information: remediating_data | Attach: remediating_data | Copyright: remediating_data | Access Policy: remediating_data | Plan Of Study: remediating_data | Publisher Information: remediating_data | Research Process: remediating_data | Faculty Response: remediating_data | EMAILS: |  }"]
-      state_under_review [label="{ STATE: Under Review (ID=33)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | Destroy: ulra_reviewing | Attach: creating_user | Copyright: creating_user | Access Policy: creating_user | Assign Award Status: ulra_reviewing | EMAILS: | student_has_indicated_attachments_are_complete(to: ulra_reviewing) }"]
+      state_under_review [label="{ STATE: Under Review (ID=33)| TASKS: | Debug: ulra_reviewing, remediating_data | Show: creating_user, advising, ulra_reviewing, remediating_data | Destroy: ulra_reviewing | Attach: creating_user, remediating_data | Copyright: creating_user | Access Policy: creating_user | Faculty Response: remediating_data | Assign Award Status: ulra_reviewing | EMAILS: | student_has_indicated_attachments_are_complete(to: ulra_reviewing) }"]
     }
     subgraph 1 {
       label="Actions"

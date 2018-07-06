@@ -2,7 +2,7 @@ digraph "G" {
   compound=true;
   node[color="grey15" margin="0.15, 0.125"];
   subgraph cluster_0 {
-    label="Submission Window etd start processing (2018-04-17)"
+    label="Submission Window etd start processing (2018-07-06)"
     node[style=filled fillcolor=white color="seashell4"]
     subgraph 0 {
       label="States";

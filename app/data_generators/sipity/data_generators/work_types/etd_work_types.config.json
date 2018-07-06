@@ -303,6 +303,15 @@
         "cc": ["creating_user"]
       }]
     }, {
+      "name": "administrative_unit",
+      "attributes": {
+        "presentation_sequence": 1
+      },
+      "from_states": [{
+        "name": ["under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
+      }]
+    }, {
       "name": "banner_program_code",
       "attributes": {
         "presentation_sequence": 1
@@ -317,7 +326,7 @@
         "presentation_sequence": 1,
         "allow_repeat_within_current_state": true
       },
-      "required_actions": ["banner_program_code"],
+      "required_actions": ["banner_program_code", "administrative_unit"],
       "transition_to": "ready_for_cataloging",
       "from_states": [{
         "name": ["under_grad_school_review", "grad_school_changes_requested"],
@@ -743,6 +752,15 @@
         "cc": ["creating_user"]
       }]
     }, {
+      "name": "administrative_unit",
+      "attributes": {
+        "presentation_sequence": 1
+      },
+      "from_states": [{
+        "name": ["under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging"],
+        "roles": ["etd_reviewing", "etd_student_reviewing"]
+      }]
+    }, {
       "name": "banner_program_code",
       "attributes": {
         "presentation_sequence": 1
@@ -757,7 +775,7 @@
         "presentation_sequence": 1,
         "allow_repeat_within_current_state": true
       },
-      "required_actions": ["banner_program_code"],
+      "required_actions": ["banner_program_code", "administrative_unit"],
       "transition_to": "ready_for_cataloging",
       "from_states": [{
         "name": ["under_grad_school_review", "grad_school_changes_requested"],

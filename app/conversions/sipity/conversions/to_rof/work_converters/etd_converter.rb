@@ -28,6 +28,7 @@ module Sipity
               'dc:dateSubmitted' => fetch_attribute_values(key: Sipity::Models::AdditionalAttribute::ETD_SUBMISSION_DATE),
               'dc:contributor' => collaborator_metadata,
               'ms:degree' => degree_metadata,
+              'dc:creator#administrative_unit' => fetch_attribute_values(key: 'administrative_unit'),
               'dc:date#approved' => fetch_attribute_values(key: Sipity::Models::AdditionalAttribute::ETD_REVIEWER_SIGNOFF_DATE),
               'dc:date#created' => fetch_attribute_values(key: Sipity::Models::AdditionalAttribute::PUBLICATION_DATE_PREDICATE_NAME),
               'dc:identifier#local' => fetch_attribute_values(key: 'oclc_number'),
