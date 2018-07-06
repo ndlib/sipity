@@ -288,6 +288,18 @@ When actions are taken we record both the requestor and on behalf of information
   - You may find it helpful to review the [`Sipity::DataGenerators::ProcessingActionSchema`](app/data_generators/sipity/data_generators/processing_action_schema.rb) to better understand the JSON schema.
 
 
+## Generating the State Machine Diagram
+
+The following command uses the database entries to regenerate the DOT-notation files in `artifacts/state_machines/*.dot`:
+
+```console
+$ bundle exec rails runner scripts/commands/generate_state_machine_diagrams.rb
+```
+
+You can use Graphviz to view a visual representation of that graph. On OS X, use `brew install graphviz` to install. And `open -a Graphviz.app artifacts/state_machines/doctoral_dissertation_processing.dot`.
+
+**NOTE:** If you have created JSON entries for the workflow in `app/data_generators/sipity/data_generators`, you'll need to load those JSON documents into the database. You can use `rake bootstrap` (which will obliterate your existing data and start fresh) or `rake db:seeds` to reload the data. *My personal preference in a development environment is to obliterate and start over with clean data.*
+
 ## Working with Sipity
 
 The primary feature of Sipity is state-based permissions. It can be helpful to force an object into a given state. Use `Sipity::Services::Administrative::ForceIntoProcessingState.call` via `$ rails console`
