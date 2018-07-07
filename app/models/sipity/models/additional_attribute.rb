@@ -12,6 +12,7 @@ module Sipity
 
       # TODO: Create a map for input name to key and vice versa
       ABSTRACT_PREDICATE_NAME = 'abstract'.freeze
+      ADMINISTRATIVE_UNIT_NAME = 'administrative_unit'.freeze
       AFFILIATION_PREDICATE_NAME = 'affiliation'.freeze
       ALTERNATE_TITLE_PREDICATE_NAME = 'alternate_title'.freeze
       ATTACHED_FILES_COMPLETION_STATE_PREDICATE_NAME = 'attached_files_completion_state'.freeze
@@ -62,6 +63,7 @@ module Sipity
       enum(
         key: {
           ABSTRACT_PREDICATE_NAME => ABSTRACT_PREDICATE_NAME,
+          ADMINISTRATIVE_UNIT_NAME => ADMINISTRATIVE_UNIT_NAME,
           AFFILIATION_PREDICATE_NAME => AFFILIATION_PREDICATE_NAME,
           ALTERNATE_TITLE_PREDICATE_NAME => ALTERNATE_TITLE_PREDICATE_NAME,
           ATTACHED_FILES_COMPLETION_STATE_PREDICATE_NAME => ATTACHED_FILES_COMPLETION_STATE_PREDICATE_NAME,
