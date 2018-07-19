@@ -1,4 +1,11 @@
 source 'https://rubygems.org'
+
+# Ensure that all github access points are via https
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
 # Free 20% RAM by not loading ALL mime-types
 gem 'mime-types', '~> 2.6', require: 'mime/types/columnar'
 gem 'rails', '~> 4.2'
@@ -19,7 +26,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'listen', '~> 3.0.7' # Frozen for Ruby 2.2.2; Release once updated
 gem 'loofah', '~> 2.0.3' # Related to hesburgh-lib's dependency
-gem 'noids_client', git: 'git://github.com/ndlib/noids_client'
+gem 'noids_client', github: 'ndlib/noids_client'
 gem 'rdiscount'
 gem 'responders', '~> 2.0'
 gem 'sanitize'
