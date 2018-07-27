@@ -1,0 +1,28 @@
+# Render via PlantUML
+# Generated via plantuml-preview (https://github.com/peele/plantuml-preview) in Atom
+@startuml
+
+title Sipity Export to CurateND Ingest Life-Cycle
+
+actor "Crontab"
+control "Sipity Application"
+database "Batch Processing Queue"
+control "Batch Daemon"
+database "Fedora"
+boundary "curate.nd.edu"
+boundary "deposit.library.nd.edu"
+
+== Nightly Ingest Initialization ==
+
+"Crontab" -> "Sipity Application" : Nightly job
+"Sipity Application" -> "Sipity Application": Query for works\nto ingest
+"Sipity Application" -> "Batch Processing Queue" : submit ingested\nworks via file\nsystem or API\nw/ Webhooks
+
+== Batch Processing ==
+
+"Batch Processing Queue" -> "Batch Daemon" : dequeue work\nfor ingest
+"Batch Daemon" -> "Fedora" : write work
+"Batch Daemon" -> "curate.nd.edu" : request work\nindexing
+"Batch Daemon" -> "deposit.library.nd.edu" : call WEBHOOK to\nupdate work status
+
+@enduml

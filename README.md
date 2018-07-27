@@ -319,5 +319,18 @@ You can use Graphviz to view a visual representation of that graph. On OS X, use
 
 The primary feature of Sipity is state-based permissions. It can be helpful to force an object into a given state. Use `Sipity::Services::Administrative::ForceIntoProcessingState.call` via `$ rails console`
 
+### Batch Ingest Documentation
+
+#### Sipity Code-Path for Batch Ingest
+
+1. The cron entry that processes all works ready for ingest: https://github.com/ndlib/sipity/blob/master/config/schedule.rb#L15-L16
+2. The object that coordinates the job for submitting all appropriate works for ingest: https://github.com/ndlib/sipity/blob/master/app/jobs/sipity/jobs/core/bulk_ingest_job.rb
+3. The form object that ensures the batch ingest is authorized for the given user: https://github.com/ndlib/sipity/blob/master/app/forms/sipity/forms/work_submissions/core/submit_for_ingest_form.rb
+4. Finally, the class that performs a batch ingest for a single work: https://github.com/ndlib/sipity/blob/master/app/exporters/sipity/exporters/batch_ingest_exporter.rb
+
+#### Sequence Diagram
+
+![Batch Ingest Sequence Diagram](artifacts/sipity-batch-ingest-sequence-diagram.png)
+
 ## Further Documentation (For internal DLT team only)
 [Google doc](https://docs.google.com/document/d/1u97Ncwkg4KjKdaa53vTXaZVpTRZO2KCPYmjNVEwa7_8/edit#) from the Knowledge Transfer session on 03/23/2018
