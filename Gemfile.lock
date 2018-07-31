@@ -92,15 +92,6 @@ GIT
       rsolr (~> 1.1.2)
       rubydora (~> 1.8.1)
 
-GIT
-  remote: https://github.com/projecthydra-labs/hydra-validations.git
-  revision: bd9a84a8fd5acc607ad5c36984b7d09e4b3fc4d0
-  ref: bd9a84a8fd5acc607ad5c36984b7d09e4b3fc4d0
-  branch: master
-  specs:
-    hydra-validations (0.4.0)
-      activemodel (~> 4.0)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -694,7 +685,6 @@ DEPENDENCIES
   guard-rubocop
   guard-scss-lint!
   hesburgh-lib!
-  hydra-validations!
   i18n-debug
   inch
   jbuilder (~> 2.0)
