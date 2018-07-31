@@ -80,7 +80,6 @@ group :development do
   gem 'letter_opener'
   gem 'pry-byebug', '~> 3.4.0', require: false
   gem 'pry-rails', require: false
-  gem 'quiet_assets'
   gem 'rails_layout'
   gem 'rb-fchange', require: false
   gem 'rb-fsevent', require: false
