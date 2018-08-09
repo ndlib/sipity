@@ -5,6 +5,9 @@
 #
 # Learn more: http://github.com/javan/whenever
 
+# DLTP-1515 bundle was not being found by cron"
+set :bundle_command, "/usr/local/bin/bundle exec"
+
 if @environment == 'production'
   set :output, '/home/app/sipity/shared/log/cron_log.log'
   # I prefer to choose prime number moments in time for scheduling because other
