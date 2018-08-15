@@ -73,19 +73,19 @@ GIT
 
 GIT
   remote: https://github.com/ndlib/rof.git
-  revision: caba6ebafb1006d6e4aa57a1d4bb123392f40c44
+  revision: 93081bff89ea6647bbb1910cf3ae17d7fdd3c8bd
   specs:
     rof (1.2.13)
-      activesupport (>= 4.0, < 6.0)
       deprecation (~> 0.1)
       ebnf (< 1.0.2)
       json-ld (~> 2.0.0)
-      mime-types (~> 2.4)
+      mime-types
       noids_client
-      nokogiri (~> 1.6.8.1)
+      nokogiri
       rdf (~> 2.0.1)
       rdf-aggregate-repo (~> 2.0.0)
-      rdf-isomorphic
+      rdf-isomorphic (~> 2.0.0)
+      rdf-rdfa (~> 2.0.1)
       rdf-rdfxml (~> 2.0.0)
       rdf-turtle (~> 2.0.0)
       rdf-xsd (~> 2.0.0)
