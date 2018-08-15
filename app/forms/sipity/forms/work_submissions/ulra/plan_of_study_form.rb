@@ -30,11 +30,23 @@ module Sipity
           end
 
           include ActiveModel::Validations
-          include Hydra::Validations
           validates :expected_graduation_term, presence: true, inclusion: { in: :possible_expected_graduation_terms }
           validates :underclass_level, presence: true, inclusion: { in: :possible_underclass_levels }
-          validates :majors, presence: true
           validates :primary_college, presence: true, inclusion: { in: :possible_primary_colleges }
+
+          validate :presence_for_multi_value_majors
+
+          def presence_for_multi_value_majors
+            if majors.blank?
+              errors.add(:majors, :blank)
+            else
+              Array.wrap(majors).each do |value|
+                errors.add(:majors, :blank) if value.blank?
+              end
+            end
+            true
+          end
+          private :presence_for_multi_value_majors
 
           def possible_expected_graduation_terms
             repository.possible_expected_graduation_terms

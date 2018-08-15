@@ -27,8 +27,21 @@ module Sipity
           end
 
           include ActiveModel::Validations
-          include Hydra::Validations
-          validates :publication_name, presence: { if: :publication_name_required? }
+          validate :presence_for_multi_value_publication_name
+
+          def presence_for_multi_value_publication_name
+            return true unless publication_name_required?
+            if publication_name.blank?
+              errors.add(:publication_name, :blank)
+            else
+              Array.wrap(publication_name).each do |value|
+                errors.add(:publication_name, :blank) if value.blank?
+              end
+            end
+            true
+          end
+          private :presence_for_multi_value_publication_name
+
           validates(
             :publication_status_of_submission,
             inclusion: { in: :possible_publication_status_of_submission, if: :submitted_for_publication? }

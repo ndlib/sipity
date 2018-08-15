@@ -38,6 +38,17 @@ module Sipity
 
           include Shoulda::Matchers::ActiveModel
           it { is_expected.to validate_presence_of :publication_name }
+
+          it 'will validate presence of each provided publication_name' do
+            object = described_class.new(
+              requested_by: user, work: work, repository: repository, attributes: {
+                publication_status_of_submission: true, submitted_for_publication: true, publication_name: ['Hello', '']
+              }
+            )
+            object.valid?
+            expect(object.errors[:publication_name]).to be_present
+          end
+
           it do
             is_expected.to validate_inclusion_of(
               :publication_status_of_submission

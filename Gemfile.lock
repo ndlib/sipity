@@ -92,15 +92,6 @@ GIT
       rsolr (~> 1.1.2)
       rubydora (~> 1.8.1)
 
-GIT
-  remote: https://github.com/projecthydra-labs/hydra-validations.git
-  revision: bd9a84a8fd5acc607ad5c36984b7d09e4b3fc4d0
-  ref: bd9a84a8fd5acc607ad5c36984b7d09e4b3fc4d0
-  branch: master
-  specs:
-    hydra-validations (0.4.0)
-      activemodel (~> 4.0)
-
 GEM
   remote: https://rubygems.org/
   remote: https://rails-assets.org/
@@ -436,8 +427,6 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (3.0.2)
-    quiet_assets (1.1.0)
-      railties (>= 3.1, < 5.0)
     rack (1.6.10)
     rack-cache (1.7.1)
       rack (>= 0.4)
@@ -696,7 +685,6 @@ DEPENDENCIES
   guard-rubocop
   guard-scss-lint!
   hesburgh-lib!
-  hydra-validations!
   i18n-debug
   inch
   jbuilder (~> 2.0)
@@ -718,7 +706,6 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   pry-stack_explorer
-  quiet_assets
   rack-cache
   railroady!
   rails (~> 4.2)
