@@ -387,7 +387,7 @@ GEM
     method_source (0.9.0)
     mime-types (2.99.3)
     mini_mime (1.0.0)
-    mini_portile2 (2.1.0)
+    mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
     mysql2 (0.4.8)
@@ -396,8 +396,8 @@ GEM
       net-ssh (>= 2.6.5)
     net-ssh (3.2.0)
     netrc (0.11.0)
-    nokogiri (1.6.8.1)
-      mini_portile2 (~> 2.1.0)
+    nokogiri (1.8.4)
+      mini_portile2 (~> 2.3.0)
     nokogumbo (1.4.13)
       nokogiri
     notiffany (0.1.1)
@@ -700,7 +700,7 @@ DEPENDENCIES
   mime-types (~> 2.6)
   mysql2
   noids_client!
-  nokogiri (~> 1.6.8.1)
+  nokogiri
   poltergeist
   power_converter
   pry-byebug (~> 3.4.0)

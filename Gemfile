@@ -48,7 +48,7 @@ gem 'rof', github: 'ndlib/rof'
 gem 'rdf-aggregate-repo', '~> 2.0.0'
 gem 'rdf-rdfa', '~> 2.0.1'
 gem 'rdf-isomorphic', '~> 2.0.0' # Required by 2.1
-gem 'nokogiri', '~> 1.6.8.1'
+gem 'nokogiri'
 
 group :doc do
   gem 'inch', require: false
