@@ -25,7 +25,7 @@ gem 'hesburgh-lib', github: 'ndlib/hesburgh-lib'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'listen', '~> 3.0.7' # Frozen for Ruby 2.2.2; Release once updated
-gem 'loofah', '~> 2.0.3' # Related to hesburgh-lib's dependency
+gem 'loofah' # Related to hesburgh-lib's dependency
 gem 'noids_client', github: 'ndlib/noids_client'
 gem 'rdiscount'
 gem 'responders', '~> 2.0'
@@ -48,7 +48,7 @@ gem 'rof', github: 'ndlib/rof'
 gem 'rdf-aggregate-repo', '~> 2.0.0'
 gem 'rdf-rdfa', '~> 2.0.1'
 gem 'rdf-isomorphic', '~> 2.0.0' # Required by 2.1
-gem 'nokogiri', '~> 1.6.8.1'
+gem 'nokogiri'
 
 group :doc do
   gem 'inch', require: false
@@ -101,7 +101,7 @@ group :development, :test do
   gem 'rspec-rails', '~>3.4.0'
   gem 'commitment'
   gem 'jshintrb', github: 'ndlib/jshintrb', ref: 'f8cb0bd86ed9379acd50de871b3af9f8d251b977'
-  gem 'rubocop', require: false
+  gem 'rubocop', '~> 0.49.0', require: false
 end
 
 group :test do

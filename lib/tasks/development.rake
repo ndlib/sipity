@@ -1,6 +1,6 @@
 namespace :development do
   desc 'Add development entries for ULRA (you may want to run `rake bootstrap` beforehand)'
-  task :seed_ulra => [:environment, 'db:seed'] do
+  task seed_ulra: [:environment, 'db:seed'] do
     require 'sipity/command_line_context'
     # Making an assumption that we have a user. We could use multiple, but roles
     # start to get far more complicated.
