@@ -1,12 +1,21 @@
 GIT
-  remote: git://github.com/duke-libraries/ezid-client.git
-  revision: ab7cf0425a78d98be11abfcc97d8c508ced92c6f
+  remote: git://github.com/ndlib/noids_client
+  revision: 7081fab70968d7c47ca3d1db8a74553082517507
   specs:
-    ezid-client (1.5.0)
-      hashie (~> 3.4, >= 3.4.3)
+    noids_client (0.0.1)
+      json (~> 1.8)
+      rest-client (~> 1.6)
 
 GIT
-  remote: git://github.com/jeremyf/curly.git
+  remote: https://github.com/duke-libraries/ezid-client.git
+  revision: cae2acac0ad6fed4ba88b16d6ea8c878ad4e453c
+  specs:
+    ezid-client (1.8.0)
+      hashie (~> 3.4, >= 3.4.3)
+      nokogiri
+
+GIT
+  remote: https://github.com/jeremyf/curly.git
   revision: 58d4bbfb94f68f5ce4867bf47c1c3b87c0dbef30
   branch: sipity-hack
   specs:
@@ -14,30 +23,30 @@ GIT
       actionpack (>= 3.1, < 5.1)
 
 GIT
-  remote: git://github.com/jeremyf/data-migrator.git
+  remote: https://github.com/jeremyf/data-migrator.git
   revision: 65bf22799c6c9914fb35ef96891f438f0ffa84fe
   specs:
     data_migrator (0.9.0)
 
 GIT
-  remote: git://github.com/jeremyf/dragonfly.git
-  revision: b5397e72bdb974cb7009c84261591dd69331e109
+  remote: https://github.com/jeremyf/dragonfly.git
+  revision: 9b4c605b02321ca65ea5269b987733e9c33beec8
   branch: updating-dragonfly-to_file
   specs:
-    dragonfly (1.0.12)
+    dragonfly (1.1.5)
       addressable (~> 2.3)
       multi_json (~> 1.0)
-      rack (>= 1.3.0)
+      rack (>= 1.3)
 
 GIT
-  remote: git://github.com/jeremyf/railroady.git
+  remote: https://github.com/jeremyf/railroady.git
   revision: dbd542542b1853f0a100a875c085652654ff1df7
   branch: allowing-namespaced-models
   specs:
     railroady (1.3.0)
 
 GIT
-  remote: git://github.com/ndlib/guard-scss-lint.git
+  remote: https://github.com/ndlib/guard-scss-lint.git
   revision: 6d9e3b87599db44d24f2409d55ba61c8afc4ac85
   specs:
     guard-scss-lint (0.1.0)
@@ -45,13 +54,13 @@ GIT
       scss-lint
 
 GIT
-  remote: git://github.com/ndlib/hesburgh-lib.git
+  remote: https://github.com/ndlib/hesburgh-lib.git
   revision: 281dccc3b32cb0ecbd7f120dbed8f92441b2b9a5
   specs:
     hesburgh-lib (0.2.0)
 
 GIT
-  remote: git://github.com/ndlib/jshintrb.git
+  remote: https://github.com/ndlib/jshintrb.git
   revision: f8cb0bd86ed9379acd50de871b3af9f8d251b977
   ref: f8cb0bd86ed9379acd50de871b3af9f8d251b977
   specs:
@@ -61,45 +70,38 @@ GIT
       rake
 
 GIT
-  remote: git://github.com/ndlib/locabulary.git
-  revision: 638728ce45c16b1072bfc3ec79f31ecdda767765
+  remote: https://github.com/ndlib/locabulary.git
+  revision: a5b932d8da6060be302b3d0ba57ecb87e02ffc3b
   branch: master
   specs:
-    locabulary (0.7.1)
-      activesupport (~> 4.0)
-      dry-configurable (~> 0.1.7)
-      json (~> 1.8)
+    locabulary (0.8.1)
+      activesupport (>= 4.0, < 6.0)
+      dry-configurable
+      json
 
 GIT
-  remote: git://github.com/ndlib/noids_client
-  revision: 7081fab70968d7c47ca3d1db8a74553082517507
+  remote: https://github.com/ndlib/rof.git
+  revision: 93081bff89ea6647bbb1910cf3ae17d7fdd3c8bd
   specs:
-    noids_client (0.0.1)
-      json (~> 1.8)
-      rest-client (~> 1.6)
-
-GIT
-  remote: git://github.com/ndlib/rof.git
-  revision: db084cd8b7ef7af1c3486a1acefd6e5200e37b62
-  specs:
-    rof (1.2.7)
-      activesupport (< 5.0)
+    rof (1.2.13)
       deprecation (~> 0.1)
-      ebnf (< 1.0.2)
-      json-ld (~> 2.0.0)
-      mime-types (~> 2.4)
+      ebnf
+      json-ld
+      mime-types
       noids_client
-      nokogiri (~> 1.6.8.1)
-      rdf (~> 2.0.1)
+      nokogiri
+      rdf
+      rdf-aggregate-repo
       rdf-isomorphic
+      rdf-rdfa
       rdf-rdfxml
-      rdf-turtle (~> 2.0.0)
-      rdf-xsd (~> 2.0.0)
+      rdf-turtle
+      rdf-xsd
       rsolr (~> 1.1.2)
       rubydora (~> 1.8.1)
 
 GIT
-  remote: git://github.com/projecthydra-labs/hydra-validations.git
+  remote: https://github.com/projecthydra-labs/hydra-validations.git
   revision: bd9a84a8fd5acc607ad5c36984b7d09e4b3fc4d0
   ref: bd9a84a8fd5acc607ad5c36984b7d09e4b3fc4d0
   branch: master
@@ -221,7 +223,7 @@ GEM
     crass (1.0.3)
     database_cleaner (1.6.2)
     debug_inspector (0.0.3)
-    deprecation (0.2.2)
+    deprecation (0.99.0)
       activesupport
     devise (4.4.0)
       bcrypt (~> 3.0)
@@ -269,7 +271,7 @@ GEM
       dry-equalizer (~> 0.2)
       dry-logic (~> 0.2, >= 0.2.2)
       dry-types (~> 0.6, >= 0.6.0)
-    ebnf (1.0.1)
+    ebnf (1.1.0)
       rdf (~> 2.0)
       sxp (~> 1.0)
     equivalent-xml (0.6.0)
@@ -340,7 +342,7 @@ GEM
       tilt
     hamster (3.0.0)
       concurrent-ruby (~> 1.0)
-    hashie (3.4.4)
+    hashie (3.6.0)
     hooks (0.3.6)
       uber (~> 0.0.4)
     htmlentities (4.3.4)
@@ -437,10 +439,10 @@ GEM
     pry-stack_explorer (0.4.9.2)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
-    public_suffix (3.0.1)
+    public_suffix (3.0.3)
     quiet_assets (1.1.0)
       railties (>= 3.1, < 5.0)
-    rack (1.6.8)
+    rack (1.6.10)
     rack-cache (1.7.1)
       rack (>= 0.4)
     rack-test (0.6.3)
@@ -486,15 +488,15 @@ GEM
       link_header (~> 0.0, >= 0.0.8)
     rdf-aggregate-repo (2.0.0)
       rdf (~> 2.0)
-    rdf-isomorphic (2.0.0)
-      rdf (~> 2.0)
+    rdf-isomorphic (2.2.0)
+      rdf (>= 2.0, < 4.0)
     rdf-rdfa (2.0.1)
       haml (~> 4.0)
       htmlentities (~> 4.3)
       rdf (~> 2.0)
       rdf-aggregate-repo (~> 2.0)
       rdf-xsd (~> 2.0)
-    rdf-rdfxml (2.0.0)
+    rdf-rdfxml (2.2.0)
       htmlentities (~> 4.3)
       rdf (~> 2.0)
       rdf-rdfa (~> 2.0)
@@ -751,4 +753,4 @@ DEPENDENCIES
   yard-activerecord
 
 BUNDLED WITH
-   1.15.3
+   1.16.3
