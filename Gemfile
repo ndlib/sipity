@@ -6,10 +6,12 @@ gem 'rails', '~> 4.2'
 gem 'airbrake', '~> 4.2' # Until we update Errbit, I don't want to move to 5.x
 gem 'autoprefixer-rails'
 gem 'bootstrap-sass'
+gem 'byebug', '~> 9.0.6'
 gem 'coffee-rails', '~> 4.0'
 gem 'devise'
 gem 'devise_cas_authenticatable'
 gem 'dragonfly', github: 'jeremyf/dragonfly', branch: 'updating-dragonfly-to_file'
+gem 'dry-monads', '~> 0.0.1'
 gem 'draper'
 gem 'execjs'
 gem 'ezid-client', github: 'duke-libraries/ezid-client'
@@ -19,6 +21,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'listen', '~> 3.0.7' # Frozen for Ruby 2.2.2; Release once updated
 gem 'loofah', '~> 2.0.3' # Related to hesburgh-lib's dependency
+gem 'net-ssh', '~> 3.2.0'
 gem 'noids_client', git: 'git://github.com/ndlib/noids_client'
 gem 'rdiscount'
 gem 'responders', '~> 2.0'
@@ -33,6 +36,7 @@ gem 'kaminari'
 gem 'locabulary', github: 'ndlib/locabulary', branch: 'master'
 gem 'data_migrator', github: 'jeremyf/data-migrator'
 gem 'dry-validation'
+gem 'dry-types', '~> 0.7.2'
 gem 'whenever', require: false
 gem 'rof', github: 'ndlib/rof'
 gem 'rdf-aggregate-repo', '~> 2.0.0'
@@ -59,7 +63,7 @@ group :development do
   gem 'capistrano-rvm', '~> 0.1.1'
   gem 'guard-bundler'
   gem 'guard-jshintrb'
-  gem 'guard-rails'
+  gem 'guard-rails', '0.7.2'
   gem 'guard-rspec'
   gem 'guard-rubocop'
   gem 'guard-scss-lint', github: 'ndlib/guard-scss-lint'
@@ -72,6 +76,7 @@ group :development do
   gem 'rb-fchange', require: false
   gem 'rb-fsevent', require: false
   gem 'rb-inotify', '~> 0.9', require: false
+  gem 'rubocop', '0.42.0'
   gem 'spring'
   gem 'spring-commands-rspec'
   gem 'terminal-notifier'
@@ -90,7 +95,6 @@ group :development, :test do
   gem 'rspec-rails', '~>3.4.0'
   gem 'commitment'
   gem 'jshintrb', github: 'ndlib/jshintrb', ref: 'f8cb0bd86ed9379acd50de871b3af9f8d251b977'
-  gem 'rubocop', require: false
 end
 
 group :test do
@@ -103,7 +107,7 @@ group :test do
   gem 'shoulda-callback-matchers'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 3.0.1'
-  gem 'site_prism', require: false
+  gem 'site_prism', '2.9'
   gem 'sqlite3'
 end
 
