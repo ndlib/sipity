@@ -405,7 +405,7 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.11.3)
     multi_json (1.13.1)
-    mysql2 (0.5.2)
+    mysql2 (0.3.13)
     nenv (0.3.0)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
@@ -714,7 +714,7 @@ DEPENDENCIES
   locabulary!
   loofah (~> 2.0.3)
   mime-types (~> 2.6)
-  mysql2
+  mysql2 (= 0.3.13)
   net-ssh (~> 3.2.0)
   noids_client!
   nokogiri (~> 1.6.8.1)
@@ -761,6 +761,3 @@ DEPENDENCIES
   whenever
   yard
   yard-activerecord
-
-BUNDLED WITH
-   1.15.3
