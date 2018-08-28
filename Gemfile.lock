@@ -701,7 +701,7 @@ DEPENDENCIES
   locabulary!
   loofah
   mime-types (~> 2.6)
-  mysql2
+  mysql2 (= 0.4.8)
   noids_client!
   nokogiri
   poltergeist
