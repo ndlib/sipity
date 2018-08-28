@@ -128,7 +128,7 @@ source 'https://rails-assets.org' do
 end
 
 group :production, :pre_production, :staging, :development do
-  gem 'mysql2'
+  gem 'mysql2', '0.4.8'
 end
 
 # Removing until I have a non-pro license
