@@ -11,7 +11,7 @@ module Sipity
           context '.call' do
             let(:work) { Models::Work.create!(id: '123') }
             let(:repository) { CommandRepositoryInterface.new }
-            it 'will force the work record to have an Open Access access policy' do
+            it 'will force the work record to have an Public access policy' do
               described_class.call(entity: work, repository: repository)
               expect(work.access_right.access_right_code).to eq(Models::AccessRight::OPEN_ACCESS)
             end

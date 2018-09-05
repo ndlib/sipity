@@ -407,5 +407,5 @@ en:
   sipity/emails:
     access_controls:
       registered_access: 'Registered Access'
-      open_access: 'Open Access'
+      open_access: 'Public'
       private_access: 'Private Access'
