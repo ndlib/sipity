@@ -339,7 +339,7 @@ en:
         new:
           access_rights_answer:
             open_access_html: '<b>Public</b> — Freely viewable to the world'
-            registered_access_html: '<b>Registered</b> — Only groups you specify have access'
+            registered_access_html: '<b>ND Only</b> — Viewable only by people from Notre Dame'
             private_access_html: '<b>Private</b> — Only you and the reviewers you designate'
             access_changes_over_time_html: '<b>Embargoed</b> — will <i>Private</i> now but <i>Public</i> after 3 years'
         work_publication_strategy:
@@ -359,7 +359,7 @@ en:
           master_thesis: "Master's Thesis"
         access_rights_answer:
           open_access_html: '<b>Public</b> — Freely viewable to the world'
-          registered_access_html: '<b>Registered</b> — Only groups you specify have access'
+          registered_access_html: '<b>ND Only</b> — Viewable only by people from Notre Dame'
           private_access_html: '<b>Private</b> — Only you and the reviewers you designate'
           embargo_then_open_access_html: '<b>Embargoed</b> — <i>Private</i> now but <i>Public</i> on the date you specify'
     labels:
@@ -406,6 +406,6 @@ en:
       confirmation_of_submitted_to_ulra_committee: "ULRA - Complete Application Package Received"
   sipity/emails:
     access_controls:
-      registered_access: 'Registered Access'
-      open_access: 'Open Access'
+      registered_access: 'ND Only'
+      open_access: 'Public'
       private_access: 'Private Access'
