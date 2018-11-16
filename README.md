@@ -30,7 +30,8 @@ To run the application under SSL, use the following commands:
 
 ```console
 mysql.server start
-SSL=true bin/rails s
+rake bootstrap
+SSL=true bundle exec bin/rails s
 ```
 
 Then go to https://localhost:3000
