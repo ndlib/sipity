@@ -41,16 +41,12 @@ module Sipity
 
           include Conversions::ConvertToPolymorphicType
           def register_error
-            Airbrake.notify_or_ignore(
-              error_class: Exceptions::IngestUnableToCompleteError,
-              error_message: "#{Exceptions::IngestUnableToCompleteError}: Problem encountered in Batch Ingester. Review batch logs.",
-              parameters: {
-                work_id: work.to_param,
-                work_type: convert_to_polymorphic_type(work),
-                job_state: job_state,
-                processing_action_name: processing_action_name
-              }
-            )
+            Raven.capture_exception("#{Exceptions::IngestUnableToCompleteError}: Problem encountered in Batch Ingester. Review batch logs.",
+                                    extra: { error_class: Exceptions::IngestUnableToCompleteError,
+                                             work_id: work.to_param,
+                                             work_type: convert_to_polymorphic_type(work),
+                                             job_state: job_state,
+                                             processing_action_name: processing_action_name })
           end
         end
       end

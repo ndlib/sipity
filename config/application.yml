@@ -5,8 +5,6 @@
 # development.
 #
 # They are included so we can share what the keys should be.
-airbrake_api_key: 'this-makes-no-sense'
-airbrake_host: 'errbit.library.nd.edu'
 cas_base_url: "https://login.nd.edu/cas"
 cas_validate_url: "https://login.nd.edu/cas/serviceValidate"
 curate_batch_api_key: '12345'
@@ -28,6 +26,7 @@ noid_pool: 'pool_name'
 noid_port: '3000'
 noid_server: 'noidserver.com'
 protocol: 'http'
+sentry_dsn: 'fakey-mcfake-face'
 sipity_access_key_for_batch_ingester: '1234'
 sipity_access_key_for_etd_integrators: '4567'
 sipity_batch_ingester_access_key: '1234' # deprecated
@@ -54,6 +53,9 @@ development:
   curate_batch_data_mount_path: "local/data"
   curate_batch_queue_mount_path: "local/queue"
   curate_batch_api_base_path: "http://localhost:15000/jobs"
+
+  # sentry_dsn: 'put something here if you want it for testing'
+
 
 test:
   domain_name: "localhost:3000"
