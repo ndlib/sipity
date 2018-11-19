@@ -556,7 +556,7 @@ GEM
       mime-types
       nokogiri
       rest-client
-    rubyzip (1.2.1)
+    rubyzip (1.2.2)
     sanitize (4.6.6)
       crass (~> 1.0.2)
       nokogiri (>= 1.4.4)
