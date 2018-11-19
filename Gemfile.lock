@@ -132,9 +132,6 @@ GEM
       tzinfo (~> 1.1)
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
-    airbrake (4.3.6)
-      builder
-      multi_json
     airbrussh (1.0.2)
       sshkit (>= 1.6.1, != 1.7.0)
     arel (6.0.4)
@@ -266,6 +263,8 @@ GEM
     erubis (2.7.0)
     excon (0.55.0)
     execjs (2.7.0)
+    faraday (0.15.3)
+      multipart-post (>= 1.2, < 3)
     fastercsv (1.5.5)
     ffi (1.9.18)
     figaro (1.1.1)
@@ -390,6 +389,7 @@ GEM
     mini_portile2 (2.3.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    multipart-post (2.0.0)
     mysql2 (0.4.8)
     nenv (0.3.0)
     net-scp (1.2.1)
@@ -577,6 +577,8 @@ GEM
     selenium-webdriver (3.8.0)
       childprocess (~> 0.5)
       rubyzip (~> 1.0)
+    sentry-raven (2.7.4)
+      faraday (>= 0.7.6, < 1.0)
     sexp_processor (4.10.0)
     shellany (0.0.1)
     shoulda-callback-matchers (1.1.4)
@@ -649,7 +651,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake (~> 4.2)
   autoprefixer-rails
   better_errors
   bigdecimal
@@ -734,6 +735,7 @@ DEPENDENCIES
   sass-rails
   seed_dump
   selenium-webdriver
+  sentry-raven (~> 2.7)
   shoulda-callback-matchers
   shoulda-matchers (~> 3.0.1)
   simple_form
@@ -750,4 +752,4 @@ DEPENDENCIES
   yard-activerecord
 
 BUNDLED WITH
-   1.16.3
+   1.16.6

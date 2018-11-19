@@ -30,12 +30,12 @@ module Sipity
             before do
               allow(subject).to receive(:valid?).and_return(false)
             end
-            it 'will notify Airbrake' do
+            it 'will notify Sentry' do
               expect(subject).to_not receive(:create_a_redirect)
               subject.submit
             end
             it 'will not submit' do
-              expect(Airbrake).to receive(:notify_or_ignore).and_call_original
+              expect(Raven).to receive(:capture_exception).and_call_original
               subject.submit
             end
             its(:submit) { is_expected.to eq(false) }

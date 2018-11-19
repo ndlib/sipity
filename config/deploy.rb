@@ -148,5 +148,4 @@ after 'deploy', 'deploy:cleanup'
 after 'deploy', 'deploy:restart'
 
 require './config/boot'
-require 'airbrake/capistrano3'
 require 'capistrano/console'

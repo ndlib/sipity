@@ -111,7 +111,7 @@ module Sipity
         attr_accessor :exception_handler
 
         def default_exception_handler
-          Airbrake.method(:notify_or_ignore)
+          Raven.method(:capture_exception)
         end
 
         attr_accessor :requested_by

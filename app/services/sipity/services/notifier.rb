@@ -30,11 +30,7 @@ module Sipity
       private_class_method :deliver_email
 
       def notify_aibrake_of_no_sender
-        Airbrake.notify_or_ignore(
-          error_class: Exceptions::SenderNotFoundError,
-          error_message: "#{Exceptions::SenderNotFoundError}: Return without sending message.",
-          parameters: {}
-        )
+        Raven.capture_exception("#{Exceptions::SenderNotFoundError}: Return without sending message.")
         false
       end
       private_class_method :notify_aibrake_of_no_sender

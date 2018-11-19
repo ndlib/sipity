@@ -1,6 +1,4 @@
 Figaro.require_keys(
-  'airbrake_api_key',
-  'airbrake_host',
   'cas_base_url',
   'cas_validate_url',
   'curate_batch_api_base_path',
@@ -32,6 +30,7 @@ Figaro.require_keys(
   'noid_server',
   'protocol',
   'secret_key_base',
+  'sentry_dsn',
   'sipity_access_key_for_batch_ingester',
   'sipity_access_key_for_etd_integrators',
   'sipity_batch_ingester_access_key',
