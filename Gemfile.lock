@@ -266,7 +266,7 @@ GEM
     faraday (0.15.3)
       multipart-post (>= 1.2, < 3)
     fastercsv (1.5.5)
-    ffi (1.9.18)
+    ffi (1.9.25)
     figaro (1.1.1)
       thor (~> 0.14)
     flay (2.10.0)
