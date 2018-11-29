@@ -16,7 +16,7 @@ module Sipity
 
           before do
             allow(repository).to receive(:work_attribute_values_for).
-              with(work: work, key: 'administrative_unit', cardinality: 1).and_return(nil)
+              with(work: work, key: 'administrative_unit', cardinality: :many).and_return(nil)
           end
 
           its(:processing_action_name) { is_expected.to eq('administrative_unit') }
@@ -51,7 +51,7 @@ module Sipity
             subject { described_class.new(keywords) }
             it 'will return the administrative_unit of the work' do
               expect(repository).to receive(:work_attribute_values_for).
-                with(work: work, key: 'administrative_unit', cardinality: 1).and_return(administrative_unit)
+                with(work: work, key: 'administrative_unit', cardinality: :many).and_return(administrative_unit)
               expect(subject.administrative_unit).to eq 'A Specific College'
             end
           end
@@ -72,7 +72,7 @@ module Sipity
 
             context 'with valid data' do
               subject do
-                described_class.new(keywords.merge(attributes: { administrative_unit: 'A Specific College' }, repository: repository))
+                described_class.new(keywords.merge(attributes: { administrative_unit: ['A Specific College'] }, repository: repository))
               end
               before do
                 allow(subject).to receive(:valid?).and_return(true)
