@@ -8,7 +8,7 @@ module Sipity
       module Etd
         RSpec.describe AdministrativeUnitForm do
           let(:work) { Models::Work.new(id: '1234') }
-          let(:administrative_unit) { 'administrative_unit_name' }
+          let(:administrative_unit) { ['administrative_unit_name'] }
           let(:attributes) { {} }
           let(:repository) { CommandRepositoryInterface.new }
           let(:keywords) { { work: work, requested_by: double, repository: repository, attributes: attributes } }
@@ -47,12 +47,12 @@ module Sipity
           end
 
           context 'retrieving values from the repository' do
-            let(:administrative_unit) { 'A Specific College' }
+            let(:administrative_unit) { ['A Specific College'] }
             subject { described_class.new(keywords) }
             it 'will return the administrative_unit of the work' do
               expect(repository).to receive(:work_attribute_values_for).
                 with(work: work, key: 'administrative_unit', cardinality: :many).and_return(administrative_unit)
-              expect(subject.administrative_unit).to eq 'A Specific College'
+              expect(subject.administrative_unit).to eq ['A Specific College']
             end
           end
 
