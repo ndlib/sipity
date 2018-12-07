@@ -12,10 +12,10 @@
   </legend>
 
   <fieldset class="panel-body">
-    <p class="panel-hint">Select the administrative unit for which you are submitting this work</p>
+    <p class="panel-hint">Select the administrative units for which you are submitting this work</p>
     <%= f.error_notification %>
     <%= f.error :base, error_method: :to_sentence %>
-    <%= f.input :administrative_unit, collection: model.available_administrative_units, input_html: { class: 'form-control', selected: model.administrative_unit } %>
+    <%= f.input :administrative_unit, collection: model.available_administrative_units, input_html: { class: 'form-control', multiple: true, selected: model.administrative_unit } %>
   </fieldset>
 
   <div class="panel-footer action-pane">

@@ -37,7 +37,7 @@ module Sipity
           private
 
           def administrative_unit_from_work
-            repository.work_attribute_values_for(work: work, key: 'administrative_unit', cardinality: 1)
+            repository.work_attribute_values_for(work: work, key: 'administrative_unit', cardinality: :many)
           end
         end
       end
