@@ -346,6 +346,7 @@ GEM
     inflecto (0.0.2)
     interception (0.5)
     ipaddress (0.8.3)
+    irb (0.9.6)
     jbuilder (2.7.0)
       activesupport (>= 4.2.0)
       multi_json (>= 1.2)
@@ -693,6 +694,7 @@ DEPENDENCIES
   hesburgh-lib!
   i18n-debug
   inch
+  irb
   jbuilder (~> 2.0)
   jquery-rails
   jshintrb!
