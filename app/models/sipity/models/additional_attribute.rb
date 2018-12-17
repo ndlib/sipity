@@ -38,7 +38,6 @@ module Sipity
       MAJORS = 'majors'.freeze
       MINORS = 'minors'.freeze
       OCLC_NUMBER = 'oclc_number'.freeze
-      ORGANIZATION_PREDICATE_NAME = 'organization'.freeze
       OTHER_RESOURCES_CONSULTED_PREDICATE_NAME = 'other_resources_consulted'.freeze
       PRIMARY_COLLEGE_PREDICATE_NAME = 'primary_college'.freeze
       PROGRAM_NAME_PREDICATE_NAME = 'program_name'.freeze
@@ -89,7 +88,6 @@ module Sipity
           MAJORS => MAJORS,
           MINORS => MINORS,
           OCLC_NUMBER => OCLC_NUMBER,
-          ORGANIZATION_PREDICATE_NAME => ORGANIZATION_PREDICATE_NAME,
           OTHER_RESOURCES_CONSULTED_PREDICATE_NAME => OTHER_RESOURCES_CONSULTED_PREDICATE_NAME,
           PRIMARY_COLLEGE_PREDICATE_NAME => PRIMARY_COLLEGE_PREDICATE_NAME,
           PROGRAM_NAME_PREDICATE_NAME => PROGRAM_NAME_PREDICATE_NAME,
