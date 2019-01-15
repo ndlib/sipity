@@ -16,7 +16,20 @@ module Sipity
         end
 
         def self.put_file(path, file)
-          RestClient.put path, myfile: File.new(file, 'rb'), 'X-Api-Token' => Figaro.env.curate_batch_api_key!
+          # The following tagged the token as part of the file:
+          # RestClient.put path, myfile: File.new(file, 'rb'), 'X-Api-Token' => Figaro.env.curate_batch_api_key!
+          # This appears to transfer the file without adding the token.
+
+          request = RestClient::Request.new(
+            method: :put,
+            url: path,
+            'X-Api-Token': Figaro.env.curate_batch_api_key!,
+            payload: {
+              multipart: true,
+              file: File.new(file, 'rb')
+            }
+          )
+          request.execute
         end
       end
     end
