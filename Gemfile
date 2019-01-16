@@ -122,6 +122,7 @@ group :production, :pre_production, :staging do
   gem 'dragonfly-s3_data_store'
   gem 'rack-cache', require: 'rack/cache'
   gem 'rb-readline'
+  gem 'irb'
 end
 source 'https://rails-assets.org' do
   gem 'rails-assets-readmore'
