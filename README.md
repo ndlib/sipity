@@ -320,6 +320,8 @@ You can use Graphviz to view a visual representation of that graph. On OS X, use
 
 The primary feature of Sipity is state-based permissions. It can be helpful to force an object into a given state. Use `Sipity::Services::Administrative::ForceIntoProcessingState.call` via `$ rails console`
 
+Example: `Sipity::Services::Administrative::ForceIntoProcessingState.call(entity: Sipity::Models::Work.find(id), state: 'ready_for_ingest')`
+
 ### Batch Ingest Documentation
 
 #### Sipity Code-Path for Batch Ingest
