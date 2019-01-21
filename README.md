@@ -68,6 +68,26 @@ By default, Sipity uses the CurateND batch API to load the data for ingest into 
 
 To test the exporter using the file system, change the [default ingest method](https://github.com/ndlib/sipity/blob/master/app/exporters/sipity/exporters/batch_ingest_exporter.rb#L48) to :files. The resulting data will load inside your app's `/local` directory.
 
+####  Sipity::Jobs::Core::BulkIngestJob conceptual call stack
+
+1. [Sipity::Jobs::Core::BulkIngestJob](https://github.com/ndlib/sipity/blob/master/app/jobs/sipity/jobs/core/bulk_ingest_job.rb)
+  - Which calls Sipity::Jobs::Core::PerformActionForWorkJob ([at line #63](https://github.com/ndlib/sipity/blob/master/app/jobs/sipity/jobs/core/bulk_ingest_job.rb#L63))
+    - For "ready_for_ingest" state ([see `#default_initial_processing_state_name` at #94](https://github.com/ndlib/sipity/blob/master/app/jobs/sipity/jobs/core/bulk_ingest_job.rb#L94))
+    - Using the "submit_for_ingest" action ([see `#default_processing_action_name' line #101](https://github.com/ndlib/sipity/blob/master/app/jobs/sipity/jobs/core/bulk_ingest_job.rb#L101))
+      - The "submit_for_ingest" means it should use the [Sipity::Forms::WorkSubmissions::Core::SubmitForIngestForm](https://github.com/ndlib/sipity/blob/master/app/forms/sipity/forms/work_submissions/core/submit_for_ingest_form.rb) object when it attempts to ingest each object.
+      - Note: By using the Form object, the Batch ingestor confirms to the same security model as the web application. The batch ingester may only see and act on objects to which it has permissions.
+2. [Sipity::Jobs::Core::PerformActionForWorkJob](https://github.com/ndlib/sipity/blob/master/app/jobs/sipity/jobs/core/perform_action_for_work_job.rb)
+  - This builds the request/response/authorization context to submit the "submit_for_ingest" form object.
+3. With permissions enforced and a proper context, run the [Sipity::Exporters::BatchIngestExporter](https://github.com/ndlib/sipity/blob/master/app/exporters/sipity/exporters/batch_ingest_exporter.rb) for the given work.
+
+The following command can be used to circumvent the entire batch process and force a work to be ingested. You'll need to SSH to the given machine and `cd` into the current application directory.
+
+You'll need to replace <GIVEN_WORK_ID> with the correct ID for the work. You'll need to specify the <RAILS_ENV> as well.
+
+```console
+$ bundle exec rails runner "puts Sipity::Exporters::BatchIngestExporter.call(Sipity::Models::Work.find(work:  '<GIVEN_WORK_ID>'))" -e <RAILS_ENV>
+```
+
 ## Anatomy of Sipity
 
 Below is a list of the various concepts of Sipity.
