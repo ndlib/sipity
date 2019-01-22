@@ -56,10 +56,13 @@ RSpec.describe Sipity::Jobs::Core::BulkIngestJob do
       )
       subject.call
       expect(exception_handler).to have_received(:call).with(
-        kind_of(RuntimeError), parameters: {
-          work_id: work1.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
-          job_class: described_class, work_ingester: work_ingester, attributes: subject.send(:ingester_attributes)
-        }
+        kind_of(RuntimeError),
+        extra: { parameters: { work_id: work1.id,
+                               requested_by: subject.send(:requested_by),
+                               processing_action_name: subject.send(:processing_action_name),
+                               job_class: described_class,
+                               work_ingester: work_ingester,
+                               attributes: subject.send(:ingester_attributes) } }
       )
     end
   end
