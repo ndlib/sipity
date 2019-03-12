@@ -55,13 +55,13 @@ GIT
 
 GIT
   remote: https://github.com/ndlib/locabulary.git
-  revision: 9836ee851c5552599c9cb5c8dbd15495472ceaa3
-  branch: master
+  revision: 9d4a7c1b6a5956c5152924b1ff51d3f0798581d8
+  ref: 9d4a7c1b6a5956c5152924b1ff51d3f0798581d8
   specs:
     locabulary (0.8.1)
       activesupport (>= 4.0, < 6.0)
-      dry-configurable (~> 0.1.7)
-      json (~> 1.8)
+      dry-configurable
+      json
 
 GIT
   remote: https://github.com/ndlib/noids_client.git
