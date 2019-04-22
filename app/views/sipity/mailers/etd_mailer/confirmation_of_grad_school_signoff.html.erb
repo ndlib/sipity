@@ -19,7 +19,7 @@
 <ul>
   <li>Title: <%= @entity.title %></li>
   <li>Submitted for advisor approval: <%= @entity.submission_date.to_sentence %></li>
-  <li>ETD record access: <%= t("sipity/emails.access_controls.#{@entity.work_access.access_right_code.to_s.titleize}") %></li>
+  <li>ETD record access: <%= t("sipity/emails.access_controls.#{@entity.work_access.access_right_code.to_s}") %></li>
   <li>Publishing statement: <%= @entity.publishing_intent.to_sentence %></li>
   <li>First public disclosure of material being considered for patent protection: <%= @entity.patent_intent.to_sentence %></li>
 </ul>
@@ -28,7 +28,7 @@
 <ul class="nested-attributes-list">
   <% Array.wrap(@entity.accessible_files).each do |accessible_file| %>
     <li class="nested-attribute-list">File name: <%= link_to accessible_file.to_s.html_safe, accessible_file.access_url %></li>
-    <li class="value access-right">File access: <%= t("sipity/emails.access_controls.#{accessible_file.access_right_code.to_s.titleize}") %></li>
+    <li class="value access-right">File access: <%= t("sipity/emails.access_controls.#{accessible_file.access_right_code.to_s}") %></li>
       <% if accessible_file.release_date.present? %>
         <li class="value release-date">Release date: <%= accessible_file.release_date %></li>
       <% end %>
