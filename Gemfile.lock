@@ -1,10 +1,10 @@
 GIT
   remote: https://github.com/jeremyf/curly.git
-  revision: 58d4bbfb94f68f5ce4867bf47c1c3b87c0dbef30
-  branch: sipity-hack
+  revision: ffd26e7b388e999958070be510fc44c5e9efc471
+  branch: updated-sipity-hacks
   specs:
-    curly-templates (2.6.0)
-      actionpack (>= 3.1, < 5.1)
+    curly-templates (2.6.5)
+      actionpack (>= 3.1, < 6.0)
 
 GIT
   remote: https://github.com/jeremyf/data-migrator.git
