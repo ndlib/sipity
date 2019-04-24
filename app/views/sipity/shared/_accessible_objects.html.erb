@@ -8,7 +8,7 @@
         <dd class="value accessible-object-type"><%= accessible_object.accessible_object_type %></dd>
         <dt class="predicate access-right"><%= accessible_object.translate(:access_right_code) %></dt>
         <% if accessible_object.access_right_code.present? %>
-        <dd class="value access-right"><%= t("sipity/emails.access_controls.#{accessible_object.access_right_code.to_s.titleize}") %></dd>
+        <dd class="value access-right"><%= t("sipity/emails.access_controls.#{accessible_object.access_right_code.to_s}") %></dd>
         <% else %>
         <dd class="value access-right"><em>Unknown</em></dd>
         <% end %>
