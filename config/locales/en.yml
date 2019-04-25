@@ -280,6 +280,7 @@ en:
     label:
       show: 'Show'
       edit: 'Edit'
+      deactivate: 'Deactivate'
       destroy: 'Delete'
       debug: 'Debug'
     confirm:
@@ -303,6 +304,7 @@ en:
     error_messages:
     state_advancing_actions:
       legend:
+        deactivate_work: 'Deactivate this Submission'
         etd/advisor_requests_change: 'Changes are Required to Meet My Approval'
         etd/grad_school_requests_change: 'Changes are Required to Meet the Grad School Approval'
         etd/respond_to_advisor_request_form: 'Tell your Advisors about the Changes You’ve Made'
@@ -315,6 +317,8 @@ en:
         etd/submit_for_review: 'Terms of Deposit'
         ulra/submit_for_review: 'Terms of Deposit'
       verification:
+        deactivate_work:
+          i_agree: 'Are you sure you want to deactivate this submission?'
         etd/advisor_signoff:
           i_agree: 'I have reviewed the submission and all aspects of it conform to my expectations.'
         etd/cataloger_signoff:

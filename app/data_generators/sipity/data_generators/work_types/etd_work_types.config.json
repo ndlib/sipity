@@ -53,9 +53,10 @@
         "roles": ["cataloging"]
       }]
     }, {
-      "name": "destroy",
+      "name": "deactivate",
+      "transition_to": "deactivated",
       "attributes": {
-        "presentation_sequence": 2
+        "presentation_sequence": 11
       },
       "from_states": [{
         "name": ["new"],
@@ -502,9 +503,10 @@
         "roles": ["cataloging"]
       }]
     }, {
-      "name": "destroy",
+      "name": "deactivate",
+      "transition_to": "deactivated",
       "attributes": {
-        "presentation_sequence": 2
+        "presentation_sequence": 11
       },
       "from_states": [{
         "name": ["new"],
