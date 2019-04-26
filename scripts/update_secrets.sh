@@ -13,7 +13,6 @@ files_to_copy="
     config/database.yml
     config/environment_bootstrapper.rb
     config/locales/site-specific.yml
-    app/assets/stylesheets/theme/_default.scss
     "
 # Assumes we are in sipity repo rootdir
 for f in $files_to_copy; do
