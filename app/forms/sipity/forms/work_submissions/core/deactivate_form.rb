@@ -28,17 +28,15 @@ module Sipity
           validates :requested_by, presence: true
 
           def submit
-            return false unless valid?
-  # How do we get the "to" status?
-            transition_to_status = 'deactivated'
-  # how do we route to this?
-            # update_entity_processing_state!(entity: work, to: transition_to_status)
-            submission_window # return to dashboard
+            if processing_action_form.submit
+              submission_window
+            else
+              false
+            end
           end
 
-
           # TODO: Normalize translation
-          def deactivate
+          def legend
             view_context.t('deactivate_work', scope: 'sipity/forms.state_advancing_actions.legend').html_safe
           end
 
@@ -50,7 +48,7 @@ module Sipity
           #
           # @return String
           def render(f:)
-            markup = view_context.content_tag('legend', deactivate)
+            markup = view_context.content_tag('legend', legend)
             markup << f.input(
               :confirm_deactivate,
               as: :boolean,
