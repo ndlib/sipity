@@ -53,15 +53,21 @@
         "roles": ["cataloging"]
       }]
     }, {
+      "name": "destroy",
+      "attributes": {
+        "presentation_sequence": 2
+      },
+      "from_states": [{
+        "name": ["new"],
+        "roles": ["creating_user"]
+      }]
+    }, {
       "name": "deactivate",
       "transition_to": "deactivated",
       "attributes": {
         "presentation_sequence": 11
       },
       "from_states": [{
-        "name": ["new"],
-        "roles": ["creating_user"]
-      }, {
         "name": ["new", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested"],
         "roles": ["etd_reviewing", "etd_student_reviewing"]
       }]
@@ -503,15 +509,21 @@
         "roles": ["cataloging"]
       }]
     }, {
+      "name": "destroy",
+      "attributes": {
+        "presentation_sequence": 2
+      },
+      "from_states": [{
+        "name": ["new"],
+        "roles": ["creating_user"]
+      }]
+    }, {
       "name": "deactivate",
       "transition_to": "deactivated",
       "attributes": {
         "presentation_sequence": 11
       },
       "from_states": [{
-        "name": ["new"],
-        "roles": ["creating_user"]
-      }, {
         "name": ["new", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested"],
         "roles": ["etd_reviewing", "etd_student_reviewing"]
       }]
