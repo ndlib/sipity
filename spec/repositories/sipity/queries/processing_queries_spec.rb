@@ -72,7 +72,7 @@ module Sipity
           # demonstrates what's working
           expect(subject).to eq(
             [
-              "advisor_changes_requested", "back_from_cataloging", "grad_school_approved_but_waiting_for_routing",
+              "advisor_changes_requested", "back_from_cataloging", "deactivated", "grad_school_approved_but_waiting_for_routing",
               "grad_school_changes_requested", "ingested", "ingesting", "new", "ready_for_cataloging", "ready_for_ingest",
               "under_advisor_review", "under_grad_school_review"
             ]
