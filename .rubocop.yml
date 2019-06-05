@@ -103,6 +103,7 @@ MethodLength:
     - app/forms/sipity/forms/configure.rb
     - 'app/forms/sipity/forms/create_work_form.rb'
     - 'app/forms/sipity/forms/processing_form.rb'
+    - 'app/forms/sipity/forms/work_submissions/etd/administrative_unit_form.rb'
     - 'app/repositories/sipity/queries/notification_queries.rb'
     - 'app/repositories/sipity/queries/permission_queries.rb'
     - 'app/repositories/sipity/queries/comment_queries.rb'

@@ -35,6 +35,26 @@ module Sipity
           expect(test_repository.get_controlled_vocabulary_value_for(name: 'copyright', term_uri: uri)).to eq(uri)
         end
       end
+
+      context '#get_active_hierarchical_roots_for_predicate_name' do
+        it 'will get records hierarchical roots for predicate_name' do
+          response = test_repository.get_controlled_vocabulary_entries_for_predicate_name(name: 'administrative_units')
+          expect(response).to be_a(Array)
+          expect(response).to be_present
+          expect(response.first).to be_a(Locabulary::Items::AdministrativeUnit)
+        end
+      end
+
+      context '#prepare_hierarchical_menu_options' do
+        let(:roots) { test_repository.get_active_hierarchical_roots_for_predicate_name(name: 'administrative_units') }
+
+        it 'will get prepare menu options array' do
+          response = test_repository.prepare_hierarchical_menu_options(roots: roots)
+          expect(response).to be_a(Array)
+          expect(response).to be_present
+          expect(response.first).to be_a(Hash)
+        end
+      end
     end
   end
 end

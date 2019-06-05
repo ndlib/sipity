@@ -160,6 +160,12 @@ section {
   padding-left: .5em;
 }
 
+
+.select[multiple],
+.select[size] {
+  height: 20em;
+}
+
 // Typographic enhancements
 abbr {
   font-variant: small-caps;
