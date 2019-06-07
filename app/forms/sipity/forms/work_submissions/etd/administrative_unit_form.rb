@@ -34,8 +34,8 @@ module Sipity
                              { "class" => 'bg-primary', "disabled" => true }]
                           else
                             # display as selectable sub-items
-                            [x[:item].send('selectable_label'),
-                             x[:item].send('selectable_id'),
+                            [x[:item].selectable_label,
+                             x[:item].selectable_id,
                              "style" => 'padding-left: 1em']
                           end)
             end

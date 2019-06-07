@@ -69,8 +69,8 @@ module Sipity
               allow(repository).to receive(:get_active_hierarchical_roots_for_predicate_name).
                 with(name: 'administrative_units').
                 and_return(roots)
-              allow(admin2).to receive(:send).with('selectable_label').and_return('Item')
-              allow(admin2).to receive(:send).with('selectable_id').and_return('Program:Item')
+              allow(admin2).to receive('selectable_label').and_return('Item')
+              allow(admin2).to receive('selectable_id').and_return('Program:Item')
               allow(repository).to receive(:prepare_hierarchical_menu_options).
                 with(roots: roots).
                 and_return(menu_items)
