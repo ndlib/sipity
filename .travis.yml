@@ -13,7 +13,7 @@ notifications:
 bundler_args: --without development debug doc
 
 before_install:
-  - gem install bundler
+  - gem install bundler -v 1.17.3
 
 addons:
   code_climate:
