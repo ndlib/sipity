@@ -162,6 +162,10 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/simple_controlled_vocabulary_queries.rb
+    def get_active_hierarchical_roots_for_predicate_name(name:)
+    end
+
+    # @see ./app/repositories/sipity/queries/simple_controlled_vocabulary_queries.rb
     def get_controlled_vocabulary_entries_for_predicate_name(name:)
     end
 
@@ -203,6 +207,10 @@ module Sipity
 
     # @see ./app/repositories/sipity/queries/ulra_queries.rb
     def possible_expected_graduation_terms(ending_year: Time.zone.today.year, **_keywords)
+    end
+
+    # @see ./app/repositories/sipity/queries/simple_controlled_vocabulary_queries.rb
+    def prepare_hierarchical_menu_options(roots:)
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb

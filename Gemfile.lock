@@ -55,8 +55,8 @@ GIT
 
 GIT
   remote: https://github.com/ndlib/locabulary.git
-  revision: 9d4a7c1b6a5956c5152924b1ff51d3f0798581d8
-  ref: 9d4a7c1b6a5956c5152924b1ff51d3f0798581d8
+  revision: b8ab510dce637d37229d001fedfbc6af1ab510f2
+  ref: b8ab510dce637d37229d001fedfbc6af1ab510f2
   specs:
     locabulary (0.8.1)
       activesupport (>= 4.0, < 6.0)
@@ -662,6 +662,7 @@ DEPENDENCIES
   binding_of_caller
   bootstrap-sass
   bumbler
+  bundler (~> 1.17)
   byebug (= 9.0.6)
   capistrano (~> 3.1)
   capistrano-bundler

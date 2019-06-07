@@ -9,6 +9,7 @@ end
 gem 'autoprefixer-rails'
 gem 'bigdecimal'
 gem 'bootstrap-sass'
+gem 'bundler', "~> 1.17"
 gem 'coffee-rails', '~> 4.0'
 gem 'curly-templates', github: 'jeremyf/curly', branch: 'updated-sipity-hacks'
 gem 'data_migrator', github: 'jeremyf/data-migrator'
@@ -27,7 +28,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'listen', '~> 3.0.7' # Frozen for Ruby 2.2.2; Release once updated
-gem 'locabulary', github: 'ndlib/locabulary', ref: '9d4a7c1b6a5956c5152924b1ff51d3f0798581d8'
+gem 'locabulary', github: 'ndlib/locabulary', ref: 'b8ab510dce637d37229d001fedfbc6af1ab510f2'
 gem 'loofah' # Related to hesburgh-lib's dependency
 gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not loading ALL mime-types
 gem 'noids_client', github: 'ndlib/noids_client'

@@ -25,7 +25,21 @@ module Sipity
           validates :work, presence: true
 
           def available_administrative_units
-            repository.get_controlled_vocabulary_values_for_predicate_name(name: 'administrative_units')
+            options = []
+            roots = repository.get_active_hierarchical_roots_for_predicate_name(name: 'administrative_units')
+            repository.prepare_hierarchical_menu_options(roots: roots).select do |x|
+              options << (if x[:item].nil?
+                            # display as category title row
+                            [x[:category_title],
+                             { "class" => 'bg-primary', "disabled" => true }]
+                          else
+                            # display as selectable sub-items
+                            [x[:item].selectable_label,
+                             x[:item].selectable_id,
+                             "style" => 'padding-left: 1em']
+                          end)
+            end
+            options
           end
 
           def submit
