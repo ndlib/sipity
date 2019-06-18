@@ -337,6 +337,10 @@ module Sipity
     def set_as_representative_attachment(work:, pid:)
     end
 
+    # @see ./app/repositories/sipity/commands/administrative_commands.rb
+    def set_group_membership(group_name:, usernames: [], force_membership_to_these_usernames: false)
+    end
+
     # @see ./app/repositories/sipity/queries/submission_window_queries.rb
     def submission_window_names_for_select_within_work_area(work_area:)
     end
