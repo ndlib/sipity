@@ -7,7 +7,6 @@ git_source(:github) do |repo_name|
 end
 
 gem 'autoprefixer-rails'
-gem 'bigdecimal'
 gem 'bootstrap-sass'
 gem 'bundler', "~> 1.17"
 gem 'coffee-rails', '~> 4.0'
@@ -94,6 +93,7 @@ end
 
 group :development, :test do
   gem 'commitment'
+  gem 'scss_lint', '~> 0.58', require: false
   gem 'jshintrb', github: 'ndlib/jshintrb', ref: 'f8cb0bd86ed9379acd50de871b3af9f8d251b977'
   gem 'pry-rescue', require: false
   gem 'pry-stack_explorer', require: false
@@ -114,7 +114,7 @@ group :test do
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers', '~> 3.0.1'
   gem 'site_prism', require: false
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.7'
 end
 
 group :production, :pre_production, :staging do
