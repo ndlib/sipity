@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'PowerConverter' do
   context 'polymorphic_type' do
     [
-      [User.new, 'User'],
-      [User, 'User']
+      [User.new, User],
+      [User, User]
     ].each_with_index do |(to_convert, expected), index|
       it "will convert #{to_convert.inspect} to #{expected} (Scenario ##{index}" do
         expect(PowerConverter.convert(to_convert, to: :polymorphic_type)).to eq(expected)
