@@ -1,12 +1,10 @@
-require 'dry/validation/schema'
-
 module Sipity
   module DataGenerators
-    EmailSchema = Dry::Validation.Schema do
+    EmailSchema = Dry::Schema.JSON do
       required(:name).filled(:str?)
-      required(:to).each(:str?)
-      optional(:cc).each(:str?)
-      optional(:bcc).each(:str?)
+      required(:to).value(:array).each(:str?)
+      optional(:cc).value(:array).each(:str?)
+      optional(:bcc).value(:array).each(:str?)
     end
   end
 end

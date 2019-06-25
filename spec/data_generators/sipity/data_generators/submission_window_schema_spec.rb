@@ -12,7 +12,7 @@ module Sipity
       it "validates #{basename}" do
         data = JSON.parse(Rails.root.join('app/data_generators/sipity/data_generators/submission_windows', basename).read)
         data.deep_symbolize_keys!
-        expect(subject.call(data).messages).to be_empty
+        expect(subject.call(data).errors).to be_empty
       end
     end
   end

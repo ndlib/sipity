@@ -1,9 +1,8 @@
-require 'dry/validation/schema'
 require 'sipity/data_generators/email_schema'
 
 module Sipity
   module DataGenerators
-    ProcessingActionSchema = Dry::Validation.Schema do
+    ProcessingActionSchema = Dry::Schema.JSON do
       # The <name> of the action that you will take. This is a unique name
       # within the state machine.
       required(:name).filled(:str?)
@@ -14,22 +13,22 @@ module Sipity
 
       # In order to even take the given action, what other <required_actions>
       # must first have been taken
-      optional(:required_actions).each(:str?)
+      optional(:required_actions).value(:array).each(:str?)
 
       # The list of states from which this action can be taken.
       #
       # Specify all of the <from_states> in which this action can be taken.
       # The <name> of the state, and the <roles> that people must have in order
       # to take this action.
-      optional(:from_states).each do
+      optional(:from_states).value(:array).each do
         schema do
-          required(:name).each(:str?)
-          required(:roles).each(:str?)
+          required(:name).value(:array).each(:str?)
+          required(:roles).value(:array).each(:str?)
         end
       end
 
       # Specify any emails that must be sent
-      optional(:emails).each { schema(EmailSchema) }
+      optional(:emails).value(:array).each { schema(EmailSchema) }
 
       # Additional attributes that are assigned to the `sipity_processing_strategy_actions`
       # table.
