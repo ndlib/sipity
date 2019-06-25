@@ -69,7 +69,6 @@ group :development do
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'guard-rubocop'
-  gem 'guard-scss-lint', github: 'ndlib/guard-scss-lint'
   gem 'i18n-debug'
   gem 'letter_opener'
   gem 'pry-byebug', '~> 3.4.0', require: false
