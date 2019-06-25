@@ -23,7 +23,7 @@ gem 'hesburgh-lib', github: 'ndlib/hesburgh-lib'
 gem 'jbuilder', '~> 2.0'
 gem 'jquery-rails'
 gem 'kaminari'
-gem 'listen', '~> 3.0.7' # Frozen for Ruby 2.2.2; Release once updated
+gem 'listen'
 gem 'locabulary', github: 'ndlib/locabulary', ref: 'b8ab510dce637d37229d001fedfbc6af1ab510f2'
 gem 'loofah' # Related to hesburgh-lib's dependency
 gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not loading ALL mime-types
