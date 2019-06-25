@@ -108,7 +108,7 @@ group :test do
   gem 'rspec-html-matchers'
   gem 'selenium-webdriver'
   gem 'shoulda-callback-matchers'
-  gem 'shoulda-matchers', '~> 3.0.1'
+  gem 'shoulda-matchers'
   gem 'site_prism', require: false
   gem 'sqlite3', '~> 1.3.7'
 end

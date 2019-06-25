@@ -80,15 +80,11 @@ module Sipity
           private
 
           attr_reader :processing_action_form
-          attr_writer(*Array.wrap(attribute_names))
-          attr_writer processing_subject_name
-          attr_writer :requested_by
 
           public
 
-          attr_reader(*Array.wrap(attribute_names))
-          attr_reader processing_subject_name
-          attr_reader :requested_by
+          attr_accessor(*Array.wrap(attribute_names))
+          attr_accessor :requested_by, processing_subject_name
           alias_method :entity, processing_subject_name
 
           define_method :persisted? do

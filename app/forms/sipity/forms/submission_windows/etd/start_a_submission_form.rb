@@ -30,7 +30,7 @@ module Sipity
             to: :publication_and_patenting_intent_extension
           )
 
-          private(:work_publication_strategy=, :possible_work_publication_strategies, :persist_work_publication_strategy)
+          private(:possible_work_publication_strategies, :persist_work_publication_strategy)
 
           private
 

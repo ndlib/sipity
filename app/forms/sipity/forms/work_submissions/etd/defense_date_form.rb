@@ -28,15 +28,15 @@ module Sipity
             end
           end
 
+          include Conversions::ConvertToDate
+          def defense_date=(value)
+            @defense_date = convert_to_date(value) { nil }
+          end
+
           private
 
           def defense_date_from_work
             repository.work_attribute_values_for(work: work, key: 'defense_date', cardinality: 1)
-          end
-
-          include Conversions::ConvertToDate
-          def defense_date=(value)
-            @defense_date = convert_to_date(value) { nil }
           end
         end
       end
