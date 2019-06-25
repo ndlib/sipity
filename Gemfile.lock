@@ -727,8 +727,6 @@ DEPENDENCIES
   rb-fsevent
   rb-inotify (~> 0.9)
   rb-readline
-  rdf-aggregate-repo
-  rdf-isomorphic
   rdf-rdfa
   rdiscount
   responders (~> 2.0)
