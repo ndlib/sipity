@@ -58,7 +58,6 @@ module Sipity
         create_entity_action_registry_entry!(action: action)
       end
 
-      include Conversions::ConvertToPolymorphicType
       def create_entity_action_registry_entry!(action:)
         # TODO: Tease apart the requested_by and on_behalf_of
         Models::Processing::EntityActionRegister.create!(
@@ -67,7 +66,7 @@ module Sipity
           requested_by_actor_id: requesting_actor.id,
           on_behalf_of_actor_id: on_behalf_of_actor.id,
           subject_id: subject.id,
-          subject_type: convert_to_polymorphic_type(subject)
+          subject_type: PowerConverter.convert(subject, to: :polymorphic_type)
         )
       end
 
@@ -104,7 +103,7 @@ module Sipity
 
       def subject=(input)
         # Guard!
-        convert_to_polymorphic_type(input)
+        PowerConverter.convert(input, to: :polymorphic_type)
         @subject = input
       end
 

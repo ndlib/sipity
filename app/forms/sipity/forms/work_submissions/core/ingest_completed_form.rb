@@ -1,6 +1,5 @@
 require_relative '../../../forms'
 require 'sipity/conversions/convert_to_permanent_uri'
-require 'sipity/conversions/convert_to_polymorphic_type'
 require 'sipity/exceptions'
 
 module Sipity
@@ -39,12 +38,11 @@ module Sipity
             repository.create_redirect_for(work: work, url: convert_to_permanent_uri(work))
           end
 
-          include Conversions::ConvertToPolymorphicType
           def register_error
             Raven.capture_exception("#{Exceptions::IngestUnableToCompleteError}: Problem encountered in Batch Ingester. Review batch logs.",
                                     extra: { error_class: Exceptions::IngestUnableToCompleteError,
                                              work_id: work.to_param,
-                                             work_type: convert_to_polymorphic_type(work),
+                                             work_type: PowerConverter.convert(work, to: :polymorphic_type),
                                              job_state: job_state,
                                              processing_action_name: processing_action_name })
           end

@@ -28,7 +28,7 @@ module Sipity
       end
 
       def inject_polymorphic_type(subject:, defaults:)
-        polymorphic_type = Conversions::ConvertToPolymorphicType.call(subject)
+        polymorphic_type = PowerConverter.convert(subject, to: :polymorphic_type)
         defaults.unshift(:"models/#{polymorphic_type.model_name.param_key}.#{defaults[-2]}")
       rescue Exceptions::EntityTypeConversionError
         # Nothing need happen hear

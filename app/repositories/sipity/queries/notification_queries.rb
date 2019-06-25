@@ -9,7 +9,7 @@ module Sipity
           emails[:id].in(
             notifiable_contexts.project(notifiable_contexts[:email_id]).where(
               notifiable_contexts[:scope_for_notification_id].eq(scope.id).and(
-                notifiable_contexts[:scope_for_notification_type].eq(Conversions::ConvertToPolymorphicType.call(scope))
+                notifiable_contexts[:scope_for_notification_type].eq(PowerConverter.convert(scope, to: :polymorphic_type))
               ).and(
                 notifiable_contexts[:reason_for_notification].eq(reason)
               )
