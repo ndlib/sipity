@@ -736,7 +736,6 @@ DEPENDENCIES
   rubocop (~> 0.49.0)
   sanitize
   sass-rails
-  scss_lint (~> 0.58)
   seed_dump
   selenium-webdriver
   sentry-raven (~> 2.7)

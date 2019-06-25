@@ -89,7 +89,6 @@ end
 
 group :development, :test do
   gem 'commitment'
-  gem 'scss_lint', '~> 0.58', require: false
   gem 'jshintrb', github: 'ndlib/jshintrb', ref: 'f8cb0bd86ed9379acd50de871b3af9f8d251b977'
   gem 'pry-rescue', require: false
   gem 'pry-stack_explorer', require: false
