@@ -697,7 +697,7 @@ DEPENDENCIES
   i18n-debug
   inch
   irb
-  jbuilder (~> 2.0)
+  jbuilder
   jquery-rails
   jshintrb!
   kaminari
