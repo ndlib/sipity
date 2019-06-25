@@ -53,7 +53,7 @@ module Sipity
           expect(convert_to_permanent_uri(object)).to match(/1234\Z/)
         end
 
-        it 'will not convert a Fixnum object (at least until we change that scheme)' do
+        it 'will not convert an Integer object (at least until we change that scheme)' do
           object = 1234
           expect { convert_to_permanent_uri(object) }.to raise_error(Exceptions::PermanentUriConversionError)
         end
