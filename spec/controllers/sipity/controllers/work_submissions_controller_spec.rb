@@ -25,8 +25,11 @@ module Sipity
           expect_any_instance_of(ProcessingActionComposer).to receive(:run_and_respond_with_processing_action)
 
           expect do
-            get 'query_action', work_id: work.id, processing_action_name: processing_action_name, work: { title: 'Hello' }
-          end.to raise_error(ActionView::MissingTemplate, /query_action/) # Because auto-rendering
+            get(
+              'query_action',
+              params: { work_id: work.id, processing_action_name: processing_action_name, work: { title: 'Hello' } }
+            )
+          end.to raise_error(ActionController::UnknownFormat) # Because auto-rendering
         end
       end
 
@@ -35,10 +38,10 @@ module Sipity
         it 'will pass along to the response handler' do
           expect_any_instance_of(ProcessingActionComposer).to receive(:run_and_respond_with_processing_action)
 
-          # I don't want to mess around with all the possible actions
-          expect do
-            post 'command_action', work_id: work.id, processing_action_name: processing_action_name, work: { title: 'Hello' }
-          end.to raise_error(ActionView::MissingTemplate, /command_action/) # Because auto-rendering
+          post(
+            'command_action',
+            params: { work_id: work.id, processing_action_name: processing_action_name, work: { title: 'Hello' } }
+          )
         end
       end
     end
