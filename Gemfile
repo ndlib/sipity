@@ -94,8 +94,8 @@ group :development, :test do
   gem 'pry-rescue', require: false
   gem 'pry-stack_explorer', require: false
   gem 'rspec-its', require: false
-  gem 'rspec-rails', '~>3.4.0'
-  gem 'rspec', '~>3.4.0'
+  gem 'rspec-rails', '~>3.4'
+  gem 'rspec', '~>3.4'
   gem 'rubocop', '~> 0.49.0', require: false
 end
 
