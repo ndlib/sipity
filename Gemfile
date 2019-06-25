@@ -31,7 +31,7 @@ gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not
 gem 'noids_client', github: 'ndlib/noids_client'
 gem 'nokogiri'
 gem 'power_converter'
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.1.0'
 gem 'rdf-rdfa'
 gem 'rdiscount'
 gem 'responders'
