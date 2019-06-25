@@ -105,7 +105,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'poltergeist'
-  gem 'rspec-html-matchers', '~>0.6'
+  gem 'rspec-html-matchers'
   gem 'selenium-webdriver'
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers', '~> 3.0.1'

@@ -730,7 +730,7 @@ DEPENDENCIES
   responders (~> 2.0)
   rof!
   rspec (~> 3.4)
-  rspec-html-matchers (~> 0.6)
+  rspec-html-matchers
   rspec-its
   rspec-rails (~> 3.4)
   rubocop (~> 0.49.0)
