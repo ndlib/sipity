@@ -9,8 +9,8 @@ module Sipity
       # @raise Exceptions::InvalidSchemaError if the data does not validate against the schema
       def self.call(data:, schema:)
         validation = schema.call(data)
-        return true unless validation.messages.present?
-        raise Exceptions::InvalidSchemaError, errors: validation.messages
+        return true unless validation.errors.present?
+        raise Exceptions::InvalidSchemaError, errors: validation.errors.messages
       end
     end
   end

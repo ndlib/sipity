@@ -1,7 +1,8 @@
 require "rails_helper"
 
 RSpec.describe Sipity::DataGenerators::WorkTypeSchema do
-  subject { described_class }
+  let(:schema) { described_class }
+  subject { Sipity::DataGenerators::SchemaValidator.call(data: data, schema: schema) }
 
   context 'with valid data' do
     let(:data) do
@@ -51,27 +52,30 @@ RSpec.describe Sipity::DataGenerators::WorkTypeSchema do
       }
     end
 
-    it 'validates good data' do
-      expect(subject.call(data).messages).to be_empty
+    it 'validates' do
+      expect(subject).to be_truthy
     end
+  end
 
-    it 'invalidates bad data for a state emails reason' do
-      data = {
+  context 'with invalid data' do
+    let(:data) do
+      {
         work_types: [{ actions: [], name: 'wonky', state_emails: [{ state: 'under_review', email: 'hello', reason: 'chicken_dinner' }] }]
       }
-
-      messages = subject.call(data).messages
-      expect(messages.first[0][:work_types][0][:state_emails][:reason]).to be_present
     end
+    it "does not validate" do
+      expect { subject }.to raise_error(Sipity::Exceptions::InvalidSchemaError)
+    end
+  end
 
-    [
-      "ulra_work_types.config.json",
-      "etd_work_types.config.json"
-    ].each do |basename|
-      it "validates #{basename}" do
-        data = JSON.parse(Rails.root.join('app/data_generators/sipity/data_generators/work_types', basename).read)
-        data.deep_symbolize_keys!
-        expect(subject.call(data).messages).to be_empty
+  [
+    "ulra_work_types.config.json",
+    "etd_work_types.config.json"
+  ].each do |basename|
+    context "with #{basename} data" do
+      let(:data) { JSON.parse(Rails.root.join('app/data_generators/sipity/data_generators/work_types', basename).read).deep_symbolize_keys }
+      it "validates" do
+        expect(subject).to be_truthy
       end
     end
   end

@@ -3,7 +3,7 @@
 .attribute-listing {
   margin-bottom: 0;
 
-  .predicate:after {
+  .predicate::after {
     content: ':';
   }
 

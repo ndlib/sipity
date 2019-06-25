@@ -7,7 +7,6 @@ git_source(:github) do |repo_name|
 end
 
 gem 'autoprefixer-rails'
-gem 'bigdecimal'
 gem 'bootstrap-sass'
 gem 'bundler', "~> 1.17"
 gem 'coffee-rails', '~> 4.0'
@@ -17,10 +16,7 @@ gem 'devise_cas_authenticatable'
 gem 'devise'
 gem 'dragonfly', github: 'jeremyf/dragonfly', branch: 'updating-dragonfly-to_file'
 gem 'draper'
-gem 'dry-logic', '~> 0.3.0'
-gem 'dry-monads', '~> 0.3.0'
-gem 'dry-types', '~> 0.8.0'
-gem 'dry-validation', '~> 0.8.0'
+gem 'dry-schema'
 gem 'execjs'
 gem 'figaro'
 gem 'hesburgh-lib', github: 'ndlib/hesburgh-lib'
@@ -73,7 +69,6 @@ group :development do
   gem 'guard-rails'
   gem 'guard-rspec'
   gem 'guard-rubocop'
-  gem 'guard-scss-lint', github: 'ndlib/guard-scss-lint'
   gem 'i18n-debug'
   gem 'letter_opener'
   gem 'pry-byebug', '~> 3.4.0', require: false
@@ -94,12 +89,13 @@ end
 
 group :development, :test do
   gem 'commitment'
+  gem 'scss_lint', '~> 0.58', require: false
   gem 'jshintrb', github: 'ndlib/jshintrb', ref: 'f8cb0bd86ed9379acd50de871b3af9f8d251b977'
   gem 'pry-rescue', require: false
   gem 'pry-stack_explorer', require: false
   gem 'rspec-its', require: false
-  gem 'rspec-rails', '~>3.4.0'
-  gem 'rspec', '~>3.4.0'
+  gem 'rspec-rails', '~>3.4'
+  gem 'rspec', '~>3.4'
   gem 'rubocop', '~> 0.49.0', require: false
 end
 
@@ -114,7 +110,7 @@ group :test do
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers', '~> 3.0.1'
   gem 'site_prism', require: false
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.3.7'
 end
 
 group :production, :pre_production, :staging do

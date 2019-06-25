@@ -1,8 +1,6 @@
-require 'dry/validation/schema'
-
 module Sipity
   module DataGenerators
-    StrategyPermissionSchema = Dry::Validation.Schema do
+    StrategyPermissionSchema = Dry::Schema.JSON do
       # What named <group> gets the named <role>. In other words,
       # everyone that has the given <group> will get the given <role>.
       # In this context, it is envisioned the <group> getting the

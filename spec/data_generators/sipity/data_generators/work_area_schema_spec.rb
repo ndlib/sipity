@@ -1,7 +1,9 @@
 require "rails_helper"
+require 'sipity/data_generators/schema_validator'
 
 RSpec.describe Sipity::DataGenerators::WorkAreaSchema do
-  subject { described_class }
+  let(:schema) { described_class }
+  subject { Sipity::DataGenerators::SchemaValidator.call(data: data, schema: schema) }
 
   context 'with valid data' do
     let(:data) do
@@ -15,7 +17,7 @@ RSpec.describe Sipity::DataGenerators::WorkAreaSchema do
     end
 
     it 'validates good data' do
-      expect(subject.call(data).messages).to be_empty
+      expect(subject).to be_truthy
     end
   end
 
@@ -23,10 +25,11 @@ RSpec.describe Sipity::DataGenerators::WorkAreaSchema do
     "ulra_work_area.config.json",
     "etd_work_area.config.json"
   ].each do |basename|
-    it "validates #{basename}" do
-      data = JSON.parse(Rails.root.join('app/data_generators/sipity/data_generators/work_areas', basename).read)
-      data.deep_symbolize_keys!
-      expect(subject.call(data).messages).to be_empty
+    context "with #{basename}" do
+      let(:data) { JSON.parse(Rails.root.join('app/data_generators/sipity/data_generators/work_areas', basename).read).deep_symbolize_keys }
+      it "validates" do
+        expect(subject).to be_truthy
+      end
     end
   end
 
@@ -42,7 +45,7 @@ RSpec.describe Sipity::DataGenerators::WorkAreaSchema do
     end
 
     it 'invalidates bad data' do
-      expect(subject.call(data).messages).to be_present
+      expect { subject }.to raise_error(Sipity::Exceptions::InvalidSchemaError)
     end
   end
 end
