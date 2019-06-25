@@ -27,7 +27,7 @@ module Sipity
             yields: yields, callback_name: callback_name, run_with: { attributes: attributes }, context: controller
           )
         end
-        let(:attributes) { { "preferred_name" => 'bogus' } }
+        let(:attributes) { ActionController::Parameters.new("preferred_name" => 'bogus') }
         let(:yields) { user }
         let(:callback_name) { :success }
         it 'will render the edit page' do
@@ -44,7 +44,7 @@ module Sipity
             yields: yields, callback_name: callback_name, run_with: { attributes: attributes }, context: controller
           )
         end
-        let(:attributes) { { 'preferred_name' => 'bogus' } }
+        let(:attributes) { ActionController::Parameters.new('preferred_name' => 'bogus') }
         before { controller.runner = runner }
         context 'on success' do
           let(:callback_name) { :success }
