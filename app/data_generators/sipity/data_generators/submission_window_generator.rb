@@ -76,7 +76,8 @@ module Sipity
       def find_or_resuse_or_create_processing_strategy!(submission_window:)
         return submission_window.processing_strategy if submission_window.processing_strategy
         strategy_usage = Models::Processing::StrategyUsage.where(
-          usage_id: work_area.submission_window_ids, usage_type: PowerConverter.convert(submission_window, to: :polymorphic_type)
+          usage_id: work_area.submission_window_ids,
+          usage_type: PowerConverter.convert(submission_window, to: :polymorphic_type).to_s
         ).first
         return strategy_usage.strategy if strategy_usage
         strategy = Models::Processing::Strategy.find_or_create_by!(

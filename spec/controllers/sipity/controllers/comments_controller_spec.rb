@@ -19,7 +19,7 @@ module Sipity
         let(:yields) { work }
         let(:callback_name) { :success }
         it 'will render the index page' do
-          get 'index', work_id: work.to_param
+          get 'index', params: { work_id: work.to_param }
           expect(assigns(:model)).to_not be_nil
           expect(response).to render_template('index')
         end

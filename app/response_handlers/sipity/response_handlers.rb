@@ -32,7 +32,7 @@ module Sipity
     private_class_method :handle_response
 
     def build_responder(container:, handled_response_status:)
-      container.qualified_const_get("#{handled_response_status.to_s.classify}Responder")
+      container.const_get("#{handled_response_status.to_s.classify}Responder")
     end
 
     # The default response handler for command line applications

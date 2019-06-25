@@ -19,10 +19,12 @@ module Sipity
           expect do
             get(
               'query_action',
-              work_area_slug: work_area.slug,
-              submission_window_slug: submission_window.slug,
-              processing_action_name: processing_action_name,
-              submission_window: { title: 'Hello' }
+              params: {
+                work_area_slug: work_area.slug,
+                submission_window_slug: submission_window.slug,
+                processing_action_name: processing_action_name,
+                submission_window: { title: 'Hello' }
+              }
             )
           end.to raise_error(ActionView::MissingTemplate, /query_action/) # Because auto-rendering
         end
@@ -35,10 +37,12 @@ module Sipity
           expect do
             get(
               'command_action',
-              work_area_slug: work_area.slug,
-              submission_window_slug: submission_window.slug,
-              processing_action_name: processing_action_name,
-              submission_window: { title: 'Hello' }
+              params: {
+                work_area_slug: work_area.slug,
+                submission_window_slug: submission_window.slug,
+                processing_action_name: processing_action_name,
+                submission_window: { title: 'Hello' }
+              }
             )
           end.to raise_error(ActionView::MissingTemplate, /command_action/) # Because auto-rendering
         end
