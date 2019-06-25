@@ -20,10 +20,10 @@ gem 'dry-schema'
 gem 'execjs'
 gem 'figaro'
 gem 'hesburgh-lib', github: 'ndlib/hesburgh-lib'
-gem 'jbuilder', '~> 2.0'
+gem 'jbuilder'
 gem 'jquery-rails'
 gem 'kaminari'
-gem 'listen', '~> 3.0.7' # Frozen for Ruby 2.2.2; Release once updated
+gem 'listen'
 gem 'locabulary', github: 'ndlib/locabulary', ref: 'b8ab510dce637d37229d001fedfbc6af1ab510f2'
 gem 'loofah' # Related to hesburgh-lib's dependency
 gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not loading ALL mime-types
@@ -31,11 +31,9 @@ gem 'noids_client', github: 'ndlib/noids_client'
 gem 'nokogiri'
 gem 'power_converter'
 gem 'rails', '~> 4.2'
-gem 'rdf-aggregate-repo', '~> 2.0.0'
-gem 'rdf-isomorphic', '~> 2.0.0' # Required by 2.1
-gem 'rdf-rdfa', '~> 2.0.1'
+gem 'rdf-rdfa'
 gem 'rdiscount'
-gem 'responders', '~> 2.0'
+gem 'responders'
 gem 'rof', github: 'ndlib/rof'
 gem 'sanitize'
 gem 'sass-rails'
@@ -89,7 +87,6 @@ end
 
 group :development, :test do
   gem 'commitment'
-  gem 'scss_lint', '~> 0.58', require: false
   gem 'jshintrb', github: 'ndlib/jshintrb', ref: 'f8cb0bd86ed9379acd50de871b3af9f8d251b977'
   gem 'pry-rescue', require: false
   gem 'pry-stack_explorer', require: false
@@ -105,10 +102,10 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'poltergeist'
-  gem 'rspec-html-matchers', '~>0.6'
+  gem 'rspec-html-matchers'
   gem 'selenium-webdriver'
   gem 'shoulda-callback-matchers'
-  gem 'shoulda-matchers', '~> 3.0.1'
+  gem 'shoulda-matchers'
   gem 'site_prism', require: false
   gem 'sqlite3', '~> 1.3.7'
 end

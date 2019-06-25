@@ -52,11 +52,11 @@ module Sipity
             end
           end
 
-          private
-
           def catalog_system_number=(input)
             @catalog_system_number = PowerConverter.convert(input, to: :catalog_system_number) { input }
           end
+
+          private
 
           def view_context
             Draper::ViewContext.current

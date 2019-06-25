@@ -45,11 +45,11 @@ module Sipity
 
           delegate :submit, to: :processing_action_form
 
-          private
-
           def agree_to_terms_of_deposit=(value)
             @agree_to_terms_of_deposit = PowerConverter.convert(value, to: :boolean)
           end
+
+          private
 
           def deposit_terms_legend
             view_context.t('ulra/submit_for_review', scope: 'sipity/forms.state_advancing_actions.legend').html_safe

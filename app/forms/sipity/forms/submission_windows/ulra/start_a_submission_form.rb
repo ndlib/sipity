@@ -9,7 +9,7 @@ module Sipity
         # What goes into this is more complicated that the entity might allow.
         class StartASubmissionForm
           ProcessingForm.configure(
-            attribute_names: [:title, :award_category, :advisor_netid, :advisor_name, :course_name, :course_number],
+            attribute_names: [:title, :award_category, :advisor_netid, :advisor_name, :course_name, :course_number, :work_type],
             base_class: Models::Work,
             form_class: self,
             policy_enforcer: Policies::SubmissionWindowPolicy,
@@ -26,7 +26,6 @@ module Sipity
           private
 
           attr_reader :work_area
-          attr_accessor :work_type
 
           public
 

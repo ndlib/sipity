@@ -82,8 +82,6 @@ module Sipity
             )
           end
 
-          private
-
           include Conversions::ConvertToDate
           def scheduled_time=(value)
             @scheduled_time = convert_to_date(value) { nil }
@@ -92,6 +90,8 @@ module Sipity
           def agree_to_signoff=(value)
             @agree_to_signoff = PowerConverter.convert(value, to: :boolean)
           end
+
+          private
 
           def view_context
             Draper::ViewContext.current
