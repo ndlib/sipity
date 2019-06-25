@@ -103,6 +103,7 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'poltergeist'
+  gem 'rails-controller-testing'
   gem 'rspec-html-matchers'
   gem 'selenium-webdriver'
   gem 'shoulda-callback-matchers'
