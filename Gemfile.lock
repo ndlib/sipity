@@ -729,7 +729,7 @@ DEPENDENCIES
   rb-readline
   rdf-rdfa
   rdiscount
-  responders (~> 2.0)
+  responders
   rof!
   rspec (~> 3.4)
   rspec-html-matchers
