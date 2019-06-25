@@ -78,7 +78,5 @@ module Sipity
     # config.i18n.default_locale = :de
 
     config.action_dispatch.rescue_responses['Sipity::Exceptions::AuthorizationFailureError'] = :unauthorized
-
-    config.active_record.raise_in_transactional_callbacks = true
   end
 end
