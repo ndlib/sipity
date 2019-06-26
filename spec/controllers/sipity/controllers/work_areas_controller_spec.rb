@@ -57,7 +57,8 @@ module Sipity
           # I don't want to mess around with all the possible actions
           post(
             'command_action',
-            params: { work_area_slug: work_area.slug,
+            params: {
+              work_area_slug: work_area.slug,
               processing_action_name: processing_action_name,
               work_area: { title: 'Hello' }
             }

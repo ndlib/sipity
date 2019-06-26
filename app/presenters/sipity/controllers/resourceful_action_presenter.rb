@@ -56,7 +56,7 @@ module Sipity
 
       def entry_point_text
         text = I18n.t("sipity/decorators/resourceful_actions.label.#{action_name}")
-        text = text + %(<meta itemprop="name" content="#{action_name}" />)
+        text += %(<meta itemprop="name" content="#{action_name}" />)
         text.html_safe
       end
 
