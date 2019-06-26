@@ -26,7 +26,7 @@ module Sipity
                 submission_window: { title: 'Hello' }
               }
             )
-          end.to raise_error(ActionView::MissingTemplate, /query_action/) # Because auto-rendering
+          end.to raise_error(ActionController::UnknownFormat) # Because auto-rendering
         end
       end
 
@@ -34,17 +34,16 @@ module Sipity
         let(:processing_action_name) { 'fun_things' }
         it 'will pass along to the response handler' do
           expect_any_instance_of(ProcessingActionComposer).to receive(:run_and_respond_with_processing_action)
-          expect do
-            get(
-              'command_action',
-              params: {
-                work_area_slug: work_area.slug,
-                submission_window_slug: submission_window.slug,
-                processing_action_name: processing_action_name,
-                submission_window: { title: 'Hello' }
-              }
-            )
-          end.to raise_error(ActionView::MissingTemplate, /command_action/) # Because auto-rendering
+          post(
+            'command_action',
+            params: {
+              work_area_slug: work_area.slug,
+              submission_window_slug: submission_window.slug,
+              processing_action_name: processing_action_name,
+              submission_window: { title: 'Hello' }
+            }
+          )
+          expect(response.status).to eq(204)
         end
       end
     end
