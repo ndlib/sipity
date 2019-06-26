@@ -14,6 +14,9 @@ module Sipity
             force_membership_to_these_usernames: force_membership_to_these_usernames
           )
         end
+        before do
+          allow_any_instance_of(User).to receive(:call_on_create_user_service).and_return(true)
+        end
         context 'when :force_membership_to_these_usernames is false' do
           let(:force_membership_to_these_usernames) { false }
           it 'will create the group if none exists otherwise it will re-use it' do
