@@ -57,4 +57,5 @@ Rails.application.configure do
 
   #Use random string for pid rather then using noid service
   config.default_pid_minter = -> { SecureRandom.urlsafe_base64(nil, true) }
+  config.active_record.sqlite3.represent_boolean_as_integer = false
 end

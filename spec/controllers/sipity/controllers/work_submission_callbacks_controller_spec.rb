@@ -45,9 +45,11 @@ module Sipity
           }
 
           expect(controller).to receive(:run_and_respond_with_processing_action).with(expected_parameters)
-
-          request.env['RAW_POST_DATA'] = json_body
-          post 'command_action', params: { work_id: work.to_param, processing_action_name: 'ingest_completed', format: :json }
+          post(
+            'command_action',
+            params: { work_id: work.to_param, processing_action_name: 'ingest_completed', format: :json },
+            body: json_body
+          )
         end
       end
 
