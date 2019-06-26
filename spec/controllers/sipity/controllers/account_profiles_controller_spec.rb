@@ -44,7 +44,7 @@ module Sipity
             yields: yields, callback_name: callback_name, run_with: { attributes: attributes }, context: controller
           )
         end
-        let(:attributes) { {'preferred_name' => 'bogus' } }
+        let(:attributes) { { 'preferred_name' => 'bogus' } }
         before { controller.runner = runner }
         context 'on success' do
           let(:callback_name) { :success }
