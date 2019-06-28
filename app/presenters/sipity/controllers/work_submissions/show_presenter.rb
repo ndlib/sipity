@@ -19,8 +19,9 @@ module Sipity
         def initialize(context, options = {})
           # Because controller actions may not cooperate and instead set a
           # :view_object.
+          options.stringify_keys!
           options['work_submission'] ||= options['view_object']
-          self.repository = options.fetch(:repository) { default_repository }
+          self.repository = options.fetch('repository') { default_repository }
           super
           self.processing_actions = compose_processing_actions
         end

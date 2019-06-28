@@ -14,6 +14,7 @@ module Sipity
           def initialize(context, options = {})
             self.repository = options.delete(:repository) { default_repository }
             self.translator = options.delete(:translator) { default_translator }
+            options.stringify_keys!
             # Because controller actions may not cooperate and instead set a
             # :view_object.
             options['work_area'] ||= options['view_object']
