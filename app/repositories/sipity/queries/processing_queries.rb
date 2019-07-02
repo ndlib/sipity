@@ -252,14 +252,14 @@ module Sipity
             users.project(
               users[:username]
             ).where(
-              users_scope.constraints.reduce.and(collaborators[:netid].not_eq(nil))
+              users_scope.arel.constraints.reduce.and(collaborators[:netid].not_eq(nil))
             )
           ).or(
             collaborators[:id].in(
               Models::Collaborator.arel_table.project(
                 non_user_collaborator_scope.arel_table[:id]
               ).where(
-                non_user_collaborator_scope.constraints.reduce
+                non_user_collaborator_scope.arel.constraints.reduce
               )
             )
           )
@@ -288,7 +288,7 @@ module Sipity
           strategy_actions_scope.arel_table[:id].in(
             strategy_state_actions_scope.arel_table.project(
               strategy_state_actions_scope.arel_table[:strategy_action_id]
-            ).where(strategy_state_actions_scope.constraints.reduce)
+            ).where(strategy_state_actions_scope.arel.constraints.reduce)
           )
         )
       end
@@ -381,14 +381,14 @@ module Sipity
             strategy_state_actions_scope.arel_table.project(
               strategy_state_actions_scope.arel_table[:strategy_action_id]
             ).where(
-              strategy_state_actions_scope.constraints.reduce
+              strategy_state_actions_scope.arel.constraints.reduce
             )
           ).and(
             strategy_actions.arel_table[:id].in(
               strategy_actions_for_current_state_scope.arel_table.project(
                 strategy_actions_for_current_state_scope.arel_table[:id]
               ).where(
-                strategy_actions_for_current_state_scope.constraints.reduce
+                strategy_actions_for_current_state_scope.arel.constraints.reduce
               )
             )
           )
@@ -952,11 +952,11 @@ module Sipity
         strategy_actions_for_current_state = scope_strategy_actions_for_current_state(entity: entity)
         actions = Models::Processing::StrategyAction
         actions.where(
-          strategy_actions_without_prerequisites.constraints.reduce.and(
-            strategy_actions_for_current_state.constraints.reduce
+          strategy_actions_without_prerequisites.arel.constraints.reduce.and(
+            strategy_actions_for_current_state.arel.constraints.reduce
           ).or(
-            strategy_actions_with_completed_prerequisites.constraints.reduce.and(
-              strategy_actions_for_current_state.constraints.reduce
+            strategy_actions_with_completed_prerequisites.arel.constraints.reduce.and(
+              strategy_actions_for_current_state.arel.constraints.reduce
             )
           )
         )
