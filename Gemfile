@@ -10,7 +10,7 @@ gem 'autoprefixer-rails'
 gem 'bigdecimal'
 gem 'bootstrap-sass'
 gem 'bundler', "~> 1.17"
-gem 'coffee-rails', '~> 4.0'
+gem 'coffee-rails'
 gem 'curly-templates', github: 'jeremyf/curly', branch: 'updated-sipity-hacks'
 gem 'data_migrator', github: 'jeremyf/data-migrator'
 gem 'devise_cas_authenticatable'
