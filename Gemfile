@@ -109,7 +109,7 @@ group :test do
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers'
   gem 'site_prism', require: false
-  gem 'sqlite3', '~> 1.3.7'
+  gem 'sqlite3'
 end
 
 group :production, :pre_production, :staging do
