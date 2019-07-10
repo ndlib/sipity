@@ -20,8 +20,8 @@ module Sipity
         it 'will will collaborate with the processing action composer' do
           expect_any_instance_of(ProcessingActionComposer).to receive(:run_and_respond_with_processing_action)
           expect do
-            get('work_area', work_area_slug: work_area.slug)
-          end.to raise_error(ActionView::MissingTemplate, /work_area/) # Because auto-rendering
+            get('work_area', params: { work_area_slug: work_area.slug })
+          end.to raise_error(ActionController::UnknownFormat) # Because auto-rendering
         end
       end
     end

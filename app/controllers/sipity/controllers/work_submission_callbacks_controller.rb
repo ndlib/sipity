@@ -46,11 +46,14 @@ module Sipity
       #
       # @see https://github.com/ndlib/curatend-batch/blob/master/webhook.md
       def command_attributes
-        params.fetch(:work) { HashWithIndifferentAccess.new }.merge(
-          normalized_attributes_for_existing_callback_constraints
-        ).merge(
-          request_body_attributes
-        )
+        command_attributes = params.fetch(:work) { ActionController::Parameters.new }
+        normalized_attributes_for_existing_callback_constraints.each_pair do |key, value|
+          command_attributes[key] = value
+        end
+        request_body_attributes.each_pair do |key, value|
+          command_attributes[key] = value
+        end
+        command_attributes
       end
 
       def normalized_attributes_for_existing_callback_constraints

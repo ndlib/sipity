@@ -19,7 +19,6 @@ require 'sipity/queries/processing_queries'
 module Sipity
   module Queries
     RSpec.describe ProcessingQueries, type: :isolated_repository_module do
-      include Conversions::ConvertToPolymorphicType
       let(:user) { User.find_or_create_by!(username: 'user') }
       let(:group) { Models::Group.find_or_create_by!(name: 'group') }
       let(:role) { Models::Role.find_or_create_by!(name: Models::Role.valid_names.first) }

@@ -3,7 +3,9 @@ cache: bundler
 sudo: false
 rvm:
   - "2.4.4"
-  - "2.5.1"
+  - "2.4.6"
+  - "2.5.4"
+  - "2.6.3"
 
 script: 'bundle exec rake spec:travis'
 

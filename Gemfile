@@ -10,7 +10,7 @@ gem 'autoprefixer-rails'
 gem 'bigdecimal'
 gem 'bootstrap-sass'
 gem 'bundler', "~> 1.17"
-gem 'coffee-rails', '~> 4.0'
+gem 'coffee-rails'
 gem 'curly-templates', github: 'jeremyf/curly', branch: 'updated-sipity-hacks'
 gem 'data_migrator', github: 'jeremyf/data-migrator'
 gem 'devise_cas_authenticatable'
@@ -31,7 +31,7 @@ gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not
 gem 'noids_client', github: 'ndlib/noids_client'
 gem 'nokogiri'
 gem 'power_converter'
-gem 'rails', '~> 4.2'
+gem 'rails', '~> 5.2.0'
 gem 'rdf-rdfa'
 gem 'rdiscount'
 gem 'responders'
@@ -103,12 +103,13 @@ group :test do
   gem 'database_cleaner'
   gem 'launchy'
   gem 'poltergeist'
+  gem 'rails-controller-testing'
   gem 'rspec-html-matchers'
   gem 'selenium-webdriver'
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers'
   gem 'site_prism', require: false
-  gem 'sqlite3', '~> 1.3.7'
+  gem 'sqlite3'
 end
 
 group :production, :pre_production, :staging do

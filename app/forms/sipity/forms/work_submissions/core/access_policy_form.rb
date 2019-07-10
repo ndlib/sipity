@@ -133,7 +133,6 @@ module Sipity
               }
             end
 
-            include Conversions::ConvertToPolymorphicType
             def entity_type
               # HACK: It would be nice if the possible objects, however the
               # collaboration of the objects related to this form are out of
@@ -141,7 +140,7 @@ module Sipity
               if persisted_object.respond_to?(:entity_type)
                 persisted_object.entity_type
               else
-                convert_to_polymorphic_type(persisted_object)
+                PowerConverter.convert(persisted_object, to: :polymorphic_type)
               end
             end
 

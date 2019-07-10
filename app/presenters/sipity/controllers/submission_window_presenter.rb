@@ -7,6 +7,7 @@ module Sipity
       def initialize(context, options = {})
         # Because controller actions may not cooperate and instead set a
         # :view_object.
+        options.stringify_keys!
         options['submission_window'] ||= options['view_object']
         super
         self.processing_actions = compose_processing_actions

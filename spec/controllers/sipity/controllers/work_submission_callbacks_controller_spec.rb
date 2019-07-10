@@ -26,26 +26,30 @@ module Sipity
             "host" => "libvirt6.library.nd.edu", "version" => "1.0.0", "job_name" => "sipity-44558c99h70", "job_state" => "success",
             "work_id" => "44558c99h70", "processing_action_name" => "ingest_completed", "work_submission" => {}
           }
-          expect_any_instance_of(ProcessingActionComposer).to receive(:run_and_respond_with_processing_action).with(
+
+          expected_parameters = {
             work_id: given_params.fetch('work_id'),
-            attributes: {
+            attributes: ActionController::Parameters.new(
               "host" => "libvirt6.library.nd.edu", "version" => "1.0.0", "job_name" => "sipity-44558c99h70", "job_state" => "success"
-            }
-          )
-          expect do
-            post 'command_action', given_params
-          end.to raise_error(ActionView::MissingTemplate, /command_action/) # Because auto-rendering
+            )
+          }
+          expect(controller).to receive(:run_and_respond_with_processing_action).with(expected_parameters)
+          post 'command_action', params: given_params
         end
 
         it 'will normalize posted body parameters' do
           json_body = '{"host":"curatewkrprod.library.nd.edu", "version":"1.1.4", "job_name":"sipity-44558c99h70", "job_state":"success"}'
-          expect_any_instance_of(ProcessingActionComposer).to receive(:run_and_respond_with_processing_action).with(
-            work_id: work.to_param, attributes: JSON.parse(json_body)
+          expected_parameters = {
+            work_id: work.to_param,
+            attributes: ActionController::Parameters.new(JSON.parse(json_body))
+          }
+
+          expect(controller).to receive(:run_and_respond_with_processing_action).with(expected_parameters)
+          post(
+            'command_action',
+            params: { work_id: work.to_param, processing_action_name: 'ingest_completed', format: :json },
+            body: json_body
           )
-          expect do
-            request.env['RAW_POST_DATA'] = json_body
-            post 'command_action', work_id: work.to_param, processing_action_name: 'ingest_completed', format: :json
-          end.to raise_error(ActionView::MissingTemplate, /command_action/) # Because auto-rendering
         end
       end
 
@@ -55,9 +59,7 @@ module Sipity
           expect_any_instance_of(ProcessingActionComposer).to receive(:run_and_respond_with_processing_action)
           expect(controller).to_not receive(:verify_authenticity_token)
           # I don't want to mess around with all the possible actions
-          expect do
-            post 'command_action', work_id: work.id, processing_action_name: processing_action_name, work: { title: 'Hello' }
-          end.to raise_error(ActionView::MissingTemplate, /command_action/) # Because auto-rendering
+          post 'command_action', params: { work_id: work.id, processing_action_name: processing_action_name, work: { title: 'Hello' } }
         end
       end
 
@@ -65,7 +67,7 @@ module Sipity
         let(:processing_action_name) { 'fun_things' }
         it 'will not be routable' do
           expect do
-            get 'query_action', work_id: work.id, processing_action_name: processing_action_name, work: { title: 'Hello' }
+            get 'query_action', params: { work_id: work.id, processing_action_name: processing_action_name, work: { title: 'Hello' } }
           end.to raise_error(ActionController::UrlGenerationError)
         end
       end

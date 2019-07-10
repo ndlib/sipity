@@ -16,19 +16,19 @@ module Sipity
         before do
           Models::Notification::NotifiableContext.create!(
             scope_for_notification_id: scope_for_notification.id,
-            scope_for_notification_type: Conversions::ConvertToPolymorphicType.call(scope_for_notification),
+            scope_for_notification_type: PowerConverter.convert(scope_for_notification, to: :polymorphic_type),
             reason_for_notification: reason_for_notification,
             email: email_to_send
           )
           Models::Notification::NotifiableContext.create!(
             scope_for_notification_id: scope_for_notification.id,
-            scope_for_notification_type: Conversions::ConvertToPolymorphicType.call(scope_for_notification),
+            scope_for_notification_type: PowerConverter.convert(scope_for_notification, to: :polymorphic_type),
             reason_for_notification: another_reason_for_notification,
             email: email_not_to_send
           )
           Models::Notification::NotifiableContext.create!(
             scope_for_notification_id: separate_scope_for_notification.id,
-            scope_for_notification_type: Conversions::ConvertToPolymorphicType.call(separate_scope_for_notification),
+            scope_for_notification_type: PowerConverter.convert(separate_scope_for_notification, to: :polymorphic_type),
             reason_for_notification: another_reason_for_notification,
             email: email_not_to_send
           )

@@ -52,9 +52,8 @@ module Sipity
         Controllers::TranslationAssistantForPolymorphicType
       end
 
-      include Conversions::ConvertToPolymorphicType
       def accessible_object=(object)
-        @entity_type = convert_to_polymorphic_type(object)
+        @entity_type = PowerConverter.convert(object, to: :polymorphic_type)
         @accessible_object = object
       end
 
@@ -65,7 +64,9 @@ module Sipity
 
       def access_right_object
         @access_right_object ||= begin
-          access_right = Models::AccessRight.find_or_initialize_by(entity_id: entity_id, entity_type: entity_type)
+          access_right = Models::AccessRight.find_or_initialize_by(
+            entity_id: entity_id, entity_type: entity_type.to_s
+          )
           assign_work_access_right_code_if_none_is_set(access_right)
           access_right
         end
@@ -73,7 +74,10 @@ module Sipity
 
       def assign_work_access_right_code_if_none_is_set(access_right)
         return true if access_right.access_right_code?
-        work_access_right = Models::AccessRight.find_or_initialize_by(entity_id: work.id, entity_type: convert_to_polymorphic_type(work))
+        work_access_right = Models::AccessRight.find_or_initialize_by(
+          entity_id: work.id,
+          entity_type: PowerConverter.convert(work, to: :polymorphic_type).to_s
+        )
         access_right.access_right_code = work_access_right.access_right_code
         access_right.release_date = work_access_right.release_date
         access_right

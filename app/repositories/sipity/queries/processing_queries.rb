@@ -39,7 +39,7 @@ module Sipity
       # @return [Array<String>] name of actions available
       def processing_state_names_for_select_within_work_area(work_area:, usage_type: Sipity::Models::WorkType)
         work_area = PowerConverter.convert(work_area, to: :work_area)
-        usage_type = Conversions::ConvertToPolymorphicType.call(usage_type)
+        usage_type = PowerConverter.convert(usage_type, to: :polymorphic_type)
 
         strategy_states = Models::Processing::StrategyState.arel_table
         strategy_usages = Models::Processing::StrategyUsage.arel_table
@@ -200,7 +200,7 @@ module Sipity
         action_registers = Models::Processing::EntityActionRegister.arel_table
         entity = Conversions::ConvertToProcessingEntity.call(entity)
         actions = Array.wrap(actions) { |an_action| Conversions::ConvertToProcessingAction.call(an_action, scope: entity) }
-        poly_type = Conversions::ConvertToPolymorphicType.call(poly_type)
+        poly_type = PowerConverter.convert(poly_type, to: :polymorphic_type)
 
         actors.project(actors[:proxy_for_id]).where(
           actors[:proxy_for_type].eq(poly_type)
@@ -252,14 +252,14 @@ module Sipity
             users.project(
               users[:username]
             ).where(
-              users_scope.constraints.reduce.and(collaborators[:netid].not_eq(nil))
+              users_scope.arel.constraints.reduce.and(collaborators[:netid].not_eq(nil))
             )
           ).or(
             collaborators[:id].in(
               Models::Collaborator.arel_table.project(
                 non_user_collaborator_scope.arel_table[:id]
               ).where(
-                non_user_collaborator_scope.constraints.reduce
+                non_user_collaborator_scope.arel.constraints.reduce
               )
             )
           )
@@ -288,7 +288,7 @@ module Sipity
           strategy_actions_scope.arel_table[:id].in(
             strategy_state_actions_scope.arel_table.project(
               strategy_state_actions_scope.arel_table[:strategy_action_id]
-            ).where(strategy_state_actions_scope.constraints.reduce)
+            ).where(strategy_state_actions_scope.arel.constraints.reduce)
           )
         )
       end
@@ -381,14 +381,14 @@ module Sipity
             strategy_state_actions_scope.arel_table.project(
               strategy_state_actions_scope.arel_table[:strategy_action_id]
             ).where(
-              strategy_state_actions_scope.constraints.reduce
+              strategy_state_actions_scope.arel.constraints.reduce
             )
           ).and(
             strategy_actions.arel_table[:id].in(
               strategy_actions_for_current_state_scope.arel_table.project(
                 strategy_actions_for_current_state_scope.arel_table[:id]
               ).where(
-                strategy_actions_for_current_state_scope.constraints.reduce
+                strategy_actions_for_current_state_scope.arel.constraints.reduce
               )
             )
           )
@@ -412,8 +412,8 @@ module Sipity
         memb_table = Models::GroupMembership.arel_table
         actor_table = Models::Processing::Actor.arel_table
 
-        group_polymorphic_type = Conversions::ConvertToPolymorphicType.call(Models::Group)
-        user_polymorphic_type = Conversions::ConvertToPolymorphicType.call(User)
+        group_polymorphic_type = PowerConverter.convert(Models::Group, to: :polymorphic_type)
+        user_polymorphic_type = PowerConverter.convert(User, to: :polymorphic_type)
         actor = Conversions::ConvertToProcessingActor.call(user)
 
         if actor.proxy_for_type.to_s == user_polymorphic_type.to_s
@@ -454,7 +454,7 @@ module Sipity
       #
       # @return [ActiveRecord::Relation<proxy_for_types>]
       def scope_proxied_objects_for_the_user_and_proxy_for_type(criteria:)
-        proxy_for_type = Conversions::ConvertToPolymorphicType.call(criteria.proxy_for_type)
+        proxy_for_type = PowerConverter.convert(criteria.proxy_for_type, to: :polymorphic_type)
         permission_scope = scope_processing_entities_for_the_user_and_proxy_for_type(criteria: criteria)
 
         scope = proxy_for_type.where(
@@ -493,7 +493,7 @@ module Sipity
       #
       # @return [ActiveRecord::Relation<Models::Processing::Entity>]
       def scope_processing_entities_for_the_user_and_proxy_for_type(criteria:)
-        proxy_for_type = Conversions::ConvertToPolymorphicType.call(criteria.proxy_for_type)
+        proxy_for_type = PowerConverter.convert(criteria.proxy_for_type, to: :polymorphic_type)
 
         entities = Models::Processing::Entity.arel_table
         strategy_state_actions = Models::Processing::StrategyStateAction.arel_table
@@ -600,8 +600,8 @@ module Sipity
       def scope_users_for_entity_and_roles(entity:, roles:)
         entity = Conversions::ConvertToProcessingEntity.call(entity)
         role_ids = Array.wrap(roles).map { |role| Conversions::ConvertToRole.call(role).id }
-        group_polymorphic_type = Conversions::ConvertToPolymorphicType.call(Models::Group)
-        user_polymorphic_type = Conversions::ConvertToPolymorphicType.call(User)
+        group_polymorphic_type = PowerConverter.convert(Models::Group, to: :polymorphic_type)
+        user_polymorphic_type = PowerConverter.convert(User, to: :polymorphic_type)
 
         strategy_roles = Models::Processing::StrategyRole.arel_table
         strategy_responsibilities = Models::Processing::StrategyResponsibility.arel_table
@@ -952,11 +952,11 @@ module Sipity
         strategy_actions_for_current_state = scope_strategy_actions_for_current_state(entity: entity)
         actions = Models::Processing::StrategyAction
         actions.where(
-          strategy_actions_without_prerequisites.constraints.reduce.and(
-            strategy_actions_for_current_state.constraints.reduce
+          strategy_actions_without_prerequisites.arel.constraints.reduce.and(
+            strategy_actions_for_current_state.arel.constraints.reduce
           ).or(
-            strategy_actions_with_completed_prerequisites.constraints.reduce.and(
-              strategy_actions_for_current_state.constraints.reduce
+            strategy_actions_with_completed_prerequisites.arel.constraints.reduce.and(
+              strategy_actions_for_current_state.arel.constraints.reduce
             )
           )
         )

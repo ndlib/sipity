@@ -39,11 +39,13 @@ module Sipity
           expect do
             get(
               'query_action',
-              work_area_slug: work_area.slug,
-              processing_action_name: processing_action_name,
-              work_area: { title: 'Hello' }
+              params: {
+                work_area_slug: work_area.slug,
+                processing_action_name: processing_action_name,
+                work_area: { title: 'Hello' }
+              }
             )
-          end.to raise_error(ActionView::MissingTemplate, /query_action/) # Because auto-rendering
+          end.to raise_error(ActionController::UnknownFormat) # Because of default rendering
         end
       end
 
@@ -53,14 +55,14 @@ module Sipity
           expect_any_instance_of(ProcessingActionComposer).to receive(:run_and_respond_with_processing_action)
 
           # I don't want to mess around with all the possible actions
-          expect do
-            post(
-              'command_action',
+          post(
+            'command_action',
+            params: {
               work_area_slug: work_area.slug,
               processing_action_name: processing_action_name,
               work_area: { title: 'Hello' }
-            )
-          end.to raise_error(ActionView::MissingTemplate, /command_action/) # Because auto-rendering
+            }
+          )
         end
       end
     end
