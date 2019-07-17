@@ -12,7 +12,7 @@ module Sipity
       end
 
       it 'will extract based on Rails convention' do
-        attributes = { 'defense_date(1i)' => '2014', 'defense_date(2i)' => '11', 'defense_date(3i)' => '28' }
+        attributes = ActionController::Parameters.new('defense_date(1i)' => '2014', 'defense_date(2i)' => '11', 'defense_date(3i)' => '28')
         expect(extract_input_date_from_input(:defense_date, attributes)).to eq('2014-11-28')
       end
 
