@@ -1,4 +1,4 @@
-class CreateSipityModelsProcessingStrategyActionPrerequisites < ActiveRecord::Migration
+class CreateSipityModelsProcessingStrategyActionPrerequisites < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_processing_strategy_action_prerequisites do |t|
       t.integer :guarded_strategy_action_id

@@ -1,4 +1,4 @@
-class AddAdditionalCollaboratorAttributes < ActiveRecord::Migration
+class AddAdditionalCollaboratorAttributes < ActiveRecord::Migration[4.2]
   def change
     # I'm opting to call it netid instead of net_id so as to not imply
     # this is a foreign key

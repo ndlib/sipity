@@ -1,4 +1,4 @@
-class UpdateFacultyAttachmentPredicate < ActiveRecord::Migration
+class UpdateFacultyAttachmentPredicate < ActiveRecord::Migration[4.2]
   def self.up
     Sipity::Models::AdditionalAttribute.
       where(key: 'faculty_comments_attachment').

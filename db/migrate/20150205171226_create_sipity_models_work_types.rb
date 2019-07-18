@@ -1,4 +1,4 @@
-class CreateSipityModelsWorkTypes < ActiveRecord::Migration
+class CreateSipityModelsWorkTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_work_types do |t|
       t.string :name, null: false

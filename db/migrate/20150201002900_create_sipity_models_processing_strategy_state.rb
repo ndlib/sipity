@@ -1,4 +1,4 @@
-class CreateSipityModelsProcessingStrategyState < ActiveRecord::Migration
+class CreateSipityModelsProcessingStrategyState < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_processing_strategy_states do |t|
       t.integer :strategy_id, null: false

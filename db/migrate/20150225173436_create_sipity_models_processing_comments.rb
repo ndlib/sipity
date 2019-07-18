@@ -1,4 +1,4 @@
-class CreateSipityModelsProcessingComments < ActiveRecord::Migration
+class CreateSipityModelsProcessingComments < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_processing_comments do |t|
       t.string :entity_id, limit: 32

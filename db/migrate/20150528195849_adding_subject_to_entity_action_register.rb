@@ -1,4 +1,4 @@
-class AddingSubjectToEntityActionRegister < ActiveRecord::Migration
+class AddingSubjectToEntityActionRegister < ActiveRecord::Migration[4.2]
   def change
     add_column :sipity_processing_entity_action_registers, :subject_id, :integer
     add_column :sipity_processing_entity_action_registers, :subject_type, :string

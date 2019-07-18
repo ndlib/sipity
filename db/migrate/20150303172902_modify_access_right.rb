@@ -1,4 +1,4 @@
-class ModifyAccessRight < ActiveRecord::Migration
+class ModifyAccessRight < ActiveRecord::Migration[4.2]
   def change
     drop_table :sipity_access_rights
 

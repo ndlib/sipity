@@ -1,4 +1,4 @@
-class AddRequestorToEventLogs < ActiveRecord::Migration
+class AddRequestorToEventLogs < ActiveRecord::Migration[4.2]
   def change
     add_column 'sipity_event_logs', 'requested_by_id', 'integer'
     add_column 'sipity_event_logs', 'requested_by_type', 'string'

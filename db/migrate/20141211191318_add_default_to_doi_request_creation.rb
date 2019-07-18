@@ -1,4 +1,4 @@
-class AddDefaultToDoiRequestCreation < ActiveRecord::Migration
+class AddDefaultToDoiRequestCreation < ActiveRecord::Migration[4.2]
   def change
     # I'm using a magic string because I don't want to load the class and
     # create all kinds of load issues.

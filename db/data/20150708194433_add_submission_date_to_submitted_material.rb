@@ -1,4 +1,4 @@
-class AddSubmissionDateToSubmittedMaterial < ActiveRecord::Migration
+class AddSubmissionDateToSubmittedMaterial < ActiveRecord::Migration[4.2]
   def self.up
     repository = Sipity::CommandRepository.new
     previous_entity = nil

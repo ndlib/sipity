@@ -1,4 +1,4 @@
-class ConvertActionRegisterSubjectIdColumn < ActiveRecord::Migration
+class ConvertActionRegisterSubjectIdColumn < ActiveRecord::Migration[4.2]
   def change
     change_table :sipity_processing_entity_action_registers do |t|
       t.change :subject_id, :string, default: nil

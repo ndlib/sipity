@@ -1,4 +1,4 @@
-class ApplyAllUserGroupToUsers < ActiveRecord::Migration
+class ApplyAllUserGroupToUsers < ActiveRecord::Migration[4.2]
   def self.up
     #add existing users to that group (unless they are already there)
     User.find_each do |user|

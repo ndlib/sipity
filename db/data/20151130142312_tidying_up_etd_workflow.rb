@@ -1,4 +1,4 @@
-class TidyingUpEtdWorkflow < ActiveRecord::Migration
+class TidyingUpEtdWorkflow < ActiveRecord::Migration[4.2]
   def self.up
     # Removing deprecated states but only if all is clear
     Sipity::Models::Processing::StrategyState.where(name: 'under_grad_school_review_with_changes').each do |state|

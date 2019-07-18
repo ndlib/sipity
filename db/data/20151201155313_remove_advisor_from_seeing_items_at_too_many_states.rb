@@ -1,4 +1,4 @@
-class RemoveAdvisorFromSeeingItemsAtTooManyStates < ActiveRecord::Migration
+class RemoveAdvisorFromSeeingItemsAtTooManyStates < ActiveRecord::Migration[4.2]
   # Removing permission for advisors to see the ETDs at far later states
   def self.up
     [

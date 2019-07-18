@@ -1,4 +1,4 @@
-class AddNetIdToDevise < ActiveRecord::Migration
+class AddNetIdToDevise < ActiveRecord::Migration[4.2]
   def change
     add_column :users, :username, :string
     change_column_null :users, :username, false

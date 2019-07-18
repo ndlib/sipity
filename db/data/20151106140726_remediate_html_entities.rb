@@ -1,4 +1,4 @@
-class RemediateHtmlEntities < ActiveRecord::Migration
+class RemediateHtmlEntities < ActiveRecord::Migration[4.2]
   def self.up
     model = Sipity::Models::AdditionalAttribute
     model.find_each do |additional_attribute|

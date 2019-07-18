@@ -1,4 +1,4 @@
-class CreateSipityModelsAccessRights < ActiveRecord::Migration
+class CreateSipityModelsAccessRights < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_access_rights do |t|
       t.string :entity_id, limit: 32

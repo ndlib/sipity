@@ -1,4 +1,4 @@
-class AddOpenDateAndClosedDateToSubmissionWindow < ActiveRecord::Migration
+class AddOpenDateAndClosedDateToSubmissionWindow < ActiveRecord::Migration[4.2]
   def change
     add_column :sipity_submission_windows, :open_for_starting_submissions_at, :datetime
     add_column :sipity_submission_windows, :closed_for_starting_submissions_at, :datetime

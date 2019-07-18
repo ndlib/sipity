@@ -1,4 +1,4 @@
-class CreateSipityModelsProcessingActors < ActiveRecord::Migration
+class CreateSipityModelsProcessingActors < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_processing_actors do |t|
       t.string :proxy_for_id, limit: 32, null: false
