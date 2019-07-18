@@ -32,6 +32,10 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
+  # NOTE: During testing, the app-under-test that the browser driver connects to
+  #  uses a different database connection to the database connection used by
+  #  the spec. The app's database connection would not be able to access
+  #  uncommitted transaction data setup over the spec's database connection.
   config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests

@@ -639,7 +639,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.1)
     sshkit (1.19.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -774,7 +773,6 @@ DEPENDENCIES
   site_prism
   spring
   spring-commands-rspec
-  sqlite3
   terminal-notifier
   terminal-notifier-guard (~> 1.6.4)
   therubyracer
