@@ -41,11 +41,11 @@ module Sipity
         end
 
         let!(:comments) do
-          # Creating comments for various points along the way; Not we don't care about originating strategy state
+          # Creating comments for various points along the way; Note we don't care about originating strategy state
           # Just what was the action taken as part of this comment.
           (1..4).collect do |index|
             Models::Processing::Comment.create!(
-              originating_strategy_state_id: index, originating_strategy_action_id: (index % actions.size + 1),
+              originating_strategy_state_id: index, originating_strategy_action_id: actions[(index % actions.size)].id,
               entity_id: entity.id, actor_id: 99, comment: "Comment #{index}",
               stale: (index % 3).zero?
             )
