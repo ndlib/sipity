@@ -55,7 +55,7 @@ module Sipity
           end
 
           it 'will validate each of the given attributes' do
-            invalid_attributes = { "0" => { id: work.to_param, access_right_code: 'chici chici parm parm' } }
+            invalid_attributes = ActionController::Parameters.new("0" => { id: work.to_param, access_right_code: 'chici chici parm parm' })
             subject = described_class.new(keywords.merge(attributes: { accessible_objects_attributes: invalid_attributes }))
             subject.valid?
             expect(subject.errors[:accessible_objects_attributes]).to be_present
