@@ -377,7 +377,7 @@ ActiveRecord::Schema.define(version: 2016_04_20_133504) do
     t.string "demodulized_class_prefix_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
+    t.string "name", null: false
     t.index ["name"], name: "index_sipity_work_areas_on_name", unique: true
     t.index ["slug"], name: "index_sipity_work_areas_on_slug", unique: true
   end
