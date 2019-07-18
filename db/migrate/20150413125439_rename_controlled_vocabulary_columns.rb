@@ -1,4 +1,4 @@
-class RenameControlledVocabularyColumns < ActiveRecord::Migration
+class RenameControlledVocabularyColumns < ActiveRecord::Migration[4.2]
   def change
     rename_column :sipity_simple_controlled_vocabularies, :predicate_value, :term_label
     rename_column :sipity_simple_controlled_vocabularies, :predicate_value_code, :term_uri

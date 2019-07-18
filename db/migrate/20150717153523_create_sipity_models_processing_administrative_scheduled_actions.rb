@@ -1,4 +1,4 @@
-class CreateSipityModelsProcessingAdministrativeScheduledActions < ActiveRecord::Migration
+class CreateSipityModelsProcessingAdministrativeScheduledActions < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_models_processing_administrative_scheduled_actions do |t|
       t.datetime :scheduled_time, null: false

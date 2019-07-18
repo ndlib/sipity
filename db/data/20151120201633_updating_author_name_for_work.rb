@@ -1,4 +1,4 @@
-class UpdatingAuthorNameForWork < ActiveRecord::Migration
+class UpdatingAuthorNameForWork < ActiveRecord::Migration[4.2]
   def self.up
     work_area = PowerConverter.convert('etd', to: :work_area)
     repository = Sipity::CommandRepository.new

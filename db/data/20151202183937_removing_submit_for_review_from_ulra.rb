@@ -1,4 +1,4 @@
-class RemovingSubmitForReviewFromUlra < ActiveRecord::Migration
+class RemovingSubmitForReviewFromUlra < ActiveRecord::Migration[4.2]
   def self.up
     work_type = Sipity::Models::WorkType[Sipity::Models::WorkType::ULRA_SUBMISSION]
     strategy = work_type.strategy_usage.strategy

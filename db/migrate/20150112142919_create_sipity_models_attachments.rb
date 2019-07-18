@@ -1,4 +1,4 @@
-class CreateSipityModelsAttachments < ActiveRecord::Migration
+class CreateSipityModelsAttachments < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_attachments, id: false do |t|
       t.string :work_id, limit: 32

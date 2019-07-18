@@ -1,4 +1,4 @@
-class CreateSipityModelsWorkRedirectStrategies < ActiveRecord::Migration
+class CreateSipityModelsWorkRedirectStrategies < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_work_redirect_strategies do |t|
       t.string :work_id, null: false

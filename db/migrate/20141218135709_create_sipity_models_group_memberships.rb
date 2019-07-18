@@ -1,4 +1,4 @@
-class CreateSipityModelsGroupMemberships < ActiveRecord::Migration
+class CreateSipityModelsGroupMemberships < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_group_memberships do |t|
       t.integer :user_id

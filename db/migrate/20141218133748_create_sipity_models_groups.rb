@@ -1,4 +1,4 @@
-class CreateSipityModelsGroups < ActiveRecord::Migration
+class CreateSipityModelsGroups < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_groups do |t|
       t.string :name

@@ -1,4 +1,4 @@
-class CreateSipityModelsSimpleControlledVocabularies < ActiveRecord::Migration
+class CreateSipityModelsSimpleControlledVocabularies < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_simple_controlled_vocabularies do |t|
       t.string :predicate_name

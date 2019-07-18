@@ -1,4 +1,4 @@
-class CreateSipityWorks < ActiveRecord::Migration
+class CreateSipityWorks < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_works, id: false do |t|
       t.string :id, limit: 32

@@ -1,4 +1,4 @@
-class CreateSipityEventLogs < ActiveRecord::Migration
+class CreateSipityEventLogs < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_event_logs do |t|
       t.integer :user_id, index: true

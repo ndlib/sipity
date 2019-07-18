@@ -1,4 +1,4 @@
-class CreateSipityModelsWorkSubmissions < ActiveRecord::Migration
+class CreateSipityModelsWorkSubmissions < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_work_submissions, id: false do |t|
       t.integer :work_area_id, null: false

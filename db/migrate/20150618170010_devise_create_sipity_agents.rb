@@ -1,4 +1,4 @@
-class DeviseCreateSipityAgents < ActiveRecord::Migration
+class DeviseCreateSipityAgents < ActiveRecord::Migration[4.2]
   def change
     create_table(:sipity_agents) do |t|
       ## Database authenticatable

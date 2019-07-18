@@ -1,4 +1,4 @@
-class CreateSipityAccountPlaceholders < ActiveRecord::Migration
+class CreateSipityAccountPlaceholders < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_account_placeholders do |t|
       t.string :identifier

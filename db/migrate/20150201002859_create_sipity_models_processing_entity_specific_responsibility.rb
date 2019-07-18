@@ -1,4 +1,4 @@
-class CreateSipityModelsProcessingEntitySpecificResponsibility < ActiveRecord::Migration
+class CreateSipityModelsProcessingEntitySpecificResponsibility < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_processing_entity_specific_responsibilities do |t|
       t.integer :strategy_role_id, null: false
