@@ -1,4 +1,4 @@
-class RemoveFacultyAbilityToUpdateAccessPolicy < ActiveRecord::Migration
+class RemoveFacultyAbilityToUpdateAccessPolicy < ActiveRecord::Migration[4.2]
   def self.up
     advising_role = Sipity::Models::Role['advising']
     advising_role.processing_strategy_roles.find_each do |strategy_role|

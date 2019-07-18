@@ -1,4 +1,4 @@
-class AddingRequestedByAndOnBehalfOfToEntityActionRegister < ActiveRecord::Migration
+class AddingRequestedByAndOnBehalfOfToEntityActionRegister < ActiveRecord::Migration[4.2]
   def change
     add_column :sipity_processing_entity_action_registers, :requested_by_actor_id, :integer
     add_column :sipity_processing_entity_action_registers, :on_behalf_of_actor_id, :integer

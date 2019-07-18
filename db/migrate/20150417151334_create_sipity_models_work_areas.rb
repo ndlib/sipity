@@ -1,4 +1,4 @@
-class CreateSipityModelsWorkAreas < ActiveRecord::Migration
+class CreateSipityModelsWorkAreas < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_work_areas do |t|
       t.string :slug, null: false, unique: true

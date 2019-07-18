@@ -1,4 +1,4 @@
-class AddEtdReviewerSignoffDateToSubmittedMaterial < ActiveRecord::Migration
+class AddEtdReviewerSignoffDateToSubmittedMaterial < ActiveRecord::Migration[4.2]
   def self.up
     def self.up
       repository = Sipity::CommandRepository.new

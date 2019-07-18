@@ -1,4 +1,4 @@
-class RemoveGradSchoolRequestsCatalogingForActionTaken < ActiveRecord::Migration
+class RemoveGradSchoolRequestsCatalogingForActionTaken < ActiveRecord::Migration[4.2]
   def self.up
     Sipity::Models::Notification::Email.where(method_name: 'grad_school_requests_cataloging').each do |email|
       email.notifiable_contexts.where(

@@ -1,4 +1,4 @@
-class CreateSipityModelsNotificationEmailRecipients < ActiveRecord::Migration
+class CreateSipityModelsNotificationEmailRecipients < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_notification_email_recipients do |t|
       t.integer :email_id, null: false

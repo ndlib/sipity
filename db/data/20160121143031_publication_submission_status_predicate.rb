@@ -1,4 +1,4 @@
-class PublicationSubmissionStatusPredicate < ActiveRecord::Migration
+class PublicationSubmissionStatusPredicate < ActiveRecord::Migration[4.2]
   def self.up
     Sipity::Models::AdditionalAttribute.
       where(key: 'submission_accepted_for_publication').

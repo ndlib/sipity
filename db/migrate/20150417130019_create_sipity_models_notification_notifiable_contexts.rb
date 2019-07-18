@@ -1,4 +1,4 @@
-class CreateSipityModelsNotificationNotifiableContexts < ActiveRecord::Migration
+class CreateSipityModelsNotificationNotifiableContexts < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_notification_notifiable_contexts do |t|
       t.integer :scope_for_notification_id, null: false

@@ -1,4 +1,4 @@
-class CreateSipityModelsRoles < ActiveRecord::Migration
+class CreateSipityModelsRoles < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_roles do |t|
       t.string :name, null: false

@@ -515,12 +515,12 @@ module Sipity
           Services::ActionTakenOnEntity.register(entity: entity, action: action, requested_by: user)
           Services::ActionTakenOnEntity.register(entity: entity, action: action, requested_by: group)
           Services::ActionTakenOnEntity.register(entity: entity, action: action, requested_by: acting_via_email_collaborator)
-          expect(subject.pluck(:name)).to eq(
+          expect(subject.pluck(:name).sort).to eq(
             [
               user_acting_collaborator.name,
               acting_via_email_collaborator.name,
               group_collaborator.name
-            ]
+            ].sort
           )
         end
       end

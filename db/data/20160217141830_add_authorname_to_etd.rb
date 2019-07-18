@@ -1,4 +1,4 @@
-class AddAuthornameToEtd < ActiveRecord::Migration
+class AddAuthornameToEtd < ActiveRecord::Migration[4.2]
   def self.up
     repository = Sipity::CommandRepository.new
 

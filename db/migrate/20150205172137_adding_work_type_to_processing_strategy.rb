@@ -1,4 +1,4 @@
-class AddingWorkTypeToProcessingStrategy < ActiveRecord::Migration
+class AddingWorkTypeToProcessingStrategy < ActiveRecord::Migration[4.2]
   def change
     add_column :sipity_processing_strategies, :proxy_for_id, :integer
     add_column :sipity_processing_strategies, :proxy_for_type, :string

@@ -1,4 +1,4 @@
-class CreateSipityCollaborators < ActiveRecord::Migration
+class CreateSipityCollaborators < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_collaborators do |t|
       t.string :work_id, limit: 32

@@ -22,6 +22,28 @@ require_relative './support/sipity/rspec_matchers'
 require 'shoulda/matchers'
 
 RSpec.configure do |config|
+  # In switching the test database from sqlite3 to mysql, so that the
+  # test database aligns with the production and development database,
+  # I need to expose a means of emulating behavior of the sqlite3
+  # ecosystem. Namely that the ID counters would reset between tests.
+  # The below declaration ensures that behavior continues.
+  config.before(:suite) do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation, pre_count: true, reset_ids: true, cache_tables: true)
+  end
+
+  config.around(:each) do |example|
+    DatabaseCleaner.cleaning do
+      example.run
+    end
+  end
+
+  # NOTE: During testing, the app-under-test that the browser driver connects to
+  #  uses a different database connection to the database connection used by
+  #  the spec. The app's database connection would not be able to access
+  #  uncommitted transaction data setup over the spec's database connection.
+  config.use_transactional_fixtures = false
+
   config.include RSpecHtmlMatchers
   config.include Sipity::RSpecMatchers
   config.include Shoulda::Matchers::ActiveRecord, type: :model

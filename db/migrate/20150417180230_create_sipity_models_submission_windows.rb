@@ -1,4 +1,4 @@
-class CreateSipityModelsSubmissionWindows < ActiveRecord::Migration
+class CreateSipityModelsSubmissionWindows < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_submission_windows do |t|
       t.integer :work_area_id, null: false, index: true

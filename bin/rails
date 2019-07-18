@@ -1,31 +1,12 @@
 #!/usr/bin/env ruby
 
-if ENV['SSL'] == "true"
-  require 'rails/commands/server'
-  require 'rack'
-  require 'webrick'
-  require 'webrick/https'
-
-  module Rails
-      class Server < ::Rack::Server
-          def default_options
-              super.merge({
-                  :Port => 3000,
-                  :environment => (ENV['RAILS_ENV'] || "development").dup,
-                  :daemonize => false,
-                  :debugger => false,
-                  :pid => File.expand_path("tmp/pids/server.pid"),
-                  :config => File.expand_path("config.ru"),
-                  :SSLEnable => true,
-                  :SSLVerifyClient => OpenSSL::SSL::VERIFY_NONE,
-                  :SSLPrivateKey => OpenSSL::PKey::RSA.new(
-                                   File.open("dev_server_keys/server.key").read),
-                  :SSLCertificate => OpenSSL::X509::Certificate.new(
-                                   File.open("dev_server_keys/server.crt").read),
-                  :SSLCertName => [["CN", WEBrick::Utils::getservername]],
-              })
-          end
-      end
+# We attempting to run the Rails server under SSL
+if ENV['SSL'] == "true" && ARGV.index("s") || ARGV.index("server")
+  if ARGV.index("-b")
+    $stdout.puts "You've specified a binding IP. I suspect it includes the SSL information"
+  else
+    $stdout.puts "Injecting SSL on port 3000. If you chose a different port than 3000, consider using port 3000 for HTTPS"
+    ARGV += ["-b", "ssl://localhost:3000?key=dev_server_keys/server.key&cert=dev_server_keys/server.crt"]
   end
 end
 

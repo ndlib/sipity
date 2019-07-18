@@ -28,6 +28,7 @@ gem 'listen'
 gem 'locabulary', github: 'ndlib/locabulary', ref: 'b8ab510dce637d37229d001fedfbc6af1ab510f2'
 gem 'loofah' # Related to hesburgh-lib's dependency
 gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not loading ALL mime-types
+gem 'mysql2', '0.4.8'
 gem 'noids_client', github: 'ndlib/noids_client'
 gem 'nokogiri'
 gem 'power_converter'
@@ -57,7 +58,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
-  gem 'byebug', '9.0.6', require: false
+  gem 'byebug'
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
@@ -72,6 +73,7 @@ group :development do
   gem 'letter_opener'
   gem 'pry-byebug', '~> 3.4.0', require: false
   gem 'pry-rails', require: false
+  gem 'puma', '~> 3.11'
   gem 'rails_layout'
   gem 'rb-fchange', require: false
   gem 'rb-fsevent', require: false
@@ -109,7 +111,6 @@ group :test do
   gem 'shoulda-callback-matchers'
   gem 'shoulda-matchers'
   gem 'site_prism', require: false
-  gem 'sqlite3'
 end
 
 group :production, :pre_production, :staging do
@@ -120,10 +121,6 @@ group :production, :pre_production, :staging do
 end
 source 'https://rails-assets.org' do
   gem 'rails-assets-readmore'
-end
-
-group :production, :pre_production, :staging, :development do
-  gem 'mysql2', '0.4.8'
 end
 
 # Removing until I have a non-pro license

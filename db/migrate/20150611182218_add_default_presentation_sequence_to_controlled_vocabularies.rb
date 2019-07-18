@@ -1,4 +1,4 @@
-class AddDefaultPresentationSequenceToControlledVocabularies < ActiveRecord::Migration
+class AddDefaultPresentationSequenceToControlledVocabularies < ActiveRecord::Migration[4.2]
   def change
     add_column 'sipity_simple_controlled_vocabularies', 'default_presentation_sequence', :integer
 

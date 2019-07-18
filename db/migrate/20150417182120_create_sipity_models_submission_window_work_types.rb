@@ -1,4 +1,4 @@
-class CreateSipityModelsSubmissionWindowWorkTypes < ActiveRecord::Migration
+class CreateSipityModelsSubmissionWindowWorkTypes < ActiveRecord::Migration[4.2]
   def change
     create_table :sipity_submission_window_work_types do |t|
       t.integer :submission_window_id, null: false

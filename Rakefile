@@ -62,6 +62,8 @@ if defined?(RSpec)
       'commitment:rubocop',
       'commitment:jshint',
       'commitment:scss_lint',
+      'db:create',
+      'db:schema:load',
       'commitment:configure_test_for_code_coverage',
       'spec:all',
       'commitment:code_coverage',

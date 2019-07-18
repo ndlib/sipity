@@ -445,6 +445,7 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (3.1.1)
+    puma (3.12.1)
     rack (2.0.7)
     rack-cache (1.9.0)
       rack (>= 0.4)
@@ -638,7 +639,6 @@ GEM
       actionpack (>= 4.0)
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
-    sqlite3 (1.4.1)
     sshkit (1.19.0)
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
@@ -691,7 +691,7 @@ DEPENDENCIES
   bootstrap-sass
   bumbler
   bundler (~> 1.17)
-  byebug (= 9.0.6)
+  byebug
   capistrano (~> 3.1)
   capistrano-bundler
   capistrano-rails
@@ -742,6 +742,7 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   pry-stack_explorer
+  puma (~> 3.11)
   rack-cache
   railroady!
   rails (~> 5.2.0)
@@ -772,7 +773,6 @@ DEPENDENCIES
   site_prism
   spring
   spring-commands-rspec
-  sqlite3
   terminal-notifier
   terminal-notifier-guard (~> 1.6.4)
   therubyracer

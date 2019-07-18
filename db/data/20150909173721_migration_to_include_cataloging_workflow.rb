@@ -1,4 +1,4 @@
-class MigrationToIncludeCatalogingWorkflow < ActiveRecord::Migration
+class MigrationToIncludeCatalogingWorkflow < ActiveRecord::Migration[4.2]
   def self.up
     migrator = new
     migrator.migrate_target_entities!
