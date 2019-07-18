@@ -29,12 +29,12 @@ jQuery ($) ->
 
   setupRedactorTextInputs = () ->
     field = $(".redactor-input")
-    if field.size() > 0
+    if field.length > 0
       new RedactorTextInput(field)
 
   setupRedactorTextAreas = () ->
     field = $(".redactor-area")
-    if field.size() > 0
+    if field.length > 0
       new RedactorTextArea(field)
 
   ready = ->

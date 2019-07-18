@@ -32,7 +32,7 @@
 
   var adjustRequiredAttachements = function(){
     var attachementControl = $('#work_files');
-    if ( attachementControl.size() > 0 ){
+    if ( attachementControl.length > 0 ){
       attachementControl
         .removeClass('required')
         .removeAttr('required');
@@ -41,7 +41,7 @@
 
   var adjustRequiredCollaborators = function(){
     var collaboratorControl = $('.repeat');
-    if ( collaboratorControl.size() > 0 ){
+    if ( collaboratorControl.length > 0 ){
       collaboratorControl.last().children('td.name').first().children('div').children('input').first().removeClass('required').removeAttr('required');
       collaboratorControl.last().children('td.role').first().children('div').children('select').first().removeClass('required').removeAttr('required');
     }
