@@ -57,7 +57,7 @@ end
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', platforms: [:mri_21]
-  gem 'byebug', '9.0.6', require: false
+  gem 'byebug'
   gem 'capistrano', '~> 3.1'
   gem 'capistrano-bundler'
   gem 'capistrano-rails'
@@ -72,6 +72,7 @@ group :development do
   gem 'letter_opener'
   gem 'pry-byebug', '~> 3.4.0', require: false
   gem 'pry-rails', require: false
+  gem 'puma', '~> 3.11'
   gem 'rails_layout'
   gem 'rb-fchange', require: false
   gem 'rb-fsevent', require: false
