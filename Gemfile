@@ -119,9 +119,6 @@ group :production, :pre_production, :staging do
   gem 'rack-cache', require: 'rack/cache'
   gem 'rb-readline'
 end
-source 'https://rails-assets.org' do
-  gem 'rails-assets-readmore'
-end
 
 # Removing until I have a non-pro license
 # group :production, :pre_production, :staging, :development do

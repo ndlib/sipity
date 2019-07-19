@@ -14,7 +14,6 @@
 //= require jquery_ujs
 //
 //= require bootstrap-sprockets
-//= require readmore
 //
 //= require vendor/jquery-ui-widget
 //= require vendor/redactor
@@ -59,13 +58,7 @@
     adjustRequiredAttachements();
 		disableSubmitOnClick();
     $('.help-icon').tooltip();
-		$('.abstract').readmore({
-			speed: 75,
-			collapsedHeight: 200,
-			lessLink: '<a href="#">Read less</a>'
-		});
   };
 
-  $(document).ready(ready);
   $(document).on('page:load', ready);
 }(jQuery));
