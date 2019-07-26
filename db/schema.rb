@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2016_04_20_133504) do
 
+  create_table "schema_migrations", primary_key: "version", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  end
+
   create_table "sipity_access_rights", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "entity_id", limit: 32, null: false
     t.string "entity_type", null: false

@@ -60,5 +60,6 @@
     $('.help-icon').tooltip();
   };
 
+  $(document).ready(ready);
   $(document).on('page:load', ready);
 }(jQuery));
