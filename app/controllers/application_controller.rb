@@ -42,15 +42,16 @@ class ApplicationController < ActionController::Base
     true
   end
 
-  # Remove error inserted since we are not showing a page before going to web access, this error message always shows up a page too late.
-  # for the moment just remove it always.  If we show a transition page in the future we may want to  display it then.
+  # Remove error inserted since we are not showing a page before going to web access,
+  # this error message always shows up a page too late. For the moment just remove it always.
+  # If we show a transition page in the future we may want to display it then.
   def filter_notify
     return true unless flash[:alert].present?
     flash[:alert] = Array.wrap(flash[:alert]).reject do |alert|
       [
-        t('devise.failure.unauthenticated'),
-        t('devise.failure.invalid', authentication_keys: Devise.authentication_keys.first)
-      ].include?(alert)
+        t('devise.failure.unauthenticated').downcase,
+        t('devise.failure.invalid', authentication_keys: Devise.authentication_keys.first).downcase
+      ].include?(alert.downcase)
     end
     flash[:alert] = nil unless flash[:alert].present?
     true

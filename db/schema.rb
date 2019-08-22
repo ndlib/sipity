@@ -449,6 +449,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.string "uid"
     t.index ["agreed_to_terms_of_service"], name: "index_users_on_agreed_to_terms_of_service"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 

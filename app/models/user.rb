@@ -15,6 +15,28 @@ class User < ActiveRecord::Base
   class_attribute :on_user_create_service
   self.on_user_create_service = Rails.application.config.default_on_user_create_service
 
+  def self.from_omniauth(auth)
+    # TODO: I would prefer NetID, but I do not yet have that exposed
+    username = auth.info.email.sub("@nd.edu", "")
+    find_or_create_by_auth(username: username, provider: auth.provider, uid: auth.uid) do |user|
+      user.email = auth.info.email
+      user.name ||= auth.info.name
+    end
+  end
+
+  def self.find_or_create_by_auth(username:, provider:, uid:)
+    user =
+      find_by(username: username, provider: nil, uid: nil) ||
+      find_by(provider: provider, uid: uid) ||
+      new(username: username, provider: provider, uid: uid)
+    user.provider = provider
+    user.uid = uid
+    user.username = username
+    yield(user) if block_given?
+    user.save!
+    user
+  end
+
   after_commit :call_on_create_user_service, on: :create
   # Because of the unique constraint on User#email, when we receive an empty
   # email for user (e.g. the user form that was filled out had blank spaces for

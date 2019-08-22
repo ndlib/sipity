@@ -1,5 +1,3 @@
-require 'devise_cas_authenticatable/strategy'
-
 module Devise
   # :nodoc:
   module Strategies
@@ -10,7 +8,22 @@ module Devise
     #
     # @see Devise::Strategies::ValidatedButTermsOfServiceAgreementNotRequired
     # @see Devise::Strategies::CasAuthenticatable
-    class CasAuthenticationWithServiceAgreement < CasAuthenticatable
+    class CasAuthenticationWithServiceAgreement < Base
+      # @todo I believe this is not working at present. However, I want this
+      # in place to make sure we have a TOS agreement.
+      def authenticate!
+        if session[VALIDATED_RESOURCE_ID_SESSION_KEY]
+          begin
+            resource = mapping.to.find(resource_id_from_session)
+            success!(resource)
+          rescue ActiveRecord::RecordNotFound
+            fail!(:invalid)
+          end
+        else
+          fail!(:invalid)
+        end
+      end
+
       # I need to alter the success criteria for CasAuthenticatable; Because
       # we are enforcing that users must agree to terms of service.
       def success!(resource)
@@ -23,6 +36,12 @@ module Devise
           uri.path = TERMS_OF_SERVICE_AGREEMENT_PATH
           redirect!(uri.to_s)
         end
+      end
+
+      private
+
+      def resource_id_from_session
+        session[VALIDATED_RESOURCE_ID_SESSION_KEY]
       end
     end
 
