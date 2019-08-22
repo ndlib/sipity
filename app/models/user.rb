@@ -2,7 +2,7 @@ require 'devise/strategies/cas_authenticatable_with_service_agreement'
 
 # Every application needs users. Right? This is that class.
 class User < ActiveRecord::Base
-  devise :cas_authenticatable, :trackable
+  devise :omniauthable, omniauth_providers: [:oktaoauth]
 
   has_many :group_memberships, dependent: :destroy, class_name: 'Sipity::Models::GroupMembership'
   has_one :processing_actor, as: :proxy_for, class_name: 'Sipity::Models::Processing::Actor'

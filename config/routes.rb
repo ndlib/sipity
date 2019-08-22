@@ -8,8 +8,12 @@ Rails.application.routes.draw do
   ##############################################################################
   # Begin Account related things
   ##############################################################################
-  devise_for :users #, only: :sessions
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }
   devise_for :user_for_profile_managements, class_name: 'User', only: :sessions
+  devise_scope :user do
+    get 'sign_in', :to => 'users/omniauth_callbacks#passthru', :as => :new_user_session
+    delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
 
   get 'account', to: 'sipity/controllers/account_profiles#edit', as: 'account'
   post 'account', to: 'sipity/controllers/account_profiles#update'
