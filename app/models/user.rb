@@ -1,4 +1,4 @@
-require 'devise/strategies/cas_authenticatable_with_service_agreement'
+require 'devise/strategies/authenticated_but_tos_not_required'
 
 # Every application needs users. Right? This is that class.
 class User < ActiveRecord::Base
@@ -35,6 +35,24 @@ class User < ActiveRecord::Base
     yield(user) if block_given?
     user.save!
     user
+  end
+  private_class_method :find_or_create_by_auth
+
+  # Used by Devise and Warden to manage if this authentication is active
+  def active_for_authentication?
+    if agreed_to_terms_of_service?
+      true
+    else
+      unauthenticated_message
+    end
+  end
+
+  def unauthenticated_message
+    if agreed_to_terms_of_service?
+      super
+    else
+      :no_tos_agreement
+    end
   end
 
   after_commit :call_on_create_user_service, on: :create

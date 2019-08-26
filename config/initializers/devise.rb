@@ -27,11 +27,20 @@ Devise.setup do |config|
   config.expire_all_remember_me_on_sign_out = true
   config.sign_out_via = :delete
 
-  # ==> Warden configuration
-  # If you want to use other strategies, that are not supported by Devise, or
-  # change the failure app, you can configure them inside the config.warden block.
+  # Configure
   config.warden do |manager|
-    manager.default_strategies(scope: :user).unshift(:cas_with_service_agreement)
     manager.default_strategies(scope: :user_for_profile_management).unshift(:authenticated_but_tos_not_required)
+  end
+end
+
+# This callback ensures that we check each time we load a user from session to verify that
+# they have agreed to the terms_of_service. Note that we have a scope of :user. For the
+# :user_for_profile_management scope, we ignore the requirement (as that is where you accept the ToS)
+# See config/routes.rb for the Devise scope declarations.
+Warden::Manager.after_fetch do |record, warden, options|
+  if options[:scope] == :user
+    unless record.agreed_to_terms_of_service?
+      throw :warden, scope: options[:scope], message: :unsigned_tos
+    end
   end
 end

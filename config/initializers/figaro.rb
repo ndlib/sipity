@@ -1,6 +1,4 @@
 Figaro.require_keys(
-  'cas_base_url',
-  'cas_validate_url',
   'curate_batch_api_base_path',
   'curate_batch_api_key',
   'curate_batch_data_mount_path',

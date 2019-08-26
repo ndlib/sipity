@@ -5,15 +5,24 @@ module Users
     def oktaoauth
       @user = User.from_omniauth(request.env["omniauth.auth"])
       if @user.persisted?
-        sign_in_and_redirect @user, event: :authentication
-        set_flash_message(:notice, :success, kind: "Okta") if is_navigational_format?
+        sign_in_and_handle_tos(kind: "Okta")
       else
         redirect_to new_user_session_path
       end
     end
 
-    def failure
-      redirect_to root_path
+    private
+
+    def sign_in_and_handle_tos(kind:)
+      if @user.agreed_to_terms_of_service?
+        sign_in_and_redirect @user, event: :authentication
+        set_flash_message(:notice, :success, kind: kind) if is_navigational_format?
+      else
+        sign_in(@user, event: :authentication)
+        set_flash_message(:notice, :success, kind: kind) if is_navigational_format?
+        set_flash_message(:notice, :prompt_agreement_for_tos) if is_navigational_format?
+        redirect_to account_path
+      end
     end
   end
 end

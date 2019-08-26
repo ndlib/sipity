@@ -36,6 +36,21 @@ SSL=true bundle exec bin/rails s
 
 Then go to https://localhost:3000
 
+### Running with Authentication (in Development)
+
+You will need the Okta You will need the Okta environment variables file.
+By default Sipity has "fakey" parameters for those (see
+[./config/application.yml](./config/application.yml) for the expected
+environment variables).
+
+Once you have the Okta You will need the Okta environment variables file,
+you'll need to "bash" that file (see below). This will export those
+environment variables and Figaro can then pick them up.
+
+```console
+. <path/to/okta/environment/variables.txt>
+````
+
 ### Development Seeds
 
 `rake bootstrap` - reset the environment's database with basic seed data

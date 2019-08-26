@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2019_08_22_185902) do
 
+  create_table "schema_migrations", primary_key: "version", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  end
+
   create_table "sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"

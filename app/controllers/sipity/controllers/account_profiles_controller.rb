@@ -31,7 +31,7 @@ module Sipity
       #
       # @see config/initializers/devise.rb
       def current_user
-        super || current_user_for_profile_management
+        current_user_for_profile_management
       end
       helper_method :current_user
 

@@ -36,7 +36,6 @@ class ApplicationController < ActionController::Base
   def store_previous_path_if_applicable
     raise "This is for Devise" unless defined?(Devise)
     return true unless request.get?
-    return true unless controller_name == 'cas_sessions'
     return true unless params.key?('previous_url')
     store_location_for(:user, params['previous_url'])
     true
