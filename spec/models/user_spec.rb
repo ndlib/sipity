@@ -16,10 +16,10 @@ describe User do
   its(:to_s) { is_expected.to eq subject.name }
 
   describe '.from_omniauth' do
-    let(:info) { double("info", email: 'hello@nd.edu', name: "Hello World") }
-    let(:auth) { double("auth", info: info, provider: "a_provider", uid: "a_uid") }
+    let(:raw_info) { double("raw_info", netid: 'hello', email: 'hello@nd.edu', name: "Hello World") }
+    let(:auth) { double("auth", extra: double(raw_info: raw_info), provider: "a_provider", uid: "a_uid") }
     describe "when provided user exists but has not used omniauth" do
-      let(:user) { User.new(email: info.email, username: "hello", name: info.name) }
+      let(:user) { User.new(email: raw_info.email, username: raw_info.netid, name: raw_info.name) }
       before do
         user.save!
       end
@@ -39,7 +39,7 @@ describe User do
       end
     end
     describe "when provided user exists and has used omniauth" do
-      let(:user) { User.new(email: info.email, username: "hello", name: info.name, uid: auth.uid, provider: auth.provider) }
+      let(:user) { User.new(email: raw_info.email, username: raw_info.netid, name: raw_info.name, uid: auth.uid, provider: auth.provider) }
       before do
         user.save!
       end

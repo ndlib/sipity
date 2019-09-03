@@ -17,10 +17,10 @@ class User < ActiveRecord::Base
 
   def self.from_omniauth(auth)
     # TODO: I would prefer NetID, but I do not yet have that exposed
-    username = auth.info.email.sub("@nd.edu", "")
+    username = auth.extra.raw_info.netid
     find_or_create_by_auth(username: username, provider: auth.provider, uid: auth.uid) do |user|
-      user.email = auth.info.email
-      user.name ||= auth.info.name
+      user.email = auth.extra.raw_info.email
+      user.name ||= auth.extra.raw_info.name
     end
   end
 

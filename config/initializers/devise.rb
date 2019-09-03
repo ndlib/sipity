@@ -6,8 +6,8 @@ Devise.setup do |config|
     :oktaoauth,
     Figaro.env.okta_client_id,
     Figaro.env.okta_client_secret,
-    scope: 'openid profile email',
-    fields: ['profile', 'email'],
+    scope: 'openid profile email netid',
+    fields: ['profile', 'email', 'netid'],
     client_options: {
             site: Figaro.env.okta_site,
             authorize_url: Figaro.env.okta_auth_url,
