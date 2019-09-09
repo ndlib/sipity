@@ -1,5 +1,5 @@
 # config valid only for Capistrano 3.1
-lock '3.11.0'
+lock '3.11.1'
 set :default_env, {
   path: "/usr/local/bin:$PATH"
 }
