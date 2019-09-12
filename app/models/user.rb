@@ -16,7 +16,6 @@ class User < ActiveRecord::Base
   self.on_user_create_service = Rails.application.config.default_on_user_create_service
 
   def self.from_omniauth(auth)
-    # TODO: I would prefer NetID, but I do not yet have that exposed
     username = auth.extra.raw_info.netid
     find_or_create_by_auth(username: username, provider: auth.provider, uid: auth.uid) do |user|
       user.email = auth.extra.raw_info.email

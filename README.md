@@ -38,7 +38,7 @@ Then go to https://localhost:3000
 
 ### Running with Authentication (in Development)
 
-You will need the Okta You will need the Okta environment variables file.
+You will need the Okta environment variables file.
 By default Sipity has "fakey" parameters for those (see
 [./config/application.yml](./config/application.yml) for the expected
 environment variables).
