@@ -6,6 +6,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'activerecord-session_store'
 gem 'autoprefixer-rails'
 gem 'bigdecimal'
 gem 'bootstrap-sass'
@@ -31,6 +32,7 @@ gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not
 gem 'mysql2', '0.4.8'
 gem 'noids_client', github: 'ndlib/noids_client'
 gem 'nokogiri'
+gem 'omniauth-oktaoauth'
 gem 'power_converter'
 gem 'rails', '~> 5.2.0'
 gem 'rdf-rdfa'

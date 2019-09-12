@@ -36,21 +36,21 @@ class ApplicationController < ActionController::Base
   def store_previous_path_if_applicable
     raise "This is for Devise" unless defined?(Devise)
     return true unless request.get?
-    return true unless controller_name == 'cas_sessions'
     return true unless params.key?('previous_url')
     store_location_for(:user, params['previous_url'])
     true
   end
 
-  # Remove error inserted since we are not showing a page before going to web access, this error message always shows up a page too late.
-  # for the moment just remove it always.  If we show a transition page in the future we may want to  display it then.
+  # Remove error inserted since we are not showing a page before going to web access,
+  # this error message always shows up a page too late. For the moment just remove it always.
+  # If we show a transition page in the future we may want to display it then.
   def filter_notify
     return true unless flash[:alert].present?
     flash[:alert] = Array.wrap(flash[:alert]).reject do |alert|
       [
-        t('devise.failure.unauthenticated'),
-        t('devise.failure.invalid', authentication_keys: Devise.authentication_keys.first)
-      ].include?(alert)
+        t('devise.failure.unauthenticated').downcase,
+        t('devise.failure.invalid', authentication_keys: Devise.authentication_keys.first).downcase
+      ].include?(alert.downcase)
     end
     flash[:alert] = nil unless flash[:alert].present?
     true

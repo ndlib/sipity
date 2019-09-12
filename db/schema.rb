@@ -10,9 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2016_04_20_133504) do
+ActiveRecord::Schema.define(version: 2019_08_22_185902) do
 
   create_table "schema_migrations", primary_key: "version", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  end
+
+  create_table "sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "session_id", null: false
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["session_id"], name: "index_sessions_on_session_id", unique: true
+    t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
   create_table "sipity_access_rights", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -439,8 +448,11 @@ ActiveRecord::Schema.define(version: 2016_04_20_133504) do
     t.integer "role"
     t.string "username", null: false
     t.boolean "agreed_to_terms_of_service", default: false
+    t.string "provider"
+    t.string "uid"
     t.index ["agreed_to_terms_of_service"], name: "index_users_on_agreed_to_terms_of_service"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["provider", "uid"], name: "index_users_on_provider_and_uid", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 

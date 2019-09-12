@@ -12,11 +12,6 @@ module Sipity
           expect(controller).to receive(:current_user_for_profile_management).and_return(user)
           expect(controller.current_user).to eq(user)
         end
-        it 'will use the #current_user before the #current_user_for_profile_management' do
-          controller.instance_variable_set("@current_user", user)
-          expect(controller).to_not receive(:current_user_for_profile_management)
-          expect(controller.current_user).to eq(user)
-        end
       end
 
       let(:user) { double('User') }

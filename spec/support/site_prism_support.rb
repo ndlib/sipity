@@ -192,6 +192,13 @@ module SitePrism
         find("form [name='#{PARAM_NAME_CONTAINER}[#{predicate}]']").set(with)
       end
     end
+
+    class AccountPage < SitePrism::Page
+      PARAM_NAME_CONTAINER = 'account'.freeze
+      element :preferred_name, "form [name='#{PARAM_NAME_CONTAINER}[preferred_name]']"
+      element :agree_to_tos, "form [type='checkbox'][name='#{PARAM_NAME_CONTAINER}[agreed_to_terms_of_service]']"
+      element :submit_button, "form [type='submit']"
+    end
   end
 
   module OnThisPage

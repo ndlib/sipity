@@ -7,7 +7,7 @@ feature 'Enriching a Work', :devise, :feature do
     Sipity::DataGenerators::WorkAreaGenerator.call(path: path)
     Warden.test_mode!
   end
-  let(:user) { Sipity::Factories.create_user }
+  let(:user) { Sipity::Factories.create_user(agreed_to_terms_of_service: true) }
 
   def create_a_work(options = {})
     visit '/start'
@@ -21,7 +21,24 @@ feature 'Enriching a Work', :devise, :feature do
     end
   end
 
+  scenario "User can enrich their submission after they agree to ToS" do
+    user = Sipity::Factories.create_user(agreed_to_terms_of_service: false)
+    login_as(user, scope: :user)
+    visit '/start'
+    expect(page.current_path).to eq("/account/")
+    on("account_page") do |the_page|
+      the_page.preferred_name.set("My Preferred Name")
+      the_page.agree_to_tos.check
+      the_page.submit_button.click
+    end
+    # We have passed the threshold for agreeing to the terms of service
+    on('new_work_page') do |the_page|
+      expect(the_page).to be_all_there
+    end
+  end
+
   scenario 'User can enrich their submission' do
+    user = Sipity::Factories.create_user(agreed_to_terms_of_service: true)
     login_as(user, scope: :user)
     create_a_work(work_type: 'doctoral_dissertation', title: 'Hello World', work_publication_strategy: 'do_not_know')
 

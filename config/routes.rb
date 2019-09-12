@@ -1,3 +1,4 @@
+require 'sipity/terms_of_service_failure_app'
 Rails.application.routes.draw do
   root to: redirect('/areas/etd')
 
@@ -8,7 +9,11 @@ Rails.application.routes.draw do
   ##############################################################################
   # Begin Account related things
   ##############################################################################
-  devise_for :users #, only: :sessions
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, failure_app: Sipity::TermsOfServiceFailureApp
+  devise_scope :user do
+    get 'sign_in', to: redirect("/users/auth/oktaoauth", status: 301), as: :new_user_session
+    delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_user_session
+  end
   devise_for :user_for_profile_managements, class_name: 'User', only: :sessions
 
   get 'account', to: 'sipity/controllers/account_profiles#edit', as: 'account'

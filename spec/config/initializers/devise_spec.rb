@@ -13,11 +13,8 @@ RSpec.describe 'config/initializers/devise.rb' do
 
   context '.warden' do
     subject { Devise.warden_config.fetch(:default_strategies) }
-    it 'will have :user strategies' do
-      expect(subject[:user]).to eq([:cas_with_service_agreement, :cas_authenticatable])
-    end
     it 'will have :user_for_profile_management strategies' do
-      expect(subject[:user_for_profile_management]).to eq([:authenticated_but_tos_not_required, :cas_authenticatable])
+      expect(subject[:user_for_profile_management]).to eq([:authenticated_but_tos_not_required])
     end
   end
 end
