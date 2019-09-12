@@ -19,14 +19,17 @@ module Sipity
         end
         private_class_method :target_path
 
-        def callback_url(work_id:)
-          authorization_credentials = Models::Group.basic_authorization_string_for!(name: Models::Group::BATCH_INGESTORS)
+        def callback_url(work_id:, authorization_credentials: default_authorization_credentials)
           File.join(
             "#{Figaro.env.protocol!}://#{authorization_credentials}@#{Figaro.env.domain_name!}",
             "/work_submissions/#{work_id}/callback/ingest_completed.json"
           )
         end
-        private_class_method :callback_url
+
+        def default_authorization_credentials
+          Models::Group.basic_authorization_string_for!(name: Models::Group::BATCH_INGESTORS)
+        end
+        private_class_method :default_authorization_credentials
 
         def file_writer(exporter:)
           case exporter.ingest_method

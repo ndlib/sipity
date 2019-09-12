@@ -5,10 +5,11 @@ module Sipity
   module Exporters
     class BatchIngestExporter
       RSpec.describe WebhookWriter do
+        let(:authorization_credentials) { 'group:password' }
         describe ':files' do
           let(:exporter) { double('BatchIngestExporter', work_id: 1661, ingest_method: :files, data_directory: '/tmp/sipity-1661') }
           before do
-            allow(Models::Group).to receive(:basic_authorization_string_for!).and_return('group:password')
+            allow(Models::Group).to receive(:basic_authorization_string_for!).and_return(authorization_credentials)
           end
           describe '.call' do
             it "writes the callback url as WEBHOOK in the data directory" do
@@ -16,14 +17,23 @@ module Sipity
               described_class.call(exporter: exporter)
             end
           end
+          describe '.callback_url' do
+            it "generates a callback URL" do
+              expect(
+                described_class.callback_url(work_id: '1234', authorization_credentials: authorization_credentials)
+              ).to(
+                eq("http://#{authorization_credentials}@localhost:3000/work_submissions/1234/callback/ingest_completed.json")
+              )
+            end
+          end
         end
 
         describe ':api' do
           let(:path) { '/tmp/sipity-1661/files/WEBHOOK' }
-          let(:content) { "http://group:password@localhost:3000/work_submissions/1661/callback/ingest_completed.json" }
+          let(:content) { "http://#{authorization_credentials}@localhost:3000/work_submissions/1661/callback/ingest_completed.json" }
           let(:exporter) { double('BatchIngestExporter', work_id: 1661, ingest_method: :api, data_directory: '/tmp/sipity-1661/files') }
           before do
-            allow(Models::Group).to receive(:basic_authorization_string_for!).and_return('group:password')
+            allow(Models::Group).to receive(:basic_authorization_string_for!).and_return(authorization_credentials)
           end
 
           describe '.call' do
