@@ -4,23 +4,26 @@ require 'sipity/queries/work_queries'
 module Sipity
   module Queries
     RSpec.describe WorkQueries, type: :isolated_repository_module do
-      context '#find_works_via_search' do
-        let(:repository) { QueryRepositoryInterface.new }
+      describe '#find_works_via_search' do
+        let(:repository) { QueryRepository.new }
         let(:criteria) { Parameters::SearchCriteriaForWorksParameter.new }
-        it 'will leverage the underlying scope_proxied_objects_for_the_user_and_proxy_for_type method' do
-          expect(repository).to receive(:scope_proxied_objects_for_the_user_and_proxy_for_type).with(
-            criteria: criteria
-          ).and_call_original
-          test_repository.find_works_via_search(criteria: criteria, repository: repository)
+        subject { test_repository.find_works_via_search(criteria: criteria, repository: repository) }
+        it { is_expected.to be_a(ActiveRecord::Relation) }
+
+        describe 'when passed a work area as part of the criteria' do
+          let(:work_area) { Models::WorkArea.new(name: 'etd') }
+          let(:criteria) { Parameters::SearchCriteriaForWorksParameter.new(work_area: work_area) }
+          before do
+            expect(test_repository).to receive(:apply_work_area_filter_to).and_call_original
+          end
+          it { is_expected.to be_a(ActiveRecord::Relation) }
         end
 
-        it 'will leverage the scope and apply additional logic based on a work area' do
-          work_area = Models::WorkArea.new(name: 'etd')
-          criteria = Parameters::SearchCriteriaForWorksParameter.new(work_area: work_area)
-          expect(repository).to receive(:scope_proxied_objects_for_the_user_and_proxy_for_type).with(
-            criteria: criteria
-          ).and_return(Models::Work)
-          expect(test_repository.find_works_via_search(criteria: criteria, repository: repository)).to be_a(ActiveRecord::Relation)
+        describe 'when requested page is outside the total pages range' do
+          let(:criteria) { Parameters::SearchCriteriaForWorksParameter.new(page: 3) }
+          it 'will raise an ActiveRecord::RecordNotFound error when requested page is outside the total pages range' do
+            expect { subject }.to raise_error(Exceptions::RequestOutsidePaginationRange)
+          end
         end
       end
 

@@ -73,6 +73,10 @@ module Sipity
       end
     end
 
+    # A paginated request was outside of the pagination window
+    class RequestOutsidePaginationRange < RuntimeError
+    end
+
     # The object did not implement the expected interface.
     class InterfaceExpectationError < RuntimeError
       def initialize(object:, expectations:)

@@ -78,5 +78,6 @@ module Sipity
     # config.i18n.default_locale = :de
 
     config.action_dispatch.rescue_responses['Sipity::Exceptions::AuthorizationFailureError'] = :unauthorized
+    config.action_dispatch.rescue_responses['Sipity::Exceptions::RequestOutsidePaginationRange'] = :not_found
   end
 end
