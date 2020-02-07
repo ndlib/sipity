@@ -50,6 +50,14 @@ module Sipity
         end
       end
 
+      describe '#page' do
+        it 'coerces to an integer' do
+          subject = described_class.new(page: '1')
+          expect(subject.page?).to eq(true)
+          expect(subject.page).to eq(1)
+        end
+      end
+
       it 'will fallback on default order if an invalid order is given' do
         subject = described_class.new(order: 'chicken-sandwich')
         expect(subject.order).to eq(subject.send(:default_order))

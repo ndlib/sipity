@@ -38,7 +38,11 @@ module Sipity
 
       private
 
-      attr_writer :user, :processing_state, :proxy_for_type, :work_area, :submission_window, :per, :page
+      attr_writer :user, :processing_state, :proxy_for_type, :work_area, :submission_window, :per
+
+      def page=(input)
+        @page = input.to_i
+      end
 
       def order=(input)
         @order = ORDER_BY_OPTIONS.include?(input) ? input : default_order
