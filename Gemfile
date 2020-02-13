@@ -43,7 +43,7 @@ gem 'sanitize'
 gem 'sass-rails'
 gem 'sentry-raven', '~> 2.7'
 gem 'simple_form'
-gem 'therubyracer'
+gem 'mini_racer'
 gem 'uglifier'
 gem 'whenever', require: false
 
