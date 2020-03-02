@@ -5,7 +5,7 @@ module Sipity
   module Exporters
     class BatchIngestExporter
       RSpec.describe WebhookWriter do
-        let(:authorization_credentials) { 'group:password' }
+        let(:authorization_credentials) { 'group with space:password' }
         describe ':files' do
           let(:exporter) { double('BatchIngestExporter', work_id: 1661, ingest_method: :files, data_directory: '/tmp/sipity-1661') }
           before do
@@ -22,7 +22,9 @@ module Sipity
               expect(
                 described_class.callback_url(work_id: '1234', authorization_credentials: authorization_credentials)
               ).to(
-                eq("http://#{authorization_credentials}@localhost:3000/work_submissions/1234/callback/ingest_completed.json")
+                eq(
+                  URI.encode("http://#{authorization_credentials}@localhost:3000/work_submissions/1234/callback/ingest_completed.json")
+                )
               )
             end
           end
@@ -30,7 +32,9 @@ module Sipity
 
         describe ':api' do
           let(:path) { '/tmp/sipity-1661/files/WEBHOOK' }
-          let(:content) { "http://#{authorization_credentials}@localhost:3000/work_submissions/1661/callback/ingest_completed.json" }
+          let(:content) do
+            URI.encode("http://#{authorization_credentials}@localhost:3000/work_submissions/1661/callback/ingest_completed.json")
+          end
           let(:exporter) { double('BatchIngestExporter', work_id: 1661, ingest_method: :api, data_directory: '/tmp/sipity-1661/files') }
           before do
             allow(Models::Group).to receive(:basic_authorization_string_for!).and_return(authorization_credentials)

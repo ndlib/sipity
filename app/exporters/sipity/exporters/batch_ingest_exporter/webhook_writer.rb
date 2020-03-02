@@ -20,9 +20,11 @@ module Sipity
         private_class_method :target_path
 
         def callback_url(work_id:, authorization_credentials: default_authorization_credentials)
-          File.join(
-            "#{Figaro.env.protocol!}://#{authorization_credentials}@#{Figaro.env.domain_name!}",
-            "/work_submissions/#{work_id}/callback/ingest_completed.json"
+          URI.encode(
+            File.join(
+              "#{Figaro.env.protocol!}://#{authorization_credentials}@#{Figaro.env.domain_name!}",
+              "/work_submissions/#{work_id}/callback/ingest_completed.json"
+            )
           )
         end
 
