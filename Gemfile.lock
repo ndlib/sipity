@@ -716,7 +716,7 @@ DEPENDENCIES
   bumbler
   bundler (~> 1.17)
   byebug
-  capistrano (~> 3.1)
+  capistrano (= 3.12.0)
   capistrano-bundler
   capistrano-rails
   capistrano-rails-console
