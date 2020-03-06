@@ -6,6 +6,8 @@ Rails.application.routes.draw do
     get 'areas/:work_area_slug', to: 'sipity/controllers/visitors#work_area'
   end
 
+  get 'status/:work_id', to: 'sipity/controllers/visitors#status'
+
   ##############################################################################
   # Begin Account related things
   ##############################################################################

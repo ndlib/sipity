@@ -17,6 +17,13 @@ module Sipity
         )
       end
 
+      def status
+        headers['Content-Type'] = 'application/json'
+        work = Sipity::Models::Work.includes(:processing_entity).find(work_id)
+        json = { id: work.id, status: work.processing_state }
+        render json: json
+      end
+
       delegate(
         :prepend_processing_action_view_path_with,
         :run_and_respond_with_processing_action,
@@ -34,6 +41,10 @@ module Sipity
 
       def work_area_slug
         params.require(:work_area_slug)
+      end
+
+      def work_id
+        params.require(:work_id)
       end
     end
   end
