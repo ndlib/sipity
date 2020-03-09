@@ -357,6 +357,16 @@ The primary feature of Sipity is state-based permissions. It can be helpful to f
 
 Example: `Sipity::Services::Administrative::ForceIntoProcessingState.call(entity: Sipity::Models::Work.find(id), state: 'ready_for_ingest')`
 
+### Get the processing status of a Sipity::Models::Work
+
+`GET /status/:work_id`
+
+Response document:
+
+```json
+{ "id": <:work_id>, "status": <the_status> }
+```
+
 ### Batch Ingest Documentation
 
 #### Sipity Code-Path for Batch Ingest

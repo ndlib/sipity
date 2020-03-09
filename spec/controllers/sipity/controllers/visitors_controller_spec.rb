@@ -24,6 +24,18 @@ module Sipity
           end.to raise_error(ActionController::UnknownFormat) # Because auto-rendering
         end
       end
+
+      context 'GET #status' do
+        let(:work) { double(Sipity::Models::Work, id: '1234', processing_state: "wonky") }
+        context 'without authentication' do
+          it "returns a basic JSON document" do
+            # Yes this is a violation of the Law of Demeter, but I opted to not
+            # write a database record and build the whole world.
+            expect(Sipity::Models::Work).to receive_message_chain(:includes, find: work.id).and_return(work)
+            get('status', params: { work_id: work.id }, format: :json)
+          end
+        end
+      end
     end
   end
 end
