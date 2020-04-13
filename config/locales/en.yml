@@ -197,6 +197,8 @@ en:
       label: 'Create a <b>citation</b>'
     defense_date:
       label: "Record the <b>defense date</b> for your %{work_type}"
+    submission_date:
+      label: "Edit the <b>submission date</b> for this %{work_type}"
     search_terms:
       label: "Add <b>search terms</b> for your %{work_type}"
     degree:
