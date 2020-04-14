@@ -14,7 +14,7 @@
 SSHKit.config.command_map[:bundle] = '/usr/local/bin/bundle'
 SSHKit.config.command_map[:rake] = "#{fetch(:bundle)} exec rake"
 set :branch,    ENV["BRANCH_NAME"] || 'master'
-set :rails_env, 'pre_production'
+set :rails_env, 'prep'
 set :deploy_to, '/home/app/sipity'
 set :user,      'app'
 set :domain,    fetch(:host, 'sipity-prep.lc.nd.edu')
