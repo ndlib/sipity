@@ -115,14 +115,9 @@ group :test do
   gem 'site_prism', require: false
 end
 
-group :production, :pre_production, :staging do
+group :production, :prep do
   gem 'dragonfly-s3_data_store'
   gem 'irb'
   gem 'rack-cache', require: 'rack/cache'
   gem 'rb-readline'
 end
-
-# Removing until I have a non-pro license
-# group :production, :pre_production, :staging, :development do
-#   gem 'newrelic_rpm'
-# end
