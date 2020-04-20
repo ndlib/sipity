@@ -24,6 +24,26 @@ Its goal is to provide clarity on why a patron would want to fill out metadata i
 
 ## Getting Your Bearings
 
+### Running Locally
+
+Sipity is a [Ruby on Rails](https://rubyonrails.org) application. To run locally you will need:
+
+1) Ruby
+2) Mysql
+
+Assuming you have a Mac OSX machine:
+
+1.  Download [homebrew](https://brew.sh) - package manager for OSX
+2.  Install rbenv via home brew (e.g. `brew install rbenv`) - a ruby version manager
+3.  Install mysql via home brew (e.g. `brew install mysql`)
+4.  Install the ruby version that matches [Sipity's .ruby-version](./.ruby-version)
+5.  Clone the Sipity repository to your machine
+6.  In the Sipity repository install the dependencies via bundler (e.g. `bundle install`)
+7.  Test the installation by running the rake command (e.g. `bundle exec rake`)
+
+_**Note:** Because OSX is squirrelly about it's command line ecosystem, you may encounter bumps
+along the way. You can find some possible guidance at [jeremyf/dotzshrc's runbooks](https://github.com/jeremyf/dotzshrc/tree/master/runbooks)._
+
 ### Running under SSL
 
 To run the application under SSL, use the following commands:
@@ -356,6 +376,16 @@ You can use Graphviz to view a visual representation of that graph. On OS X, use
 The primary feature of Sipity is state-based permissions. It can be helpful to force an object into a given state. Use `Sipity::Services::Administrative::ForceIntoProcessingState.call` via `$ rails console`
 
 Example: `Sipity::Services::Administrative::ForceIntoProcessingState.call(entity: Sipity::Models::Work.find(id), state: 'ready_for_ingest')`
+
+### Get the processing status of a Sipity::Models::Work
+
+`GET /status/:work_id`
+
+Response document:
+
+```json
+{ "id": <:work_id>, "status": <the_status> }
+```
 
 ### Batch Ingest Documentation
 
