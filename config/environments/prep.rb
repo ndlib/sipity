@@ -88,4 +88,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # set root url of server
+  config.application_root_url = "https://sipity-prep.library.nd.edu"
 end
