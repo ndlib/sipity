@@ -11,6 +11,9 @@
       "group": "Graduate School Reviewers",
       "role": "work_area_managing"
     }, {
+      "group": "Data Administrators",
+      "role": "data_observing"
+    }, {
       "group": "ETD_INTEGRATORS",
       "role": "work_submission_listing"
     }],
@@ -25,7 +28,7 @@
       "name": "list_submissions",
       "from_states": [{
         "name": ["new", "opened", "closed"],
-        "roles": ["work_submission_listing"]
+        "roles": ["work_submission_listing", "data_observing"]
       }]
     }, {
       "name": "open",
