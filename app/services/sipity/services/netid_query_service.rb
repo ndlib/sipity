@@ -24,7 +24,7 @@ module Sipity
         new(netid).valid_netid?
       end
 
-      def initialize(netid, url_reader: self.class.method(:read))
+      def initialize(netid, url_reader: self.class.method(:read_without_ssl_verification))
         self.netid = netid
         self.url_reader = url_reader
       end

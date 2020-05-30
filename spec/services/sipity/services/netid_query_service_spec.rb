@@ -37,8 +37,8 @@ module Sipity
       end
 
       context 'default reader' do
-        it 'reads via OpenSSL' do
-          expect(described_class.new(netid).url_reader).to eq(described_class.method(:read))
+        it 'reads via OpenSSL but does not verify ssl' do
+          expect(described_class.new(netid).url_reader).to eq(described_class.method(:read_without_ssl_verification))
         end
         it 'has the same method signature as the injected url_reader' do
           expect(described_class.new(netid).url_reader.parameters).to eq(url_reader.parameters)
