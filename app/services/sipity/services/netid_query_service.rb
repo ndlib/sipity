@@ -3,6 +3,19 @@ module Sipity
   module Services
     # Responsible for querying people API server to get more details for netid
     class NetidQueryService
+      # We encountered an issue in which we needed to temporarily disable SSL verification
+      # When we need to disable SSL verification, use this method.
+      # @see .read
+      def self.read_without_ssl_verification(url:)
+        open(url, ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE).read
+      end
+
+      # Under normal circumstances, we want to use standard OpenURI read method.
+      # @see .read_without_ssl_verification
+      def self.read(url:)
+        open(url).read
+      end
+
       def self.preferred_name(netid)
         new(netid).preferred_name
       end
@@ -11,13 +24,16 @@ module Sipity
         new(netid).valid_netid?
       end
 
-      def initialize(netid)
+      def initialize(netid, url_reader: self.class.method(:read))
         self.netid = netid
+        self.url_reader = url_reader
       end
 
-      attr_reader :netid
+      attr_reader :netid, :url_reader
 
       private
+
+      attr_writer :url_reader
 
       def netid=(input)
         @netid = input.to_s.strip
@@ -51,8 +67,7 @@ module Sipity
       end
 
       def response
-        # Leveraging 'open-uri' and its easy to use interface
-        open(url).read
+        url_reader.call(url: url)
       end
 
       def parse
