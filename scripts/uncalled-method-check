@@ -1,10 +1,10 @@
 #!/usr/bin/env ruby -wU
 
-CONFIG_KEYS = [:REPOSITORY_PATH, :WHITELIST_PATH, :OUTPUT_FILENAME].freeze
+CONFIG_KEYS = [:REPOSITORY_PATH, :ALLOWLIST_PATH, :OUTPUT_FILENAME].freeze
 
 REPOSITORY_PATH = ENV.fetch('REPOSITORY_PATH') { File.expand_path(File.join(File.dirname(__FILE__), '../')) }
 OUTPUT_FILENAME = ENV.fetch('OUTPUT_FILENAME') { File.join(REPOSITORY_PATH, 'artifacts/uncalled-method-check.results.csv') }
-WHITELIST_PATH = ENV.fetch('WHITELIST_PATH') { File.join(REPOSITORY_PATH, 'artifacts/.whitelist.debride.txt') }
+ALLOWLIST_PATH = ENV.fetch('ALLOWLIST_PATH') { File.join(REPOSITORY_PATH, 'artifacts/allowlist.debride.txt') }
 
 #*******************************************************************************
 #
@@ -58,7 +58,7 @@ if `cd #{REPOSITORY_PATH} && git status --porcelain`.strip.size > 0
 end
 
 begin
-  command = "cd #{REPOSITORY_PATH} && debride -r lib app config --whitelist #{WHITELIST_PATH} > #{OUTPUT_FILENAME}.tmp"
+  command = "cd #{REPOSITORY_PATH} && debride -r lib app config --whitelist #{ALLOWLIST_PATH} > #{OUTPUT_FILENAME}.tmp"
   unless system(command)
     $stderr.puts "Error encountered running `#{command}'"
     exit!(2)
