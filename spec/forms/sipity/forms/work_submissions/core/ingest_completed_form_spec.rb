@@ -22,27 +22,20 @@ module Sipity
           it { is_expected.to respond_to :work }
           it { is_expected.to delegate_method(:submit).to(:processing_action_form) }
 
-          include Shoulda::Matchers::ActiveModel
-          it { is_expected.to validate_inclusion_of(:job_state).in_array([described_class::JOB_STATE_SUCCESS]) }
-
           context 'with "error" for job_state' do
             let(:attributes) { { job_state: described_class::JOB_STATE_ERROR } }
-            before do
-              allow(subject).to receive(:valid?).and_return(false)
-            end
             it 'will notify Sentry' do
-              expect(subject).to_not receive(:create_a_redirect)
+              expect(Raven).to receive(:capture_exception).and_call_original
               subject.submit
             end
             it 'will not submit' do
-              expect(Raven).to receive(:capture_exception).and_call_original
+              expect(subject).to_not receive(:create_a_redirect)
               subject.submit
             end
             its(:submit) { is_expected.to eq(false) }
           end
 
           context 'with invalid data' do
-            before { expect(subject).to receive(:valid?).and_return(false) }
             its(:submit) { is_expected.to eq(false) }
           end
 

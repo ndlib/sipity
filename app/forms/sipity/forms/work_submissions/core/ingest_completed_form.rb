@@ -24,11 +24,14 @@ module Sipity
           end
 
           include ActiveModel::Validations
-          validates :job_state, inclusion: { in: [JOB_STATE_SUCCESS] }
 
           def submit
+            if job_state == JOB_STATE_SUCCESS
+              processing_action_form.submit { create_a_redirect }
+              return true
+            end
             register_error if job_state == JOB_STATE_ERROR
-            processing_action_form.submit { create_a_redirect }
+            false
           end
 
           private
