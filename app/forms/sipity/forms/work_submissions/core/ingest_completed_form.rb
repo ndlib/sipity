@@ -11,6 +11,7 @@ module Sipity
           # @see https://github.com/ndlib/curatend-batch/blob/master/webhook.md
           JOB_STATE_SUCCESS = 'success'.freeze
           JOB_STATE_ERROR = 'error'.freeze
+          JOB_STATE_PROCESSING = 'processing'.freeze
 
           ProcessingForm.configure(
             form_class: self, base_class: Models::Work, processing_subject_name: :work, attribute_names: [:job_state]
@@ -24,11 +25,19 @@ module Sipity
           end
 
           include ActiveModel::Validations
-          validates :job_state, inclusion: { in: [JOB_STATE_SUCCESS] }
+          validates :job_state, inclusion: { in: [JOB_STATE_SUCCESS, JOB_STATE_ERROR, JOB_STATE_PROCESSING] }
 
           def submit
-            register_error if job_state == JOB_STATE_ERROR
-            processing_action_form.submit { create_a_redirect }
+            return false unless valid?
+            case job_state
+            when JOB_STATE_PROCESSING
+              return true
+            when JOB_STATE_ERROR
+              register_error
+              return true
+            when JOB_STATE_SUCCESS
+              processing_action_form.submit { create_a_redirect }
+            end
           end
 
           private
