@@ -28,17 +28,41 @@ module Sipity
           context 'with "error" for job_state' do
             let(:attributes) { { job_state: described_class::JOB_STATE_ERROR } }
             before do
-              allow(subject).to receive(:valid?).and_return(false)
+              allow(subject).to receive(:valid?).and_return(true)
             end
             it 'will notify Sentry' do
-              expect(subject).to_not receive(:create_a_redirect)
-              subject.submit
-            end
-            it 'will not submit' do
               expect(Raven).to receive(:capture_exception).and_call_original
               subject.submit
             end
-            its(:submit) { is_expected.to eq(false) }
+            it 'will not create a redirect' do
+              expect(subject).to_not receive(:create_a_redirect)
+              subject.submit
+            end
+            it 'will not submit the underlying processing form' do
+              expect(subject.send(:processing_action_form)).to_not receive(:submit)
+              subject.submit
+            end
+            its(:submit) { is_expected.to eq(true) }
+          end
+
+          context 'with "processing" for job_state' do
+            let(:attributes) { { job_state: described_class::JOB_STATE_PROCESSING } }
+            before do
+              allow(subject).to receive(:valid?).and_return(true)
+            end
+            it 'will NOT notify Sentry' do
+              expect(Raven).not_to receive(:capture_exception)
+              subject.submit
+            end
+            it 'will not create a redirect' do
+              expect(subject).to_not receive(:create_a_redirect)
+              subject.submit
+            end
+            it 'will not submit the underlying processing form' do
+              expect(subject.send(:processing_action_form)).to_not receive(:submit)
+              subject.submit
+            end
+            its(:submit) { is_expected.to eq(true) }
           end
 
           context 'with invalid data' do
