@@ -6,6 +6,15 @@ Rails.application.routes.draw do
     get 'areas/:work_area_slug', to: 'sipity/controllers/visitors#work_area'
   end
 
+  ##############################################################################
+  # OIT Onbase Integration URL.  The OIT uses this URL to query the
+  # list of works in process.
+  #
+  # The following PATH is produced via the Work Area routing section.
+  #
+  # GET /areas/etds/do/list_submissions.json
+
+  # A rudimentary status page for any object processed by Sipity; No authentication required.
   get 'status/:work_id', to: 'sipity/controllers/visitors#status'
 
   ##############################################################################
@@ -33,6 +42,7 @@ Rails.application.routes.draw do
   [:post, :put, :patch, :delete].each do |http_verb_name|
     send(http_verb_name, 'areas/:work_area_slug/do/:processing_action_name', to: 'sipity/controllers/work_areas#command_action')
   end
+
 
   ##############################################################################
   # Begin Submission Window
