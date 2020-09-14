@@ -27,14 +27,15 @@ module Sipity
           include ActiveModel::Validations
           validates :job_state, inclusion: { in: [JOB_STATE_SUCCESS, JOB_STATE_ERROR, JOB_STATE_PROCESSING] }
 
+          # @return Sipity::Models::Work
           def submit
             return false unless valid?
             case job_state
             when JOB_STATE_PROCESSING
-              return true
+              return work
             when JOB_STATE_ERROR
               register_error
-              return true
+              return work
             when JOB_STATE_SUCCESS
               processing_action_form.submit { create_a_redirect }
             end
