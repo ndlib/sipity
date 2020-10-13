@@ -42,7 +42,7 @@ module Sipity
               expect(subject.send(:processing_action_form)).to_not receive(:submit)
               subject.submit
             end
-            its(:submit) { is_expected.to eq(true) }
+            its(:submit) { is_expected.to eq(work) }
           end
 
           context 'with "processing" for job_state' do
@@ -62,7 +62,7 @@ module Sipity
               expect(subject.send(:processing_action_form)).to_not receive(:submit)
               subject.submit
             end
-            its(:submit) { is_expected.to eq(true) }
+            its(:submit) { is_expected.to eq(work) }
           end
 
           context 'with invalid data' do
