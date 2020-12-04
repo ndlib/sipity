@@ -30,7 +30,7 @@ AllCops:
     - 'spec/features/sipity/validate_work_type_configuration_spec.rb'
     - 'Guardfile'
     - 'lib/tasks/sipity.rake'
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.6
 
 Rails:
   Enabled: true
