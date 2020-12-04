@@ -59,7 +59,6 @@ if defined?(RSpec)
   Rake::Task["default"].clear
   task(
     default: [
-      'commitment:rubocop',
       'commitment:jshint',
       'commitment:scss_lint',
       'db:create',
