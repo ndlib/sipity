@@ -22,7 +22,7 @@ jobs:
       run: sudo service mysql start
 
     - name: create sipity_test DB
-      run:  mysql -e "CREATE DATABASE sipity_test;" -uroot
+      run:  mysql -e "CREATE DATABASE sipity_test;" -uroot -proot
 
     - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v2.7.4
