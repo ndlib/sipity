@@ -24,6 +24,9 @@ jobs:
     - name: create sipity_test DB
       run:  mysql -e "CREATE DATABASE sipity_test;" -uroot -proot
 
+    - name: install rubocop 0.81.0 for ruby support
+      run:  gem install rubocop -v '0.81.0'
+
     - name: Test & publish code coverage
       uses: paambaati/codeclimate-action@v2.7.4
       env:
