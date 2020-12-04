@@ -33,5 +33,5 @@ jobs:
         RAILS_ENV: test
         CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
       with:
-        coverageCommand: bundle exec rake
+        coverageCommand: bundle exec rake spec:ci
         debug: true
