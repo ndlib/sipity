@@ -47,8 +47,8 @@ if defined?(RSpec)
       end
     end
 
-    desc 'Run the Travis CI specs'
-    task :travis do
+    desc 'Run the CI specs'
+    task :ci do
       ENV['SPEC_OPTS'] ||= "--profile 5"
       Rake::Task[:default].invoke
     end
@@ -59,7 +59,6 @@ if defined?(RSpec)
   Rake::Task["default"].clear
   task(
     default: [
-      'commitment:rubocop',
       'commitment:jshint',
       'commitment:scss_lint',
       'db:create',
