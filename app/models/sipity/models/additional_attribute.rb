@@ -29,7 +29,7 @@ module Sipity
       COURSE_NUMBER_PREDICATE_NAME = 'course_number'.freeze
       DEFENSE_DATE_PREDICATE_NAME = 'defense_date'.freeze
       DEGREE_PREDICATE_NAME = 'degree'.freeze
-      DOI_PREDICATE_NAME = 'identifier.doi'.freeze
+      DOI_PREDICATE_NAME = 'identifier_doi'.freeze
       ETD_REVIEWER_SIGNOFF_DATE = 'ETD_REVIEWER_SIGNOFF_DATE'.freeze
       ETD_SUBMISSION_DATE = 'etd_submission_date'.freeze
       EXPECTED_GRADUATION_TERM = 'expected_graduation_term'.freeze
