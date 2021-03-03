@@ -6,11 +6,30 @@ module Sipity
   module Forms
     module WorkSubmissions
       module Core
-        # Responsible for calling the ETD Ingester
+        # Responsible for handling the WEBHOOK callbacks from the ETD
+        # batch ingest process.
+        #
+        # The associated `processing_action_name` is a misnomer; Yes,
+        # it handles the "ingest_completed" action.  But that action
+        # may be better named "handle_batch_ingest_response".
+        #
+        # What is happening in this form is that we are handling the
+        # WEBHOOK payload sent by the batch ingester.  The {#submit}
+        # method highlights this.
+        #
+        # @see https://github.com/ndlib/curatend-batch/blob/master/webhook.md
         class IngestCompletedForm
-          # @see https://github.com/ndlib/curatend-batch/blob/master/webhook.md
+          # The batch process completed successfully, so we'll take
+          # the Sipity action thatadvances the state (e.g. "ingest_completed")
           JOB_STATE_SUCCESS = 'success'.freeze
+
+          # Oops, something in the batch ingester failed.  You're
+          # going to need to look to those error logs.
           JOB_STATE_ERROR = 'error'.freeze
+
+          # When we receive this, the batch ingester is saying that
+          # it's doing the work.  It's like sending a status update on
+          # a yet to be completed project.
           JOB_STATE_PROCESSING = 'processing'.freeze
 
           ProcessingForm.configure(
