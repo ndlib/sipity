@@ -1,6 +1,12 @@
 module Sipity
   module Controllers
     # The controller for handling callbacks for work submissions
+    #
+    # It is unlikely that you will need to make modifications to this
+    # controller; This controller passes the received JSON document to
+    # the processing form associated with the given :processing_action_name
+    #
+    # @note The :processing_action_name comes from the config/routes.rb file.
     class WorkSubmissionCallbacksController < AuthenticatedController
       skip_before_action :verify_authenticity_token
 
