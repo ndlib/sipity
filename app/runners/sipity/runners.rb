@@ -1,6 +1,14 @@
 module Sipity
   # Runners are a means of encapsulating an action's logic.
   #
+  # With the Sipity::Runners, we can submit {Sipity::Forms} using:
+  #
+  #   * {Sipity::CommandLineContext}
+  #   * {ApplicationController}
+  #
+  # The runner handles the permissions (e.g. you must pass a runner
+  # who is taking the given action).
+  #
   # The current construction of Rails controller's discourages re-using an
   # action method for other interfaces (i.e. command-line utilities).
   #

@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/ndlib/sipity.png)](https://codeclimate.com/github/ndlib/sipity)
 [![Test Coverage](https://codeclimate.com/github/ndlib/sipity/badges/coverage.svg)](https://codeclimate.com/github/ndlib/sipity)
 [![Dependency Status](https://gemnasium.com/ndlib/sipity.svg)](https://gemnasium.com/ndlib/sipity)
-[![Documentation Status](http://inch-ci.org/github/ndlib/sipity.svg?branch=master)](http://inch-ci.org/github/ndlib/sipity)
+[![Documentation Status](http://inch-ci.org/github/ndlib/sipity.svg?branch=master)](https://rubydoc.info/github/ndlib/sipity/master)
 [![APACHE 2 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
 [![Contributing Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 
