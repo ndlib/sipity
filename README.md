@@ -3,8 +3,12 @@
 [![Build Status](https://travis-ci.org/ndlib/sipity.png?branch=master)](https://travis-ci.org/ndlib/sipity)
 [![Code Climate](https://codeclimate.com/github/ndlib/sipity.png)](https://codeclimate.com/github/ndlib/sipity)
 [![Test Coverage](https://codeclimate.com/github/ndlib/sipity/badges/coverage.svg)](https://codeclimate.com/github/ndlib/sipity)
+<<<<<<< HEAD
 [![Dependency Status](https://gemnasium.com/ndlib/sipity.svg)](https://gemnasium.com/ndlib/sipity)
 [![Documentation Status](http://inch-ci.org/github/ndlib/sipity.svg?branch=master)](https://rubydoc.info/github/ndlib/sipity/master)
+=======
+[![Documentation Status](http://inch-ci.org/github/ndlib/sipity.svg?branch=master)](http://inch-ci.org/github/ndlib/sipity)
+>>>>>>> Update ReadMe
 [![APACHE 2 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
 [![Contributing Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 
@@ -46,17 +50,17 @@ Assuming you have a Mac OSX machine:
 _**Note:** Because OSX is squirrelly about it's command line ecosystem, you may encounter bumps
 along the way. You can find some possible guidance at [jeremyf/dotzshrc's runbooks](https://github.com/jeremyf/dotzshrc/tree/master/runbooks)._
 
-### Running under SSL
+### Starting the Application
 
-To run the application under SSL, use the following commands:
+To run the application, use the following commands:
 
 ```console
 mysql.server start
+bundle exec rake db:migrate
 rake bootstrap
-SSL=true bundle exec bin/rails s
+bundle exec bin/rails s
 ```
-
-Then go to https://localhost:3000
+Then go to http://localhost:3000
 
 ### Running with Authentication (in Development)
 
