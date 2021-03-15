@@ -1,7 +1,7 @@
 module Sipity
   module Jobs
     module Core
-      # Responsible for managing the ingest of each and every work in the :work_area_slug that is in the :initial_processing_state_name.
+      # Responsible for managing the processing of each and every work in the :work_area_slug that is in the :initial_processing_state_name.
       # It will use the given :processing_action_name as part of a batch action.
       #
       # As these are jobs, I believe that I want the parameters to all be primatives (i.e. a String, an Integer). This way they can
@@ -20,8 +20,11 @@ module Sipity
       #      * *Please review the directory structure of the mounted drive as that may have changed*
       #   3. Open up a Terminal window
       #      1. Change directory (cd) into the root of this Rails project
-      #      2. Run the following command `rails runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd')""`
-      #   4. Review the mounted queue subdirectories (i.e. `/Volumes/curatend-batch/test/libvirt6/queue`) for successes and failures
+      #      2. Run the following command to send for ingest
+      #         `rails runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd', initial_processing_state_name: 'ready_for_ingest', processing_action_name: 'submit_for_ingest')"`
+      #      3. Run the following command to send for ingest
+      #         `rails runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd', initial_processing_state_name: 'ready_for_doi_minting', processing_action_name: 'submit_for_doi_minting')"`
+      #     4. Review the mounted queue subdirectories (i.e. `/Volumes/curatend-batch/test/libvirt6/queue`) for successes and failures
       #
       #   In some cases you may need to make changes to address that you don't have a copy of the attachments, see
       #   Sipity::Models::Attachment for more information on how to do this.
@@ -29,17 +32,21 @@ module Sipity
       # @see Sipity::Models::Attachment for information on faking attached files.
       # @see https://github.com/ndlib/curatend-batch curatend-batch
       class BulkIngestJob
-        def self.call(work_area_slug:, **keywords)
-          new(work_area_slug: work_area_slug, **keywords).call
+        def self.call(work_area_slug:, initial_processing_state_name:, processing_action_name:, **keywords)
+          new(work_area_slug: work_area_slug,
+              initial_processing_state_name: initial_processing_state_name,
+              processing_action_name: processing_action_name,
+              **keywords).call
         end
 
         ATTRIBUTE_NAMES = [
-          :requested_by, :repository, :initial_processing_state_name, :work_ingester, :search_criteria_builder,
-          :processing_action_name, :exception_handler
+          :requested_by, :repository, :work_ingester, :search_criteria_builder, :exception_handler
         ].freeze
 
-        def initialize(work_area_slug:, **keywords)
+        def initialize(work_area_slug:, initial_processing_state_name:, processing_action_name:, **keywords)
           self.work_area_slug = work_area_slug
+          self.initial_processing_state_name = initial_processing_state_name
+          self.processing_action_name = processing_action_name
           ATTRIBUTE_NAMES.each do |attribute_name|
             send("#{attribute_name}=", keywords.fetch(attribute_name) { send("default_#{attribute_name}") })
           end
@@ -51,7 +58,7 @@ module Sipity
           works_in_error = []
           repository.find_works_via_search(criteria: search_criteria).each do |work_like|
             work = convert_to_work(work_like)
-            next if ingest(work: work)
+            next if submit_to_ingester(work: work)
             # Let's get a fresh version of the work
             work.reload
             works_in_error << work
@@ -67,7 +74,7 @@ module Sipity
           exception_handler.call(exception, extra: { parameters: { processing_action_name: processing_action_name, initial_processing_state_name: initial_processing_state_name, job_class: self.class } })
         end
 
-        def ingest(work:)
+        def submit_to_ingester(work:)
           parameters = {
             work_id: work.id, requested_by: requested_by, processing_action_name: processing_action_name, attributes: ingester_attributes
           }
@@ -104,17 +111,7 @@ module Sipity
 
         attr_accessor :initial_processing_state_name
 
-        # @note This is an assumption based on the ETD and ULRA work submission work flows.
-        def default_initial_processing_state_name
-          'ready_for_ingest'
-        end
-
         attr_accessor :processing_action_name
-
-        # @see Sipity::Forms::WorkSubmissionsCore::SubmitForIngestForm
-        def default_processing_action_name
-          'submit_for_ingest'
-        end
 
         def ingester_attributes
           {}

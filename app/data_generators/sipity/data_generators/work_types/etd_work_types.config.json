@@ -11,9 +11,6 @@
       "group": "Catalogers",
       "role": "cataloging"
     }, {
-      "group": "ETD Ingestors",
-      "role": "batch_ingesting"
-    }, {
       "group": "Batch Ingestors",
       "role": "batch_ingesting"
     }, {
@@ -343,7 +340,7 @@
         "allow_repeat_within_current_state": true
       },
       "required_actions": ["banner_program_code", "administrative_unit"],
-      "transition_to": "ready_for_cataloging",
+      "transition_to": "ready_for_doi_minting",
       "from_states": [{
         "name": ["under_grad_school_review", "grad_school_changes_requested"],
         "roles": ["etd_reviewing", "etd_student_reviewing"]
@@ -357,7 +354,7 @@
       "attributes": {
         "presentation_sequence": 1
       },
-      "transition_to": "ready_for_cataloging",
+      "transition_to": "ready_for_doi_minting",
       "from_states": [{
         "name": ["grad_school_approved_but_waiting_for_routing"],
         "roles": ["etd_reviewing", "etd_student_reviewing"]
@@ -380,6 +377,28 @@
       "emails": [{
         "name": "grad_school_requests_change",
         "to": ["creating_user"]
+      }]
+    }, {
+      "name": "submit_for_doi_minting",
+      "attributes": {
+        "presentation_sequence": 1,
+        "allow_repeat_within_current_state": false
+      },
+      "transition_to": "minting_doi",
+      "from_states": [{
+        "name": ["ready_for_doi_minting"],
+        "roles": ["batch_ingesting"]
+      }]
+    }, {
+      "name": "doi_completed",
+      "attributes": {
+        "presentation_sequence": 1,
+        "allow_repeat_within_current_state": false
+      },
+      "transition_to": "ready_for_cataloging",
+      "from_states": [{
+        "name": ["minting_doi"],
+        "roles": ["batch_ingesting"]
       }]
     }, {
       "name": "send_to_cataloging",
@@ -475,9 +494,6 @@
     }, {
       "group": "Catalogers",
       "role": "cataloging"
-    }, {
-      "group": "ETD Ingestors",
-      "role": "batch_ingesting"
     }, {
       "group": "Batch Ingestors",
       "role": "batch_ingesting"
@@ -808,7 +824,7 @@
         "allow_repeat_within_current_state": true
       },
       "required_actions": ["banner_program_code", "administrative_unit"],
-      "transition_to": "ready_for_cataloging",
+      "transition_to": "ready_for_doi_minting",
       "from_states": [{
         "name": ["under_grad_school_review", "grad_school_changes_requested"],
         "roles": ["etd_reviewing", "etd_student_reviewing"]
@@ -822,7 +838,7 @@
       "attributes": {
         "presentation_sequence": 1
       },
-      "transition_to": "ready_for_cataloging",
+      "transition_to": "ready_for_doi_minting",
       "from_states": [{
         "name": ["grad_school_approved_but_waiting_for_routing"],
         "roles": ["etd_reviewing", "etd_student_reviewing"]
@@ -845,6 +861,28 @@
       "emails": [{
         "name": "grad_school_requests_change",
         "to": ["creating_user"]
+      }]
+    }, {
+      "name": "submit_for_doi_minting",
+      "attributes": {
+        "presentation_sequence": 1,
+        "allow_repeat_within_current_state": false
+      },
+      "transition_to": "minting_doi",
+      "from_states": [{
+        "name": ["ready_for_doi_minting"],
+        "roles": ["batch_ingesting"]
+      }]
+    }, {
+      "name": "doi_completed",
+      "attributes": {
+        "presentation_sequence": 1,
+        "allow_repeat_within_current_state": false
+      },
+      "transition_to": "ready_for_cataloging",
+      "from_states": [{
+        "name": ["minting_doi"],
+        "roles": ["batch_ingesting"]
       }]
     }, {
       "name": "send_to_cataloging",

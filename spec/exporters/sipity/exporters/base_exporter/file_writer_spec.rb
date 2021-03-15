@@ -1,9 +1,8 @@
 require "rails_helper"
-require 'sipity/exporters/batch_ingest_exporter/file_writer'
 
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       RSpec.describe FileWriter do
         subject { described_class }
         its(:default_file_utility) { is_expected.to respond_to(:mkdir_p) }

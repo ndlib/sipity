@@ -1,9 +1,8 @@
 require "rails_helper"
-require 'sipity/exporters/batch_ingest_exporter'
 
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       RSpec.describe JobInitiator do
         describe ':files' do
           let(:file_utility) { FileUtils::NoWrite }

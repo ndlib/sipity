@@ -11,6 +11,7 @@ curate_nd_url_for_etds: "https://curate.nd.edu/catalog?f_inclusive%5Bhuman_reada
 curate_nd_url_show_prefix_url: "https://curate.nd.edu/show/"
 default_email_from: 'sipity-development@nd.edu'
 default_email_return_path: 'no-reply@nd.edu'
+doi_shoulder: "doi:10.xxxx"
 dragonfly_s3_access_key_id: 's3_key'
 dragonfly_s3_bucket_name: 'bucket_name'
 dragonfly_s3_root_path: 's3_root_dir'

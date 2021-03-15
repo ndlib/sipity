@@ -95,6 +95,10 @@ module Sipity
           "Review #{work_type} “#{title}”"
         end
 
+        def identifier_doi
+          repository.work_attribute_values_for(work: work, key: Models::AdditionalAttribute::DOI_PREDICATE_NAME)
+        end
+
         private
 
         attr_reader :work

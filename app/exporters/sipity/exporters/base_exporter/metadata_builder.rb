@@ -1,6 +1,6 @@
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       # Responsible for building the metadata array from the given :exporter.
       module MetadataBuilder
         # @api public

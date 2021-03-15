@@ -3,12 +3,7 @@
 [![Build Status](https://travis-ci.org/ndlib/sipity.png?branch=master)](https://travis-ci.org/ndlib/sipity)
 [![Code Climate](https://codeclimate.com/github/ndlib/sipity.png)](https://codeclimate.com/github/ndlib/sipity)
 [![Test Coverage](https://codeclimate.com/github/ndlib/sipity/badges/coverage.svg)](https://codeclimate.com/github/ndlib/sipity)
-<<<<<<< HEAD
-[![Dependency Status](https://gemnasium.com/ndlib/sipity.svg)](https://gemnasium.com/ndlib/sipity)
-[![Documentation Status](http://inch-ci.org/github/ndlib/sipity.svg?branch=master)](https://rubydoc.info/github/ndlib/sipity/master)
-=======
 [![Documentation Status](http://inch-ci.org/github/ndlib/sipity.svg?branch=master)](http://inch-ci.org/github/ndlib/sipity)
->>>>>>> Update ReadMe
 [![APACHE 2 License](http://img.shields.io/badge/APACHE2-license-blue.svg)](./LICENSE)
 [![Contributing Guidelines](http://img.shields.io/badge/CONTRIBUTING-Guidelines-blue.svg)](./CONTRIBUTING.md)
 
@@ -373,7 +368,9 @@ The following command uses the database entries to regenerate the DOT-notation f
 $ bundle exec rails runner scripts/commands/generate_state_machine_diagrams.rb
 ```
 
-You can use Graphviz to view a visual representation of that graph. On OS X, use `brew install graphviz` to install. And `open -a Graphviz.app artifacts/state_machines/doctoral_dissertation_processing.dot`.
+You can use Graphviz to create a visual representation of that graph. On OS X, use `brew install graphviz` to install.
+
+Convert the dot file into pdf format and save it in the same directory with Graphviz using `dot -Tpdf artifacts/state_machines/doctoral_dissertation_processing.dot -O`
 
 **NOTE:** If you have created JSON entries for the workflow in `app/data_generators/sipity/data_generators`, you'll need to load those JSON documents into the database. You can use `rake bootstrap` (which will obliterate your existing data and start fresh) or `rake db:seeds` to reload the data. *My personal preference in a development environment is to obliterate and start over with clean data.*
 

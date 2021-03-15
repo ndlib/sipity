@@ -1,6 +1,6 @@
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       # Responsible for writing the content via the API call
       module ApiFileWriter
         def self.call(content:, path:, file_utility: default_file_utility)
