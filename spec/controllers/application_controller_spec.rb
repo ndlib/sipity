@@ -11,11 +11,11 @@ RSpec.describe ApplicationController do
   end
   context '#repository' do
     it 'will be a QueryRepository for a GET request' do
-      expect(request).to receive(:get?).and_return(true)
+      expect(request).to receive(:request_method).and_return("GET")
       expect(controller.repository).to be_a(Sipity::QueryRepository)
     end
     it 'will be a Repository for a non-GET request' do
-      expect(request).to receive(:get?).and_return(false)
+      expect(request).to receive(:request_method).and_return("POST")
       expect(controller.repository).to be_a(Sipity::CommandRepository)
     end
   end

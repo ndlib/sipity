@@ -19,10 +19,11 @@ class ApplicationController < ActionController::Base
   # So you can easily invoke the public repository of Sipity.
   # It is the repository that indicates what the application can and is doing.
   def repository
-    if request.get?
-      Sipity::QueryRepository.new
-    else
+    case request.request_method
+    when "POST", "PATCH", "DELETE", "UPDATE"
       Sipity::CommandRepository.new
+    else
+      Sipity::QueryRepository.new
     end
   end
   helper_method :repository
@@ -35,7 +36,7 @@ class ApplicationController < ActionController::Base
 
   def store_previous_path_if_applicable
     raise "This is for Devise" unless defined?(Devise)
-    return true unless request.get?
+    return true unless ["GET", "HEAD"].include?(request.request_method)
     return true unless params.key?('previous_url')
     store_location_for(:user, params['previous_url'])
     true
