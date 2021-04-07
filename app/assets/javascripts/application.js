@@ -19,10 +19,10 @@
 //= require vendor/redactor
 //= require sipity/redactor_field
 //
-//= require manage_repeating_fields
-//= require manage_repeating_sections
-//= require nd_ldap_lookup
-//= require ulra
+//= require sipity/manage_repeating_fields
+//= require sipity/manage_repeating_sections
+//= require sipity/nd_ldap_lookup
+//= require sipity/ulra
 //
 //= stub vendor/modernizr
 

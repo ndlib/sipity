@@ -29,7 +29,7 @@ RSpec.configure do |config|
   # The below declaration ensures that behavior continues.
   config.before(:suite) do
     DatabaseCleaner.strategy = :truncation
-    DatabaseCleaner.clean_with(:truncation, pre_count: true, reset_ids: true, cache_tables: true)
+    DatabaseCleaner.clean_with(:truncation, pre_count: true, cache_tables: true)
   end
 
   config.around(:each) do |example|
