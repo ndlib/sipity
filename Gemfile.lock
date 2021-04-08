@@ -57,8 +57,8 @@ GIT
 
 GIT
   remote: https://github.com/ndlib/noids_client.git
-  revision: 24a38bce097dba012546d86b65851c6adb35f306
-  branch: json-gem-update
+  revision: 27c2d72166acd4ae726a60beff438c4c7d08fc88
+  ref: 27c2d72166acd4ae726a60beff438c4c7d08fc88
   specs:
     noids_client (0.0.2)
       json (~> 2.3)
