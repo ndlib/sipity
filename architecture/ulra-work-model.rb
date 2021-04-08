@@ -3,13 +3,13 @@
     work: {
       name: "ULRA Application",
       contracts: [{
-        name: "For Ingest"
+        name: "For Ingest",
         contracts: [{
           validator: 'Sipity::Contracts::IngestContract'
         }]
       }],
       forms: [{
-        form: "Attach"
+        form: "Attach",
         contracts: [
           { validates: 'self', validator: 'Sipity::Validators::ValidateAtLeastOneAttachment' },
           { validates: 'attached_files_completion_state', presence: true, inclusion: "ND.attached_files_completion_state/options" }
@@ -23,7 +23,7 @@
           { term: 'ND.project_url'}
         ]
       },{
-        form: "Plan of Study"
+        form: "Plan of Study",
         contracts: [
           { validates: 'ND.expected_graduation_term', presence: true, inclusion: "ND.expected_graduation_term/options" },
           { validates: 'ND.underclass_level', presence: true, inclusion: "ND.underclass_level/options" },
@@ -36,7 +36,7 @@
           { term: 'ND.major', cardinality: 'many' },
           { term: 'ND.minor', cardinality: 'many' },
           { term: 'ND.primary_college', cardinality: 1 }
-        }]
+        ]
       }],
       terms: [{
         term: 'ND.attached_files_completion_state', cardinality: 1,
@@ -51,7 +51,7 @@
         hint: 'If you do not have project files to upload, provide a URL to your project.'
       }]
     }
-  }]
+  }],
   terms: [{
     term: 'ND.attachment', hint: "To select multiple files: Windows Ctrl+click; Mac Cmd+click", type: 'Sipity::Models::Attachment'
   }, {
