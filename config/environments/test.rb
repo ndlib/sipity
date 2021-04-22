@@ -1,61 +1,94 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # The test environment is used exclusively to run your application's
-  # test suite. You never need to work with it otherwise. Remember that
-  # your test database is "scratch space" for the test suite and is wiped
-  # and recreated between test runs. Don't rely on the data there!
+  # Code is not reloaded between requests.
   config.cache_classes = true
 
-  # Do not eager load code on boot. This avoids loading your whole application
-  # just for the purpose of running a single test. If you are using a tool that
-  # preloads Rails for running tests, you may have to set it to true.
+  # Eager load code on boot. This eager loads most of Rails and
+  # your application in memory, allowing both threaded web servers
+  # and those relying on copy on write to perform better.
+  # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
 
-  # Configure static asset server for tests with Cache-Control for performance.
-  config.public_file_server.enabled = true
-  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=3600' }
+  # Full error reports are disabled and caching is turned on.
+  config.consider_all_requests_local       = false
+  config.action_controller.perform_caching = true
 
-  # Show full error reports and disable caching.
-  config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = false
+  # Enable Rack::Cache to put a simple HTTP cache in front of your application
+  # Add `rack-cache` to your Gemfile before enabling this.
+  # For large-scale production use, consider using a caching reverse proxy like nginx, varnish or squid.
+  config.action_dispatch.rack_cache = true
 
-  # Raise exceptions instead of rendering exception templates.
-  config.action_dispatch.show_exceptions = false
+  # Disable Rails's static asset server (Apache or nginx will already do this).
+  config.public_file_server.enabled = false
 
-  # Disable request forgery protection in test environment.
-  config.action_controller.allow_forgery_protection = false
+  # Compress JavaScripts and CSS.
+  config.assets.js_compressor = :uglifier
+  # config.assets.css_compressor = :sass
 
-  # Tell Action Mailer not to deliver emails to the real world.
-  # The :test delivery method accumulates sent emails in the
-  # ActionMailer::Base.deliveries array.
-  config.action_mailer.delivery_method = :test
+  # Do not fallback to assets pipeline if a precompiled asset is missed.
+  config.assets.compile = false
 
-  config.action_mailer.default_url_options = { host: Figaro.env.domain_name }
+  # Generate digests for assets URLs.
+  config.assets.digest = true
 
-  # Print deprecation notices to the stderr.
-  config.active_support.deprecation = :stderr
+  # `config.assets.precompile` and `config.assets.version` have moved to config/initializers/assets.rb
 
-  # Raises error for missing translations
-  # config.action_view.raise_on_missing_translations = true
+  # Specifies the work that your server uses for sending files.
+  # config.action_dispatch.x_sendfile_work = "X-Sendfile" # for apache
+  # config.action_dispatch.x_sendfile_work = 'X-Accel-Redirect' # for nginx
 
-  # If run WITH_I18N_DICTIONARY environment **not** set
-  # Finished in 0.09408 seconds (files took 3.07 seconds to load)
-  #
-  # If run WITH_I18N_DICTIONARY environment set
-  # Finished in 0.50963 seconds (files took 2.85 seconds to load)
-  unless ENV['WITH_I18N_DICTIONARY']
-    config.i18n.enforce_available_locales = false
-    I18n.config.enforce_available_locales = false
-    I18n.backend = I18n::Backend::KeyValue.new({})
-    I18n.backend.store_translations(:en, {})
-  end
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  # config.force_ssl = true
 
-  # I don't want to be hitting LDAP in all cases; This is the default for test
-  # purposes.
-  config.default_netid_remote_validator = ->(_a_netid) { true }
+  # Set to :debug to see everything in the log.
+  config.log_level = :info
 
-  #Use random string for pid rather then using noid service
-  config.default_pid_minter = -> { SecureRandom.urlsafe_base64(nil, true) }
-  config.active_record.sqlite3.represent_boolean_as_integer = true
+  # Prepend all log lines with the following tags.
+  # config.log_tags = [ :subdomain, :uuid ]
+
+  # Use a different logger for distributed setups.
+  # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
+
+  # Use a different cache store in production.
+  # config.cache_store = :mem_cache_store
+
+  # Enable serving of images, stylesheets, and JavaScripts from an asset server.
+  # config.action_controller.asset_host = "http://assets.example.com"
+
+  # Ignore bad email addresses and do not raise email delivery errors.
+  # Set this to true and configure the email server for immediate delivery to raise delivery errors.
+  # config.action_mailer.raise_delivery_errors = false
+
+  # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
+  # the I18n.default_locale when a translation cannot be found).
+  config.i18n.fallbacks = true
+
+  # ActionMailer Config
+  config.action_mailer.default_url_options = { protocol: Figaro.env.protocol, host:  Figaro.env.domain_name }
+  config.action_mailer.delivery_method = :sendmail
+  config.action_mailer.raise_delivery_errors = true
+  # Send email in development mode?
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.smtp_settings = {
+    address:              Figaro.env.smtp_host!,
+    port:                 Figaro.env.smtp_port!.to_i,
+    domain:               Figaro.env.smtp_domain!,
+    user_name:            Figaro.env.smtp_user_name!,
+    password:             Figaro.env.smtp_password,
+    authentication:       Figaro.env.smtp_authentication_type!,
+    enable_starttls_auto: true
+  }
+
+  # Disable automatic flushing of the log to improve performance.
+  # config.autoflush_log = false
+
+  # Use default logging formatter so that PID and timestamp are not suppressed.
+  config.log_formatter = ::Logger::Formatter.new
+
+  # Do not dump schema after migrations.
+  config.active_record.dump_schema_after_migration = false
+
+  # set root url of server
+  config.application_root_url = "https://sipity-test.library.nd.edu"
 end
