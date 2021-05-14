@@ -30,6 +30,7 @@ module Sipity
         def call
           entity.update_columns(strategy_state_id: state.id)
           repository.destroy_existing_registered_state_changing_actions_for(entity: entity, strategy_state: state) if clear_actions?
+          return true
         end
 
         private
