@@ -1,6 +1,7 @@
 require "rails_helper"
 require 'sipity/jobs/core/bulk_ingest_job'
 require 'sipity/models/work'
+require 'sipity/exceptions'
 
 RSpec.describe Sipity::Jobs::Core::BulkIngestJob do
   let(:work_area_slug) { 'etd' }
@@ -46,6 +47,7 @@ RSpec.describe Sipity::Jobs::Core::BulkIngestJob do
       work1 = Sipity::Models::Work.new(id: 1)
       work2 = Sipity::Models::Work.new(id: 2)
       allow(repository).to receive(:find_works_via_search).and_return([work1, work2])
+      allow(work1).to receive(:reload)
       expect(work_ingester).to receive(:call).with(
         work_id: work1.id, requested_by: subject.send(:requested_by), processing_action_name: subject.send(:processing_action_name),
         attributes: subject.send(:ingester_attributes)
@@ -64,6 +66,13 @@ RSpec.describe Sipity::Jobs::Core::BulkIngestJob do
                                work_ingester: work_ingester,
                                attributes: subject.send(:ingester_attributes) } }
       )
+      expect(exception_handler).to have_received(:call).with(
+        kind_of(Sipity::Exceptions::ScheduledJobError),
+        extra: {
+          parameters: {
+            processing_action_name: subject.send(:processing_action_name),
+            job_class: described_class,
+            initial_processing_state_name: subject.send(:initial_processing_state_name) } })
     end
   end
 end

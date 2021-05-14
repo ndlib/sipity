@@ -17,6 +17,22 @@ module Sipity
     class IngestUnableToCompleteError < RuntimeError
     end
 
+    class ScheduledJobError < RuntimeError
+      def initialize(works:)
+        @works = works
+        message = "The following Work IDs had failures in the batch ingest:\n"
+        @works.each do |work|
+          message += "\n\t* #{work.id} (Current Status: #{work.processing_status})"
+        end
+        message += "\n\nThis could mean that the Batch Ingester received the request but in"
+        message += "\nthe response something got mangled (e.g., a broken pipe error). You"
+        message += "\nshould look at other exceptions for these works to see what"
+        message += "\nspecifically happened."
+
+        super(message)
+      end
+    end
+
     # When you can't instantiate a specific work converter, raise this exception.
     class FailedToInitializeWorkConverterError < RuntimeError
       attr_reader :work
