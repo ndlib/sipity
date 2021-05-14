@@ -14,6 +14,12 @@ module Sipity
       its(:message) { is_expected.to be_a(String) }
     end
 
+    RSpec.describe ScheduledJobError do
+      let(:work) { double(id: '123', processing_status: "Broken") }
+      subject { described_class.new(works: [work]) }
+      its(:message) { is_expected.to be_a(String) }
+    end
+
     RSpec.describe EmailAsOptionInvalidError do
       subject { described_class.new(as: :chicken, valid_list: [:hello]) }
       its(:message) { is_expected.to be_a(String) }

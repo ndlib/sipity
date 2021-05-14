@@ -48,12 +48,24 @@ module Sipity
 
         include Conversions::ConvertToWork
         def call
+          works_in_error = []
           repository.find_works_via_search(criteria: search_criteria).each do |work_like|
-            ingest(work: convert_to_work(work_like))
+            work = convert_to_work(work_like)
+            next if ingest(work: work)
+            # Let's get a fresh version of the work
+            work.reload
+            works_in_error << work
           end
+          return true if works_in_error.empty?
+          report_batch_ingest_error(works: works_in_error)
         end
 
         private
+
+        def report_batch_ingest_error(works:)
+          exception = Exceptions::ScheduledJobError.new(works: works)
+          exception_handler.call(exception, extra: { parameters: { processing_action_name: processing_action_name, initial_processing_state_name: initial_processing_state_name, job_class: self.class } })
+        end
 
         def ingest(work:)
           parameters = {
@@ -61,8 +73,10 @@ module Sipity
           }
           begin
             ActiveRecord::Base.transaction { work_ingester.call(parameters) }
+            return true
           rescue StandardError => exception
             exception_handler.call(exception, extra: { parameters: parameters.merge(work_ingester: work_ingester, job_class: self.class) })
+            return false
           end
         end
 
