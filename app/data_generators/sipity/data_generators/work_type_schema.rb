@@ -4,6 +4,8 @@ require 'sipity/data_generators/processing_action_schema'
 module Sipity
   module DataGenerators
     # Responsible for defining the schema for building work types.
+    #
+    # @see ./artifacts/on-system-levels-schemas-json-and-adding-to-a-workflow.md
     WorkTypeSchema = Dry::Schema.JSON do
       required(:work_types).value(:array).each do
         schema do
@@ -12,10 +14,11 @@ module Sipity
 
           # What are all the <actions> associated with this state machine. Note,
           # the actions encode what the various available states are.
+          #
+          # This section answers the _who_ can do _what_ and _when_
           required(:actions).value(:array).each { schema(ProcessingActionSchema) }
 
-          # The <strategy_permissions> defiens the permissions that apply to all
-          # entities that use this workflow.
+          # The <strategy_permissions> defines the what named groups get the named roles
           optional(:strategy_permissions).value(:array).each { schema(StrategyPermissionSchema) }
 
           # An odd-duck, but crucial for proxy approval, the <action_analogues>

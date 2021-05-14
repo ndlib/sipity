@@ -10,6 +10,8 @@
 
 A plugin-ready and extensible Rails application for modeling approval style workflows.
 
+**Sipity is a collaborative multi-step checklist, with strict authorization concerns.**  Read more about it's [History and High Level Concepts](artifacts/on-system-levels-schemas-json-and-adding-to-a-workflow.md).
+
 **Q: Is it ready for other people to use?**
 _A: No. However it has been designed to extract Notre Dame specific information into a separate plugin._
 

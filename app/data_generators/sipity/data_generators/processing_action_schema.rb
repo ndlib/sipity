@@ -2,6 +2,15 @@ require 'sipity/data_generators/email_schema'
 
 module Sipity
   module DataGenerators
+    # <name> the action that can be taken.  And determine if there's a
+    # <transition_to> a new state.  This action has <required_actions>
+    # that must be completed before it can be taken.
+    #
+    # This action may only be taken if the entity's current state is
+    # in the <from_states/name> and the current person has one named
+    # <from_states/roles>.
+    #
+    # When someone does take this eaction, then send the named <emails>
     ProcessingActionSchema = Dry::Schema.JSON do
       # The <name> of the action that you will take. This is a unique name
       # within the state machine.
@@ -18,7 +27,7 @@ module Sipity
       # The list of states from which this action can be taken.
       #
       # Specify all of the <from_states> in which this action can be taken.
-      # The <name> of the state, and the <roles> that people must have in order
+      # The <from_states/name> of the state, and the <from_states/roles> that people must have in order
       # to take this action.
       optional(:from_states).value(:array).each do
         schema do
