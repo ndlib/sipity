@@ -893,6 +893,10 @@
       "from_states": [{
         "name": ["ingesting"],
         "roles": ["batch_ingesting"]
+      }],
+      "emails": [{
+        "name": "hurray_your_work_is_in_curatend",
+        "to": ["creating_user"]
       }]
     }, {
       "name": "submit_for_ingest",
