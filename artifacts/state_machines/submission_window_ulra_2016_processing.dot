@@ -2,14 +2,14 @@ digraph "G" {
   compound=true;
   node[color="grey15" margin="0.15, 0.125"];
   subgraph cluster_0 {
-    label="Submission Window ulra 2016 processing (2021-05-13)"
+    label="Submission Window ulra 2016 processing (2021-05-24)"
     node[style=filled fillcolor=white color="seashell4"]
     subgraph 0 {
       label="States";
       node[shape="record" fillcolor="seashell1" penwidth=5]
-      state_closed [label="{ STATE: Closed (ID=33)| TASKS: | Show: work_submitting | EMAILS: |  }"]
-      state_new [label="{ STATE: New (ID=31)| TASKS: | Show: work_submitting | Start A Submission: work_submitting | EMAILS: |  }"]
-      state_opened [label="{ STATE: Opened (ID=32)| TASKS: | Show: work_submitting | Start A Submission: work_submitting | EMAILS: |  }"]
+      state_closed [label="{ STATE: Closed (ID=37)| TASKS: | Show: work_submitting | EMAILS: |  }"]
+      state_new [label="{ STATE: New (ID=35)| TASKS: | Show: work_submitting | Start A Submission: work_submitting | EMAILS: |  }"]
+      state_opened [label="{ STATE: Opened (ID=36)| TASKS: | Show: work_submitting | Start A Submission: work_submitting | EMAILS: |  }"]
     }
     subgraph 1 {
       label="Actions"

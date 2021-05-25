@@ -69,6 +69,15 @@ module Sipity
           end
         end
       end
+
+      describe 'expects .call to be implemented in inheriting class' do
+        class TestExporter < BaseExporter
+        end
+
+        it 'raises error on .call' do
+          expect{ TestExporter.call(work: work) }.to raise_error(NotImplementedError, 'Expected Sipity::Exporters::TestExporter to implement #call')
+        end
+      end
     end
   end
 end
