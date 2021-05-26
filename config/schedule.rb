@@ -6,6 +6,10 @@
 # Learn more: http://github.com/javan/whenever
 
 # DLTP-1515 bundle was not being found by cron"
+
+# to test in development using :files, change the default ingest method in base_exporter.
+# use: bundle exec rails runner.... to run one of the commands below.
+# complete ingest process by referring to example in scripts/one-offs/callback.rb
 set :bundle_command, "/usr/local/bin/bundle exec"
 
 if @environment == 'production'
