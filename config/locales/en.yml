@@ -314,6 +314,7 @@ en:
         etd/respond_to_advisor_request_form: 'Tell your Advisors about the Changes You’ve Made'
         etd/respond_to_grad_school_request_form: 'Tell the Graduate School about the Changes You’ve Made'
         etd/advisor_signoff: 'Proceed with the Submission'
+        etd/grad_school_signoff: "Send to Cataloging"
         etd/send_to_cataloging: 'Send to Cataloging'
         etd/cataloger_signoff: 'Cataloging Signoff'
         etd/ingest_with_postponed_cataloging: 'Ingest with Postponed Cataloging'
@@ -327,6 +328,8 @@ en:
           i_agree: 'I have reviewed the submission and all aspects of it conform to my expectations.'
         etd/cataloger_signoff:
           i_agree: 'I have reviewed the submission and all aspects of it conform to my expectations.'
+        etd/grad_school_signoff:
+          i_agree: 'The submission is ready for a DOI to be assigned and to be sent to cataloging'
         etd/send_to_cataloging:
           i_agree: 'The submission is ready to be sent to cataloging'
         etd/ingest_with_postponed_cataloging:
