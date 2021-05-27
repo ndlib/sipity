@@ -51,7 +51,7 @@ To run the application, use the following commands:
 
 ```console
 mysql.server start
-bundle exec rake db:migrate
+bundle exec rake db:drop db:create
 rake bootstrap
 bundle exec bin/rails s
 ```
