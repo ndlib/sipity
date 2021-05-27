@@ -12,7 +12,7 @@
 # complete ingest process by referring to example in scripts/one-offs/callback.rb
 set :bundle_command, "/usr/local/bin/bundle exec"
 
-if @environment == 'production'
+if @environment == 'production' || @environment == 'prep'
   set :output, '/home/app/sipity/shared/log/cron_log.log'
   # I prefer to choose prime number moments in time for scheduling because other
   # people tend to schedule tasks on the quarter hours.
