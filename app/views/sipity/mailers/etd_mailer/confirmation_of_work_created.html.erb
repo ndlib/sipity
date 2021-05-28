@@ -9,6 +9,8 @@
 
 <p>After you’ve completed the descriptive information and uploaded your file(s), be sure to click the "<%= t('sipity/works.state_advancing_actions.label.submit_for_review', default: 'Submit for Review') %>" button to begin the final review process. <em>Please note: you will be unable to edit the record while it is under review.</em></p>
 
+<p>After your dissertation has been approved by your advisors and the Graduate School, you work will be assigned a Digital Object Identifier (DOI). To learn more about DOIs, please visit: <%= link_to 'https://apastyle.apa.org/learn/faqs/what-is-doi', 'https://apastyle.apa.org/learn/faqs/what-is-doi' %></p>
+
 <%= render partial: 'sipity/mailers/etd_mailer/etd_submission_assistance' %>
 <%= render partial: 'sipity/mailers/etd_mailer/grad_school_email_signature' %>
 <%= render(partial: 'sipity/mailers/etd_mailer/action_in_the_inbox', object: @entity) %>

@@ -1,7 +1,6 @@
-require 'fileutils'
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       # Responsible for performing the appropriate action to initiate the ingest job.
       module JobInitiator
         module_function

@@ -33,7 +33,8 @@ module Sipity
               'dc:date#created' => fetch_attribute_values(key: Sipity::Models::AdditionalAttribute::PUBLICATION_DATE_PREDICATE_NAME),
               'dc:identifier#local' => fetch_attribute_values(key: 'oclc_number'),
               'dc:description#code_list' => fetch_attribute_values(key: 'banner_program_code'),
-              'nd:alephIdentifier' => fetch_attribute_values(key: 'catalog_system_number')
+              'nd:alephIdentifier' => fetch_attribute_values(key: 'catalog_system_number'),
+              'dc:identifier#doi' => fetch_attribute_values(key: 'identifier_doi')
             }
           end
 

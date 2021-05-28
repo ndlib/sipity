@@ -4,6 +4,7 @@
 
 <p>
   The official URL for your <%= @entity.work_type %> is: <%= link_to @entity.permanent_url, @entity.permanent_url %>.
+  This record is also accessible via the persistent Digital Object Identifier (DOI): <%= @entity.identifier_doi %>.
   You may still access your <%= @entity.work_type %> by going to <%= link_to @entity.email_message_action_url, @entity.email_message_action_url %>.
 </p>
 

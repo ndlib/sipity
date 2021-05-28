@@ -93,6 +93,7 @@ module Sipity
               persist_work_publication_strategy
               repository.grant_creating_user_permission_for!(entity: work, user: requested_by)
               repository.update_work_attribute_values!(work: work, key: 'author_name', values: requested_by.to_s)
+              repository.update_work_attribute_values!(work: work, key: 'identifier_doi', values: default_identifier_doi)
               register_actions
             end
           end
@@ -131,6 +132,10 @@ module Sipity
 
           def default_repository
             CommandRepository.new
+          end
+
+          def default_identifier_doi
+            "To be assigned"
           end
 
           def initialize_work_area_and_submission_window!(submission_window:)

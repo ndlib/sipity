@@ -36,7 +36,7 @@ namespace :development do
       if strategy_state_name != "ingesting"
         raise %(Expected work ID="#{@work.to_param}" to be 'ingesting')
       end
-      callback_url = Sipity::Exporters::BatchIngestExporter::WebhookWriter.callback_url(work_id: @work.to_param)
+      callback_url = Sipity::Exporters::BatchIngestExporter::WebhookWriter.callback_url(work_id: @work.to_param, process: 'ingest_completed')
       json = { "host" => Figaro.env.domain_name!, "version" => "1.0.1", "job_name" => "ingest-#{@work.to_param}", "job_state" => "success" }
       begin
         RestClient.post(URI.encode(callback_url), JSON.dump(json))

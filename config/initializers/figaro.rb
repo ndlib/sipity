@@ -10,6 +10,7 @@ Figaro.require_keys(
   'curate_nd_url_show_prefix_url',
   'default_email_from',
   'default_email_return_path',
+  'doi_shoulder',
   'domain_name',
   'dragonfly_s3_access_key_id',
   'dragonfly_s3_bucket_name',

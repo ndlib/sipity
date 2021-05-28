@@ -1,6 +1,6 @@
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       # Overrides file utils to allow for API processing. Returns response.
       module ApiFileUtils
         def self.put_content(path, content = nil)

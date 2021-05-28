@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       RSpec.describe ApiFileUtils do
         subject { described_class }
         it { is_expected.to respond_to :put_content }

@@ -14,7 +14,7 @@ feature 'Export ETD to Batch Ingest' do
   # REVIEW: This draws attention to the fact that composition of objects is a little jagged.
   it 'will export an ROF file with JSON metadata, a webhook, and any attachments to the mount path' do
     work = repository.create_work!(
-      submission_window: submission_window, title: 'My Work', work_type: Sipity::Models::WorkType::MASTER_THESIS
+      submission_window: submission_window, title: 'My Work', work_type: Sipity::Models::WorkType::MASTER_THESIS, identifier_doi: 'abcdefg'
     )
 
     repository.grant_creating_user_permission_for!(entity: work, user: user)

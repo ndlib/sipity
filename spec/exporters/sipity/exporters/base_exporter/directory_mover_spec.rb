@@ -1,9 +1,8 @@
 require "rails_helper"
-require 'sipity/exporters/batch_ingest_exporter/directory_mover'
 
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       RSpec.describe DirectoryMover do
         let(:exporter) do
           double('BatchIngestExporter',

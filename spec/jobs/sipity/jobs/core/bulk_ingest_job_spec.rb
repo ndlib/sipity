@@ -5,21 +5,26 @@ require 'sipity/exceptions'
 
 RSpec.describe Sipity::Jobs::Core::BulkIngestJob do
   let(:work_area_slug) { 'etd' }
+  let(:initial_processing_state_name) { 'ready_for_ingest' }
+  let(:processing_action_name) { 'submit_for_ingest' }
   let(:repository) { Sipity::QueryRepositoryInterface.new }
   let(:work_ingester) { double('Work Ingester', call: true) }
   let(:exception_handler) { double('Exception Handler', call: true) }
 
   subject do
     described_class.new(
-      work_area_slug: work_area_slug, repository: repository, work_ingester: work_ingester, exception_handler: exception_handler
+      work_area_slug: work_area_slug,
+      initial_processing_state_name: initial_processing_state_name,
+      processing_action_name: processing_action_name,
+      repository: repository,
+      work_ingester: work_ingester,
+      exception_handler: exception_handler
     )
   end
 
-  its(:default_initial_processing_state_name) { should eq('ready_for_ingest') }
   its(:default_work_ingester) { should respond_to(:call) }
   its(:default_requested_by) { should be_a(String) }
   its(:default_search_criteria_builder) { should respond_to(:call) }
-  its(:default_processing_action_name) { should eq('submit_for_ingest') }
   its(:default_repository) { should respond_to(:find_works_via_search) }
   its(:default_exception_handler) { should respond_to(:call) }
 
@@ -27,11 +32,12 @@ RSpec.describe Sipity::Jobs::Core::BulkIngestJob do
 
   it 'exposes .call as a convenience method' do
     expect_any_instance_of(described_class).to receive(:call)
-    described_class.call(work_area_slug: work_area_slug, repository: repository)
+    described_class.call(work_area_slug: work_area_slug, initial_processing_state_name: initial_processing_state_name,
+    processing_action_name: processing_action_name, repository: repository)
   end
 
   context '.call' do
-    it 'will find all entities for the given work area in the ready for ingest state' do
+    it 'will find all entities for the given work area in the requested state' do
       work = Sipity::Models::Work.new(id: 1)
       expect(repository).to receive(:find_works_via_search).and_return([work])
       subject.call

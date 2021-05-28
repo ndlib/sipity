@@ -1,5 +1,4 @@
 require "rails_helper"
-require 'sipity/exporters/batch_ingest_exporter'
 
 module Sipity
   module Exporters
@@ -43,7 +42,7 @@ module Sipity
             double('exporter',
                    with_path_to_data_directory: true,
                    ingest_method: :api,
-                   file_utility: Sipity::Exporters::BatchIngestExporter::ApiFileUtils)
+                   file_utility: Sipity::Exporters::BaseExporter::ApiFileUtils)
           end
           let(:filename) { File.join(temporary_directory, "#{attachment.pid}-#{attachment.file_name}") }
           let(:path) { attachment.file.path }

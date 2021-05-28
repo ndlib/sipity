@@ -109,6 +109,7 @@ module Sipity
                 expect(subject).to receive(:valid?).and_return(true)
                 allow(repository).to receive(:create_work!).and_return(work)
                 allow(repository).to receive(:register_action_taken_on_entity)
+                allow(repository).to receive(:update_work_attribute_values!)
                 expect(subject.send(:publication_and_patenting_intent_extension)).to receive(:persist_work_publication_strategy)
               end
               it 'will assign the work attribute on submit' do
@@ -135,9 +136,11 @@ module Sipity
                 subject.submit
               end
 
-              it 'will set the author_name' do
-                expect(repository).to receive(:update_work_attribute_values!).with(work: work, key: 'author_name', values: user.to_s).
-                  and_call_original
+              it 'will set the author_name and initialize doi' do
+                expect(repository).to receive(:update_work_attribute_values!)
+                  .with(work: work, key: 'author_name', values: user.to_s).and_call_original
+                expect(repository).to receive(:update_work_attribute_values!)
+                  .with(work: work, key: 'identifier_doi', values: 'To be assigned').and_call_original
                 subject.submit
               end
 

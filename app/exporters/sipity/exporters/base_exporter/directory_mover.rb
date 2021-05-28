@@ -1,7 +1,6 @@
-require 'fileutils'
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       # The batch ingest process is triggered by file operations. When the data
       # preparation is complete its containing directory is moved to the "queue"
       # directory. This module manages moving the data.

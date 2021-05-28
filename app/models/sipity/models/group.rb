@@ -9,7 +9,9 @@ module Sipity
       self.table_name = 'sipity_groups'
 
       ALL_REGISTERED_USERS = 'All Registered Users'.freeze
+      # group used for items sent to batch ingestor
       BATCH_INGESTORS = "Batch Ingestors".freeze
+      # ETD integrators is OIT
       ETD_INTEGRATORS = "ETD_INTEGRATORS".freeze
 
       def self.all_registered_users

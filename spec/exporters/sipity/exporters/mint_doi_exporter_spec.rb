@@ -2,7 +2,7 @@ require "rails_helper"
 
 module Sipity
   module Exporters
-    RSpec.describe BatchIngestExporter do
+    RSpec.describe MintDoiExporter do
       let(:work) { Sipity::Models::Work.new(id: '1234-56') }
 
       it 'exposes .call as a convenience method' do
@@ -16,7 +16,6 @@ module Sipity
         it 'performs all necessary tasks' do
           expect(Sipity::Exporters::BaseExporter::JobInitiator).to receive(:call)
           expect(Sipity::Exporters::BaseExporter::TaskIdentifier).to receive(:call)
-          expect(Sipity::Exporters::BatchIngestExporter::AttachmentWriter).to receive(:call)
           expect(Sipity::Exporters::BaseExporter::MetadataBuilder).to receive(:call)
           expect(Sipity::Exporters::BaseExporter::MetadataWriter).to receive(:call)
           expect(Sipity::Exporters::BaseExporter::WebhookWriter).to receive(:call)

@@ -1,9 +1,8 @@
 require "rails_helper"
-require 'sipity/exporters/batch_ingest_exporter'
 
 module Sipity
   module Exporters
-    class BatchIngestExporter
+    class BaseExporter
       RSpec.describe MetadataWriter do
         describe ':files' do
           let(:metadata) { { hello: 'world' } }
@@ -12,6 +11,7 @@ module Sipity
                    work_id: 1661,
                    ingest_method: :files,
                    data_directory: '/tmp/sipity-1661',
+                   file_writer: FileWriter,
                    make_data_directory: true)
           end
           context '.call' do
@@ -30,6 +30,7 @@ module Sipity
             double('BatchIngestExporter',
                    work_id: 1661,
                    ingest_method: :api,
+                   file_writer: ApiFileWriter,
                    data_directory: '/tmp/sipity-1661/files')
           end
 
