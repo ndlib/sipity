@@ -19,10 +19,10 @@ if @environment == 'production' || @environment == 'prep'
   # "I am the cicada, coo coo ca choo"
 
   every 1.day, at: '3:17 am', roles: [:app] do
-    runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd', initial_processing_state_name: 'ready_for_ingest', processing_action_name: 'submit_for_ingest')"
+    runner %(Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: "etd", initial_processing_state_name: "ready_for_ingest", processing_action_name: "submit_for_ingest"))
   end
 
   every 1.day, at: '1:11 am', roles: [:app] do
-    runner "Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: 'etd', initial_processing_state_name: 'ready_for_doi_minting', processing_action_name: 'submit_for_doi_minting')"
+    runner %(Sipity::Jobs::Core::BulkIngestJob.call(work_area_slug: "etd", initial_processing_state_name: "ready_for_doi_minting", processing_action_name: "submit_for_doi_minting"))
   end
 end
