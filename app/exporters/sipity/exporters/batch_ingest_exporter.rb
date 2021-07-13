@@ -3,7 +3,7 @@ module Sipity
     # Responsible for coordinating sending a work through the batch ingest.
     class BatchIngestExporter < BaseExporter
       def ingest_task
-        'start-api-ingest'
+        'start'
       end
 
       def callback_process
