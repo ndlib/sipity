@@ -41,11 +41,17 @@ module Sipity
           end
 
           context '#render' do
+
             it 'will expose select box' do
+              input_label = "<span class=\"translation_missing\" title=\"translation missing: en.sipity/forms.state_advancing_actions.verification.etd/signoff_on_behalf_of.i_agree\">I Agree</span>"
+              output_label = "<span class=\"translation_missing\" title=\"translation missing: en.sipity/forms.state_advancing_actions.legend.etd/signoff_on_behalf_of\">Etd/Signoff On Behalf Of</span>"
               form_object = double('Form Object')
-              expect(form_object).to receive(:input).with(:on_behalf_of_collaborator_id, collection: [someone], value_method: :id).
+              expect(form_object).to receive(:input).with(:on_behalf_of_collaborator_id,
+                label: input_label,
+                collection: [someone],
+                value_method: :id).
                 and_return("<input />")
-              expect(subject.render(f: form_object)).to eq("<input />")
+              expect(subject.render(f: form_object)).to eq("<legend>" + output_label + "</legend>" + "<input />")
             end
           end
 

@@ -27,10 +27,14 @@ module Sipity
 
           context '#render' do
             let(:f) { double }
+
             it 'will render HTML safe comment textarea and comment selection box' do
+              input_label = "<span class=\"translation_missing\" title=\"translation missing: en.sipity/forms.state_advancing_actions.verification.etd/request_change_on_behalf_of.i_agree\">I Agree</span>"
+              output_label = "<span class=\"translation_missing\" title=\"translation missing: en.sipity/forms.state_advancing_actions.legend.etd/request_change_on_behalf_of\">Etd/Signoff On Behalf Of</span>"
+
               expect(f).to receive(:input).with(:comment, hash_including(as: :text))
-              expect(f).to receive(:input).with(:on_behalf_of_collaborator_id, collection: [someone], value_method: :id).
-                and_return("<input />")
+              expect(f).to receive(:input).with(:on_behalf_of_collaborator_id, label: input_label, collection: [someone], value_method: :id).
+                and_return("<legend>" + output_label + "</legend>" + "<input />")
               subject.render(f: f)
             end
           end
