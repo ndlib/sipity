@@ -35,7 +35,25 @@ module Sipity
           private(:on_behalf_of_collaborator_id=)
 
           def render(f:)
-            f.input(:on_behalf_of_collaborator_id, collection: valid_on_behalf_of_collaborators, value_method: :id)
+            markup = view_context.content_tag('legend', signoff_on_behalf_of_legend)
+            markup << f.input(:on_behalf_of_collaborator_id,
+              label: signoff_agreement,
+              collection: valid_on_behalf_of_collaborators,
+              value_method: :id).html_safe
+          end
+
+          # TODO: Normalize translation
+          def signoff_on_behalf_of_legend
+            view_context.t('etd/signoff_on_behalf_of', scope: 'sipity/forms.state_advancing_actions.legend').html_safe
+          end
+
+          # TODO: Normalize translation
+          def signoff_agreement
+            view_context.t('i_agree', scope: 'sipity/forms.state_advancing_actions.verification.etd/signoff_on_behalf_of').html_safe
+          end
+
+          def view_context
+            Draper::ViewContext.current
           end
 
           def submit

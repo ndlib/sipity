@@ -164,6 +164,10 @@ en:
     new:
       label: 'Not Submitted'
   processing_actions:
+    advisor_signoff:
+      label: "Advisor approves"
+    signoff_on_behalf_of:
+      label: "Approve on behalf of"
     publishing_and_patenting_intent:
       label: "Tell us about your <b>publishing</b> and <b>patenting</b> intent for this %{work_type}"
       call_to_action:
@@ -310,10 +314,12 @@ en:
       legend:
         deactivate_work: 'Deactivate this Submission'
         etd/advisor_requests_change: 'Changes are Required to Meet My Approval'
+        etd/request_change_on_behalf_of: 'Changes are Required to Meet Advisor Approval'
         etd/grad_school_requests_change: 'Changes are Required to Meet the Grad School Approval'
         etd/respond_to_advisor_request_form: 'Tell your Advisors about the Changes You’ve Made'
         etd/respond_to_grad_school_request_form: 'Tell the Graduate School about the Changes You’ve Made'
         etd/advisor_signoff: 'Proceed with the Submission'
+        etd/signoff_on_behalf_of: 'Proceed with the Submission'
         etd/grad_school_signoff: "Send to Cataloging"
         etd/send_to_cataloging: 'Send to Cataloging'
         etd/cataloger_signoff: 'Cataloging Signoff'
@@ -326,6 +332,10 @@ en:
           i_agree: 'Are you sure you want to deactivate this submission?'
         etd/advisor_signoff:
           i_agree: 'I have reviewed the submission and all aspects of it conform to my expectations.'
+        etd/signoff_on_behalf_of:
+          i_agree: 'Submission conforms fully to advisor expectations, and is approved on behalf of:'
+        etd/request_change_on_behalf_of:
+          i_agree: 'Requested on behalf of:'
         etd/cataloger_signoff:
           i_agree: 'I have reviewed the submission and all aspects of it conform to my expectations.'
         etd/grad_school_signoff:

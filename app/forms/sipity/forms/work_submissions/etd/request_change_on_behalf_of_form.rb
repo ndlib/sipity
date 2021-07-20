@@ -39,7 +39,7 @@ module Sipity
           # @return String
           def render(f:)
             markup = view_context.content_tag('legend', comment_legend)
-            markup << f.input(:on_behalf_of_collaborator_id, collection: valid_on_behalf_of_collaborators, value_method: :id)
+            markup << f.input(:on_behalf_of_collaborator_id, label: signoff_agreement, collection: valid_on_behalf_of_collaborators, value_method: :id)
             markup << f.input(:comment, as: :text, autofocus: true, input_html: { class: 'form-control', required: 'required' })
           end
 
@@ -55,6 +55,9 @@ module Sipity
             view_context.t("etd/#{processing_action_name}", scope: 'sipity/forms.state_advancing_actions.legend').html_safe
           end
 
+          def signoff_agreement
+            view_context.t('i_agree', scope: 'sipity/forms.state_advancing_actions.verification.etd/request_change_on_behalf_of').html_safe
+          end
           def view_context
             Draper::ViewContext.current
           end
