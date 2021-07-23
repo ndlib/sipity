@@ -12,6 +12,7 @@
     <div class="col-xs-12">
       <a href="{{start_a_submission_path}}" class="btn btn-primary">{{ translate.start_a_submission }}</a>
       <a href="{{view_submitted_etds_url}}" class="btn btn-primary">{{ translate.view_submitted_etds }}</a>
+      <a href="{{reset_path}}" class="btn btn-primary pull-right">{{ translate.reset }}</a>
     </div>
   </div>
   <div class="row dashboard-actions">

@@ -13,7 +13,7 @@ module Sipity
             work_area.input_name_for_select_processing_state,
             options_from_collection_for_select(
               work_area.processing_states_for_select, :to_s, :humanize, work_area.processing_state
-            ), include_blank: true, class: 'form-control'
+            ), prompt: 'All states', class: 'form-control'
           ).html_safe
         end
 
@@ -31,17 +31,19 @@ module Sipity
             work_area.input_name_for_select_sort_order,
             options_from_collection_for_select(
               work_area.order_options_for_select, :to_s, :humanize, work_area.order
-            ), include_blank: true, class: 'form-control'
+            ), class: 'form-control'
           ).html_safe
         end
 
         def q_tag
           text_field_tag(
-            work_area.input_name_for_q, work_area.q, placeholder: 'Search for…'
+            work_area.input_name_for_q,
+            work_area.q,
+            placeholder: 'Search for…', class: 'form-control'
           )
         end
 
-        def submit_button(dom_class: 'btn btn-default', name: 'Go')
+        def submit_button(dom_class: 'btn btn-primary', name: 'Go')
           submit_tag(name, class: dom_class)
         end
 

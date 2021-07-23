@@ -7,6 +7,10 @@ module Sipity
           def view_submitted_etds_url
             Figaro.env.curate_nd_url_for_etds!
           end
+
+          def reset_path
+            '/areas/etd'
+          end
         end
       end
     end
