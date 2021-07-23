@@ -16,13 +16,28 @@
   </div>
   <div class="row dashboard-actions">
     <div class="col-xs-12">
-      {{@filter_form}}
-        <fieldset class="form-group">
-          {{select_tag_for_processing_state}}
-          {{select_tag_for_sort_order}}
-        </fieldset>
-        {{submit_button}}
-      {{/filter_form}}
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Search Title, Creator, or Program</th>
+            <th>Select Processing State</th>
+            <th>Sort By</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            {{@filter_form}}
+              <fieldset class="form-group">
+                <td>{{q_tag}}</td>
+                <td>{{select_tag_for_processing_state}}</td>
+                <td>{{select_tag_for_sort_order}}</td>
+              </fieldset>
+              <td>{{submit_button}}</td>
+            {{/filter_form}}
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
 

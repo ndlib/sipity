@@ -41,7 +41,7 @@ module Sipity
           )
         end
 
-        def submit_button(dom_class: 'btn btn-default', name: 'Filter')
+        def submit_button(dom_class: 'btn btn-default', name: 'Go')
           submit_tag(name, class: dom_class)
         end
 

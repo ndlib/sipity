@@ -9,6 +9,10 @@ module Sipity
           def view_submitted_etds_url
             Figaro.env.curate_nd_url_for_etds!
           end
+
+          def login_path
+            new_user_session_path(previous_url: request.path)
+          end
         end
       end
     end

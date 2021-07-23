@@ -22,6 +22,7 @@ module Sipity
           end
 
           its(:view_submitted_etds_url) { is_expected.to match(%r{\Ahttps://curate.nd.edu}) }
+          its(:login_path) { is_expected.to start_with('/sign_in') }
         end
       end
     end
