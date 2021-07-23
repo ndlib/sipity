@@ -29,7 +29,9 @@ Rails.application.routes.draw do
 
   get 'account', to: 'sipity/controllers/account_profiles#edit', as: 'account'
   post 'account', to: 'sipity/controllers/account_profiles#update'
-  get 'dashboard', to: 'sipity/controllers/dashboards#index', as: "dashboard"
+  # remove & redirect dashboard... it is unneeded when we only have one work area.
+  # See pull request https://github.com/ndlib/sipity/pull/1286 for details.
+  get 'dashboard', to: redirect('/areas/etd')
 
   ##############################################################################
   # Begin Work Area
