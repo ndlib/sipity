@@ -234,9 +234,13 @@ en:
           label: "Start a CurateND Submission"
       work_area/etd:
         view_submitted_etds:
-          label: "View Submitted ETDs"
+          label: "View ETDs in CurateND"
         start_a_submission:
           label: "Start an ETD Submission"
+        reset:
+          label: "Reset"
+        login:
+          label: "Login for ETD Work List"
         landing_page_greeting_introduction_html:
           label: |
             <p>This is a collection of electronic master's theses and doctoral dissertations (ETDs) available from the University of Notre Dame.

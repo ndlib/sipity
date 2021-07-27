@@ -22,6 +22,7 @@ module Sipity
           end
           it { is_expected.to be_a(Sipity::Controllers::WorkAreas::Core::ShowPresenter) }
           its(:view_submitted_etds_url) { is_expected.to match(%r{\Ahttps://curate.nd.edu}) }
+          its(:reset_path) { is_expected.to match('/areas/etd') }
         end
       end
     end
