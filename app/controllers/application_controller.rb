@@ -13,6 +13,8 @@ class ApplicationController < ActionController::Base
   include Hesburgh::Lib::ControllerWithRunner
   before_action :filter_notify
   before_action :store_previous_path_if_applicable
+  # Enable profiling for data_admin users
+  before_action :current_user_enables_mini_profiler
 
   force_ssl if: :ssl_configured?
 
@@ -29,6 +31,12 @@ class ApplicationController < ActionController::Base
   helper_method :repository
 
   private
+
+  def current_user_enables_mini_profiler(current_user:)
+    return false unless current_user
+    return false unless Rails.configuration.use_profiler && Sipity::DataGenerators::WorkTypes::EtdGenerator::DATA_ADMINISTRATORS.include?(current_user.username)
+    Rack::MiniProfiler.authorize_request
+  end
 
   def message_for(key, options = {})
     t(key, { scope: "sipity/#{controller_name}.action/#{action_name}" }.merge(options))

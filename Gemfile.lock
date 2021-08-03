@@ -288,6 +288,7 @@ GEM
     ffi (1.15.0)
     figaro (1.2.0)
       thor (>= 0.14.0, < 2)
+    flamegraph (0.9.5)
     flay (2.12.1)
       erubis (~> 2.7.0)
       path_expander (~> 1.0)
@@ -484,6 +485,8 @@ GEM
     rack (2.2.3)
     rack-cache (1.12.1)
       rack (>= 0.4)
+    rack-mini-profiler (2.3.2)
+      rack (>= 1.2.0)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (5.2.5)
@@ -751,6 +754,7 @@ DEPENDENCIES
   dry-schema
   execjs
   figaro
+  flamegraph
   flay
   flog
   guard-bundler
@@ -785,6 +789,7 @@ DEPENDENCIES
   pry-stack_explorer
   puma (~> 3.12)
   rack-cache
+  rack-mini-profiler
   railroady!
   rails (~> 5.2.0)
   rails-controller-testing

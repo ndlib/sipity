@@ -46,6 +46,8 @@ gem 'simple_form'
 gem 'mini_racer'
 gem 'uglifier'
 gem 'whenever', require: false
+gem 'rack-mini-profiler'
+gem 'flamegraph'
 
 group :doc do
   gem 'bumbler', require: false
