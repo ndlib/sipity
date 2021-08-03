@@ -48,6 +48,8 @@ gem 'uglifier'
 gem 'whenever', require: false
 gem 'rack-mini-profiler'
 gem 'flamegraph'
+gem 'stackprof'
+gem 'memory_profiler'
 
 group :doc do
   gem 'bumbler', require: false
