@@ -34,6 +34,7 @@ module Sipity
     end
 
     config.action_controller.include_all_helpers = false
+    config.use_profiler = File.exist?('/home/app/sipity/shared/config/use_profiler')
 
     [
       'conversions',
