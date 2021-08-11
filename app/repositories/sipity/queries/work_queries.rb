@@ -31,6 +31,7 @@ module Sipity
       def find_works_via_search(criteria:, repository: self)
         scope = repository.scope_proxied_objects_for_the_user_and_proxy_for_type(criteria: criteria)
         scope = apply_work_area_filter_to(scope: scope, criteria: criteria)
+        scope = apply_joins_for_additional_attributes(scope: scope, criteria: criteria)
 
         # For an empty scope (e.g. no records), treat the first page as present.
         return scope if criteria.page == 1
@@ -53,6 +54,32 @@ module Sipity
         )
       end
       private :apply_work_area_filter_to
+
+      ##
+      # Added as an inflection point in the code.  The current
+      # implementation (as of <2021-08-11 Wed>) assumes that we want two additional fields:
+      #
+      # 1. The work's `submission_date`
+      # 2. The work's `author_name`
+      #
+      # The left outer joins help expose that in a single query
+      # (instead of requiring N+1 sub-queries where N is the
+      # pagination size.)
+      #
+      # If for some reason the result set wants additional attributes,
+      # we could change how this behaves (perhaps leveraging the above
+      # `scope_proxied_objects_for_the_user_and_proxy_for_type`
+      # method).
+      def apply_joins_for_additional_attributes(scope:, criteria:)
+        attr_table_name = Models::AdditionalAttribute.quoted_table_name
+        work_table_name = scope.quoted_table_name
+        scope = scope.joins("LEFT OUTER JOIN #{attr_table_name} AS author_names ON author_names.work_id = #{work_table_name}.id").
+          where(author_names: { key: "author_name" })
+        scope = scope.joins("LEFT OUTER JOIN #{attr_table_name} AS submission_dates ON submission_dates.work_id = #{work_table_name}.id").
+          where(submission_dates: { key: "submission_date" })
+        scope.select(%(#{work_table_name}.*, submission_dates.value AS submission_date, author_names.value AS author_name))
+      end
+      private :apply_joins_for_additional_attributes
 
       def work_access_right_code(work:)
         work.access_right.access_right_code
