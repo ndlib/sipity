@@ -463,12 +463,7 @@ module Sipity
           )
         )
 
-        scope = scope.order(criteria.order) if criteria.order?
-        scope = scope.page(criteria.page) if criteria.page?
-        # For Kaminari to work with `.per` page, there is a method call temporal
-        # dependency. First you must call `.page` then you may call `.per`.
-        scope = scope.per(criteria.per) if criteria.per? && criteria.page?
-        scope
+        scope = criteria.apply_and_return(scope: scope)
       end
 
       PermissionScope = Struct.new(:entity, :strategy)
