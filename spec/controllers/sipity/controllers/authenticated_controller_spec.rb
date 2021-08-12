@@ -65,6 +65,24 @@ module Sipity
           ).to eq(group)
         end
       end
+
+      context '#is_profiler_user?' do
+        let(:valid_user) { 'msuhovec'}
+        let(:invalid_user) { 'the_other_msuhovec'}
+        it 'will return false for invalid user' do
+          expect( controller.send(:is_profiler_user?, user: invalid_user)).to eq(false)
+        end
+
+        it 'will return true for valid user' do
+          expect( controller.send(:is_profiler_user?, user: valid_user)).to eq(true)
+        end
+      end
+
+      context '#profiling_enabled?' do
+        it 'will return false by default' do
+          expect( controller.send(:profiling_enabled?)).to eq(false)
+        end
+      end
     end
   end
 end

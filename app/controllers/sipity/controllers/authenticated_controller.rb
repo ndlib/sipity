@@ -41,7 +41,7 @@ module Sipity
        
       def enable_profiling
         return false unless profiling_enabled?
-        return false unless current_user && is_profiler_user?(current_user.username)
+        return false unless current_user && is_profiler_user?(user: current_user.username)
         Rack::MiniProfiler.authorize_request
       end
  
