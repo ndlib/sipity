@@ -92,8 +92,8 @@ module Sipity
           select_fields << "#{table_name}.value AS #{key}"
         end
 
+        # Note this must return the modified scope.
         scope.select(select_fields.join(", "))
-        scope
       end
 
       attr_writer :user, :processing_state, :proxy_for_type, :work_area, :submission_window, :per
