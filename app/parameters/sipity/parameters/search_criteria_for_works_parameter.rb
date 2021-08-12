@@ -16,7 +16,6 @@ module Sipity
       self.default_submission_window = nil
       self.default_q = nil
       self.default_order = 'title'.freeze
-      self.default_additional_attributes = ["author_name", "etd_submission_date"].freeze
 
       # Note the parity between this and the additional attributes.
       # I'm including the following map to remove a possible SQL
