@@ -58,7 +58,7 @@
             <th>Program Name(s)</th>
             <th>Type</th>
             <th>Processing State</th>
-            <th>Submission Date</th>
+            <th>ETD Submission Date</th>
             <th>Date Created</th>
           </tr>
         </thead>
@@ -69,7 +69,8 @@
               <td>{{author_name}}</td>
               <td>{{program_names_to_sentence}}</td>
               <td>{{work_type}}</td>
-              <td>{{submission_date}}</td>
+              <td>{{processing_state}}</td>
+              <td>{{etd_submission_date}}</td>
               <td>{{date_created}}</td>
             </tr>
           {{/works}}

@@ -54,14 +54,14 @@ module Sipity
           work.created_at.strftime('%a, %d %b %Y')
         end
 
-        def submission_date
-          if work.respond_to?(:submission_date)
+        def etd_submission_date
+          if work.respond_to?(:etd_submission_date)
             # This condition is when the underlying ActiveRecord query
             # adds the pseudo-attribute submission date
-            return work.submission_date
+            return work.etd_submission_date
           else
             # And the fallback if something upstream has not done that.
-            additional_attribute_for(key: "submission_date", cardinality: 1)
+            additional_attribute_for(key: "etd_submission_date", cardinality: 1)
           end
         end
 

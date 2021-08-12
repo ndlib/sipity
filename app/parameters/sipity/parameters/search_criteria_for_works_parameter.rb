@@ -16,7 +16,7 @@ module Sipity
       self.default_submission_window = nil
       self.default_q = nil
       self.default_order = 'title'.freeze
-      self.default_additional_attributes = ["author_name", "submission_date"].freeze
+      self.default_additional_attributes = ["author_name", "etd_submission_date"].freeze
 
       # Note the parity between this and the additional attributes.
       # I'm including the following map to remove a possible SQL
@@ -26,14 +26,21 @@ module Sipity
       # 1. `key`: - the `sipity_additional_attributes.key` field's value
       # 2. `join_as_table_name`: - for the purposes of the join, the
       #    table name we'll join as.
+      # 3. `cardinality`: - do we have one entry or many
       #
       # We need the `join_as_table_name` so that we can join multiple
       # times to the same `sipity_additional_attributes` table.
       ADDITIONAL_ATTRIBUTE_MAP = {
-        "author_name" => { key: 'author_name', join_as_table_name: 'author_names' },
-        "submission_date" => { key: 'submission_date', join_as_table_name: 'submission_dates' },
+        "author_name" => { key: 'author_name', join_as_table_name: 'author_names', cardinality: 1 },
+        "etd_submission_date" => { key: 'etd_submission_date', join_as_table_name: 'etd_submission_dates', cardinality: 1 },
       }
-      ORDER_BY_OPTIONS = ['title', 'title DESC', 'created_at', 'created_at DESC', 'updated_at', 'updated_at DESC'].freeze
+      ORDER_BY_OPTIONS = [
+        'title', 'title DESC',
+        'author_name', 'author_name DESC',
+        'etd_submission_date', 'etd_submission_date DESC',
+        'created_at', 'created_at DESC',
+        'updated_at', 'updated_at DESC'
+      ].freeze
 
       def self.order_options_for_select
         ORDER_BY_OPTIONS
