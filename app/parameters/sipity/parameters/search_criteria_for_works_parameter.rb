@@ -25,14 +25,21 @@ module Sipity
       # 1. `key`: - the `sipity_additional_attributes.key` field's value
       # 2. `join_as_table_name`: - for the purposes of the join, the
       #    table name we'll join as.
-      # 3. `cardinality`: - do we have one entry or many
       #
       # We need the `join_as_table_name` so that we can join multiple
       # times to the same `sipity_additional_attributes` table.
+      #
+      # The cardinality is a rough assumption based on other forms.
+      # Ideally, we'd have a data model that spoke about cardinality.
+      # Alas, not quite time nor a place for that kind of work.
       ADDITIONAL_ATTRIBUTE_MAP = {
-        "author_name" => { key: 'author_name', join_as_table_name: 'author_names', cardinality: 1 },
-        "etd_submission_date" => { key: 'etd_submission_date', join_as_table_name: 'etd_submission_dates', cardinality: 1 },
+        "author_name" => { key: 'author_name', join_as_table_name: 'author_names' },
+        "etd_submission_date" => { key: 'etd_submission_date', join_as_table_name: 'etd_submission_dates' },
+        "program_name" => { key: 'program_name', join_as_table_name: 'program_names' }
       }
+
+      self.default_additional_attributes = ADDITIONAL_ATTRIBUTE_MAP.keys.freeze
+
       ORDER_BY_OPTIONS = [
         'title', 'title DESC',
         'etd_submission_date', 'etd_submission_date DESC',
@@ -59,9 +66,17 @@ module Sipity
       end
 
       ##
+      # @api private
       #
       # @param scope [ActiveRecord::Relation<proxy_for_types>] the query scope that we're actively building.
       # @return ActiveRecord::Relation<proxy_for_types>
+      #
+      # @note As much as I want this to be a scope that works for both
+      # `SELECT COUNT` and `SELECT fields` type queries, the reality is
+      # that ActiveRecord can't quite handle what we're throwing at it.
+      #
+      # So expect the returned scope to only work with `.all` and not
+      # `.count`.  It appears that pagination works just fine.
       def apply_and_return(scope:)
         scope = scope.order(order) if order?
         scope = scope.page(page) if page?
@@ -84,9 +99,14 @@ module Sipity
       # that better approach would be, but I'm sure it would depend on
       # the product owner requirements for those fields.
       def apply_and_return_additional_attributes_to(scope:)
+        # With this short-circuit we preserve the ability to have
+        # `.count` work on the scope.
+        return scope if additional_attributes.empty?
+
         attr_table_name = Models::AdditionalAttribute.quoted_table_name
         work_table_name = scope.quoted_table_name
-        select_fields = ["#{work_table_name}.*"]
+        select_fields = scope.column_names.map { |column_name| "#{work_table_name}.#{column_name}" }
+        group_by_fields = select_fields.clone
 
         additional_attributes.each do |attribute|
           table_name = attribute.fetch(:join_as_table_name)
@@ -94,8 +114,17 @@ module Sipity
           scope = scope.joins(
             %(LEFT OUTER JOIN #{attr_table_name} AS #{table_name} ON #{table_name}.work_id = #{work_table_name}.id AND #{table_name}.key = "#{key}")
           )
-          select_fields << "#{table_name}.value AS #{key}"
+
+          # Given that we may have multiple values, we need to do some
+          # concatenation so that we can preserve a single row per
+          # work.
+          select_fields << "GROUP_CONCAT(DISTINCT #{table_name}.value SEPARATOR ', ') AS #{key}"
         end
+
+        # Given that each additional attribute could have multiple
+        # values, we need to group by the attributes on the base
+        # table.
+        scope = scope.group(group_by_fields)
 
         # Note this must return the modified scope.
         scope.select(select_fields.join(", "))

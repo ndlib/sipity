@@ -62,6 +62,24 @@ module Sipity
         subject = described_class.new(order: 'chicken-sandwich')
         expect(subject.order).to eq(subject.send(:default_order))
       end
+
+      describe '#apply_and_return' do
+        it 'limits one record per work even on additional attributes which has many' do
+          work = Models::Work.create!(id: "abcd", title: "Working for the man")
+          (1..3).each do |index|
+            work.additional_attributes.create!(key: "program_name", value: "Program Name #{index}")
+            work.additional_attributes.create!(key: "author_name", value: "Author Name #{index}")
+          end
+          parameter_object = described_class.new
+          scope = parameter_object.apply_and_return(scope: work.class)
+          expect(scope.all.map(&:program_name)).to eq(["Program Name 1, Program Name 2, Program Name 3"])
+
+          # I wish the count would work, but ActiveRecord can't quite
+          # handle all of the antics of the LEFT JOIN with
+          # GROUP_CONCAT.
+          expect { scope.count }.to raise_error(ActiveRecord::StatementInvalid)
+        end
+      end
     end
   end
 end

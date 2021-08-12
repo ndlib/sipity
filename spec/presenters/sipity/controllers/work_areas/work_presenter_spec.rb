@@ -95,6 +95,27 @@ module Sipity
           end
         end
 
+        describe '#program_names_to_sentence' do
+          let(:program_name_from_repository) { "Program 1, Program 2" }
+          let(:program_name_from_work) { "Work Program 1, Work Program 2" }
+          before do
+            allow(repository).to(
+              receive(:work_attribute_values_for).
+                with(work: work, key: 'program_name', cardinality: :many).and_return(program_name_from_repository)
+            )
+          end
+
+          it 'first checks the work' do
+            allow(work).to receive(:program_name).and_return(program_name_from_work)
+            allow(work).to receive(:respond_to?).with(:program_name).and_return(true)
+            expect(subject.program_names_to_sentence).to eq(program_name_from_work)
+          end
+
+          it 'fallsback to the additional attributes' do
+            allow(work).to receive(:respond_to?).with(:program_name).and_return(false)
+            expect(subject.program_names_to_sentence).to eq(program_name_from_repository)
+          end
+        end
 
         describe '#advisor_names_as_email_links' do
           subject { described_class.new(context, work: work).advisor_names_as_email_links }

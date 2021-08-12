@@ -31,8 +31,7 @@ module Sipity
                 repository: repository,
                 work_area: work_area,
                 q: work_area.q,
-                submission_window: work_area.submission_window,
-                additional_attributes: ["author_name", "etd_submission_date"]
+                submission_window: work_area.submission_window
               )
             end
           end

@@ -190,6 +190,11 @@ module Sipity
 
           work_four.additional_attributes.create!(key: 'alternate_title', value: "The Lost One of Dire Warning")
 
+          # Adding these to test that multiple additional attributes
+          # don't accidentally add multiple records for the same work.
+          work_four.additional_attributes.create!(key: 'program_name', value: "Program Name One")
+          work_four.additional_attributes.create!(key: 'program_name', value: "Program Name Two")
+
           commands.grant_creating_user_permission_for!(entity: work_one, user: user)
           commands.grant_creating_user_permission_for!(entity: work_two, user: user)
           commands.grant_creating_user_permission_for!(entity: work_four, user: user)

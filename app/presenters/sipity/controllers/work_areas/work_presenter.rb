@@ -47,7 +47,13 @@ module Sipity
         end
 
         def program_names_to_sentence
-          additional_attribute_for(key: "program_name", cardinality: :many).to_sentence
+          if work.respond_to?(:program_name)
+            # This condition is when the underlying ActiveRecord query
+            # adds the pseudo-attribute program_name.
+            work.program_name
+          else
+            Array.wrap(additional_attribute_for(key: "program_name", cardinality: :many)).to_sentence
+          end
         end
 
         def date_created
@@ -58,7 +64,7 @@ module Sipity
           if work.respond_to?(:etd_submission_date)
             # This condition is when the underlying ActiveRecord query
             # adds the pseudo-attribute submission date
-            return work.etd_submission_date
+            work.etd_submission_date
           else
             # And the fallback if something upstream has not done that.
             additional_attribute_for(key: "etd_submission_date", cardinality: 1)
