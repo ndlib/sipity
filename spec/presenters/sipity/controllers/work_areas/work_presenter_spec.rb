@@ -8,6 +8,7 @@ module Sipity
         let(:advising_user) { User.new(email: 'lastbathroom@aol.com', name: 'Last Bathroom') }
         let(:repository) { QueryRepositoryInterface.new }
         let(:context) { PresenterHelper::ContextWithForm.new(repository: repository) }
+        let(:program_names) { ["name one"] }
         let(:work) do
           double(
             'Work',
@@ -27,6 +28,10 @@ module Sipity
           allow(repository).to(
             receive(:scope_users_for_entity_and_roles).
               with(entity: work, roles: Models::Role::ADVISING).and_return(advising_user)
+          )
+          allow(repository).to(
+            receive(:work_attribute_values_for).
+              with(work: work, key: "program_name", cardinality: :many).and_return(program_names)
           )
         end
 

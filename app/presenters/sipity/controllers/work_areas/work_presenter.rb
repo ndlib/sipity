@@ -47,7 +47,7 @@ module Sipity
         end
 
         def program_names_to_sentence
-          Array.wrap(repository.work_attribute_values_for(work: work, key: 'program_name')).to_sentence
+          additional_attribute_for(key: "program_name", cardinality: :many).to_sentence
         end
 
         def date_created
