@@ -35,7 +35,6 @@ module Sipity
       }
       ORDER_BY_OPTIONS = [
         'title', 'title DESC',
-        'author_name', 'author_name DESC',
         'etd_submission_date', 'etd_submission_date DESC',
         'created_at', 'created_at DESC',
         'updated_at', 'updated_at DESC'
