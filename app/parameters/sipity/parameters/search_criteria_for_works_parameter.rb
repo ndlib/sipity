@@ -17,6 +17,22 @@ module Sipity
       self.default_q = nil
       self.default_order = 'title'.freeze
       self.default_additional_attributes = ["author_name", "submission_date"].freeze
+
+      # Note the parity between this and the additional attributes.
+      # I'm including the following map to remove a possible SQL
+      # injection spot.
+      #
+      # Each key has a value that is a hash with two keys:
+      # 1. `key`: - the `sipity_additional_attributes.key` field's value
+      # 2. `join_as_table_name`: - for the purposes of the join, the
+      #    table name we'll join as.
+      #
+      # We need the `join_as_table_name` so that we can join multiple
+      # times to the same `sipity_additional_attributes` table.
+      ADDITIONAL_ATTRIBUTE_MAP = {
+        "author_name" => { key: 'author_name', join_as_table_name: 'author_names' },
+        "submission_date" => { key: 'submission_date', join_as_table_name: 'submission_dates' },
+      }
       ORDER_BY_OPTIONS = ['title', 'title DESC', 'created_at', 'created_at DESC', 'updated_at', 'updated_at DESC'].freeze
 
       def self.order_options_for_select
@@ -68,11 +84,12 @@ module Sipity
         select_fields = ["#{work_table_name}.*"]
 
         additional_attributes.each do |attribute|
-          table_name = attribute.to_s.pluralize
+          table_name = attribute.fetch(:join_as_table_name)
+          key = attribute.fetch(:key)
           scope = scope.joins(
-            %(LEFT OUTER JOIN #{attr_table_name} AS #{table_name} ON #{table_name}.work_id = #{work_table_name}.id AND #{table_name}.key = "#{attribute}")
+            %(LEFT OUTER JOIN #{attr_table_name} AS #{table_name} ON #{table_name}.work_id = #{work_table_name}.id AND #{table_name}.key = "#{key}")
           )
-          select_fields << "#{table_name}.value AS #{attribute}"
+          select_fields << "#{table_name}.value AS #{key}"
         end
 
         scope.select(select_fields.join(", "))
@@ -84,7 +101,7 @@ module Sipity
       # Doing our due diligence to santize parameters
       def additional_attributes=(input)
         @additional_attributes = Array(input).map do |attribute_name|
-          Models::AdditionalAttribute.sanitize_sql_for_conditions(attribute_name.to_s)
+          ADDITIONAL_ATTRIBUTE_MAP.fetch(attribute_name)
         end
       end
 
