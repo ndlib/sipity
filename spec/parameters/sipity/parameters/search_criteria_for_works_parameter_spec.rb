@@ -70,8 +70,10 @@ module Sipity
             work.additional_attributes.create!(key: "program_name", value: "Program Name #{index}")
             work.additional_attributes.create!(key: "author_name", value: "Author Name #{index}")
           end
-          parameter_object = described_class.new
+          parameter_object = described_class.new(additional_attributes: ["program_name", "author_name"])
           scope = parameter_object.apply_and_return(scope: work.class)
+
+          # Note the array of one element
           expect(scope.all.map(&:program_name)).to eq(["Program Name 1, Program Name 2, Program Name 3"])
 
           # I wish the count would work, but ActiveRecord can't quite

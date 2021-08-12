@@ -7,6 +7,12 @@ module Sipity
       module Core
         # Responsible for presenting a work area
         class ShowPresenter < Controllers::Visitors::Core::WorkAreaPresenter
+          # We're injecting these attributes onto the result set for
+          # the works.  And by default that would be no attributes.
+          #
+          # @see Sipity::Parameters::SearchCriteriaForWorksParameter
+          class_attribute :additional_attributes, default: [], instance_writer: false
+
           def filter_form(dom_class: 'form-inline', method: 'get', &block)
             form_tag(request.path, method: method, class: dom_class, &block)
           end
@@ -31,7 +37,8 @@ module Sipity
                 repository: repository,
                 work_area: work_area,
                 q: work_area.q,
-                submission_window: work_area.submission_window
+                submission_window: work_area.submission_window,
+                additional_attributes: additional_attributes
               )
             end
           end

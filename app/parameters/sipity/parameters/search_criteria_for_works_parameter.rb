@@ -38,7 +38,7 @@ module Sipity
         "program_name" => { key: 'program_name', join_as_table_name: 'program_names' }
       }
 
-      self.default_additional_attributes = ADDITIONAL_ATTRIBUTE_MAP.keys.freeze
+      self.default_additional_attributes = []
 
       ORDER_BY_OPTIONS = [
         'title', 'title DESC',
