@@ -54,10 +54,11 @@
         <thead>
           <tr>
             <th>Title</th>
-            <th>Creator(s)</th>
+            <th>Author Name</th>
             <th>Program Name(s)</th>
             <th>Type</th>
             <th>Processing State</th>
+            <th>Submission Date</th>
             <th>Date Created</th>
           </tr>
         </thead>
@@ -65,10 +66,10 @@
           {{*works}}
             <tr>
               <td><a href="{{path}}">{{title}}</td>
-              <td>{{creator_names_to_sentence}}</td>
+              <td>{{author_name}}</td>
               <td>{{program_names_to_sentence}}</td>
               <td>{{work_type}}</td>
-              <td>{{processing_state}}</td>
+              <td>{{submission_date}}</td>
               <td>{{date_created}}</td>
             </tr>
           {{/works}}
