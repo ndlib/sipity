@@ -31,6 +31,7 @@ local_user: &local_user
   <<: *mysql_settings
   <<: *mysql_connection
   username: root
+  password: root
 
 development: &development
   <<: *local_user
