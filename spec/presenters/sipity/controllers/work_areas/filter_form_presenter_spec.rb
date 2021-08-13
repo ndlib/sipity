@@ -29,7 +29,7 @@ RSpec.describe Sipity::Controllers::WorkAreas::FilterFormPresenter do
   end
 
   it 'will expose select_tag_for_processing_state' do
-    expect(subject.select_tag_for_processing_state).to have_tag('select[name="hello[world]"]') do
+    expect(subject.select_tag_for_processing_state).to have_tag('select[name="hello[world][]"]') do
       with_tag("option[value='']", text: 'All states')
       with_tag("option[value='new'][selected='selected']", text: 'New')
       with_tag("option[value='say']", text: 'Say')

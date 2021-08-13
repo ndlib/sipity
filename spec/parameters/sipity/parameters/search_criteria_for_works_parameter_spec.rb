@@ -41,12 +41,21 @@ module Sipity
       its(:order?) { is_expected.to eq(true) }
       its(:default_q) { is_expected.to eq(nil) }
       its(:q?) { is_expected.to eq(false) }
+      its(:processing_states) { is_expected.to be_a(Array) }
 
       describe '#q' do
         it 'can be set' do
           subject = described_class.new(q: 'Hello')
           expect(subject.q?).to eq(true)
           expect(subject.q).to eq('Hello')
+        end
+      end
+
+      describe '#processing_states' do
+        it 'can be set' do
+          subject = described_class.new(processing_state: 'Hello')
+          expect(subject.processing_states).to eq(["Hello"])
+          expect(subject.processing_states?).to eq(true)
         end
       end
 

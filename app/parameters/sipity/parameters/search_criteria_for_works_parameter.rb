@@ -86,6 +86,14 @@ module Sipity
         apply_and_return_additional_attributes_to(scope: scope)
       end
 
+      def processing_states
+        Array.wrap(processing_state).select(&:present?)
+      end
+
+      def processing_states?
+        !processing_states.empty?
+      end
+
       private
 
       # And due to the nature of ActiveRecord, fields added to the

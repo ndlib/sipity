@@ -520,11 +520,11 @@ module Sipity
           returning = entities[:proxy_for_type].eq(proxy_for_type).and(
             responsibility[:actor_id].in(user_actor_contraints)
           )
-          if criteria.processing_state?
+          if criteria.processing_states?
             returning = returning.and(
               entities[:strategy_state_id].in(
                 strategy_states.project(strategy_states[:id]).where(
-                  strategy_states[:name].eq(criteria.processing_state)
+                  strategy_states[:name].in(criteria.processing_states)
                 )
               )
             )
