@@ -1,0 +1,5 @@
+---
+# We're hand building a SQL line, for which we've taken precautions to
+# avoid SQL injection.
+:skip_files:
+- app/parameters/sipity/parameters/search_criteria_for_works_parameter.rb

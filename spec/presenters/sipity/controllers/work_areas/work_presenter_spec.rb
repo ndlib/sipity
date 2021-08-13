@@ -8,6 +8,7 @@ module Sipity
         let(:advising_user) { User.new(email: 'lastbathroom@aol.com', name: 'Last Bathroom') }
         let(:repository) { QueryRepositoryInterface.new }
         let(:context) { PresenterHelper::ContextWithForm.new(repository: repository) }
+        let(:program_names) { ["name one"] }
         let(:work) do
           double(
             'Work',
@@ -28,6 +29,10 @@ module Sipity
             receive(:scope_users_for_entity_and_roles).
               with(entity: work, roles: Models::Role::ADVISING).and_return(advising_user)
           )
+          allow(repository).to(
+            receive(:work_attribute_values_for).
+              with(work: work, key: "program_name", cardinality: :many).and_return(program_names)
+          )
         end
 
         subject { described_class.new(context, work: work) }
@@ -44,6 +49,72 @@ module Sipity
         it 'will delegate path to PowerConverter' do
           expect(PowerConverter).to receive(:convert).with(work, to: :access_path).and_return('/the/path')
           expect(subject.path).to eq('/the/path')
+        end
+
+        describe '#author_name' do
+          let(:author_name_from_repository) { "author 1" }
+          let(:author_name_from_work) { "author from work" }
+          before do
+            allow(repository).to(
+              receive(:work_attribute_values_for).
+                with(work: work, key: 'author_name', cardinality: 1).and_return(author_name_from_repository)
+            )
+          end
+
+          it 'first checks the work' do
+            allow(work).to receive(:author_name).and_return(author_name_from_work)
+            allow(work).to receive(:respond_to?).with(:author_name).and_return(true)
+            expect(subject.author_name).to eq(author_name_from_work)
+          end
+
+          it 'fallsback to the additional attributes' do
+            allow(work).to receive(:respond_to?).with(:author_name).and_return(false)
+            expect(subject.author_name).to eq(author_name_from_repository)
+          end
+        end
+
+        describe '#etd_submission_date' do
+          let(:etd_submission_date_from_repository) { "2021-01-01" }
+          let(:etd_submission_date_from_work) { "2020-02-02" }
+          before do
+            allow(repository).to(
+              receive(:work_attribute_values_for).
+                with(work: work, key: 'etd_submission_date', cardinality: 1).and_return(etd_submission_date_from_repository)
+            )
+          end
+
+          it 'first checks the work' do
+            allow(work).to receive(:etd_submission_date).and_return(etd_submission_date_from_work)
+            allow(work).to receive(:respond_to?).with(:etd_submission_date).and_return(true)
+            expect(subject.etd_submission_date).to eq(etd_submission_date_from_work)
+          end
+
+          it 'fallsback to the additional attributes' do
+            allow(work).to receive(:respond_to?).with(:etd_submission_date).and_return(false)
+            expect(subject.etd_submission_date).to eq(etd_submission_date_from_repository)
+          end
+        end
+
+        describe '#program_names_to_sentence' do
+          let(:program_name_from_repository) { "Program 1, Program 2" }
+          let(:program_name_from_work) { "Work Program 1, Work Program 2" }
+          before do
+            allow(repository).to(
+              receive(:work_attribute_values_for).
+                with(work: work, key: 'program_name', cardinality: :many).and_return(program_name_from_repository)
+            )
+          end
+
+          it 'first checks the work' do
+            allow(work).to receive(:program_name).and_return(program_name_from_work)
+            allow(work).to receive(:respond_to?).with(:program_name).and_return(true)
+            expect(subject.program_names_to_sentence).to eq(program_name_from_work)
+          end
+
+          it 'fallsback to the additional attributes' do
+            allow(work).to receive(:respond_to?).with(:program_name).and_return(false)
+            expect(subject.program_names_to_sentence).to eq(program_name_from_repository)
+          end
         end
 
         describe '#advisor_names_as_email_links' do

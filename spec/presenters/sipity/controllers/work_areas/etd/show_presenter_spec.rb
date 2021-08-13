@@ -23,6 +23,8 @@ module Sipity
           it { is_expected.to be_a(Sipity::Controllers::WorkAreas::Core::ShowPresenter) }
           its(:view_submitted_etds_url) { is_expected.to match(%r{\Ahttps://curate.nd.edu}) }
           its(:reset_path) { is_expected.to match('/areas/etd') }
+
+          its(:additional_attributes) { is_expected.to eq(["author_name", "etd_submission_date", "program_name"]) }
         end
       end
     end

@@ -19,6 +19,8 @@ module Sipity
             allow_any_instance_of(described_class).to receive(:convert_to_processing_action).and_return(processing_action)
           end
 
+          its(:additional_attributes) { is_expected.to eq([]) }
+
           context '#filter_form' do
             it 'will render a form' do
               expect(context).to receive(:form_tag).and_yield
