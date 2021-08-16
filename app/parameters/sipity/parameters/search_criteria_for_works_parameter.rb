@@ -2,7 +2,7 @@ module Sipity
   module Parameters
     # A coordination parameter to help build the search criteria for works.
     class SearchCriteriaForWorksParameter
-      ATTRIBUTE_NAMES = [:page, :order, :proxy_for_type, :processing_state, :submission_window, :user, :work_area, :per, :additional_attributes, :q].freeze
+      ATTRIBUTE_NAMES = [:page, :order, :proxy_for_type, :processing_state, :submission_window, :user, :per, :additional_attributes, :q].freeze
       DEFAULT_ATTRIBUTE_NAMES = ATTRIBUTE_NAMES.map { |a| "default_#{a}".to_sym }.freeze
 
       class_attribute(*DEFAULT_ATTRIBUTE_NAMES, instance_writer: false)
@@ -12,7 +12,6 @@ module Sipity
       self.default_user = nil
       self.default_proxy_for_type = Models::Work
       self.default_processing_state = nil
-      self.default_work_area = nil
       self.default_submission_window = nil
       self.default_q = nil
       self.default_order = 'title'.freeze
@@ -51,13 +50,16 @@ module Sipity
         ORDER_BY_OPTIONS
       end
 
-      def initialize(**keywords)
+      def initialize(work_area: default_work_area, **keywords)
+        self.work_area = work_area
         ATTRIBUTE_NAMES.each do |attribute_name|
           send("#{attribute_name}=", keywords.fetch(attribute_name) { send("default_#{attribute_name}") })
         end
       end
 
       attr_reader(*ATTRIBUTE_NAMES)
+      attr_reader :work_area
+      alias work_area? work_area
 
       ATTRIBUTE_NAMES.each do |method_name|
         define_method "#{method_name}?" do

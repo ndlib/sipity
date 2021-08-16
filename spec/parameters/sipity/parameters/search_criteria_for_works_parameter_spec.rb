@@ -33,7 +33,6 @@ module Sipity
       its(:proxy_for_type?) { is_expected.to eq(true) }
       its(:default_processing_state) { is_expected.to eq(nil) }
       its(:processing_state?) { is_expected.to eq(false) }
-      its(:default_work_area) { is_expected.to eq(nil) }
       its(:work_area?) { is_expected.to eq(false) }
       its(:default_submission_window) { is_expected.to eq(nil) }
       its(:submission_window?) { is_expected.to eq(false) }
