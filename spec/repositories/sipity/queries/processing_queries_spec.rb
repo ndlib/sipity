@@ -74,6 +74,19 @@ module Sipity
         it 'will return actions associated with the work area' do
           expect(subject).to match_array(results_array)
         end
+
+        context "when we do not include terminal actions" do
+          it 'will not include the ingested state' do
+            all_states = test_repository.processing_state_names_for_select_within_work_area(work_area: work_area)
+            all_non_terminal_states = test_repository.processing_state_names_for_select_within_work_area(work_area: work_area, include_terminal: false)
+
+            # The non-terminal states are only the following:
+            expect(all_states - all_non_terminal_states).to eq(["deactivated", "ingested"])
+
+            # The non-terminal states are a subset of all of the states
+            expect(all_non_terminal_states - all_states).to eq([])
+          end
+        end
       end
 
       context '#scope_actors_associated_with_entity_and_role' do
