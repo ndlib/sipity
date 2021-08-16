@@ -31,7 +31,7 @@
             {{@filter_form}}
               <fieldset class="form-group">
                 <td>{{q_tag}}</td>
-                <td>{{select_tag_for_processing_state}}</td>
+                <td>{{select_tag_for_processing_states}}</td>
                 <td>{{select_tag_for_sort_order}}</td>
               </fieldset>
               <td>{{submit_button}}</td>

@@ -9,7 +9,7 @@ module Sipity
         # Responsible for "showing" an ETD Work Area.
         class ShowForm
           ProcessingForm.configure(
-            form_class: self, base_class: Models::WorkArea, attribute_names: [:processing_state, :order, :page, :q, :submission_window]
+            form_class: self, base_class: Models::WorkArea, attribute_names: [:processing_states, :order, :page, :q, :submission_window]
           )
 
           def initialize(work_area:, requested_by:, attributes: {}, **keywords)
@@ -17,7 +17,7 @@ module Sipity
             self.requested_by = requested_by
             self.processing_action_form = processing_action_form_builder.new(form: self, **keywords)
             self.search_criteria_config = keywords.fetch(:search_criteria_config) { default_search_criteria_config }
-            self.processing_state = attributes[:processing_state]
+            self.processing_states = attributes[:processing_states]
             self.submission_window = attributes[:submission_window]
             self.q = attributes[:q]
             self.order = attributes.fetch(:order) { default_order }
@@ -26,8 +26,8 @@ module Sipity
 
           # @note There is a correlation to the Parameters::SearchCriteriaForWorksParameter
           #   object
-          def input_name_for_select_processing_state
-            "#{model_name.param_key}[processing_state]"
+          def input_name_for_select_processing_states
+            "#{model_name.param_key}[processing_states][]"
           end
 
           def processing_states_for_select

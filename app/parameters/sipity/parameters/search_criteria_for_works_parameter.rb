@@ -2,7 +2,7 @@ module Sipity
   module Parameters
     # A coordination parameter to help build the search criteria for works.
     class SearchCriteriaForWorksParameter
-      ATTRIBUTE_NAMES = [:page, :order, :proxy_for_type, :processing_state, :submission_window, :user, :per, :additional_attributes, :q].freeze
+      ATTRIBUTE_NAMES = [:page, :order, :proxy_for_type, :processing_states, :submission_window, :user, :per, :additional_attributes, :q].freeze
       DEFAULT_ATTRIBUTE_NAMES = ATTRIBUTE_NAMES.map { |a| "default_#{a}".to_sym }.freeze
 
       class_attribute(*DEFAULT_ATTRIBUTE_NAMES, instance_writer: false)
@@ -11,9 +11,9 @@ module Sipity
       self.default_per = 15
       self.default_user = nil
       self.default_proxy_for_type = Models::Work
-      self.default_processing_state = nil
       self.default_submission_window = nil
       self.default_q = nil
+      self.default_processing_states = []
       self.default_order = 'title'.freeze
 
       # Note the parity between this and the additional attributes.
@@ -59,7 +59,10 @@ module Sipity
 
       attr_reader(*ATTRIBUTE_NAMES)
       attr_reader :work_area
-      alias work_area? work_area
+
+      def work_area?
+        !work_area.nil?
+      end
 
       ATTRIBUTE_NAMES.each do |method_name|
         define_method "#{method_name}?" do
@@ -88,12 +91,13 @@ module Sipity
         apply_and_return_additional_attributes_to(scope: scope)
       end
 
-      def processing_states
-        Array.wrap(processing_state).select(&:present?)
-      end
-
       def processing_states?
         !processing_states.empty?
+      end
+
+      def default_processing_states
+        # If we don't have a work area don't even try to build a list of defaults
+        return [] unless work_area?
       end
 
       private
@@ -140,7 +144,15 @@ module Sipity
         scope.select(select_fields.join(", "))
       end
 
-      attr_writer :user, :processing_state, :proxy_for_type, :work_area, :submission_window, :per
+      attr_writer :user, :proxy_for_type, :work_area, :submission_window, :per
+
+      def default_work_area
+        nil
+      end
+
+      def processing_states=(input)
+        @processing_states = Array.wrap(input).select(&:present?)
+      end
 
       # Doing our due diligence to santize parameters
       def additional_attributes=(input)

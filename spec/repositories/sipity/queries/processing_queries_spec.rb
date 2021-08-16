@@ -240,7 +240,7 @@ module Sipity
 
           expect(
             test_repository.scope_proxied_objects_for_the_user_and_proxy_for_type(
-              criteria: parameter_builder.call(user: user, processing_state: 'hello')
+              criteria: parameter_builder.call(user: user, processing_states: ['hello'])
             )
           ).to eq([])
 

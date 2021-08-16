@@ -8,9 +8,9 @@ module Sipity
       class FilterFormPresenter < Curly::Presenter
         presents :work_area
 
-        def select_tag_for_processing_state
+        def select_tag_for_processing_states
           select_tag(
-            work_area.input_name_for_select_processing_state,
+            work_area.input_name_for_select_processing_states,
             options_from_collection_for_select(
               work_area.processing_states_for_select, :to_s, :humanize, work_area.processing_states
             ), multiple: true, prompt: 'All states', class: 'form-control'

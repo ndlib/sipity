@@ -5,7 +5,7 @@ RSpec.describe Sipity::Controllers::WorkAreas::FilterFormPresenter do
   let(:context) { PresenterHelper::ContextWithForm.new }
   let(:work_area) do
     double(
-      input_name_for_select_processing_state: 'hello[world]',
+      input_name_for_select_processing_states: 'hello[world][]',
       processing_states: ['new'],
       processing_states_for_select: ['new', 'say'],
       input_name_for_select_sort_order: 'name[sort_order]',
@@ -22,14 +22,14 @@ RSpec.describe Sipity::Controllers::WorkAreas::FilterFormPresenter do
   subject { described_class.new(context, work_area: work_area) }
 
   its(:submit_button) { is_expected.to be_html_safe }
-  its(:select_tag_for_processing_state) { is_expected.to be_html_safe }
+  its(:select_tag_for_processing_states) { is_expected.to be_html_safe }
 
   it 'will expose q_tag' do
     expect(subject.q_tag).to have_tag('input[type="text"][value="Searching for"][name="name[q]"]')
   end
 
-  it 'will expose select_tag_for_processing_state' do
-    expect(subject.select_tag_for_processing_state).to have_tag('select[name="hello[world][]"]') do
+  it 'will expose select_tag_for_processing_states' do
+    expect(subject.select_tag_for_processing_states).to have_tag('select[name="hello[world][]"]') do
       with_tag("option[value='']", text: 'All states')
       with_tag("option[value='new'][selected='selected']", text: 'New')
       with_tag("option[value='say']", text: 'Say')
