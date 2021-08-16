@@ -6,7 +6,7 @@ RSpec.describe Sipity::Controllers::WorkAreas::FilterFormPresenter do
   let(:work_area) do
     double(
       input_name_for_select_processing_state: 'hello[world]',
-      processing_state: 'new',
+      processing_states: ['new'],
       processing_states_for_select: ['new', 'say'],
       input_name_for_select_sort_order: 'name[sort_order]',
       order_options_for_select: ['title', 'created_at'],
