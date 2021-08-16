@@ -57,6 +57,8 @@ bundle exec bin/rails s
 ```
 Then go to http://localhost:3000
 
+Before you run `bundle exec bin/rails s` you may consider adding `export SKIP_MYSQL_PASSWORD_FOR_LOCAL_DEVELOPMENT="true"` (or adding this to your `.bashrc` or `.profile`).  That export will tell the Rails configuration to skip using a password for the `config/database.yml` user in the local environment.
+
 ### Running with Authentication (in Development)
 
 You will need the Okta environment variables file.
