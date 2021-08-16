@@ -66,21 +66,33 @@ module Sipity
         end
       end
 
-      context '#is_profiler_user?' do
-        let(:valid_user) { 'msuhovec'}
-        let(:invalid_user) { 'the_other_msuhovec'}
-        it 'will return false for invalid user' do
-          expect( controller.send(:is_profiler_user?, user: invalid_user)).to eq(false)
+      context '#enable_profiling' do
+        let(:some_user) { double('User',  username: 'someone') }
+        
+        before do
+          allow(controller).to receive(:current_user).and_return(some_user)
+          allow(Rails.configuration).to receive(:use_profiler).and_return(true)
         end
 
-        it 'will return true for valid user' do
-          expect( controller.send(:is_profiler_user?, user: valid_user)).to eq(true)
-        end
-      end
+        describe 'a valid user' do
+          before do
+            allow(Rails.configuration).to receive(:profiler_users).and_return([some_user.username])
+            allow(Rack::MiniProfiler).to receive(:authorize_request).and_return(true)
+          end
 
-      context '#profiling_enabled?' do
-        it 'will return false by default' do
-          expect( controller.send(:profiling_enabled?)).to eq(false)
+          it 'calls authorize_request' do
+            expect(controller.send(:enable_profiling)).to eq(true)
+          end
+        end
+
+        describe 'an invalid user' do
+          before do
+            allow(Rails.configuration).to receive(:profiler_users).and_return([])
+          end
+
+          it 'calls authorize_request' do
+            expect(controller.send(:enable_profiling)).to eq(false)
+          end
         end
       end
     end
