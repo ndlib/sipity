@@ -65,6 +65,36 @@ module Sipity
           ).to eq(group)
         end
       end
+
+      context '#enable_profiling' do
+        let(:some_user) { double('User',  username: 'someone') }
+        
+        before do
+          allow(controller).to receive(:current_user).and_return(some_user)
+          allow(Rails.configuration).to receive(:use_profiler).and_return(true)
+        end
+
+        describe 'a valid user' do
+          before do
+            allow(Rails.configuration).to receive(:profiler_users).and_return([some_user.username])
+            allow(Rack::MiniProfiler).to receive(:authorize_request).and_return(true)
+          end
+
+          it 'calls authorize_request' do
+            expect(controller.send(:enable_profiling)).to eq(true)
+          end
+        end
+
+        describe 'an invalid user' do
+          before do
+            allow(Rails.configuration).to receive(:profiler_users).and_return([])
+          end
+
+          it 'calls authorize_request' do
+            expect(controller.send(:enable_profiling)).to eq(false)
+          end
+        end
+      end
     end
   end
 end

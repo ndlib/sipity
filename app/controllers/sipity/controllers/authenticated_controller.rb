@@ -2,7 +2,9 @@ module Sipity
   module Controllers
     # For those controllers that require authentication
     class AuthenticatedController < ::ApplicationController
-      # @todo With Cogitate this will need to be revisited
+     before_action  :enable_profiling
+     # Enable profiling for data_admin users
+
       def authenticate_user!
         authenticated_user = authenticate_with_http_basic do |group_name, group_api_key|
           authorize_group_from_api_key(group_name: group_name, group_api_key: group_api_key)
@@ -20,7 +22,10 @@ module Sipity
       # @todo With Cogitate this will need to be revisited
       def current_user
         super
-        return @current_user if @current_user
+        if @current_user
+          return @current_user
+        end
+
         authenticate_user!
         @current_user
       end
@@ -32,6 +37,20 @@ module Sipity
         return false unless group_api_key
         return false unless group_name
         Sipity::Models::Group.find_by(name: group_name, api_key: group_api_key) || false
+      end
+       
+      def enable_profiling
+        return false unless profiling_enabled?
+        return false unless current_user && is_profiler_user?(user: current_user.username)
+        Rack::MiniProfiler.authorize_request
+      end
+ 
+      def profiling_enabled?
+        Rails.configuration.use_profiler == true
+      end
+ 
+      def is_profiler_user?(user:)
+        Rails.configuration.profiler_users.include?(user)
       end
     end
   end
