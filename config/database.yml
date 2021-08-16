@@ -31,7 +31,9 @@ local_user: &local_user
   <<: *mysql_settings
   <<: *mysql_connection
   username: root
+<% if ! ENV['SKIP_MYSQL_PASSWORD_FOR_LOCAL_DEVELOPMENT'] %>
   password: root
+<% end %>
 
 development: &development
   <<: *local_user
