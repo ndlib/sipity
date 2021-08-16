@@ -8,7 +8,7 @@ module Sipity
       class_attribute(*DEFAULT_ATTRIBUTE_NAMES, instance_writer: false)
 
       self.default_page = 1
-      self.default_per = 8
+      self.default_per = 15
       self.default_user = nil
       self.default_proxy_for_type = Models::Work
       self.default_processing_state = nil
