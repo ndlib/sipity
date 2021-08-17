@@ -13,7 +13,7 @@ module Sipity
             work_area.input_name_for_select_processing_states,
             options_from_collection_for_select(
               work_area.processing_states_for_select, :to_s, :humanize, work_area.processing_states
-            ), multiple: true, prompt: 'All states', class: 'form-control'
+            ), multiple: true, class: 'form-control'
           ).html_safe
         end
 

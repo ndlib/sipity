@@ -92,7 +92,7 @@ module Sipity
       end
 
       def processing_states?
-        !processing_states.empty?
+        processing_states.any?(&:present?)
       end
 
       def default_processing_states
@@ -151,7 +151,7 @@ module Sipity
       end
 
       def processing_states=(input)
-        @processing_states = Array.wrap(input).select(&:present?)
+        @processing_states = Array.wrap(input)
       end
 
       # Doing our due diligence to santize parameters
