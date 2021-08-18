@@ -16,28 +16,12 @@ module Sipity
         end
 
         def call
-          exporter.with_path_to_data_directory do |path|
-            write_attachments_to(path: path)
-          end
+          path = File.join(exporter.data_directory, "attachments-#{exporter.work_id}.json")
+          content = attachments.to_json
+          exporter.file_writer.call(content: content, path: path)
         end
 
         private
-
-        def write_attachments_to(path:)
-          attachments.each do |attachment|
-            write_attachment_content_to(path: path, attachment: attachment)
-          end
-        end
-
-        def write_attachment_content_to(attachment:, path:)
-          filename = File.join(path, attachment.to_rof_file_basename)
-          case exporter.ingest_method
-          when :files
-            attachment.file.to_file(filename)
-          when :api
-            exporter.file_utility.put_file(filename, attachment.file.path)
-          end
-        end
 
         attr_accessor :work, :exporter, :attachments
         attr_accessor :work_to_attachments_converter

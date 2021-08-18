@@ -32,13 +32,6 @@ module Sipity
               subject.mv(path, destination)
             end
           end
-          describe '#put_file' do
-            let(:file) { File.new(__FILE__) }
-            it 'executes a put request to RestClient' do
-              expect(RestClient).to receive(:put)
-              subject.put_file(path, file)
-            end
-          end
         end
       end
     end
