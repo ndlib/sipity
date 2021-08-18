@@ -8,7 +8,6 @@ module Sipity
         it { is_expected.to respond_to :put_content }
         it { is_expected.to respond_to :mkdir_p }
         it { is_expected.to respond_to :mv }
-        it { is_expected.to respond_to :put_file }
 
         let(:path) { '/sample/path' }
 
