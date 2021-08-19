@@ -31,7 +31,7 @@ module Sipity
             @search_criteria ||= begin
               Parameters::SearchCriteriaForWorksParameter.new(
                 user: current_user,
-                processing_state: work_area.processing_state,
+                processing_states: work_area.processing_states,
                 page: work_area.page,
                 order: work_area.order,
                 repository: repository,

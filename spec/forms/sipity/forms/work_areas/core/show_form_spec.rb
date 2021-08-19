@@ -19,7 +19,7 @@ module Sipity
           it { is_expected.to delegate_method(:slug).to(:work_area) }
 
           its(:order_options_for_select) { is_expected.to be_a(Array) }
-          its(:input_name_for_select_processing_state) { is_expected.to eq('work_area[processing_state]') }
+          its(:input_name_for_select_processing_states) { is_expected.to eq('work_area[processing_states][]') }
           its(:input_name_for_select_sort_order) { is_expected.to eq('work_area[order]') }
           its(:input_name_for_selecting_submission_window) { is_expected.to eq('work_area[submission_window]') }
           its(:input_name_for_q) { is_expected.to eq('work_area[q]') }
