@@ -17,7 +17,7 @@ module Sipity
             self.requested_by = requested_by
             self.processing_action_form = processing_action_form_builder.new(form: self, **keywords)
             self.search_criteria_config = keywords.fetch(:search_criteria_config) { default_search_criteria_config }
-            self.processing_states = attributes[:processing_states]
+            self.processing_states = attributes.fetch(:processing_states) { default_processing_states }
             self.submission_window = attributes[:submission_window]
             self.q = attributes[:q]
             self.order = attributes.fetch(:order) { default_order }
@@ -61,6 +61,10 @@ module Sipity
           delegate :name, :slug, to: :work_area
 
           private
+
+          def default_processing_states
+            repository.processing_state_names_for_select_within_work_area(work_area: work_area, include_terminal: false)
+          end
 
           delegate :default_order, :default_page, :order_options_for_select, to: :search_criteria_config
           attr_accessor :search_criteria_config
