@@ -16,7 +16,7 @@ module Sipity
         end
 
         def call
-          path = File.join(exporter.data_directory, "attachments-#{exporter.work_id}.json")
+          path = File.join(exporter.data_directory, "attachments.json")
           content = attachments.to_json
           exporter.file_writer.call(content: content, path: path)
         end

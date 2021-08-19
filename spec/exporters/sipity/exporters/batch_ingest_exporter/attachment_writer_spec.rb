@@ -41,7 +41,7 @@ module Sipity
           double('work_to_attachments_converter', call: attachments) 
         }
         let(:filename) { 
-          File.join(data_directory, "attachments-#{exporter.work_id}.json") 
+          File.join(data_directory, "attachments.json") 
         }
         let(:content) { attachments.to_json }
 
