@@ -14,7 +14,7 @@ module Sipity
       context 'instance' do
         subject { described_class.new }
         it { is_expected.to respond_to(:user) }
-        it { is_expected.to respond_to(:processing_state) }
+        it { is_expected.to respond_to(:processing_states) }
         it { is_expected.to respond_to(:order) }
         it { is_expected.to respond_to(:proxy_for_type) }
         it { is_expected.to respond_to(:work_area) }
@@ -31,9 +31,8 @@ module Sipity
       its(:user?) { is_expected.to eq(false) }
       its(:default_proxy_for_type) { is_expected.to eq(Models::Work) }
       its(:proxy_for_type?) { is_expected.to eq(true) }
-      its(:default_processing_state) { is_expected.to eq(nil) }
-      its(:processing_state?) { is_expected.to eq(false) }
-      its(:default_work_area) { is_expected.to eq(nil) }
+      its(:default_processing_states) { is_expected.to eq [] }
+      its(:processing_states?) { is_expected.to eq(false) }
       its(:work_area?) { is_expected.to eq(false) }
       its(:default_submission_window) { is_expected.to eq(nil) }
       its(:submission_window?) { is_expected.to eq(false) }
@@ -41,12 +40,21 @@ module Sipity
       its(:order?) { is_expected.to eq(true) }
       its(:default_q) { is_expected.to eq(nil) }
       its(:q?) { is_expected.to eq(false) }
+      its(:processing_states) { is_expected.to be_a(Array) }
 
       describe '#q' do
         it 'can be set' do
           subject = described_class.new(q: 'Hello')
           expect(subject.q?).to eq(true)
           expect(subject.q).to eq('Hello')
+        end
+      end
+
+      describe '#processing_states' do
+        it 'can be set' do
+          subject = described_class.new(processing_states: 'Hello')
+          expect(subject.processing_states).to eq(["Hello"])
+          expect(subject.processing_states?).to eq(true)
         end
       end
 

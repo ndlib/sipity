@@ -134,7 +134,7 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/processing_queries.rb
-    def processing_state_names_for_select_within_work_area(work_area:, usage_type: Sipity::Models::WorkType)
+    def processing_state_names_for_select_within_work_area(work_area:, usage_type: Sipity::Models::WorkType, include_terminal: true)
     end
 
     # @see ./app/repositories/sipity/queries/attachment_queries.rb

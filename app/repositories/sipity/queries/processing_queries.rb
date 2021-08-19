@@ -35,9 +35,12 @@ module Sipity
       #
       # @param work_area [Object] that can be converted into a Sipity::Models::WorkArea
       # @param usage_type [Object] the polymorphic type for database storage
+      # @param include_terminal [Boolean] when true, include
+      #        processing states that are terminal (e.g., there are no
+      #        actions that transition out of the state).
       #
       # @return [Array<String>] name of actions available
-      def processing_state_names_for_select_within_work_area(work_area:, usage_type: Sipity::Models::WorkType)
+      def processing_state_names_for_select_within_work_area(work_area:, usage_type: Sipity::Models::WorkType, include_terminal: true)
         work_area = PowerConverter.convert(work_area, to: :work_area)
         usage_type = PowerConverter.convert(usage_type, to: :polymorphic_type)
 
@@ -46,19 +49,29 @@ module Sipity
         submission_window_work_types = Models::SubmissionWindowWorkType.arel_table
         submission_windows = Models::SubmissionWindow.arel_table
 
-        select_manager = strategy_states.project(strategy_states[:name]).order(strategy_states[:name]).distinct.join(strategy_usages).on(
-          strategy_usages[:strategy_id].eq(strategy_states[:strategy_id]).and(
-            strategy_usages[:usage_type].eq(usage_type)
-          )
-        ).join(submission_window_work_types).on(
-          submission_window_work_types[:work_type_id].eq(strategy_usages[:usage_id])
-        ).join(submission_windows).on(
-          submission_windows[:id].eq(submission_window_work_types[:submission_window_id]).and(
-            submission_windows[:work_area_id].eq(work_area.id)
-          )
-        )
+        scope = Models::Processing::StrategyState.distinct.
+          where(
+            strategy_states[:strategy_id].in(
+              strategy_usages.project(strategy_usages[:strategy_id]).
+                where(strategy_usages[:usage_type].eq(usage_type)).
+                join(submission_window_work_types).on(
+                  submission_window_work_types[:work_type_id].eq(strategy_usages[:usage_id])
+                ).join(submission_windows).on(
+                  submission_windows[:id].eq(submission_window_work_types[:submission_window_id]).and(submission_windows[:work_area_id].eq(work_area.id)))))
 
-        Models::Processing::StrategyState.from(strategy_states.create_table_alias(select_manager, strategy_states.table_name)).pluck(:name)
+        unless include_terminal
+          strategy_state_actions = Models::Processing::StrategyStateAction.arel_table
+          strategy_actions = Models::Processing::StrategyAction.arel_table
+          scope = scope.where(
+            strategy_states[:id].in(
+              strategy_state_actions.project(strategy_state_actions[:originating_strategy_state_id]).
+                join(strategy_actions).on(
+                  strategy_actions[:id].eq(strategy_state_actions[:strategy_action_id]).
+                    and(strategy_actions[:resulting_strategy_state_id].not_eq(nil))
+                )))
+
+        end
+        scope.pluck(:name).sort
       end
 
       # @api public
@@ -520,11 +533,11 @@ module Sipity
           returning = entities[:proxy_for_type].eq(proxy_for_type).and(
             responsibility[:actor_id].in(user_actor_contraints)
           )
-          if criteria.processing_state?
+          if criteria.processing_states?
             returning = returning.and(
               entities[:strategy_state_id].in(
                 strategy_states.project(strategy_states[:id]).where(
-                  strategy_states[:name].eq(criteria.processing_state)
+                  strategy_states[:name].in(criteria.processing_states)
                 )
               )
             )
