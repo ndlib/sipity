@@ -10,13 +10,37 @@ module Sipity
           let(:work_area) { double(name: 'Hello Name', slug: 'hello-world') }
           let(:repository) { QueryRepositoryInterface.new }
           let(:user) { double }
+
           subject { described_class.new(work_area: work_area, requested_by: user, repository: repository) }
+
+          before do
+             allow(repository).to receive(:processing_state_names_for_select_within_work_area).with(work_area: work_area, include_terminal: false).and_call_original
+          end
 
           its(:policy_enforcer) { is_expected.to eq Sipity::Policies::WorkAreaPolicy }
           its(:processing_action_name) { is_expected.to eq('show') }
           it { is_expected.to implement_processing_form_interface }
           it { is_expected.to delegate_method(:name).to(:work_area) }
           it { is_expected.to delegate_method(:slug).to(:work_area) }
+
+          describe "#procesing_states" do
+            let(:default_processing_states) { ["solent", "green"] }
+            before do
+              allow(repository).to(
+                receive(:processing_state_names_for_select_within_work_area).with(work_area: work_area, include_terminal: false).and_return(["solent", "green"])
+              )
+            end
+
+            it "defaults to non-terminal actions in the repository" do
+              expect(subject.processing_states).to eq(default_processing_states)
+            end
+
+            it "uses the user provided states" do
+              expect(
+                described_class.new(work_area: work_area, requested_by: user, repository: repository, attributes: { processing_states: ["wonky"] }).processing_states
+              ).to eq(["wonky"])
+            end
+          end
 
           its(:order_options_for_select) { is_expected.to be_a(Array) }
           its(:input_name_for_select_processing_states) { is_expected.to eq('work_area[processing_states][]') }
