@@ -25,10 +25,8 @@ jobs:
       run:  mysql -e "CREATE DATABASE sipity_test;" -uroot -proot
 
     - name: Test & publish code coverage
-      uses: paambaati/codeclimate-action@v2.7.4
       env:
         RAILS_ENV: test
-        CC_TEST_REPORTER_ID: ${{ secrets.CODE_CLIMATE_REPORTER_ID }}
       with:
         coverageCommand: bundle exec rake spec:ci
         debug: true
