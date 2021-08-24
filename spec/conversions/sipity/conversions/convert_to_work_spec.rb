@@ -62,6 +62,11 @@ module Sipity
           expect(convert_to_work(proxy)).to eq(work)
         end
 
+        it 'will return the object if given an ID of a work' do
+          work = Models::Work.create!(id: '123456790')
+          expect(convert_to_work(work.id)).to eq(work)
+        end
+
         it 'will raise an error if it cannot convert' do
           object = double
           expect { convert_to_work(object) }.to raise_error(Exceptions::WorkConversionError)

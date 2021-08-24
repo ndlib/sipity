@@ -390,6 +390,22 @@ Response document:
 { "id": <:work_id>, "status": <the_status> }
 ```
 
+### Change the Depositing User
+
+We've had a few cases where someone helps another person deposit a record.  There is an administrative service that you can use from the command line:
+
+`$ rails console`
+
+Then run the following:
+
+```
+updater = Sipity::Services::Administrative::UpdateWhoSubmittedWork.new(work: "ID TO WORK", from_username: "jfriesen", to_username: "lrobins5")
+updater.audit!
+updater.change_it!
+```
+
+See [Sipity::Services::Administrative::UpdateWhoSubmittedWork](https://github.com/ndlib/sipity/blob/master/app/services/sipity/services/administrative/update_who_submitted_work.rb) for further details.
+
 ### Batch Ingest Documentation
 
 #### Sipity Code-Path for Batch Ingest
