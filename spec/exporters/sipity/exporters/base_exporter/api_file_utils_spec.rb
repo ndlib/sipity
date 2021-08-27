@@ -8,7 +8,6 @@ module Sipity
         it { is_expected.to respond_to :put_content }
         it { is_expected.to respond_to :mkdir_p }
         it { is_expected.to respond_to :mv }
-        it { is_expected.to respond_to :put_file }
 
         let(:path) { '/sample/path' }
 
@@ -30,13 +29,6 @@ module Sipity
             it 'exeutes a post request to RestClient' do
               expect(RestClient).to receive(:post)
               subject.mv(path, destination)
-            end
-          end
-          describe '#put_file' do
-            let(:file) { File.new(__FILE__) }
-            it 'executes a put request to RestClient' do
-              expect(RestClient).to receive(:put)
-              subject.put_file(path, file)
             end
           end
         end
