@@ -24,9 +24,5 @@ jobs:
     - name: create sipity_test DB
       run:  mysql -e "CREATE DATABASE sipity_test;" -uroot -proot
 
-    - name: Test & publish code coverage
-      env:
-        RAILS_ENV: test
-      with:
-        coverageCommand: bundle exec rake spec:ci
-        debug: true
+    - name: Run CI tests
+      run: bundle exec rake spec:ci RAILS_ENV=test debug=true
