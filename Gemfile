@@ -26,7 +26,7 @@ gem 'jbuilder'
 gem 'jquery-rails'
 gem 'kaminari'
 gem 'listen'
-gem 'locabulary', github: 'ndlib/locabulary', ref: '1416e5faf48882ebb0f54b1aa011a5906abd4f27'
+gem 'locabulary', github: 'ndlib/locabulary', ref: '03e6deca5ed00df1d0a6db6cb0f934f3faca31e0'
 gem 'loofah' # Related to hesburgh-lib's dependency
 gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not loading ALL mime-types
 gem 'mysql2', '0.4.8'
