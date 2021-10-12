@@ -1,5 +1,5 @@
 GIT
-  remote: https://github.com/jeremyf/curly.git
+  remote: https://github.com/ndlib/curly.git
   revision: ffd26e7b388e999958070be510fc44c5e9efc471
   branch: updated-sipity-hacks
   specs:
@@ -7,13 +7,13 @@ GIT
       actionpack (>= 3.1, < 6.0)
 
 GIT
-  remote: https://github.com/jeremyf/data-migrator.git
+  remote: https://github.com/ndlib/data-migrator.git
   revision: 65bf22799c6c9914fb35ef96891f438f0ffa84fe
   specs:
     data_migrator (0.9.0)
 
 GIT
-  remote: https://github.com/jeremyf/dragonfly.git
+  remote: https://github.com/ndlib/dragonfly.git
   revision: b69aa72d099a95fae7ee685f4dc7feae7dec8914
   branch: updating-dragonfly-to_file
   specs:
@@ -21,13 +21,6 @@ GIT
       addressable (~> 2.3)
       multi_json (~> 1.0)
       rack (>= 1.3)
-
-GIT
-  remote: https://github.com/jeremyf/railroady.git
-  revision: dbd542542b1853f0a100a875c085652654ff1df7
-  branch: allowing-namespaced-models
-  specs:
-    railroady (1.3.0)
 
 GIT
   remote: https://github.com/ndlib/hesburgh-lib.git
@@ -63,6 +56,13 @@ GIT
     noids_client (0.0.2)
       json (~> 2.3)
       rest-client (~> 2.0)
+
+GIT
+  remote: https://github.com/ndlib/railroady.git
+  revision: dbd542542b1853f0a100a875c085652654ff1df7
+  branch: allowing-namespaced-models
+  specs:
+    railroady (1.3.0)
 
 GIT
   remote: https://github.com/ndlib/rof.git

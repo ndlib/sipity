@@ -12,11 +12,11 @@ gem 'bigdecimal'
 gem 'bootstrap-sass'
 gem 'bundler', "~> 1.17"
 gem 'coffee-rails'
-gem 'curly-templates', github: 'jeremyf/curly', branch: 'updated-sipity-hacks'
-gem 'data_migrator', github: 'jeremyf/data-migrator'
+gem 'curly-templates', github: 'ndlib/curly', branch: 'updated-sipity-hacks'
+gem 'data_migrator', github: 'ndlib/data-migrator'
 gem 'devise_cas_authenticatable'
 gem 'devise'
-gem 'dragonfly', github: 'jeremyf/dragonfly', branch: 'updating-dragonfly-to_file'
+gem 'dragonfly', github: 'ndlib/dragonfly', branch: 'updating-dragonfly-to_file'
 gem 'draper'
 gem 'dry-schema'
 gem 'execjs'
@@ -56,7 +56,7 @@ group :doc do
   gem 'flay', require: false
   gem 'flog', require: false
   gem 'inch', require: false
-  gem 'railroady', require: false, github: 'jeremyf/railroady', branch: 'allowing-namespaced-models'
+  gem 'railroady', require: false, github: 'ndlib/railroady', branch: 'allowing-namespaced-models'
   gem 'yard-activerecord', require: false
   gem 'yard', require: false
 end
