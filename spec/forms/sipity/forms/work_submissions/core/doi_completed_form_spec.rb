@@ -30,7 +30,7 @@ module Sipity
               allow(subject).to receive(:valid?).and_return(true)
             end
             it 'will notify Sentry' do
-              expect(Raven).to receive(:capture_exception).and_call_original
+              expect(Sentry).to receive(:capture_exception).and_call_original
               subject.submit
             end
             it 'will not save doi on work' do
@@ -50,7 +50,7 @@ module Sipity
               allow(subject).to receive(:valid?).and_return(true)
             end
             it 'will NOT notify Sentry' do
-              expect(Raven).not_to receive(:capture_exception)
+              expect(Sentry).not_to receive(:capture_exception)
               subject.submit
             end
             it 'will not save doi on work' do

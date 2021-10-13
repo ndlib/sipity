@@ -1,6 +1,6 @@
-Raven.configure do |config|
+Sentry.init do |config|
   config.dsn = Figaro.env.sentry_dsn
-  config.current_environment = Rails.env
+  config.environment = Rails.env
   config.release = begin
     identifier = Rails.root.join('VERSION').read.strip
     unless Rails.env.production?

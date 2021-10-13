@@ -70,8 +70,8 @@ module Sipity
           end
 
           def register_error
-            Raven.capture_exception("#{Exceptions::IngestUnableToCompleteError}: Problem encountered in Batch Ingester. Review batch logs.",
-                                    extra: { error_class: Exceptions::IngestUnableToCompleteError,
+            Sentry.capture_exception(Exceptions::IngestUnableToCompleteError.new, 
+                                    extra: { message: "Problem encountered in Batch Ingester. Review batch logs.",
                                              work_id: work.to_param,
                                              work_type: PowerConverter.convert(work, to: :polymorphic_type),
                                              job_state: job_state,

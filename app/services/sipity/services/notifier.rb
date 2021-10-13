@@ -30,7 +30,7 @@ module Sipity
       private_class_method :deliver_email
 
       def notify_aibrake_of_no_sender
-        Raven.capture_exception("#{Exceptions::SenderNotFoundError}: Return without sending message.")
+        Sentry.capture_exception(Exceptions::SenderNotFoundError.new(self))
         false
       end
       private_class_method :notify_aibrake_of_no_sender
