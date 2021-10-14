@@ -122,7 +122,7 @@ module Sipity
         attr_accessor :exception_handler
 
         def default_exception_handler
-          Raven.method(:capture_exception)
+          Sentry.method(:capture_exception)
         end
 
         attr_accessor :requested_by

@@ -62,8 +62,8 @@ feature 'Export ETD to Batch Ingest' do
     expect(work.reload.processing_state).to eq("ingesting") # Note, no state change!
 
     # When the batch ingester encounters an error, it reports back to
-    # the WEBHOOK.  The WEBHOOK will notify Raven.
-    expect(Raven).to receive(:capture_exception)
+    # the WEBHOOK.  The WEBHOOK will notify Sentry.
+    expect(Sentry).to receive(:capture_exception)
     # Now let's "POST" that the batch ingester encountered an error
     expect do
       Sipity::Jobs::Core::PerformActionForWorkJob.call(
