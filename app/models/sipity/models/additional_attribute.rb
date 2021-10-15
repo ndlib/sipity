@@ -39,6 +39,7 @@ module Sipity
       MINORS = 'minors'.freeze
       OCLC_NUMBER = 'oclc_number'.freeze
       OTHER_RESOURCES_CONSULTED_PREDICATE_NAME = 'other_resources_consulted'.freeze
+      PERMANENT_EMAIL = 'permanent_email'.freeze
       PRIMARY_COLLEGE_PREDICATE_NAME = 'primary_college'.freeze
       PROGRAM_NAME_PREDICATE_NAME = 'program_name'.freeze
       PROJECT_URL_PREDICATE_NAME = 'project_url'.freeze
@@ -89,6 +90,7 @@ module Sipity
           MINORS => MINORS,
           OCLC_NUMBER => OCLC_NUMBER,
           OTHER_RESOURCES_CONSULTED_PREDICATE_NAME => OTHER_RESOURCES_CONSULTED_PREDICATE_NAME,
+          PERMANENT_EMAIL => PERMANENT_EMAIL,
           PRIMARY_COLLEGE_PREDICATE_NAME => PRIMARY_COLLEGE_PREDICATE_NAME,
           PROGRAM_NAME_PREDICATE_NAME => PROGRAM_NAME_PREDICATE_NAME,
           PROJECT_URL_PREDICATE_NAME => PROJECT_URL_PREDICATE_NAME,

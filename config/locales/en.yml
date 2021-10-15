@@ -137,6 +137,8 @@ en:
   panel_headings:
     access_rights_answer:
       label: 'Who should have <b>access</b> to this work after it is deposited?'
+    permanent_email:
+      label: 'What is your <b>permanent email address</b> (non-ND)?'
     title:
       label: 'What is the <b>title</b> of your work?'
     work_publication_strategy:
@@ -209,6 +211,8 @@ en:
       label: "Add <b>search terms</b> for your %{work_type}"
     degree:
       label: "Add <b>degree</b> for your %{work_type}"
+    permanent_email:  
+      label: "Edit the <b>permanent_email</b> for this %{work_type}"
     program_name:
       label: "Add <b>program name</b> for your %{work_type}"
     work_type/ulra_submission:
