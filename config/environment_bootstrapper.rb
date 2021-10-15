@@ -17,6 +17,11 @@ $stdout.puts "Finding or creating group for '#{catalogers}'"
 $stdout.puts "Associating #{user.username} with #{catalogers}"
 command_repository.set_group_membership(group_name: catalogers, usernames: [user.username])
 
+# A route for OIT to harvest data.
+integrators = Sipity::DataGenerators::WorkTypes::EtdGenerator::ETD_INTEGRATORS
+$stdout.puts "Finding or creating group for '#{integrators}'"
+$stdout.puts "Associating #{user.username} with #{integrators}"
+command_repository.set_group_membership(group_name: integrators, usernames: [user.username])
 
 batch_ingestor_name = Sipity::Models::Group::BATCH_INGESTORS
 $stdout.puts "Finding or batch ingestors for '#{batch_ingestor_name}'"

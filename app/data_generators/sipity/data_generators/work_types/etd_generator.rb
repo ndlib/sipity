@@ -12,6 +12,7 @@ module Sipity
         GRADUATE_SCHOOL_REVIEWERS = 'Graduate School Reviewers'
         CATALOGERS = "Catalogers"
         DATA_ADMINISTRATORS = "Data Administrators"
+        ETD_INTEGRATORS = "ETD_INTEGRATORS"
       end
     end
   end
