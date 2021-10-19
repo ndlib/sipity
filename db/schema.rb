@@ -12,10 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2019_08_22_185902) do
 
-  create_table "schema_migrations", primary_key: "version", id: :string, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-  end
-
-  create_table "sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sessions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "session_id", null: false
     t.text "data"
     t.datetime "created_at", null: false
@@ -24,7 +21,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["updated_at"], name: "index_sessions_on_updated_at"
   end
 
-  create_table "sipity_access_rights", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_access_rights", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "entity_id", limit: 32, null: false
     t.string "entity_type", null: false
     t.string "access_right_code", null: false
@@ -34,7 +31,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["entity_id", "entity_type"], name: "index_sipity_access_rights_on_entity_id_and_entity_type", unique: true
   end
 
-  create_table "sipity_account_placeholders", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_account_placeholders", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "identifier", null: false
     t.string "name"
     t.string "identifier_type", limit: 32, null: false
@@ -47,7 +44,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["state"], name: "index_sipity_account_placeholders_on_state"
   end
 
-  create_table "sipity_additional_attributes", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_additional_attributes", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "work_id", limit: 32, null: false
     t.string "key", null: false
     t.text "value"
@@ -57,7 +54,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["work_id"], name: "index_sipity_additional_attributes_on_work_id"
   end
 
-  create_table "sipity_agents", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_agents", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.string "authentication_token", null: false
@@ -72,7 +69,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["name"], name: "index_sipity_agents_on_name", unique: true
   end
 
-  create_table "sipity_attachments", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_attachments", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "work_id", limit: 32, null: false
     t.string "pid", null: false
     t.string "predicate_name", null: false
@@ -85,7 +82,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["work_id"], name: "index_sipity_attachments_on_work_id"
   end
 
-  create_table "sipity_collaborators", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_collaborators", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "work_id", limit: 32, null: false
     t.integer "sequence"
     t.string "name"
@@ -102,7 +99,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["work_id", "sequence"], name: "index_sipity_collaborators_on_work_id_and_sequence"
   end
 
-  create_table "sipity_doi_creation_requests", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_doi_creation_requests", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "work_id", limit: 32, null: false
     t.string "state", default: "request_not_yet_submitted", null: false
     t.string "response_message"
@@ -112,7 +109,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["work_id"], name: "index_sipity_doi_creation_requests_on_work_id", unique: true
   end
 
-  create_table "sipity_event_logs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_event_logs", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "entity_id", limit: 32, null: false
     t.string "entity_type", limit: 64, null: false
@@ -132,7 +129,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["user_id"], name: "index_sipity_event_logs_on_user_id"
   end
 
-  create_table "sipity_group_memberships", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_group_memberships", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "group_id", null: false
     t.string "membership_role", null: false
@@ -144,7 +141,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["user_id"], name: "index_sipity_group_memberships_on_user_id"
   end
 
-  create_table "sipity_groups", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_groups", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -153,7 +150,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["name"], name: "index_sipity_groups_on_name", unique: true
   end
 
-  create_table "sipity_models_processing_administrative_scheduled_actions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_models_processing_administrative_scheduled_actions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.datetime "scheduled_time", null: false
     t.string "reason", null: false
     t.string "entity_id", null: false
@@ -162,7 +159,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["entity_id", "reason"], name: "idx_sipity_scheduled_actions_entity_id_reason"
   end
 
-  create_table "sipity_notification_email_recipients", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_notification_email_recipients", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "email_id", null: false
     t.integer "role_id", null: false
     t.string "recipient_strategy", null: false
@@ -174,14 +171,14 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["role_id"], name: "sipity_notification_email_recipients_role"
   end
 
-  create_table "sipity_notification_emails", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_notification_emails", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "method_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["method_name"], name: "index_sipity_notification_emails_on_method_name"
   end
 
-  create_table "sipity_notification_notifiable_contexts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_notification_notifiable_contexts", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "scope_for_notification_id", null: false
     t.string "scope_for_notification_type", null: false
     t.string "reason_for_notification", null: false
@@ -194,7 +191,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["scope_for_notification_id", "scope_for_notification_type"], name: "idx_sipity_notification_notifiable_contexts_concern"
   end
 
-  create_table "sipity_processing_actors", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_actors", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "proxy_for_id", limit: 32, null: false
     t.string "proxy_for_type", null: false
     t.string "name_of_proxy"
@@ -203,7 +200,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["proxy_for_id", "proxy_for_type"], name: "sipity_processing_actors_proxy_for", unique: true
   end
 
-  create_table "sipity_processing_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_comments", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "entity_id", limit: 32, null: false
     t.integer "actor_id", null: false
     t.text "comment"
@@ -219,7 +216,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["originating_strategy_state_id"], name: "sipity_processing_comments_state_index"
   end
 
-  create_table "sipity_processing_entities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_entities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "proxy_for_id", limit: 32, null: false
     t.string "proxy_for_type", null: false
     t.integer "strategy_id", null: false
@@ -231,7 +228,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["strategy_state_id"], name: "index_sipity_processing_entities_on_strategy_state_id"
   end
 
-  create_table "sipity_processing_entity_action_registers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_entity_action_registers", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "strategy_action_id", null: false
     t.string "entity_id", limit: 32, null: false
     t.datetime "created_at", null: false
@@ -246,7 +243,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["subject_id", "subject_type"], name: "sipity_processing_entity_action_registers_subject"
   end
 
-  create_table "sipity_processing_entity_specific_responsibilities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_entity_specific_responsibilities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "strategy_role_id", null: false
     t.string "entity_id", limit: 32, null: false
     t.integer "actor_id", null: false
@@ -258,7 +255,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["strategy_role_id"], name: "sipity_processing_entity_specific_responsibilities_role"
   end
 
-  create_table "sipity_processing_strategies", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategies", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.datetime "created_at", null: false
@@ -266,7 +263,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["name"], name: "index_sipity_processing_strategies_on_name", unique: true
   end
 
-  create_table "sipity_processing_strategy_action_analogues", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategy_action_analogues", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "strategy_action_id", null: false
     t.integer "analogous_to_strategy_action_id", null: false
     t.datetime "created_at", null: false
@@ -276,7 +273,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["strategy_action_id"], name: "ix_sipity_processing_strategy_action_analogues_strategy"
   end
 
-  create_table "sipity_processing_strategy_action_prerequisites", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategy_action_prerequisites", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "guarded_strategy_action_id"
     t.integer "prerequisite_strategy_action_id"
     t.datetime "created_at", null: false
@@ -284,7 +281,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["guarded_strategy_action_id", "prerequisite_strategy_action_id"], name: "sipity_processing_strategy_action_prerequisites_aggregate", unique: true
   end
 
-  create_table "sipity_processing_strategy_actions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategy_actions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "strategy_id", null: false
     t.integer "resulting_strategy_state_id"
     t.string "name", null: false
@@ -299,7 +296,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["strategy_id", "presentation_sequence"], name: "sipity_processing_strategy_actions_sequence"
   end
 
-  create_table "sipity_processing_strategy_responsibilities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategy_responsibilities", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "actor_id", null: false
     t.integer "strategy_role_id", null: false
     t.datetime "created_at", null: false
@@ -307,7 +304,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["actor_id", "strategy_role_id"], name: "sipity_processing_strategy_responsibilities_aggregate", unique: true
   end
 
-  create_table "sipity_processing_strategy_roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategy_roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "strategy_id", null: false
     t.integer "role_id", null: false
     t.datetime "created_at", null: false
@@ -315,7 +312,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["strategy_id", "role_id"], name: "sipity_processing_strategy_roles_aggregate", unique: true
   end
 
-  create_table "sipity_processing_strategy_state_action_permissions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategy_state_action_permissions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "strategy_role_id", null: false
     t.integer "strategy_state_action_id", null: false
     t.datetime "created_at", null: false
@@ -323,7 +320,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["strategy_role_id", "strategy_state_action_id"], name: "sipity_processing_strategy_state_action_permissions_aggregate", unique: true
   end
 
-  create_table "sipity_processing_strategy_state_actions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategy_state_actions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "originating_strategy_state_id", null: false
     t.integer "strategy_action_id", null: false
     t.datetime "created_at", null: false
@@ -331,7 +328,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["originating_strategy_state_id", "strategy_action_id"], name: "sipity_processing_strategy_state_actions_aggregate", unique: true
   end
 
-  create_table "sipity_processing_strategy_states", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategy_states", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "strategy_id", null: false
     t.string "name", null: false
     t.datetime "created_at", null: false
@@ -340,7 +337,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["strategy_id", "name"], name: "sipity_processing_type_state_aggregate", unique: true
   end
 
-  create_table "sipity_processing_strategy_usages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_processing_strategy_usages", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "strategy_id", null: false
     t.integer "usage_id", null: false
     t.string "usage_type", null: false
@@ -350,7 +347,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["usage_id", "usage_type"], name: "idx_sipity_processing_strategy_usages_usage_fk", unique: true
   end
 
-  create_table "sipity_roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_roles", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.datetime "created_at", null: false
@@ -358,7 +355,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["name"], name: "index_sipity_roles_on_name", unique: true
   end
 
-  create_table "sipity_submission_window_work_types", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_submission_window_work_types", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "submission_window_id", null: false
     t.integer "work_type_id", null: false
     t.datetime "created_at", null: false
@@ -368,7 +365,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["work_type_id"], name: "idx_sipity_submission_window_work_types_work_type_id"
   end
 
-  create_table "sipity_submission_windows", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_submission_windows", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "work_area_id", null: false
     t.string "slug", null: false
     t.datetime "created_at", null: false
@@ -383,7 +380,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["work_area_id"], name: "index_sipity_submission_windows_on_work_area_id"
   end
 
-  create_table "sipity_work_areas", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_work_areas", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "slug", null: false
     t.string "partial_suffix", null: false
     t.string "demodulized_class_prefix_name", null: false
@@ -394,7 +391,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["slug"], name: "index_sipity_work_areas_on_slug", unique: true
   end
 
-  create_table "sipity_work_redirect_strategies", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_work_redirect_strategies", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "work_id", null: false
     t.string "url", null: false
     t.date "start_date", null: false
@@ -404,7 +401,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["work_id", "start_date"], name: "idx_work_redirect_strategies_surrogate"
   end
 
-  create_table "sipity_work_submissions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_work_submissions", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.integer "work_area_id", null: false
     t.integer "submission_window_id", null: false
     t.string "work_id", null: false
@@ -415,7 +412,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["work_id"], name: "idx_sipity_work_submissions_primary_key", unique: true
   end
 
-  create_table "sipity_work_types", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_work_types", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
     t.datetime "created_at", null: false
@@ -423,7 +420,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["name"], name: "index_sipity_work_types_on_name", unique: true
   end
 
-  create_table "sipity_works", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "sipity_works", id: false, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "id", limit: 32, null: false
     t.text "title"
     t.datetime "created_at"
@@ -434,7 +431,7 @@ ActiveRecord::Schema.define(version: 2019_08_22_185902) do
     t.index ["work_type"], name: "index_sipity_works_on_work_type"
   end
 
-  create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+  create_table "users", id: :integer, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb3", force: :cascade do |t|
     t.string "email"
     t.datetime "remember_created_at"
     t.integer "sign_in_count", default: 0, null: false

@@ -1,48 +1,55 @@
-#
-# FYI: This file is replaced by a copy for deploys
-#
-
-<%
-  socket = [
-  ENV["BOXEN_MYSQL_SOCKET"],
-  "/var/run/mysql5/mysqld.sock",
-  "/tmp/mysql.sock"
-  ].detect { |f| f && File.exist?(f) }
-
-  port = ENV["BOXEN_MYSQL_PORT"] || "3306"
-%>
-
-mysql_connection: &mysql_connection
-<% if socket %>
-  host: localhost
-  socket: <%= socket %>
-<% else %>
-  host: 127.0.0.1
-  port: <%= port %>
-<% end %>
+##########################################
+# Shared settings
+##########################################
 
 mysql_settings: &mysql_settings
-  adapter:   mysql2
-  encoding:  utf8
+  adapter: mysql2
+  pool: 5
+  encoding: utf8
   reconnect: false
-  pool:      5
-
-local_user: &local_user
-  <<: *mysql_settings
-  <<: *mysql_connection
-  username: root
-<% if ! ENV['SKIP_MYSQL_PASSWORD_FOR_LOCAL_DEVELOPMENT'] %>
-  password: root
-<% end %>
-
-development: &development
-  <<: *local_user
-  database: sipity_development
-  host:     localhost
   timeout: 5000
+
+##########################################
+# Environments
+##########################################
+
+development:
+  <<: *mysql_settings
+#   database: <%= Rails.application.secrets.database["database"] %>
+#   username: <%= Rails.application.secrets.database["username"] %>
+  database: sipity_development
+  username: root
+
+# development:
+#   <<: *mysql_settings
+#   host: <%= Rails.application.secrets.database["host"] %>
+#   database: <%= Rails.application.secrets.database["database"] %>
+#   username: <%= Rails.application.secrets.database["username"] %>
+#   password: <%= Rails.application.secrets.database["password"] %>
 
 test: &test
-  <<: *local_user
-  database: sipity_test
-  host:     localhost
-  timeout: 5000
+  <<: *mysql_settings
+  database: <%= Rails.application.secrets.database["database"] %>
+  username: <%= Rails.application.secrets.database["username"] %>
+
+prep:
+  <<: *mysql_settings
+  host: <%= Rails.application.secrets.database["host"] %>
+  database: <%= Rails.application.secrets.database["database"] %>
+  username: <%= Rails.application.secrets.database["username"] %>
+  password: <%= Rails.application.secrets.database["password"] %>
+
+
+pre_production:
+  <<: *mysql_settings
+  host: <%= Rails.application.secrets.database["host"] %>
+  database: <%= Rails.application.secrets.database["database"] %>
+  username: <%= Rails.application.secrets.database["username"] %>
+  password: <%= Rails.application.secrets.database["password"] %>
+
+production:
+  <<: *mysql_settings
+  host: <%= Rails.application.secrets.database["host"] %>
+  database: <%= Rails.application.secrets.database["database"] %>
+  username: <%= Rails.application.secrets.database["username"] %>
+  password: <%= Rails.application.secrets.database["password"] %>

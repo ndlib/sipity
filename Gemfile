@@ -29,7 +29,7 @@ gem 'listen'
 gem 'locabulary', github: 'ndlib/locabulary', ref: '03e6deca5ed00df1d0a6db6cb0f934f3faca31e0'
 gem 'loofah' # Related to hesburgh-lib's dependency
 gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not loading ALL mime-types
-gem 'mysql2', '0.4.8'
+gem 'mysql2', '0.4.10'
 gem 'noids_client', github: 'ndlib/noids_client', ref: '27c2d72166acd4ae726a60beff438c4c7d08fc88'
 gem 'nokogiri'
 gem 'omniauth-oktaoauth'
