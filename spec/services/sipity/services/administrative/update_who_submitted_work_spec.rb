@@ -13,7 +13,7 @@ module Sipity
     let(:from_user) { User.create!(username: from_username) }
     let(:logger) { double("Logger", info: true, warn: true, error: true) }
     let(:repository) { Sipity::CommandRepository.new }
-    let(:attributes) { { title: "Hello World", work_type: "doctoral_dissertation", work_publication_strategy: "do_not_know", work_patent_strategy: "do_not_know" } }
+    let(:attributes) { { title: "Hello World", work_type: "doctoral_dissertation", work_publication_strategy: "do_not_know", work_patent_strategy: "do_not_know", permanent_email: "someone@example.com" } }
     let(:submission_window) { Sipity::Models::SubmissionWindow.last }
     scenario 'User can enrich their submission' do
       form = Sipity::Forms::SubmissionWindows::Etd::StartASubmissionForm.new(

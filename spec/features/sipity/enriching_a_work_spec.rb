@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'byebug'
 
 feature 'Enriching a Work', :devise, :feature do
   include Warden::Test::Helpers
@@ -17,6 +18,7 @@ feature 'Enriching a Work', :devise, :feature do
       the_page.select(options.fetch(:work_type, 'doctoral_dissertation'), from: :work_type)
       the_page.choose(:work_publication_strategy, with: options.fetch(:work_publication_strategy, 'do_not_know'))
       the_page.choose(:work_patent_strategy, with: options.fetch(:work_patent_strategy, 'do_not_know'))
+      the_page.fill_in(:permanent_email, with: options.fetch(:permanent_email, "someone@example.com"))
       the_page.submit_button.click
     end
   end
@@ -40,7 +42,7 @@ feature 'Enriching a Work', :devise, :feature do
   scenario 'User can enrich their submission' do
     user = Sipity::Factories.create_user(agreed_to_terms_of_service: true)
     login_as(user, scope: :user)
-    create_a_work(work_type: 'doctoral_dissertation', title: 'Hello World', work_publication_strategy: 'do_not_know')
+    create_a_work(work_type: 'doctoral_dissertation', title: 'Hello World', work_publication_strategy: 'do_not_know', permanent_email: 'someone@example.com')
 
     on('work_page') do |the_page|
       # There are two because it is listed as a top-level attribute and as part
@@ -69,6 +71,7 @@ feature 'Enriching a Work', :devise, :feature do
 
     # And it shows up on the dashboard
     visit '/dashboard'
-    expect(page.all(".work-listing a").map(&:text)).to eq(['Hello World'])
+      # The first text is empty because it displays the glyphicon
+    expect(page.all(".work-listing a").map(&:text)).to eq(['', 'Hello World'])
   end
 end
