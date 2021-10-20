@@ -1,5 +1,4 @@
 require 'rails_helper'
-require 'byebug'
 
 feature 'Enriching a Work', :devise, :feature do
   include Warden::Test::Helpers
