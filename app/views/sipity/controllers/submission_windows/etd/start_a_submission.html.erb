@@ -14,6 +14,9 @@
     <%= render(layout: 'sipity/form_panel', locals: { name: 'access_rights_answer', theme: :primary, object: view_object }) do %>
       <%= f.input :access_rights_answer, as: :radio_buttons, collection: view_object.access_rights_answer_for_select, label: false %>
     <% end %>
+    <%= render(layout: 'sipity/form_panel', locals: { name: 'permanent_email', theme: :primary, object: view_object }) do %>
+      <%= f.input :permanent_email, as: :text, input_html: { class: 'form-control', rows: 1 }, label: false %>
+    <% end %>
   </div>
   <div class="action-pane">
     <%= f.submit %>

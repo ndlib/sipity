@@ -11,6 +11,12 @@ module Sipity
           PowerConverter.convert(work, to: :access_path)
         end
 
+        # this replaces the automatic redirection
+        def link_to_url
+          return redirect_url unless redirect_url.blank?
+          path
+        end
+
         def work_type
           work.work_type.to_s.humanize
         end
@@ -94,6 +100,12 @@ module Sipity
 
         def additional_attribute_for(key:, cardinality:)
           repository.work_attribute_values_for(work: work, key: key, cardinality: cardinality)
+        end
+
+        def redirect_url
+          active_redirect = repository.active_redirect_for(work_id: work.id)
+          return active_redirect.url if active_redirect.present?
+          nil
         end
       end
     end

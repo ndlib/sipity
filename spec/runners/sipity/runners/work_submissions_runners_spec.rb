@@ -14,7 +14,7 @@ module Sipity
         let(:processing_action_name) { 'fun_things' }
         let(:context) do
           TestRunnerContext.new(
-            find_work_by: work, current_user: user, build_work_submission_processing_action_form: form, active_redirect_for: nil
+            find_work_by: work, current_user: user, build_work_submission_processing_action_form: form
           )
         end
         let(:handler) { double(invoked: true) }
@@ -22,7 +22,6 @@ module Sipity
         subject do
           described_class.new(context, authentication_layer: false, authorization_layer: false) do |on|
             on.success { |a| handler.invoked("SUCCESS", a) }
-            on.redirect { |a| handler.invoked("REDIRECT", a) }
           end
         end
 
@@ -40,14 +39,6 @@ module Sipity
           expect(handler).to have_received(:invoked).with("SUCCESS", form)
           expect(response).to eq([:success, form])
         end
-
-        it 'issues the :redirect callback if a redirect is present' do
-          expect(context.repository).to receive(:active_redirect_for).with(work_id: work.id).and_return(:a_redirect)
-          expect(subject).to_not receive(:enforce_authentication!)
-          response = subject.run(work_id: work.id, processing_action_name: processing_action_name, attributes: double)
-          expect(handler).to have_received(:invoked).with("REDIRECT", :a_redirect)
-          expect(response).to eq([:redirect, :a_redirect])
-        end
       end
 
       RSpec.describe CommandAction do
@@ -57,7 +48,7 @@ module Sipity
         let(:processing_action_name) { 'fun_things' }
         let(:context) do
           TestRunnerContext.new(
-            find_work_by: work, current_user: user, build_work_submission_processing_action_form: form, active_redirect_for: nil
+            find_work_by: work, current_user: user, build_work_submission_processing_action_form: form
           )
         end
         let(:handler) { double(invoked: true) }
@@ -66,7 +57,6 @@ module Sipity
           described_class.new(context, authentication_layer: false, authorization_layer: false) do |on|
             on.submit_success { |a| handler.invoked("SUCCESS", a) }
             on.submit_failure { |a| handler.invoked("FAILURE", a) }
-            on.redirect { |a| handler.invoked("REDIRECT", a) }
           end
         end
 
@@ -76,14 +66,6 @@ module Sipity
 
         it 'enforces authorization' do
           expect(described_class.authorization_layer).to eq(:default)
-        end
-
-        it 'issues the :redirect callback if a redirect is present' do
-          expect(context.repository).to receive(:active_redirect_for).with(work_id: work.id).and_return(:a_redirect)
-          expect(subject).to_not receive(:enforce_authentication!).and_call_original
-          response = subject.run(work_id: work.id, processing_action_name: processing_action_name, attributes: double)
-          expect(handler).to have_received(:invoked).with("REDIRECT", :a_redirect)
-          expect(response).to eq([:redirect, :a_redirect])
         end
 
         it 'issues the :submit_success callback when form is submitted' do

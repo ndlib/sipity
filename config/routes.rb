@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   #
   # The following PATH is produced via the Work Area routing section.
   #
-  # GET /areas/etds/do/list_submissions.json
+  # GET /areas/etd/do/list_submissions.json
 
   # A rudimentary status page for any object processed by Sipity; No authentication required.
   get 'status/:work_id', to: 'sipity/controllers/visitors#status'

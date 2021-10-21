@@ -12,6 +12,7 @@ module Sipity
         let(:work) do
           double(
             'Work',
+            id: '123456',
             title: 'hello',
             work_type: 'doctoral_dissertation',
             processing_state: 'new',
@@ -19,6 +20,7 @@ module Sipity
             submission_window: Models::SubmissionWindow.new(slug: '2017')
           )
         end
+        let(:work_redirect) { double('Redirect', url: 'my/redirect') }
 
         before do
           allow(repository).to(
@@ -49,6 +51,27 @@ module Sipity
         it 'will delegate path to PowerConverter' do
           expect(PowerConverter).to receive(:convert).with(work, to: :access_path).and_return('/the/path')
           expect(subject.path).to eq('/the/path')
+        end
+
+        describe 'link_to_url' do
+          subject { described_class.new(context, work: work).link_to_url }
+          before do
+            allow(PowerConverter).to receive(:convert).with(work, to: :access_path).and_return('/the/path')
+          end
+
+          context 'with a redirect' do
+            before do
+              allow(repository).to receive(:active_redirect_for).and_return(work_redirect)
+            end
+            it 'returns the redirect' do
+              expect(subject).to eq('my/redirect')
+            end
+          end
+          context 'with no redirect' do
+            it 'returns the path' do
+              expect(subject).to eq('/the/path')
+            end
+          end
         end
 
         describe '#author_name' do

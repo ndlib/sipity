@@ -11,7 +11,7 @@ module Sipity
           ProcessingForm.configure(
             form_class: self, base_class: Models::Work, processing_subject_name: :submission_window,
             policy_enforcer: Policies::SubmissionWindowPolicy,
-            attribute_names: [:title, :work_publication_strategy, :work_patent_strategy, :work_type, :access_rights_answer]
+            attribute_names: [:title, :work_publication_strategy, :work_patent_strategy, :work_type, :access_rights_answer, :permanent_email]
           )
 
           def initialize(submission_window:, requested_by:, attributes: {}, **keywords)
@@ -46,6 +46,7 @@ module Sipity
             self.work_publication_strategy = attributes[:work_publication_strategy]
             self.work_type = attributes[:work_type]
             self.access_rights_answer = attributes.fetch(:access_rights_answer) { default_access_rights_answer }
+            self.permanent_email = attributes.fetch(:permanent_email, "")
           end
 
           public
@@ -63,6 +64,7 @@ module Sipity
           validates :access_rights_answer, presence: true, inclusion: { in: :possible_access_right_codes }
           validates :submission_window, presence: true, open_for_starting_submissions: true
           validates :requested_by, presence: true
+          validates :permanent_email, presence: true
 
           def form_path
             File.join(PowerConverter.convert(submission_window, to: :processing_action_root_path), processing_action_name)
@@ -94,6 +96,7 @@ module Sipity
               repository.grant_creating_user_permission_for!(entity: work, user: requested_by)
               repository.update_work_attribute_values!(work: work, key: 'author_name', values: requested_by.to_s)
               repository.update_work_attribute_values!(work: work, key: 'identifier_doi', values: default_identifier_doi)
+              repository.update_work_attribute_values!(work: work, key: 'permanent_email', values: permanent_email)
               register_actions
             end
           end

@@ -1,4 +1,4 @@
-<h1>Submission Date</h1>
+<h1>Permanent Email</h1>
 
 <%= simple_form_for(
   model,
@@ -8,14 +8,14 @@
   html: { class: 'simple-form panel panel-primary with-footer' }
 ) do |f| %>
   <legend class="panel-heading">
-    <h3 class="panel-title">Update the <b>submission date</b> for this dissertation</h3>
+    <h3 class="panel-title">Update the <b>permanent_email</b> for this dissertation</h3>
   </legend>
 
   <fieldset class="panel-body">
     <%= f.error_notification %>
     <%= f.error :base, error_method: :to_sentence %>
 
-    <%= f.input :submission_date, as: :date, input_html: { class: 'form-control' }, wrapper_html: { class: 'form-inline' }, include_blank: true %>
+    <%= f.input :permanent_email, as: :text, input_html: { class: 'form-control', rows: 1 }, label: false %>
   </fieldset>
 
   <div class="panel-footer action-pane">

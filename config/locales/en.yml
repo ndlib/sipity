@@ -23,6 +23,21 @@ en:
     attributes:
       sipity/forms/etd/advisor_requests_change_form:
         comment: 'What changes need to be made?'
+    errors:
+      models:
+        sipity/forms/base_form:
+          attributes:
+            title:
+              blank: 'You must provide a title'
+            work_publication_strategy:
+              blank: 'Please tell us if you intend to publish this work'
+            work_type:
+              inclusion: 'Please select an option from the above list'
+              blank: 'Please select a work type'
+            access_rights_answer:
+              blank: 'Please select an option'
+              inclusion: 'Please select an option from the list'
+
   activerecord:
     models:
       sipity/work: Deposit
@@ -110,7 +125,7 @@ en:
         hint: 'Please provide your name as you wish it to appear in professional publications.'
       terms_of_service:
         title_html: 'Terms of Service'
-  sipity/decorators/entitiy_enrichments:
+  sipity/decorators/entity_enrichments:
     cancel: 'Cancel'
     panels:
       program_name:
@@ -137,6 +152,8 @@ en:
   panel_headings:
     access_rights_answer:
       label: 'Who should have <b>access</b> to this work after it is deposited?'
+    permanent_email:
+      label: 'What is your <b>permanent email address</b> (non-ND)?'
     title:
       label: 'What is the <b>title</b> of your work?'
     work_publication_strategy:
@@ -209,6 +226,8 @@ en:
       label: "Add <b>search terms</b> for your %{work_type}"
     degree:
       label: "Add <b>degree</b> for your %{work_type}"
+    permanent_email:  
+      label: "Edit the <b>permanent_email</b> for this %{work_type}"
     program_name:
       label: "Add <b>program name</b> for your %{work_type}"
     work_type/ulra_submission:
@@ -297,21 +316,6 @@ en:
       debug: 'Debug'
     confirm:
       destroy: 'Are you sure you want to delete this submission? This action cannot be undone. You will have to start the process over from the beginning.'
-  activemodel:
-    errors:
-      models:
-        sipity/forms/base_form:
-          attributes:
-            title:
-              blank: 'You must provide a title'
-            work_publication_strategy:
-              blank: 'Please tell us if you intend to publish this work'
-            work_type:
-              inclusion: 'Please select an option from the above list'
-              blank: 'Please select a work type'
-            access_rights_answer:
-              blank: 'Please select an option'
-              inclusion: 'Please select an option from the list'
   sipity/forms:
     error_messages:
     state_advancing_actions:
