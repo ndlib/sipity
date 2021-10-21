@@ -66,7 +66,7 @@
         <tbody>
           {{*works}}
             <tr>
-              <td><a href="{{path}}"><span class="glyphicon glyphicon-info-sign"></span></td>
+              <td><a href="{{path}}"><span class="glyphicon glyphicon-tasks"></span></td>
               <td><a href="{{link_to_url}}">{{title}}</td>
               <td>{{author_name}}</td>
               <td>{{program_names_to_sentence}}</td>
