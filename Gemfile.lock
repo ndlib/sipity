@@ -502,7 +502,8 @@ GEM
       binding_of_caller (~> 1.0)
       pry (~> 0.13)
     public_suffix (4.0.6)
-    puma (3.12.6)
+    puma (4.3.10)
+      nio4r (~> 2.0)
     racc (1.6.0)
     rack (2.2.3)
     rack-cache (1.13.0)
@@ -819,7 +820,7 @@ DEPENDENCIES
   pry-rails
   pry-rescue
   pry-stack_explorer
-  puma (~> 3.12)
+  puma (~> 4.3.9)
   rack-cache
   rack-mini-profiler
   railroady!
