@@ -5,10 +5,10 @@
   url: request.path,
   method: :post,
   as: :work,
-  html: { class: 'simple-form panel panel-primary with-footer attachements-form' }
+  html: { class: 'simple-form panel panel-primary with-footer attachments-form' }
 ) do |f| %>
   <legend class="panel-heading">
-    <h3 class="pannel-title">Please <b>attach</b> the pertinent files</h3>
+    <h3 class="panel-title">Please <b>attach</b> the pertinent files</h3>
   </legend>
 
   <fieldset class="panel-body">
@@ -21,7 +21,7 @@
   <% if model.attachments.any? %>
     <ol class="attachment-listing">
       <%= f.fields_for :attachments do |attachment_form| %>
-        <li class="attachement form-inline">
+        <li class="attachment form-inline">
           <%= attachment_form.input :name, input_html: { class: 'form-control' } %>
           <%= attachment_form.input :delete, as: :boolean, wrapper_html: { class: 'checkbox' } %>
         </li>

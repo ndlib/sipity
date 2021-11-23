@@ -15,7 +15,7 @@
         <% if model.attachments.any? %>
           <ol class="attachment-listing">
             <%= f.fields_for :attachments do |attachment_form| %>
-              <li class="attachement form-inline">
+              <li class="attachment form-inline">
                 <figure class="thumbnail-wrapper">
                   <%= link_to(
                         image_tag(attachment_form.object.thumbnail_url, alt: attachment_form.object.name, class: 'img-thumbnail'),
