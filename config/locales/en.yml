@@ -37,7 +37,7 @@ en:
             access_rights_answer:
               blank: 'Please select an option'
               inclusion: 'Please select an option from the list'
-
+              
   activerecord:
     models:
       sipity/work: Deposit
@@ -334,6 +334,7 @@ en:
         etd/ingest_with_postponed_cataloging: 'Ingest with Postponed Cataloging'
         etd/cataloger_requests_change: 'Changes are Required for Cataloging'
         etd/submit_for_review: 'Terms of Deposit'
+        verify_reingest: 'Proceed with Ingesting'
         ulra/submit_for_review: 'Terms of Deposit'
       verification:
         deactivate_work:
@@ -352,6 +353,8 @@ en:
           i_agree: 'The submission is ready to be sent to cataloging'
         etd/ingest_with_postponed_cataloging:
           i_agree: 'The submission is ready to be ingested and cataloged at a later date'
+        verify_reingest:
+          i_agree: 'The submission is ready to be reingested to update the attachment(s)'
   simple_form:
     "yes": 'Yes'
     "no": 'No'
@@ -414,6 +417,8 @@ en:
       at_least_one_collaborator_must_be_research_director_with_netid: 'At least one collaborator must be research director with valid NetID'
       presence_of_access_policies_for_all_objects_required: 'Please select access policy for each item'
       at_least_one_attachment_required: 'At least one file must be attached'
+      exactly_one_selection_required: 'Select exactly one file to be replaced'
+      must_upload_new_file_version: 'Upload the new file version'
   sipity/mailers/etd_mailer:
     email_name:
       submit_for_review: "Submitted to research director(s) for review and approval"

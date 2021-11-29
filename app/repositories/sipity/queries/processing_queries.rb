@@ -20,6 +20,8 @@ module Sipity
     #   public methods because they have been tested in isolation and are used
     #   to help compose the `@api public` methods.
     module ProcessingQueries
+      TERMINAL_STATES = ['ingested', 'deactivated']
+
       # @api public
       #
       # This query returns a unique set of state names that are associated
@@ -37,7 +39,9 @@ module Sipity
       # @param usage_type [Object] the polymorphic type for database storage
       # @param include_terminal [Boolean] when true, include
       #        processing states that are terminal (e.g., there are no
-      #        actions that transition out of the state).
+      #        actions that transition out of the state) Note that reingesting changes the
+      #        definition, so these are now hardcoded. We would need a new way to identify
+      #        ingested as a terminal state... i.e. a database column.
       #
       # @return [Array<String>] name of actions available
       def processing_state_names_for_select_within_work_area(work_area:, usage_type: Sipity::Models::WorkType, include_terminal: true)
@@ -63,13 +67,8 @@ module Sipity
           strategy_state_actions = Models::Processing::StrategyStateAction.arel_table
           strategy_actions = Models::Processing::StrategyAction.arel_table
           scope = scope.where(
-            strategy_states[:id].in(
-              strategy_state_actions.project(strategy_state_actions[:originating_strategy_state_id]).
-                join(strategy_actions).on(
-                  strategy_actions[:id].eq(strategy_state_actions[:strategy_action_id]).
-                    and(strategy_actions[:resulting_strategy_state_id].not_eq(nil))
-                )))
-
+            strategy_states[:name].not_in(TERMINAL_STATES)
+          )
         end
         scope.pluck(:name).sort
       end

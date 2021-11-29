@@ -1,0 +1,41 @@
+<h1>Attach New Version of File</h1>
+
+<%= simple_form_for(
+  model,
+  url: request.path,
+  method: :post,
+  as: :work,
+  html: { class: 'simple-form panel panel-primary with-footer attachments-form' }
+) do |f| %>
+  <legend class="panel-heading">
+    <h3 class="panel-title">Please <b>attach</b> the new file version of file</h3>
+  </legend>
+
+  <fieldset class="panel-body">
+    <p class="panel-hint">Select the file you are replacing</p>
+    <%= f.error_notification %>
+    <%= f.error :base, error_method: :to_sentence %>
+    <%= f.input :files, as: :file %>
+
+  <% if model.attachments.any? %>
+    <ol class="attachment-listing">
+      <%= f.fields_for :attachments do |attachment_form| %>
+        <li class="attachment form-inline">
+          <%= attachment_form.input :name, input_html: { class: 'form-control', disabled: true } %>
+          <%= attachment_form.input :replace, as: :boolean, wrapper_html: { class: 'checkbox' } %>
+        </li>
+      <% end %>
+    </ol>
+
+  <% end %>
+
+  </fieldset>
+
+  <div class="panel-footer action-pane">
+    <%= f.submit nil, name: "form/#{model.processing_action_name}/submit" %>
+  </div>
+<% end %>
+
+<div class="action-pane">
+  <%= link_to t("sipity/decorators/entity_enrichments.cancel"), work_path(model.work), class: 'btn btn-default' %>
+</div>

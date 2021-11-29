@@ -1,5 +1,5 @@
 {
-  "work_types": [{
+  "work_types": [{ 
     "name": "master_thesis",
     "strategy_permissions": [{
       "group": "Graduate School Reviewers",
@@ -37,10 +37,10 @@
         "presentation_sequence": 1
       },
       "from_states": [{
-        "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi"],
+        "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi", "ready_for_file_reingest"],
         "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing", "creating_user"]
       }, {
-        "name": ["grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi"],
+        "name": ["grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi", "ready_for_file_reingest"],
         "roles": ["etd_third_party_integrating"]
       }, {
         "name": ["new", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review"],
@@ -74,7 +74,7 @@
         "presentation_sequence": 3
       },
       "from_states": [{
-        "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi"],
+        "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi", "ready_for_file_reingest"],
         "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
@@ -475,6 +475,38 @@
         "name": ["ready_for_ingest"],
         "roles": ["batch_ingesting"]
       }]
+    }, {
+      "name": "update_file",
+      "attributes": {
+        "presentation_sequence": 1
+      },
+      "from_states": [{
+        "name": ["ingested"],
+        "roles": ["etd_reviewing", "data_observing"]
+      }]
+    }, {
+      "name": "reingest_file",
+      "attributes": {
+        "presentation_sequence": 1,
+        "allow_repeat_within_current_state": false
+      },
+      "transition_to": "ready_for_file_reingest",
+      "required_actions": ["update_file"],
+      "from_states": [{
+        "name": ["ingested"],
+        "roles": ["etd_reviewing", "data_observing"]
+      }]
+    }, {
+      "name": "submit_for_file_reingest",
+      "attributes": {
+        "presentation_sequence": 1,
+        "allow_repeat_within_current_state": false
+      },
+      "transition_to": "ingesting",
+      "from_states": [{
+        "name": ["ready_for_file_reingest"],
+        "roles": ["batch_ingesting"]
+     }]
     }],
     "action_analogues": [{
       "action": "advisor_requests_change",
@@ -533,10 +565,10 @@
         "presentation_sequence": 1
       },
       "from_states": [{
-        "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi"],
+        "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi", "ready_for_file_reingest"],
         "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing", "creating_user"]
       }, {
-        "name": ["grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi"],
+        "name": ["grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi","ready_for_file_reingest"],
         "roles": ["etd_third_party_integrating"]
       }, {
         "name": ["new", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review"],
@@ -570,7 +602,7 @@
         "presentation_sequence": 3
       },
       "from_states": [{
-        "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi"],
+        "name": ["new", "grad_school_approved_but_waiting_for_routing", "under_advisor_review", "advisor_changes_requested", "under_grad_school_review", "grad_school_changes_requested", "ready_for_cataloging", "back_from_cataloging", "ready_for_ingest", "ingesting", "ingested", "ready_for_doi_minting", "minting_doi", "ready_for_file_reingest"],
         "roles": ["etd_reviewing", "etd_student_reviewing", "data_observing"]
       }]
     }, {
@@ -971,6 +1003,38 @@
         "name": ["ready_for_ingest"],
         "roles": ["batch_ingesting"]
       }]
+      }, {
+        "name": "update_file",
+        "attributes": {
+          "presentation_sequence": 1
+        },
+        "from_states": [{
+          "name": ["ingested"],
+          "roles": ["etd_reviewing", "data_observing"]
+        }]
+      }, {
+        "name": "reingest_file",
+        "attributes": {
+          "presentation_sequence": 1,
+          "allow_repeat_within_current_state": false
+        },
+        "transition_to": "ready_for_file_reingest",
+        "required_actions": ["update_file"],
+        "from_states": [{
+          "name": ["ingested"],
+          "roles": ["etd_reviewing", "data_observing"]
+        }]
+      }, {
+        "name": "submit_for_file_reingest",
+        "attributes": {
+          "presentation_sequence": 1,
+          "allow_repeat_within_current_state": false
+        },
+        "transition_to": "ingesting",
+        "from_states": [{
+          "name": ["ready_for_file_reingest"],
+          "roles": ["batch_ingesting"]
+       }]
     }],
     "action_analogues": [{
       "action": "advisor_requests_change",

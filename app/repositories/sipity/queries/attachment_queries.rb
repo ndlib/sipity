@@ -7,8 +7,25 @@ module Sipity
         representative_first: 'is_representative_file DESC'.freeze,
         none: false
       }.freeze
+
       def work_attachments(work:, predicate_name: :all, order: :none)
         scope = Models::Attachment.includes(:work, :access_right).where(work_id: work.id)
+        if predicate_name != :all
+          scope = scope.where(predicate_name: predicate_name)
+        end
+        query_order = ATTACHMENT_QUERY_ORDER_OPTIONS.fetch(order)
+        return scope unless query_order
+        scope.order(query_order)
+      end
+
+      def replaced_work_attachments(work:, predicate_name: :all, order: :none)
+        # find the most recent ingest date
+        proxy_id = Sipity::Models::Processing::Entity.where(proxy_for_id: work.id).first.id
+        ingested_date = Sipity::Models::EventLog.where(entity_id: proxy_id, event_name: "ingest/submit").order(created_at_at: :desc).first.created_at
+
+        # find attachment(s) for the work where the updated date is greater than the prior ingest date
+        
+        scope = Models::Attachment.includes(:work, :access_right).where(work_id: work.id).where('updated_at > ?', ingested_date)
         if predicate_name != :all
           scope = scope.where(predicate_name: predicate_name)
         end
