@@ -8,9 +8,11 @@ module Sipity
           new(work: work, exporter: exporter, **keywords).call
         end
 
-        def initialize(work:, exporter:)
+        def initialize(work:, exporter:, work_to_attachments_converter: default_work_to_attachments_converter)
           self.work = work
           self.exporter = exporter
+          self.work_to_attachments_converter = work_to_attachments_converter
+          self.replaced_attachments = work_to_attachments_converter.call(work: work)
         end
 
         def call
@@ -18,6 +20,15 @@ module Sipity
           path = File.join(exporter.data_directory, "attachments.json")
           content = replaced_attachments.to_json
           exporter.file_writer.call(content: content, path: path)
+        end
+
+        private
+
+        attr_accessor :work, :exporter, :replaced_attachments
+        attr_accessor :work_to_attachments_converter
+
+        def default_work_to_attachments_converter
+          Conversions::ToRof::WorkConverter.method(:replaced_attachments_for)
         end
       end
     end
