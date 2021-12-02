@@ -22,7 +22,7 @@ module Sipity
         # find the most recent ingest date
         proxies = Sipity::Models::Processing::Entity.where(proxy_for_id: work.id)
         proxy_id = proxies.first.id
-        ingested = Sipity::Models::EventLog.where(entity_id: proxy_id, event_name: "ingest/submit")
+        ingested = Sipity::Models::EventLog.where(entity_id: proxy_id, event_name: "ingest_completed/submit")
 
         if ingested.present?
           # find the prior ingest date
@@ -32,7 +32,7 @@ module Sipity
         else
           # find attachment(s) for the work where the updated date is greater than the created date i.e. they have been changed at some point in time since they were added. 
           # Note: this shouldn't happen unless we are testing (i.e. we force something into ingested status and the logs don't show the info)
-          scope = Models::Attachment.includes(:work, :access_right).where(work_id: work.id).where('updated_at > ?', created_at)
+          scope = Models::Attachment.includes(:work, :access_right).where(work_id: work.id).where('updated_at > created_at')
         end
 
         if predicate_name != :all
