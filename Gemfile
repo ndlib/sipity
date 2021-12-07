@@ -10,7 +10,7 @@ gem 'activerecord-session_store'
 gem 'autoprefixer-rails'
 gem 'bigdecimal'
 gem 'bootstrap-sass'
-gem 'bundler', "~> 1.17"
+gem 'bundler', '~> 2.2.10'
 gem 'coffee-rails'
 gem 'curly-templates', github: 'jeremyf/curly', branch: 'updated-sipity-hacks'
 gem 'data_migrator', github: 'jeremyf/data-migrator'
@@ -30,7 +30,7 @@ gem 'locabulary', github: 'ndlib/locabulary', ref: '1416e5faf48882ebb0f54b1aa011
 gem 'loofah' # Related to hesburgh-lib's dependency
 gem 'mime-types', '~> 2.6', require: 'mime/types/columnar' # Free 20% RAM by not loading ALL mime-types
 gem 'mysql2', '0.4.8'
-gem 'noids_client', github: 'ndlib/noids_client', ref: '27c2d72166acd4ae726a60beff438c4c7d08fc88'
+gem 'noids_client', '~> 0.0.3'
 gem 'nokogiri'
 gem 'omniauth-oktaoauth'
 gem 'power_converter'
@@ -79,7 +79,6 @@ group :development do
   gem 'letter_opener'
   gem 'pry-byebug', '~> 3.4.0', require: false
   gem 'pry-rails', require: false
-  gem 'puma', '~> 3.12'
   gem 'rails_layout'
   gem 'rb-fchange', require: false
   gem 'rb-fsevent', require: false
