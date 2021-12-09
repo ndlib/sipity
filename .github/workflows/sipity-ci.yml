@@ -12,6 +12,9 @@ jobs:
       with:
         ruby-version: 2.6.6
 
+    - name: Update System Gems
+      run: gem update --system 
+
     - name: Install bundler
       run: gem install bundler -v 2.2.10
 

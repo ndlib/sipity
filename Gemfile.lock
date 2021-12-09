@@ -274,7 +274,7 @@ GEM
       nokogiri (>= 1.4.3)
     erubi (1.10.0)
     erubis (2.7.0)
-    excon (0.88.0)
+    excon (0.89.0)
     execjs (2.8.1)
     faraday (0.17.4)
       multipart-post (>= 1.2, < 3)
@@ -829,4 +829,4 @@ DEPENDENCIES
   yard-activerecord
 
 BUNDLED WITH
-   2.2.32
+   2.2.10
