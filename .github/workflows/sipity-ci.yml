@@ -13,7 +13,7 @@ jobs:
         ruby-version: 2.6.6
 
     - name: Install bundler
-      run: gem install bundler -v 1.17.3
+      run: gem install bundler -v 2.2.10
 
     - name: Install bundled dependencies
       run: bundle install --without development debug doc
