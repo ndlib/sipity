@@ -6,7 +6,7 @@ module Sipity
     module ToRof
       RSpec.describe WorkConverter do
         let(:work) { double('Work') }
-        let(:converting_instance) { double(to_rof: true, attachments: []) }
+        let(:converting_instance) { double(to_rof: true, attachments: [], replaced_attachments: []) }
         subject { described_class }
 
         context '.call' do
@@ -22,6 +22,14 @@ module Sipity
             allow(described_class).to receive(:find_and_initialize).and_return(converting_instance)
             subject.attachments_for(work: work)
             expect(converting_instance).to have_received(:attachments)
+          end
+        end
+
+        context '.replaced_attachments_for' do
+          it 'should convert the work into an array of Sipity::Model::Attachment' do
+            allow(described_class).to receive(:find_and_initialize).and_return(converting_instance)
+            subject.replaced_attachments_for(work: work)
+            expect(converting_instance).to have_received(:replaced_attachments)
           end
         end
 

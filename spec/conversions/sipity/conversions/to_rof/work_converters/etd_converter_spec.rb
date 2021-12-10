@@ -9,6 +9,23 @@ module Sipity
         RSpec.describe EtdConverter do
           it_behaves_like 'a work to rof converter', af_model: 'Etd', attachment_predicate_name: :all
 
+          context '#replaced_attachments' do
+            let(:work) do
+              Models::Work.new(id: 'abcd-ef', created_at: Time.zone.today)
+            end
+            let(:attachment) { Sipity::Models::Attachment.new(id: 'attachment', created_at: Time.zone.today - 3.days,updated_at: Time.zone.today, work: work) }
+            let(:repository) { QueryRepositoryInterface.new }
+            let(:subject) { described_class.new(work: work, repository: repository) }
+            # before { allow(repository).to receive(:work_attachments).and_call_original }
+            # let(:attachment_predicate_name) { parameters.fetch(:attachment_predicate_name) }
+            it "should retrieve modified attachments" do
+              expect(repository).to receive(:replaced_work_attachments).with(
+                work: work, predicate_name: :all
+              ).and_return(attachment)
+              expect(subject.replaced_attachments).to eq([attachment])
+            end
+          end
+
           context '#collaborator_metadata' do
             let(:work) do
               Models::Work.new(id: 'abcd-ef', access_right: access_right, created_at: Time.zone.today)

@@ -88,7 +88,24 @@ module Sipity
         end
       end
 
-      context '#remove_files_form' do
+      context '#replace_file_version' do
+        let(:replacement) { FileUpload.fixture_file_upload('attachments/another-attachment.txt') }
+        let(:file) { FileUpload.fixture_file_upload('attachments/hello-world.txt') }
+        let(:user) { User.new(id: 1234) }
+        let(:work) { Models::Work.create!(id: '1') }
+        let(:pid_minter) { -> { 'abc123' } }
+        before do
+          test_repository.attach_files_to(work: work, files: file, user: user, pid_minter: pid_minter)
+        end
+
+        it 'will update the existing file and keep the original file_name' do
+          expect { test_repository.replace_file_version(work: work, file: replacement, user: user, pid: 'abc123') }.
+            to change { Models::Attachment.where(pid: 'abc123').count }.by(0)
+          expect(Models::Attachment.where(pid: 'abc123').first.file_name).to eq('hello-world.txt')
+        end
+      end
+
+      context '#remove_files_from' do
         let(:file) { FileUpload.fixture_file_upload('attachments/hello-world.txt') }
         let(:file_name) { "hello-world.txt" }
         let(:user) { User.new(id: 1234) }

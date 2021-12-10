@@ -138,6 +138,10 @@ module Sipity
     end
 
     # @see ./app/repositories/sipity/queries/attachment_queries.rb
+    def replaced_work_attachments(work:, predicate_name: :all, order: :none)
+    end
+
+    # @see ./app/repositories/sipity/queries/attachment_queries.rb
     def representative_attachment_for(work:)
     end
 
