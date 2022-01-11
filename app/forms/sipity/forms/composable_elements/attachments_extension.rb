@@ -34,6 +34,10 @@ module Sipity
           unregister_access_policy_action_for(requested_by: requested_by)
         end
 
+        def attach_new_version(requested_by:)
+          repository.replace_file_version(work: work, file: files.first, pid: id_for_replacement, predicate_name: 'attachment')
+        end
+
         def update_attachments(requested_by:)
           repository.attach_files_to(work: work, files: files, predicate_name: predicate_name) if files.any?
           repository.remove_files_from(work: work, user: requested_by, pids: ids_for_deletion, predicate_name: predicate_name)
@@ -58,9 +62,32 @@ module Sipity
           attachments_metadata.present? || Array.wrap(files).any?(&:present?)
         end
 
+        def exactly_one_selection?
+          selected_for_replace = []
+          attachments_attributes.each do |_keys, attributes|
+            selected_for_replace << PowerConverter.convert(attributes['replace'], to: :boolean)
+          end
+          return true if selected_for_replace.count(true) == 1
+          false
+        end
+
+        def new_file_uploaded?
+          Array.wrap(files).any?(&:present?)
+        end
+
         def at_least_one_file_must_be_attached
           return true if attachments_associated_with_the_work?
           errors.add(:base, :at_least_one_attachment_required)
+        end
+
+        def only_one_file_may_be_selected
+          return true if exactly_one_selection?
+          errors.add(:base, :exactly_one_selection_required)
+        end
+
+        def only_one_file_may_be_uploaded
+          return true if new_file_uploaded?
+          errors.add(:base, :must_upload_new_file_version)
         end
 
         private
@@ -90,6 +117,17 @@ module Sipity
           end
         end
 
+        def id_for_replacement
+          @id_for_replacement = ""
+          # we have already validated there is only one but we use each to extract the info
+          attachments_attributes.each do |_key, attributes|
+            if PowerConverter.convert(attributes['replace'], to: :boolean)
+              @id_for_replacement = attributes.fetch('id')
+            end
+          end
+          @id_for_replacement
+        end
+
         # Because strong parameters might be in play, I need to make sure to
         # permit these, or things fall apart later in the application.
         def extract_permitted_attributes(attributes, *keys)
@@ -104,14 +142,13 @@ module Sipity
           end
         end
 
-        # Responsible for exposing a means of displaying and marking the object
-        # for deletion.
+        # Responsible for exposing a means of displaying and marking the object for processing.
         class AttachmentFormElement
           def initialize(attachment)
             self.attachment = attachment
           end
           delegate :id, :name, :thumbnail_url, :persisted?, :file_url, to: :attachment
-          attr_accessor :delete
+          attr_accessor :delete, :replace
 
           private
 

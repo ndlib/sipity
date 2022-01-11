@@ -65,8 +65,8 @@ module Sipity
         before { Sipity::SpecSupport.load_database_seeds!(seeds_path: 'db/seeds/etd_work_area_seeds.rb') }
         let(:work_area) { Models::WorkArea.first! }
         let(:results_array) { ["advisor_changes_requested", "back_from_cataloging", "deactivated", "grad_school_approved_but_waiting_for_routing",
-        "grad_school_changes_requested", "ingested", "ingesting", "new", "ready_for_cataloging", "ready_for_doi_minting",
-        "minting_doi", "ready_for_ingest", "under_advisor_review", "under_grad_school_review"] }
+        "grad_school_changes_requested", "ingested", "ingesting", "new", "ready_for_cataloging", "ready_for_doi_minting", 
+        "minting_doi", "ready_for_ingest", "ready_for_file_reingest", "under_advisor_review", "under_grad_school_review"] }
         subject { test_repository.processing_state_names_for_select_within_work_area(work_area: work_area) }
 
         # This is a fragile test based on the state of data; However it

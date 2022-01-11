@@ -29,10 +29,10 @@
 (function($) {
   'use strict';
 
-  var adjustRequiredAttachements = function(){
-    var attachementControl = $('#work_files');
-    if ( attachementControl.length > 0 ){
-      attachementControl
+  var adjustRequiredAttachments = function(){
+    var attachmentControl = $('#work_files');
+    if ( attachmentControl.length > 0 ){
+      attachmentControl
         .removeClass('required')
         .removeAttr('required');
     }
@@ -55,7 +55,7 @@
     $('.table.collaborators').manage_sections();
     $('.multi-value.control-group').manage_fields();
     adjustRequiredCollaborators();
-    adjustRequiredAttachements();
+    adjustRequiredAttachments();
 		disableSubmitOnClick();
     $('.help-icon').tooltip();
   };

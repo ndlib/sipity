@@ -229,6 +229,14 @@ module Sipity
     def remove_files_from(work:, user:, pids:, predicate_name: 'attachment')
     end
 
+    # @see ./app/repositories/sipity/commands/work_commands.rb
+    def replace_file_version(work:, file:, pid:, predicate_name: 'attachment', **keywords)
+    end
+
+    # @see ./app/repositories/sipity/queries/attachment_queries.rb
+    def replaced_work_attachments(work:, predicate_name: :all, order: :none)
+    end
+
     # @see ./app/repositories/sipity/queries/attachment_queries.rb
     def representative_attachment_for(work:)
     end

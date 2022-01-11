@@ -44,6 +44,10 @@ module Sipity
         end
       end
 
+      def replace_file_version(work:, file:, pid:, predicate_name: 'attachment', **keywords)
+        Models::Attachment.where(work: work).find(pid).update_version_with!(new_file: file)
+      end
+
       def remove_files_from(work:, user:, pids:, predicate_name: 'attachment')
         _user = user # Don't need it yet, but it makes sense to capture this
         Models::Attachment.where(work: work, pid: Array.wrap(pids), predicate_name: predicate_name).destroy_all

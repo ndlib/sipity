@@ -7,6 +7,7 @@ module Sipity
       let(:work) { Models::Work.new(id: '123') }
       let(:work_two) { Models::Work.new(id: '456') }
       let(:file) { FileUpload.fixture_file_upload('attachments/hello-world.txt') }
+      let(:file2) { FileUpload.fixture_file_upload('attachments/good-bye-world.txt') }
       subject { test_repository }
 
       context '#find_or_initialize_attachments' do
@@ -34,6 +35,66 @@ module Sipity
               work_id: work.id, pid: 'attach2', predicate_name: 'attachment', file: file, is_representative_file: true
             )
             expect(subject.work_attachments(work: work, order: :representative_first)).to eq([representative, non_representative])
+          end
+        end
+      end
+
+      context '#replaced_work_attachments' do
+        let(:attachment) { Models::Attachment.create!(work_id: work.id, pid: 'attach1', predicate_name: 'attachment', file: file, created_at: Time.now - 5.days, updated_at: Time.now - 5.days) }
+        let(:attachment2) { Models::Attachment.create!(work_id: work.id, pid: 'attach2', predicate_name: 'attachment', file: file, created_at: Time.now - 5.days, updated_at: Time.now - 5.days) }
+        let(:other_type) { Models::Attachment.create!(work_id: work.id, pid: 'attach3', predicate_name: 'alternate_type', file: file, created_at: Time.now - 5.days, updated_at: Time.now - 5.days) }
+        let(:proxy) { double('Entity', proxy_for_id: work.id, id: 1) }
+
+        before do
+          Models::EventLog.create!(user_id: '1', requested_by_id: '1', requested_by_type: 'User', entity_id: proxy.id, entity_type: 'Sipity::Models::Work', event_name: "ingest_completed/submit", created_at: Time.now - 5.days, updated_at: Time.now - 5.days)
+          Models::EventLog.create!(user_id: '1', requested_by_id: '1', requested_by_type: 'User', entity_id: proxy.id, entity_type: 'Sipity::Models::Work', event_name: "ingest_completed/submit", created_at: Time.now - 3.days, updated_at: Time.now - 3.days)
+        end
+
+        describe 'when there is an event log record' do
+          before do       
+            attachment
+            attachment2
+            other_type   
+            attachment2.update_version_with!(new_file: file2)
+            allow(Sipity::Models::Processing::Entity).to receive(:where).and_return([proxy])
+          end
+          it 'finds only the replaced attachments since the last ingest' do
+            expect(subject.replaced_work_attachments(work: work).map(&:pid)).to match_array(['attach2'])
+            expect(subject.replaced_work_attachments(work: work, predicate_name: 'alternate_type').empty?).to be_truthy 
+            expect(subject.replaced_work_attachments(work: work, predicate_name: :all).map(&:pid)).to match_array(['attach2'])
+          end
+        end
+        describe 'when there is no event log record' do
+          before do
+            attachment
+            attachment2
+            other_type
+            attachment2.update_version_with!(new_file: file2)
+            allow(Sipity::Models::Processing::Entity).to receive(:where).and_return([proxy])
+            allow(Sipity::Models::EventLog).to receive(:where).and_return([])
+          end
+          it 'finds any replaced attachments' do
+            expect(subject.replaced_work_attachments(work: work).map(&:pid)).to match_array(['attach2'])
+            expect(subject.replaced_work_attachments(work: work, predicate_name: 'alternate_type').empty?).to be_truthy 
+            expect(subject.replaced_work_attachments(work: work, predicate_name: :all).map(&:pid)).to match_array(['attach2'])
+          end
+        end   
+        describe 'when ordered by :representative_first' do
+          let(:non_representative) { Models::Attachment.create!(
+              work_id: work.id, pid: 'attach1', predicate_name: 'alternate_type', file: file, is_representative_file: false, created_at: Time.now - 5.days, updated_at: Time.now - 5.days
+            ) }
+          let(:representative) { Models::Attachment.create!(
+              work_id: work.id, pid: 'attach2', predicate_name: 'attachment', file: file, is_representative_file: true, created_at: Time.now - 5.days, updated_at: Time.now - 5.days
+            ) }
+          before do
+            non_representative
+            representative
+            representative.update_version_with!(new_file: file2)
+            non_representative.update_version_with!(new_file: file2)
+            allow(Sipity::Models::Processing::Entity).to receive(:where).and_return([proxy])
+          end
+          it 'returns the representative file first' do
+            expect(subject.replaced_work_attachments(work: work, order: :representative_first).map(&:pid)).to eq(['attach2', 'attach1'])
           end
         end
       end

@@ -1,4 +1,4 @@
-<h1>Attach Files</h1>
+<h1>Attach New Version of File</h1>
 
 <%= simple_form_for(
   model,
@@ -8,27 +8,24 @@
   html: { class: 'simple-form panel panel-primary with-footer attachments-form' }
 ) do |f| %>
   <legend class="panel-heading">
-    <h3 class="panel-title">Please <b>attach</b> the pertinent files</h3>
+    <h3 class="panel-title">Please <b>attach</b> the new file version of file</h3>
   </legend>
 
   <fieldset class="panel-body">
-    <p class="panel-hint">If you have more than one file please select one as the principal manuscript.</p>
+    <p class="panel-hint">Select the file you are replacing</p>
     <%= f.error_notification %>
     <%= f.error :base, error_method: :to_sentence %>
-
-    <%= f.input :files, as: :file, input_html: { multiple: 'multiple' } %>
+    <%= f.input :files, as: :file %>
 
   <% if model.attachments.any? %>
     <ol class="attachment-listing">
       <%= f.fields_for :attachments do |attachment_form| %>
         <li class="attachment form-inline">
-          <%= attachment_form.input :name, input_html: { class: 'form-control' } %>
-          <%= attachment_form.input :delete, as: :boolean, wrapper_html: { class: 'checkbox' } %>
+          <%= attachment_form.input :name, input_html: { class: 'form-control', disabled: true } %>
+          <%= attachment_form.input :replace, as: :boolean, wrapper_html: { class: 'checkbox' } %>
         </li>
       <% end %>
     </ol>
-
-    <%= f.input :representative_attachment_id, collection: model.attachments, input_html: { class: 'form-control' } %>
 
   <% end %>
 

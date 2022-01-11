@@ -50,6 +50,11 @@ module Sipity
             Array.wrap(repository.work_attachments(work: work, predicate_name: :all, order: :representative_first))
           end
 
+          # @return Array
+          def replaced_attachments
+            Array.wrap(repository.replaced_work_attachments(work: work, predicate_name: :all))
+          end
+
           private
 
           def degree_metadata

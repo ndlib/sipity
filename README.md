@@ -38,7 +38,9 @@ Assuming you have a Mac OSX machine:
 4.  Install the ruby version that matches [Sipity's .ruby-version](./.ruby-version)
 5.  Clone the Sipity repository to your machine
 6.  In the Sipity repository install the dependencies via bundler (e.g. `bundle install`)
-7.  Test the installation by running the rake command (e.g. `bundle exec rake`)
+7.  Test the installation by running the rake command (e.g. `bundle exec rake`). 
+
+You can run the full spec suite using `bundle exec rake spec:ci RAILS_ENV=test debug=true` or individual specs using `bundle exec rspec path/to/spec`.
 
 _**Note:** Because OSX is squirrelly about it's command line ecosystem, you may encounter bumps
 along the way. You can find some possible guidance at [jeremyf/dotzshrc's runbooks](https://github.com/jeremyf/dotzshrc/tree/master/runbooks)._

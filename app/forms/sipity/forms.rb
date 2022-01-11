@@ -29,6 +29,8 @@ module Sipity
   #   additional commentary and reason for separating forms from their
   #   underlying ActiveRecord classes.
   module Forms
-    STATE_ADVANCING_ACTION_CONFIRMATION_TEMPLATE_NAME = 'state_advancing_action_confirmation'.freeze
+    unless (const_defined?(:STATE_ADVANCING_ACTION_CONFIRMATION_TEMPLATE_NAME))
+      STATE_ADVANCING_ACTION_CONFIRMATION_TEMPLATE_NAME = 'state_advancing_action_confirmation'.freeze
+    end
   end
 end

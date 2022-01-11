@@ -15,7 +15,7 @@
         <% if model.attachments.any? %>
           <ol class="attachment-listing">
             <%= f.fields_for :attachments do |attachment_form| %>
-              <li class="attachement form-inline">
+              <li class="attachment form-inline">
                 <figure class="thumbnail-wrapper">
                   <%= link_to(
                         image_tag(attachment_form.object.thumbnail_url, alt: attachment_form.object.name, class: 'img-thumbnail'),
@@ -47,5 +47,5 @@
 <% end %>
 
 <div class="action-pane">
-  <%= link_to t("sipity/decorators/entitiy_enrichments.cancel"), work_path(model.work), class: 'btn btn-default' %>
+  <%= link_to t("sipity/decorators/entity_enrichments.cancel"), work_path(model.work), class: 'btn btn-default' %>
 </div>

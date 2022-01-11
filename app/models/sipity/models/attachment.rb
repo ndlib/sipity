@@ -46,6 +46,14 @@ module Sipity
       def to_rof_file_basename
         "#{pid}-#{file_name}"
       end
+
+      def update_version_with!(new_file:)
+        # when updating a new version, we want to make sure the file name doesn't change.
+        prior_filename = file_name
+        self.file = new_file
+        self.file_name = prior_filename
+        self.save
+      end
     end
   end
 end
