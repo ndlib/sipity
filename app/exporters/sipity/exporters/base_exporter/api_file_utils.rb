@@ -5,6 +5,10 @@ module Sipity
       module ApiFileUtils
         def self.put_content(path, content = nil)
           RestClient.put path, content, 'X-Api-Token' => Figaro.env.curate_batch_api_key!
+        rescue RestClient::Exception => e
+          Sentry.capture_exception(e.response,
+            extra: { path: path,
+                     content: content })
         end
 
         def self.mkdir_p(*)
@@ -13,6 +17,9 @@ module Sipity
 
         def self.mv(_from, destination)
           RestClient.post destination, "", 'X-Api-Token' => Figaro.env.curate_batch_api_key!
+        rescue RestClient::Exception => e
+          Sentry.capture_exception(e.response,
+            extra: { path: destination })
         end
       end
     end
