@@ -16,6 +16,7 @@ module Sipity
           describe '#put_content' do
             it 'executes a put request to RestClient' do
               expect(RestClient).to receive(:put)
+              expect(Sentry).not_to receive(:capture_exception)
               subject.put_content(path, nil)
             end
 
@@ -24,20 +25,23 @@ module Sipity
                 allow(RestClient).to receive(:put).and_raise(RestClient::Exception)
               end
               it 'reports error' do
-                expect(Raven).to receive(:capture_exception)
+                expect(Sentry).to receive(:capture_exception)
                 subject.put_content(path, destination)
               end
             end
           end
+
           describe '#mkdir_p' do
             it 'overrides FileUtils #mkdir_p and does nothing' do
               expect(subject).to receive(:mkdir_p).and_call_original
               subject.mkdir_p(path)
             end
           end
+
           describe '#mv' do
             it 'exeutes a post request to RestClient' do
               expect(RestClient).to receive(:post)
+              expect(Sentry).not_to receive(:capture_exception)
               subject.mv(path, destination)
             end
 
@@ -46,7 +50,7 @@ module Sipity
                 allow(RestClient).to receive(:post).and_raise(RestClient::Exception)
               end
               it 'reports error' do
-                expect(Raven).to receive(:capture_exception)
+                expect(Sentry).to receive(:capture_exception)
                 subject.mv(path, destination)
               end
             end
