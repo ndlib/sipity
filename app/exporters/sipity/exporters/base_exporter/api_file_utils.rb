@@ -6,8 +6,9 @@ module Sipity
         def self.put_content(path, content = nil)
           RestClient.put path, content, 'X-Api-Token' => Figaro.env.curate_batch_api_key!
         rescue RestClient::Exception => e
-          Sentry.capture_exception(e.response,
-            extra: { path: path,
+          Sentry.capture_exception(e,
+            extra: { error: e.http_code,
+                     path: path,
                      content: content })
         end
 
@@ -18,8 +19,8 @@ module Sipity
         def self.mv(_from, destination)
           RestClient.post destination, "", 'X-Api-Token' => Figaro.env.curate_batch_api_key!
         rescue RestClient::Exception => e
-          Sentry.capture_exception(e.response,
-            extra: { path: destination })
+          Sentry.capture_exception(e,
+            extra: { error: e.http_code, path: destination })
         end
       end
     end
