@@ -357,6 +357,10 @@ module Sipity
     def unregister_action_taken_on_entity(entity:, action:, requested_by:, **keywords)
     end
 
+    # @see ./app/repositories/sipity/commands/todo_list_commands.rb
+    def unregister_action_taken_on_entity_by_anyone(entity:, action:, **keywords)
+    end
+
     # @see ./app/repositories/sipity/commands/redirect_commands.rb
     def update_previous_open_ended_redirects_for(work:, as_of:)
     end

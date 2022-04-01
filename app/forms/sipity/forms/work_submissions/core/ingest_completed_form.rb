@@ -56,7 +56,10 @@ module Sipity
               register_error
               return work
             when JOB_STATE_SUCCESS
-              processing_action_form.submit { create_a_redirect }
+              processing_action_form.submit do
+                remove_after_ingest_enrichment_action_registration
+                create_a_redirect
+              end
             end
           end
 
@@ -65,6 +68,12 @@ module Sipity
           include Conversions::ConvertToPermanentUri
           def create_a_redirect
             repository.create_redirect_for(work: work, url: convert_to_permanent_uri(work))
+          end
+
+          # now that ingest is completed, we remove any prior 'after-ingest' enrichment actions so they can potentially be repeated
+          # NOTE: it is definitely not ideal to hardcode the action, but at this point there isn't any better way. If we get more actions of this type, it would be good to tease out a better way
+          def remove_after_ingest_enrichment_action_registration
+            repository.unregister_action_taken_on_entity_by_anyone(entity: work, action: 'update_file', requested_by: requested_by)
           end
 
           def register_error

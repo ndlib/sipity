@@ -40,23 +40,64 @@ module Sipity
       end
 
       context '#replaced_work_attachments' do
+        let(:requesting_user) { Sipity::Factories.create_user }
+        let(:requested_by_actor) { Models::Processing::Actor.new(proxy_for: requesting_user) }
         let(:attachment) { Models::Attachment.create!(work_id: work.id, pid: 'attach1', predicate_name: 'attachment', file: file, created_at: Time.now - 5.days, updated_at: Time.now - 5.days) }
         let(:attachment2) { Models::Attachment.create!(work_id: work.id, pid: 'attach2', predicate_name: 'attachment', file: file, created_at: Time.now - 5.days, updated_at: Time.now - 5.days) }
         let(:other_type) { Models::Attachment.create!(work_id: work.id, pid: 'attach3', predicate_name: 'alternate_type', file: file, created_at: Time.now - 5.days, updated_at: Time.now - 5.days) }
-        let(:proxy) { double('Entity', proxy_for_id: work.id, id: 1) }
+        let(:proxy) { double('Entity', id: 1, proxy_for_id: work.id) }
 
-        before do
-          Models::EventLog.create!(user_id: '1', requested_by_id: '1', requested_by_type: 'User', entity_id: proxy.id, entity_type: 'Sipity::Models::Work', event_name: "ingest_completed/submit", created_at: Time.now - 5.days, updated_at: Time.now - 5.days)
-          Models::EventLog.create!(user_id: '1', requested_by_id: '1', requested_by_type: 'User', entity_id: proxy.id, entity_type: 'Sipity::Models::Work', event_name: "ingest_completed/submit", created_at: Time.now - 3.days, updated_at: Time.now - 3.days)
+        let(:strategy) { Models::Processing::Strategy.new(id: 3) }
+        let(:strategy_state) { Models::Processing::StrategyState.new(id: 2, strategy_id: strategy.id) }
+        let(:update_file_action) do
+          Models::Processing::StrategyAction.create!(
+            strategy_id: strategy.id,
+            action_type: Models::Processing::StrategyAction::STATE_ADVANCING_ACTION,
+            name: 'update_file'
+          )
+        end
+        let(:ingest_action) do
+          Models::Processing::StrategyAction.create!(
+            strategy_id: strategy.id,
+            resulting_strategy_state_id: 4,
+            action_type: Models::Processing::StrategyAction::STATE_ADVANCING_ACTION,
+            name: 'ingest_completed'
+          )
         end
 
-        describe 'when there is an event log record' do
+        before do
+          ingest_action
+          update_file_action
+          Models::Processing::EntityActionRegister.create!(
+            strategy_action_id: ingest_action.id, 
+            entity_id: proxy.id, 
+            requested_by_actor: requested_by_actor, 
+            on_behalf_of_actor: requested_by_actor, 
+            subject_id: proxy.proxy_for_id, 
+            subject_type: 'Sipity::Models::Work', 
+            created_at: Time.now - 5.days, 
+            updated_at: Time.now - 5.days
+          )
+          Models::Processing::EntityActionRegister.create!(
+            strategy_action_id: update_file_action.id, 
+            entity_id: proxy.id, 
+            requested_by_actor: requested_by_actor, 
+            on_behalf_of_actor: requested_by_actor, 
+            subject_id: proxy.proxy_for_id, 
+            subject_type: 'Sipity::Models::Work', 
+            created_at: Time.now - 3.days, 
+            updated_at: Time.now - 3.days
+          )
+          # allow(Sipity::Models::Processing::StrategyAction).to receive(:where).and_return([ingest_action])
+          allow(Sipity::Models::Processing::Entity).to receive(:where).and_return([proxy])
+        end
+
+        describe 'when there is an entity action register record' do
           before do       
             attachment
             attachment2
             other_type   
             attachment2.update_version_with!(new_file: file2)
-            allow(Sipity::Models::Processing::Entity).to receive(:where).and_return([proxy])
           end
           it 'finds only the replaced attachments since the last ingest' do
             expect(subject.replaced_work_attachments(work: work).map(&:pid)).to match_array(['attach2'])
@@ -64,14 +105,13 @@ module Sipity
             expect(subject.replaced_work_attachments(work: work, predicate_name: :all).map(&:pid)).to match_array(['attach2'])
           end
         end
-        describe 'when there is no event log record' do
+        describe 'when there is no entity action register record' do
           before do
             attachment
             attachment2
             other_type
             attachment2.update_version_with!(new_file: file2)
-            allow(Sipity::Models::Processing::Entity).to receive(:where).and_return([proxy])
-            allow(Sipity::Models::EventLog).to receive(:where).and_return([])
+            allow(Sipity::Models::Processing::EntityActionRegister).to receive(:where).and_return([])
           end
           it 'finds any replaced attachments' do
             expect(subject.replaced_work_attachments(work: work).map(&:pid)).to match_array(['attach2'])

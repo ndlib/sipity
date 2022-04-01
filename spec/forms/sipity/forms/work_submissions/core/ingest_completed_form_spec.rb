@@ -78,6 +78,10 @@ module Sipity
               expect(repository).to receive(:create_redirect_for).with(work: work, url: kind_of(String))
               subject.submit
             end
+            it 'removes registrations' do
+              expect(repository).to receive(:unregister_action_taken_on_entity_by_anyone).with(entity: work, action: 'update_file', requested_by: user)
+              subject.submit
+            end
           end
         end
       end
