@@ -12,13 +12,17 @@ module Sipity
         new(**keywords).unregister
       end
 
+      def self.unregister_entity_action(**keywords)
+        new(**keywords).unregister_entity_action
+      end
+
       # TODO: Subject and entity are redundant. Rename parameter to :subject to
       #   reflect the more ambiguous nature of the action's response.
       def initialize(entity:, action:, requested_by:, **keywords)
         self.subject = entity
         self.entity = entity
         self.action = action
-        self.requesting_actor = requested_by
+        self.requesting_actor = requested_by 
         self.on_behalf_of_actor = keywords.fetch(:on_behalf_of) { requesting_actor }
         self.repository = keywords.fetch(:repository) { default_repository }
         self.processing_hooks = keywords.fetch(:processing_hooks) { default_processing_hooks }
@@ -33,6 +37,14 @@ module Sipity
         registered_action = register_action_on_entity(action: action)
         add_actions_that_should_also_be_registered
         deliver_notifications_for(registered_action: registered_action)
+      end
+
+      def unregister_entity_action
+        # warning: this doesn't care who originally performed the action!
+        Models::Processing::EntityActionRegister.where(
+          strategy_action_id: action.id,
+          entity_id: entity.id
+        ).destroy_all
       end
 
       def unregister

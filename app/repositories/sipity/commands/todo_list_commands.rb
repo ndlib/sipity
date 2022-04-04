@@ -16,6 +16,12 @@ module Sipity
         )
       end
 
+      def unregister_action_taken_on_entity_by_anyone(entity:, action:, requested_by:, **keywords)
+        Services::ActionTakenOnEntity.unregister_entity_action(
+          entity: entity, action: action, requested_by: requested_by, **{ repository: self }.merge(keywords)
+        )
+      end
+
       # @api public
       #
       # Responsible for capturing a :comment made by a given :commenter on a

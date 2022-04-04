@@ -18,11 +18,13 @@ module Sipity
         scope.order(query_order)
       end
 
+      REPEATABLE_TERMINAL_ACTION = ['ingest_completed']
       def replaced_work_attachments(work:, predicate_name: :all, order: :none)
         # find the most recent ingest date
         proxies = Sipity::Models::Processing::Entity.where(proxy_for_id: work.id)
         proxy_id = proxies.first.id
-        ingested = Sipity::Models::EventLog.where(entity_id: proxy_id, event_name: "ingest_completed/submit")
+        actions_to_test =  Models::Processing::StrategyAction.where(name: REPEATABLE_TERMINAL_ACTION)
+        ingested = Models::Processing::EntityActionRegister.where(entity_id: proxy_id, strategy_action_id: actions_to_test)
 
         if ingested.present?
           # find the prior ingest date

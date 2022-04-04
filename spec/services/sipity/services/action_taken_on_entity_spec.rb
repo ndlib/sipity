@@ -32,7 +32,8 @@ module Sipity
 
       [
         :register,
-        :unregister
+        :unregister,
+        :unregister_entity_action
       ].each do |method_name|
         context ".#{method_name}" do
           it "will delegate do the unerlying #initialize then ##{method_name}" do
@@ -85,6 +86,15 @@ module Sipity
         context 'with a valid action object for the given entity' do
           it 'will attempt to destroy the entry' do
             expect { subject.unregister }.to_not change { Models::Processing::EntityActionRegister.count }
+          end
+        end
+      end
+
+      context '#unregister_entity_action' do
+        context 'with a valid action object for the given entity' do
+          it 'will increment then decrement' do
+            expect { subject.register }.to change { Models::Processing::EntityActionRegister.count }.by(1)
+            expect { subject.unregister_entity_action }.to change { Models::Processing::EntityActionRegister.count }.by(-1)
           end
         end
       end

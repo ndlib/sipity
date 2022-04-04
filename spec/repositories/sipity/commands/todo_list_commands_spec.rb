@@ -23,6 +23,14 @@ module Sipity
         end
       end
 
+      context '#unregister_action_taken_on_entity_by_anyone' do
+        let(:existing_action) { 'describe' }
+        it "will call the underlying service object" do
+          expect(Services::ActionTakenOnEntity).to receive(:unregister_entity_action)
+          test_repository.unregister_action_taken_on_entity_by_anyone(entity: work, action: existing_action, requested_by: user)
+        end
+      end
+
       context '#record_processing_comment' do
         let(:entity) { Models::Processing::Entity.new(id: 1, strategy_id: strategy.id, strategy_state_id: state.id, strategy_state: state) }
         let(:actor) { Models::Processing::Actor.new(id: 2) }
