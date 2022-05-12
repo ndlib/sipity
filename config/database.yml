@@ -32,7 +32,7 @@ local_user: &local_user
   <<: *mysql_connection
   username: root
 <% if ! ENV['SKIP_MYSQL_PASSWORD_FOR_LOCAL_DEVELOPMENT'] %>
-  password: root
+  password:
 <% end %>
 
 development: &development
