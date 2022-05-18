@@ -36,9 +36,6 @@ smtp_authentication_type: "plain"
 smtp_user_name: "noreply@nd.edu"
 smtp_enable_starttls_auto: "true"
 smtp_delivery_method: "smtp"
-jira_password: "jira pwd"
-jira_site_url: "jira url"
-jira_username: "jira user"
 
 development:
   domain_name: "localhost:3000"
